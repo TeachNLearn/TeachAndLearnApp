@@ -24,7 +24,7 @@ const IntroThree: React.FC = () => {
 
         <View style={styles.btnContainer}>
           
-          <TouchableOpacity style={styles.btnTwo}>
+          <TouchableOpacity style={styles.btnTwo} onPress={() => navigation.navigate('Home')}>
             <Text style={styles.btntxtTwo}>Sign Up</Text>
           </TouchableOpacity>
         </View>

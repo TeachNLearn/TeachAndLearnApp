@@ -22,7 +22,7 @@ const IntroOne: React.FC = () => {
         </View>
 
         <View style={styles.btnContainer}>
-          <Text style={styles.btntxt}>Skip</Text>
+          <Text style={styles.btntxt} onPress={() => navigation.navigate('Home')}>Skip</Text>
           <TouchableOpacity style={styles.btnTwo}  onPress = {() => navigation.navigate('IntroTwo')}>
             <Text style={styles.btntxtTwo}>Next</Text>
           </TouchableOpacity>
