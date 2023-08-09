@@ -11,7 +11,7 @@ type RootStackParamList = {
   IntroOne: undefined;
   IntroTwo: undefined;
   IntroThree: undefined;
-  Home: undefined;
+  // Home: undefined;
   TabNavigation:undefined ;
 };
 
@@ -22,7 +22,7 @@ const StackNavigation = () => {
    
       <Stack.Navigator screenOptions={{headerShown: false,}}>
         <Stack.Screen name="IntroOne" component={IntroOne} />
-        <Stack.Screen name="Home" component={TabNavigation} />
+        <Stack.Screen name="Hometab" component={TabNavigation} />
        
         <Stack.Screen name="IntroTwo" component={IntroTwo} />
         <Stack.Screen name="IntroThree" component={IntroThree} />

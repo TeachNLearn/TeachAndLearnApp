@@ -47,7 +47,7 @@ const Home = () => {
 
 
      <View style={styles.SecondParentContainer}>
-      <ScrollView>
+      <ScrollView style={{marginBottom:80}}>
 
       
        <View style={styles.txtOneParentContainer}>
@@ -111,7 +111,7 @@ const Home = () => {
             </View>
         </View>
         {/* Add more Learningcards here */}
-      </ScrollView>
+      </ScrollView >
        </View>
 
         <View style={styles.UpcomingtxtContainer}>
@@ -356,6 +356,7 @@ margin:10 ,
     backgroundColor: '#D8EEFE',
     borderRadius: 16,
     marginTop: 13,
+    marginBottom:10 ,
     paddingRight:30 ,
     paddingTop:10 ,
    
