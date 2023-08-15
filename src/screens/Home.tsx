@@ -125,7 +125,10 @@ const Home = () => {
        
        <View style={styles.Upcomingcards}>
            <View style={styles.cardTxtContainer}>
-            <Text style={styles.UpcomingCardDate}><IconS name="calendar-week" size={14} color="#000"/>  10-8-2023</Text>
+            <View style={{backgroundColor:'#094067' , width:'100%' , padding:10 , alignItems:'center' , justifyContent:'center' , marginBottom:20 ,borderRadius:30 , }}>
+                <Text style={styles.UpcomingCardDate}><IconS name="calendar-week" size={14} color="#FFF"/>  10-8-2023</Text>
+            </View>
+            
             <Text style={styles.UpComingCardDesc}>Get started in App Development and get selected in MH Fellowsip</Text>
             </View>
 
@@ -140,7 +143,9 @@ const Home = () => {
 
          <View style={styles.Upcomingcards}>
            <View style={styles.cardTxtContainer}>
-            <Text style={styles.UpcomingCardDate}><IconS name="calendar-week" size={14} color="#000"/>  10-8-2023</Text>
+             <View style={{backgroundColor:'#094067' , width:'100%' , padding:10 , alignItems:'center' , justifyContent:'center' , marginBottom:20 ,borderRadius:30 , }}>
+                <Text style={styles.UpcomingCardDate}><IconS name="calendar-week" size={14} color="#FFF"/>  10-8-2023</Text>
+            </View>
             <Text style={styles.UpComingCardDesc}>Get started in App Development and get selected in MH Fellowsip</Text>
             </View>
 
@@ -155,7 +160,9 @@ const Home = () => {
 
          <View style={styles.Upcomingcards}>
            <View style={styles.cardTxtContainer}>
-            <Text style={styles.UpcomingCardDate}><IconS name="calendar-week" size={14} color="#000"/>  10-8-2023</Text>
+            <View style={{backgroundColor:'#094067' , width:'100%' , padding:10 , alignItems:'center' , justifyContent:'center' , marginBottom:20 ,borderRadius:30 , }}>
+                <Text style={styles.UpcomingCardDate}><IconS name="calendar-week" size={14} color="#FFF"/>  10-8-2023</Text>
+            </View>
             <Text style={styles.UpComingCardDesc}>Get started in App Development and get selected in MH Fellowsip</Text>
             </View>
 
@@ -197,6 +204,8 @@ txtOne:{
 fontWeight:'600',
 color:'#FFF',
 marginBottom:10 ,
+fontFamily:'Nunito',
+marginTop:10                                                           
 },
 txtTwo:{
 fontSize:28 ,
@@ -248,6 +257,7 @@ fontFamily:'Nunito',
     justifyContent:'space-around',
     alignItems:'center',
     marginTop:20 ,
+   
     
   },
 
@@ -297,6 +307,7 @@ letterSpacing:0.2 ,
 // margin:10 ,
 marginTop:20 ,
 marginLeft:10 ,
+fontFamily:'Nunito',
   },
 
   cardDesc:{
@@ -305,6 +316,7 @@ fontSize:18 ,
 fontWeight:'700',
 padding:0 ,
 margin:10 ,
+fontFamily:'Nunito',
   },
 
   cardTxtContainer:{
@@ -352,7 +364,7 @@ margin:10 ,
     alignItems:'center',
     justifyContent:'center',
     width: 320,
-    height: 160,
+    height: 190,
     backgroundColor: '#D8EEFE',
     borderRadius: 16,
     marginTop: 13,
@@ -378,13 +390,15 @@ margin:10 ,
     color:'#000',
     fontWeight:'700',
     fontSize:18 ,
+    fontFamily:'Nunito',
   },
  
   UpcomingCardDate:{
-     marginBottom:10 ,
-     color:'#000' ,
+    
+     color:'#FFF' ,
      fontWeight:'600',
      fontSize:16 ,
+     fontFamily:'Nunito',
      
 
   },
@@ -394,6 +408,7 @@ margin:10 ,
     // fontSize:15 ,
     color:'#000',
     fontWeight:'500',
+    fontFamily:'Nunito',
     
   },
   UpcomingCardTime:{
@@ -401,6 +416,7 @@ margin:10 ,
     //  fontSize:10 ,
     color:'#000',
     fontWeight:'500',
+    fontFamily:'Nunito',
 
   }
   

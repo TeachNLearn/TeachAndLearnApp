@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginTop: 30,
     padding: 5,
+    fontFamily:'Nunito',
   },
   headingpart: {
     textAlign: 'center',
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#000',
     marginBottom: 30,
+    fontFamily:'Nunito',
   },
   paraContainer: {
     alignItems: 'center',
@@ -80,6 +82,7 @@ const styles = StyleSheet.create({
     color: '#565266',
     margin: 20,
     textAlign:'center',
+    fontFamily:'Nunito',
   },
   sliderLogoContainer: {
     flexDirection: 'row',
@@ -127,6 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     textAlign: 'center',
+    fontFamily:'Nunito',
   },
  
 });
