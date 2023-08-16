@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import InputHolder from "../../components/inputHolder";
+import React, {useState, useEffect, useContext} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import InputHolder from '../../components/inputHolder';
 // import Button from "../components/general-comp/button";
-import { BASE_URL, apiVersion } from "../../utils/apiRoutes";
-import axios from "axios";
-import { isValidEmail } from "../../utils/helperFunctions";
-import { AuthContext } from "../../store/auth-context";
+import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
+import axios from 'axios';
+import {isValidEmail} from '../../utils/helperFunctions';
+import {AuthContext} from '../../store/auth-context';
+import Button from '../../components/general-components/button';
 
 interface loginDataProps {
   email: string;
@@ -14,21 +15,21 @@ interface loginDataProps {
 
 const Login = () => {
   const [loginData, setLoginData] = useState<loginDataProps>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const authCtx = useContext(AuthContext);
 
   function updateFields(fields: Partial<loginDataProps>) {
-    setLoginData((prev) => {
-      return { ...prev, ...fields };
+    setLoginData(prev => {
+      return {...prev, ...fields};
     });
   }
 
   const handleValidation = () => {
-    const { email, password } = loginData;
-    if (email === "" || password === "") {
+    const {email, password} = loginData;
+    if (email === '' || password === '') {
       return false;
     } else if (!isValidEmail(email)) {
       return false;
@@ -46,12 +47,12 @@ const Login = () => {
           email: loginData.email,
           password: loginData.password,
         })
-        .then(({ data }) => {
+        .then(({data}) => {
           const user = data.data.user;
           console.log(data.token);
           authCtx.authenticate(data.token);
         })
-        .catch((data) => {
+        .catch(data => {
           console.log(data);
         });
     }
@@ -87,7 +88,7 @@ const Login = () => {
           placeholderText="Enter Password"
           hasDropdown={false}
         />
-        {/* <Button onPress={loginHandler}>Login</Button> */}
+        <Button onPress={loginHandler}>Login</Button>
       </View>
     </View>
   );
@@ -96,49 +97,49 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
     rowGap: 40,
-    alignItems: "center",
+    alignItems: 'center',
   },
   upperContainer: {
-    backgroundColor: "#094067",
-    width: "100%",
+    backgroundColor: '#094067',
+    width: '100%',
     paddingTop: 90,
     paddingBottom: 30,
     paddingLeft: 16,
   },
   text: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     // font-family: Nunito;
     fontSize: 46,
-    fontStyle: "normal",
-    fontWeight: "600",
+    fontStyle: 'normal',
+    fontWeight: '600',
     lineHeight: 52,
   },
   smallerText: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     fontSize: 18,
-    fontStyle: "normal",
-    fontWeight: "300",
+    fontStyle: 'normal',
+    fontWeight: '300',
     marginTop: 12,
     // lineHeight: 1,
   },
   formContainer: {
-    width: "90%",
+    width: '90%',
     // borderWidth: 1,
     // borderColor: "black",
-    marginHorizontal: "auto",
+    marginHorizontal: 'auto',
     rowGap: 28,
   },
   input: {
-    borderColor: "#D5D9EB",
+    borderColor: '#D5D9EB',
     borderRadius: 8,
     borderWidth: 1.5,
     height: 40,
     margin: 12,
     padding: 10,
-    color: "#000000",
-    outline: "none",
+    color: '#000000',
+    outline: 'none',
     fontSize: 16,
     // fontWeight: '400',
   },
