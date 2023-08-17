@@ -1,12 +1,13 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import InputHolder from '../../components/inputHolder';
+import InputHolder from '../../components/input/inputHolder';
 // import Button from "../components/general-comp/button";
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import axios from 'axios';
 import {isValidEmail} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
 import Button from '../../components/general-components/button';
+import {ScrollView} from 'react-native';
 
 interface loginDataProps {
   email: string;
@@ -63,34 +64,36 @@ const Login = () => {
   }, [loginData]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.upperContainer}>
-        <Text style={styles.text}>Welcome</Text>
-        <Text style={styles.text}>back</Text>
-        <Text style={styles.smallerText}>Log in to your account</Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.upperContainer}>
+          <Text style={styles.text}>Welcome</Text>
+          <Text style={styles.text}>back</Text>
+          <Text style={styles.smallerText}>Log in to your account</Text>
+        </View>
+        <View style={styles.formContainer}>
+          <InputHolder
+            label="Email"
+            name="email"
+            type="string"
+            value={loginData.email}
+            placeholderText="Enter Email"
+            updateFields={updateFields}
+            hasDropdown={false}
+          />
+          <InputHolder
+            label="Password"
+            name="password"
+            type="password"
+            value={loginData.password}
+            updateFields={updateFields}
+            placeholderText="Enter Password"
+            hasDropdown={false}
+          />
+          <Button onPress={loginHandler}>Login</Button>
+        </View>
       </View>
-      <View style={styles.formContainer}>
-        <InputHolder
-          label="Email"
-          name="email"
-          type="string"
-          value={loginData.email}
-          placeholderText="Enter Email"
-          updateFields={updateFields}
-          hasDropdown={false}
-        />
-        <InputHolder
-          label="Password"
-          name="password"
-          type="password"
-          value={loginData.password}
-          updateFields={updateFields}
-          placeholderText="Enter Password"
-          hasDropdown={false}
-        />
-        <Button onPress={loginHandler}>Login</Button>
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
