@@ -26,7 +26,7 @@ const IntroThree: React.FC = () => {
       <StatusBar backgroundColor="#000" barStyle="light-content" />
       <View style={styles.imgContainer}>
         <Image
-          source={require('../assets/Images/IntroImg3.png')}
+          source={require('../../assets/Images/IntroImg3.png')}
           style={styles.introImg}
           resizeMode="contain"
         />

@@ -23,7 +23,7 @@ const IntroTwo: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.imgContainer}>
         <Image
-          source={require('../../assets/Images/')}
+          source={require('../../assets/Images/IntroImg2.png')}
           style={styles.introImg}
           resizeMode="contain"
         />
