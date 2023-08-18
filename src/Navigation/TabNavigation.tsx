@@ -7,7 +7,8 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Userprofile from '../screens/Userprofile';
 import Forum from '../screens/Forum';
 import CreateClass from '../screens/CreateClass';
-import Detail from '../screens/Detail';
+// import Detail from '../screens/Detail';
+import LearnCards from '../screens/LearnCards';
 
 const Tab = createBottomTabNavigator();
 
@@ -67,8 +68,8 @@ const TabNavigation: React.FC = () => (
     />
 
      <Tab.Screen
-      name="Detail"
-      component={Detail}
+      name="LearnCards"
+      component={LearnCards}
       options={{
         headerShown: false,
         tabBarIcon: ({ color, size }) => (

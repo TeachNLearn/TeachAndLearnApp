@@ -6,6 +6,7 @@ import IntroTwo from '../screens/IntroTwo';
 import IntroThree from '../screens/IntroThree';
 
 import TabNavigation from '../Navigation/TabNavigation';
+import TopTabNaivgation from './TopTabNaivgation';
 
 type RootStackParamList = {
   IntroOne: undefined;
@@ -13,6 +14,7 @@ type RootStackParamList = {
   IntroThree: undefined;
   // Home: undefined;
   TabNavigation:undefined ;
+  TopTabNavigation:undefined ;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -23,7 +25,7 @@ const StackNavigation = () => {
       <Stack.Navigator screenOptions={{headerShown: false,}}>
         <Stack.Screen name="IntroOne" component={IntroOne} />
         <Stack.Screen name="Hometab" component={TabNavigation} />
-       
+        <Stack.Screen name="TopTabNavigation" component={TopTabNaivgation} />
         <Stack.Screen name="IntroTwo" component={IntroTwo} />
         <Stack.Screen name="IntroThree" component={IntroThree} />
       </Stack.Navigator>
