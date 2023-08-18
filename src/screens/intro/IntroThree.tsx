@@ -9,15 +9,24 @@ import {
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const IntroThree: React.FC = () => {
-  const navigation = useNavigation();
+  type RootStackParamList = {
+    IntroOne: undefined;
+    IntroTwo: undefined;
+    Signup: undefined;
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#000" barStyle="light-content" />
       <View style={styles.imgContainer}>
         <Image
-          source={require('../assets/Images/IntroImg3.png')}
+          source={require('../../assets/Images/IntroImg3.png')}
           style={styles.introImg}
           resizeMode="contain"
         />
@@ -35,7 +44,7 @@ const IntroThree: React.FC = () => {
         <View style={styles.sliderLogoContainer}>
           <Text
             style={styles.sliderLogoOne}
-            onPress={() => navigation.navigate()}></Text>
+            onPress={() => navigation.navigate('IntroOne')}></Text>
           <Text
             style={styles.sliderLogoTwo}
             onPress={() => navigation.navigate('IntroTwo')}></Text>
