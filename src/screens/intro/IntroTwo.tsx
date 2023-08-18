@@ -1,29 +1,58 @@
-import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-const IntroOne: React.FC = () => {
-  const navigation = useNavigation();
+const IntroTwo: React.FC = () => {
+  type RootStackParamList = {
+    IntroOne: undefined;
+    IntroThree: undefined;
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>
-        <Image source={require('../assets/Images/IntroImg.png')} style={styles.introImg} resizeMode="contain" />
+        <Image
+          source={require('../../assets/Images/IntroImg2.png')}
+          style={styles.introImg}
+          resizeMode="contain"
+        />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.heading}>Teach , Learn and Grow</Text>
         <Text style={styles.headingpart}>Together !</Text>
         <View style={styles.paraContainer}>
-          <Text style={styles.para}>This app aims to bring the students from all across the world together and give them a platform where they can teach other students as well as learn from them to aid their academics.</Text>
+          <Text style={styles.para}>
+            This app aims to bring the students from all across the world
+            together and give them a platform where they can teach other
+            students as well as learn from them to aid their academics.
+          </Text>
         </View>
         <View style={styles.sliderLogoContainer}>
-          <Text style={styles.sliderLogoOne}></Text>
-          <Text style={styles.sliderLogoTwo} onPress = {() => navigation.navigate('IntroTwo')}></Text>
-          <Text style={styles.sliderLogoThree} onPress = {() => navigation.navigate('IntroThree')}></Text>
+          <Text
+            style={styles.sliderLogoOne}
+            onPress={() => navigation.navigate('IntroOne')}></Text>
+          <Text style={styles.sliderLogoTwo}></Text>
+          <Text
+            style={styles.sliderLogoThree}
+            onPress={() => navigation.navigate('IntroThree')}></Text>
         </View>
 
         <View style={styles.btnContainer}>
-          <Text style={styles.btntxt} onPress={() => navigation.navigate('Hometab')}>Skip</Text>
-          <TouchableOpacity style={styles.btnTwo}  onPress = {() => navigation.navigate('IntroTwo')}>
+          <Text style={styles.btntxt}>Skip</Text>
+          <TouchableOpacity
+            style={styles.btnTwo}
+            onPress={() => navigation.navigate('IntroThree')}>
             <Text style={styles.btntxtTwo}>Next</Text>
           </TouchableOpacity>
         </View>
@@ -39,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     width: screenWidth,
     height: screenHeight,
-    backgroundColor: '#D8CEFF',
+    backgroundColor: '#C6E0F6',
   },
   introImg: {
     width: '100%',
@@ -61,7 +90,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginTop: 30,
     padding: 5,
-    fontFamily:'Nunito',
+    fontFamily: 'Nunito',
   },
   headingpart: {
     textAlign: 'center',
@@ -69,7 +98,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#000',
     marginBottom: 30,
-    fontFamily:'Nunito',
+    fontFamily: 'Nunito',
   },
   paraContainer: {
     alignItems: 'center',
@@ -80,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#565266',
     margin: 20,
-    fontFamily:'Nunito',
+    fontFamily: 'Nunito',
   },
   sliderLogoContainer: {
     flexDirection: 'row',
@@ -91,17 +120,17 @@ const styles = StyleSheet.create({
   },
   sliderLogoOne: {
     height: 10,
-    width: 48,
-    margin: 5,
-    borderRadius: 10,
-    backgroundColor: '#08222E',
-  },
-  sliderLogoTwo: {
-    height: 10,
     width: 30,
     margin: 5,
     borderRadius: 10,
     backgroundColor: '#707997',
+  },
+  sliderLogoTwo: {
+    height: 10,
+    width: 48,
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: '#08222E',
   },
   sliderLogoThree: {
     height: 10,
@@ -128,7 +157,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     textAlign: 'center',
-    fontFamily:'Nunito',
+    fontFamily: 'Nunito',
   },
   btntxt: {
     color: '#000',
@@ -136,8 +165,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     marginRight: 80,
-    fontFamily:'Nunito',
+    fontFamily: 'Nunito',
   },
 });
 
-export default IntroOne;
+export default IntroTwo;

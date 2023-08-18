@@ -19,7 +19,7 @@ const UserClasses = () => {
       >
         {/* Image */}
         <Image
-          source={require('../assets/Images/userProfilePic.png')} // Replace with the actual path to your image
+          source={require('../../assets/Images/userProfilePic.png')} // Replace with the actual path to your image
           style={{
             width: 50,
             height: 50,

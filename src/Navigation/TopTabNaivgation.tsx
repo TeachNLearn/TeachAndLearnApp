@@ -1,8 +1,8 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Classes from '../Component/Classes';
-import Requests from '../Component/Requests';
-import UserClasses from '../Component/UserClasses';
+import Classes from '../components/SearchComponent/Classes';
+import Requests from '../components/SearchComponent/Requests';
+import UserClasses from '../components/SearchComponent/UserClasses';
 
 const Tab = createMaterialTopTabNavigator();
 
