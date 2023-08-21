@@ -14,20 +14,40 @@ import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
 import { BASE_URL , apiVersion } from '../utils/apiRoutes';
 import { AuthContext } from '../store/auth-context';
+import SvgImg from '../components/SVGComponents/InterestedSvg' ;
+import CoinSvg from '../components/SVGComponents/CoinsSvg' ;
+
 
 interface PopularCourse {
   subject: string;
-  description: string;
-  author: string;
   topic: string;
   interested: number;
   coins: number;
+  length: number;
+  createdBy: {
+     userName: string;
+     photo: string;
+  }
+  // Add more properties as needed
+}
+
+interface UpcomingClass {
+  subject: string;
+  topic: string;
+  interested: number;
+  coins: number;
+  length: number;
+  createdBy: {
+     userName: string;
+     photo: string;
+  }
   // Add more properties as needed
 }
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
   const [popularcourseData, setPopularcourseData] = useState<PopularCourse[]>([]);
+  const [upcomingClassesData, setupcomingClassesData] = useState<UpcomingClass[]>([]);
   const { token } = useContext(AuthContext);
 
   const handleSearch = () => {
@@ -35,8 +55,9 @@ const Home = () => {
     console.log('Searching for:', searchText);
   };
 
-  useEffect(() => {
-   axios.get(`${BASE_URL}${apiVersion}/learn/top-requests`,{
+
+  const FetchRecommendedClasses = () => {
+     axios.get(`${BASE_URL}${apiVersion}/teach/recommended-classes`,{
      headers: {
         Authorization: `Bearer ${token}`
       }
@@ -52,8 +73,32 @@ const Home = () => {
     console.log("error fetching data", error);
     
    }) ;
-   
-  }, []) ;
+  }
+
+
+  const UpcomingClasses = () => {
+     axios.get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`,{
+     headers: {
+        Authorization: `Bearer ${token}`
+      }
+   })
+   .then(response => {
+     setupcomingClassesData(response.data);
+     console.log(response.data);
+     
+     
+     
+   })
+   .catch(error => {
+    console.log("error fetching data", error);
+    
+   }) ;
+  }
+
+  useEffect(() => {
+   FetchRecommendedClasses();
+   UpcomingClasses();
+  }, [token]) ;
   
   return (
     <View style={styles.HomeParentContainer}>
@@ -102,46 +147,29 @@ const Home = () => {
                 <View style={styles.Learningcards} key={index}>
                   <View style={styles.cardTxtContainer}>
                     <Text style={styles.cardHead}>{item.subject}</Text>
-                    <Text style={styles.cardDesc}>{item.topic}</Text>
+                    <Text style={styles.cardDesc}>{item.topic} Get started in Web Development and get selected in MH Fellowsip</Text>
                   </View>
 
                   <View style={styles.ImgAndNameContainer}>
-                    <Text style={styles.ImgInCard}>
-                      <IconS name="user-circle" size={14} color="orange" />
-                    </Text>
-                    <Text style={styles.NameInCard}>{item.author}</Text>
+                    <Image source={{uri:item.createdBy.photo}} style={{height:18 , width:18 , borderRadius:50}}/>
+                    <Text style={styles.NameInCard}>{item.createdBy.userName}</Text>
                   </View>
 
                   <View style={styles.InterestedStudentConatiner}>
+                   
                     <Text style={styles.Interested}>
-                      <IconS name="bolt" size={14} color="#FFD465" /> {item.interested} interested
+                       <SvgImg/>
+                       
+                       {"   "} {item.length} interested
                     </Text>
-                    <Text style={styles.coins}>{item.coins} coins</Text>
+                    <Text style={styles.coins}>{item.coins}
+                      <CoinSvg/>{"     "}
+                   250 coins</Text>
                   </View>
                 </View>)
              
                })}
 
-              <View style={styles.Learningcards} >
-                  <View style={styles.cardTxtContainer}>
-                    <Text style={styles.cardHead}></Text>
-                    <Text style={styles.cardDesc}></Text>
-                  </View>
-
-                  <View style={styles.ImgAndNameContainer}>
-                    <Text style={styles.ImgInCard}>
-                      <IconS name="user-circle" size={14} color="orange" />
-                    </Text>
-                    <Text style={styles.NameInCard}></Text>
-                  </View>
-
-                  <View style={styles.InterestedStudentConatiner}>
-                    <Text style={styles.Interested}>
-                      <IconS name="bolt" size={14} color="#FFD465" /> interested
-                    </Text>
-                    <Text style={styles.coins}> coins</Text>
-                  </View>
-                </View>
              
             </ScrollView>
           </View>
@@ -155,8 +183,15 @@ const Home = () => {
           </View>
 
           <View style={styles.UpcomingcardsParentContainer}>
-            <View style={styles.Upcomingcards}>
-              <View style={styles.cardTxtContainer}>
+            
+            
+             {/* {upcomingClassesData.map((it , index ) => {
+               console.log(it);
+               
+              return ( */}
+
+              <View style={styles.Upcomingcards} >
+                <View style={styles.cardTxtContainer}>
                 <View
                   style={{
                     backgroundColor: '#094067',
@@ -177,78 +212,20 @@ const Home = () => {
                   Get started in App Development and get selected in MH
                   Fellowsip
                 </Text>
-              </View>
+               </View>
 
-              <View style={styles.UpcomingCardTimeAndNameContainer}>
+                <View style={styles.UpcomingCardTimeAndNameContainer}>
                 <Text style={styles.UpcomingCardName}>
                   <IconS name="user-circle" size={14} color="#094067" />{' '}
                   Priyanshu Joshi
                 </Text>
                 <Text style={styles.UpcomingCardTime}>10 pm - 11 pm</Text>
+               </View>
               </View>
-            </View>
-
-            <View style={styles.Upcomingcards}>
-              <View style={styles.cardTxtContainer}>
-                <View
-                  style={{
-                    backgroundColor: '#094067',
-                    width: '100%',
-                    padding: 10,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: 20,
-                    borderRadius: 30,
-                  }}>
-                  <Text style={styles.UpcomingCardDate}>
-                    <IconS name="calendar-week" size={14} color="#FFF" />{' '}
-                    10-8-2023
-                  </Text>
-                </View>
-                <Text style={styles.UpComingCardDesc}>
-                  Get started in App Development and get selected in MH
-                  Fellowsip
-                </Text>
-              </View>
-
-              <View style={styles.UpcomingCardTimeAndNameContainer}>
-                <Text style={styles.UpcomingCardName}>
-                  <IconS name="user-circle" size={14} color="#094067" /> Garvit
-                </Text>
-                <Text style={styles.UpcomingCardTime}>10 pm - 11 pm</Text>
-              </View>
-            </View>
-
-            <View style={styles.Upcomingcards}>
-              <View style={styles.cardTxtContainer}>
-                <View
-                  style={{
-                    backgroundColor: '#094067',
-                    width: '100%',
-                    padding: 10,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: 20,
-                    borderRadius: 30,
-                  }}>
-                  <Text style={styles.UpcomingCardDate}>
-                    <IconS name="calendar-week" size={14} color="#FFF" />{' '}
-                    10-8-2023
-                  </Text>
-                </View>
-                <Text style={styles.UpComingCardDesc}>
-                  Get started in App Development and get selected in MH
-                  Fellowsip
-                </Text>
-              </View>
-
-              <View style={styles.UpcomingCardTimeAndNameContainer}>
-                <Text style={styles.UpcomingCardName}>
-                  <IconS name="user-circle" size={14} color="#094067" /> XYZ
-                </Text>
-                <Text style={styles.UpcomingCardTime}>10 pm - 11 pm</Text>
-              </View>
-            </View>
+              {/* )
+             })} */}
+            
+           
           </View>
         </ScrollView>
       </View>
@@ -387,38 +364,42 @@ const styles = StyleSheet.create({
   ImgAndNameContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 15,
+    marginLeft: 17,
+    marginTop:4 ,
   },
 
-  ImgInCard: {
-    color: '#FFF',
-    marginLeft: 5,
-    marginRight: 5,
-  },
+
 
   NameInCard: {
     color: '#FFF',
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '400',
+    marginLeft:10 ,
   },
 
   InterestedStudentConatiner: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+   
     alignItems: 'center',
-    marginTop: 15,
+    marginTop: 8,
+    marginLeft:20 ,
+    marginRight:16 ,
+    
   },
 
   Interested: {
     color: '#FFF',
     fontSize: 12,
     fontWeight: '500',
+    marginRight:12 ,
   },
 
   coins: {
     color: '#FFF',
     fontSize: 12,
     fontWeight: '500',
+   
   },
 
   Upcomingcards: {
