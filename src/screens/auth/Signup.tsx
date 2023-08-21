@@ -70,7 +70,7 @@ const Signup = ({navigation}: any) => {
 
   // const navigate = useNavigation<RootStackParamList>()
   const loginNavigation = () => {
-    // navigation.navigate('Login');
+    navigation.navigate('Login');
   };
 
   return (

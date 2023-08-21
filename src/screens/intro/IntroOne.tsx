@@ -10,11 +10,13 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
+
 const IntroOne: React.FC = () => {
   type RootStackParamList = {
     IntroTwo: undefined;
     IntroThree: undefined;
     Signup: undefined;
+    Hometab: undefined;
   };
 
   const navigation =
@@ -51,7 +53,8 @@ const IntroOne: React.FC = () => {
         <View style={styles.btnContainer}>
           <Text
             style={styles.btntxt}
-            onPress={() => navigation.navigate('Signup')}>
+            // onPress={() => navigation.navigate('Signup')}>
+            onPress={() => navigation.navigate('Hometab')}>
             Skip
           </Text>
           <TouchableOpacity
