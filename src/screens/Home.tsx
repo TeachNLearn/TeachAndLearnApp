@@ -75,7 +75,7 @@ const Home = () => {
             value={searchText}
             onChangeText={setSearchText}
           />
-          <Image  source={require('../assets/Images/')}
+          
         </View>
 
         <View style={styles.searchBtnContainer}>
