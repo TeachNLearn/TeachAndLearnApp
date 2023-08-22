@@ -8,7 +8,7 @@ import Userprofile from '../screens/profile/Userprofile';
 import Forum from '../screens/forum/Forum';
 import CreateClass from '../screens/classroom/CreateClass';
 // import Detail from '../screens/Detail';
-import LearnCards from '../screens/requests/LearnCards';
+import LearnCards from '../screens/Search';
 
 const Tab = createBottomTabNavigator();
 

@@ -1,162 +1,60 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import React, { useState } from 'react';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionican from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Classes from '../../components/SearchComponent/Classes';
-import Requests from '../../components/SearchComponent/Requests';
-import UserClasses from '../../components/SearchComponent/UserClasses';
+import React, {useState, useEffect, useContext} from 'react';
+import {learnCardProps} from '../../types/learnCardType';
+import axios from 'axios';
+import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
+import {DATA_LIMIT} from '../../utils/globalContants';
+import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
+import {AuthContext} from '../../store/auth-context';
 
-const Tab = createMaterialTopTabNavigator();
+const LearnCards = () => {
+  const [learnCards, setLearnCards] = useState<Array<learnCardProps>>([]);
+  const [requestPageSet, setrequestPageSet] = useState<number>(1);
+  const [hasMoreData, sethasMoreData] = useState(false);
 
-const LearnCards: React.FC = () => {
-  const [searchText, setSearchText] = useState('');
-  const navigation = useNavigation();
-  const [activeSection, setActiveSection] = useState<'Classes' | 'Requests' | 'Users'>('Classes');
+  const [isLoading, setIsLoading] = useState(true);
+  const [loaderLoading, setLoaderLoading] = useState(true);
 
-  const handleSectionChange = (section: 'Classes' | 'Requests' | 'Users'): void => {
-    setActiveSection(section);
+  const authCtx = useContext(AuthContext);
+
+  const [userToken, setuserToken] = useState(authCtx.token);
+
+  const fetchLearnCards = async () => {
+    setLoaderLoading(true);
+    const curentDate = new Date();
+    await axios
+      .get(`${BASE_URL}${apiVersion}/learn`, {
+        params: {
+          limit: DATA_LIMIT,
+          page: requestPageSet,
+          dueDate: {
+            $gte: curentDate,
+          },
+        },
+        headers: getHeaders(userToken),
+      })
+      .then(({data}) => {
+        console.log(data);
+        const learnCardData = data.data.data;
+        checkMoreData(learnCardData, sethasMoreData);
+        setLearnCards(prev => [...prev, ...learnCardData]);
+        setIsLoading(false);
+        setLoaderLoading(false);
+        setrequestPageSet(prev => prev + 1);
+      })
+      .catch(data => {
+        console.log(data);
+        setIsLoading(false);
+        setLoaderLoading(false);
+      });
   };
 
-  const handleSearch = (): void => {
-    // Perform search action with searchText
-    console.log('Searching for:', searchText);
-  };
+  useEffect(() => {
+    if (userToken) {
+      fetchLearnCards();
+    }
+  }, [userToken]);
 
-  return (
-    <View style={{}}>
-      <View
-        style={{
-          backgroundColor: '#FFF',
-          elevation: 16,
-          paddingBottom: 10,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.2,
-          shadowRadius: 2,
-        }}
-      >
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 70, marginBottom: 30 }}>
-          <Ionican name="arrow-back-sharp" size={20} color="#000" />
-          <Text
-            style={{
-              color: '#000',
-              fontFamily: 'Nunito',
-              fontSize: 18,
-              fontWeight: '600',
-              letterSpacing: 0.36,
-            }}
-          >
-            Learn Cards
-          </Text>
-          <Ionican name="ellipsis-vertical-sharp" size={20} color="#000000" />
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 40, justifyContent: 'center' }}>
-          <View style={styles.searchContainer}>
-            <TouchableOpacity style={styles.searchIconContainer} onPress={handleSearch}>
-              <FontAwesome name="search" size={16} color="#000" />
-            </TouchableOpacity>
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search"
-              placeholderTextColor="#000"
-              value={searchText}
-              onChangeText={setSearchText}
-            />
-          </View>
-
-          <View style={styles.searchBtnContainer}>
-            <MaterialIcon name="arrow-right" size={24} color="#FFF" />
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-          <TouchableOpacity
-            style={[activeSection === 'Classes' && styles.activeSegment]}
-            onPress={() => handleSectionChange('Classes')}
-          >
-            <Text style={styles.segmentText}>Classes</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[activeSection === 'Requests' && styles.activeSegment]}
-            onPress={() => handleSectionChange('Requests')}
-          >
-            <Text style={styles.segmentText}>Requests</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[activeSection === 'Users' && styles.activeSegment]}
-            onPress={() => handleSectionChange('Users')}
-          >
-            <Text style={styles.segmentText}>Users</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.content}>
-          {activeSection === 'Classes' && <Classes />}
-          {activeSection === 'Requests' && <Requests />}
-          {activeSection === 'Users' && <UserClasses />}
-        </View>
-      </ScrollView>
-    </View>
-  );
+  return <div>LearnCards</div>;
 };
-
-const styles = StyleSheet.create({
-  scrollViewContent: {
-    flexGrow: 1,
-    paddingBottom: 20,
-  },
-  content: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FAFAFC',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 2,
-    borderColor: '#E9E9E9',
-    borderWidth: 1,
-    margin: 20,
-    width: '70%',
-  },
-  searchIconContainer: {
-    marginLeft: 10,
-  },
-  searchInput: {},
-  searchBtnContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000',
-    borderRadius: 8,
-    width: 50,
-    height: 50,
-  },
-  LearnClassTxt: {
-    color: '#000',
-    fontFamily: 'Nunito',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  activeSegment: {
-    borderBottomColor: '#674FF1',
-    borderBottomWidth: 2,
-    width: '20%',
-    alignItems: 'center',
-  },
-  segmentText: {
-    color: '#000',
-    fontFamily: 'Nunito',
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-});
 
 export default LearnCards;
