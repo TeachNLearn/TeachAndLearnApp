@@ -10,13 +10,14 @@ import {
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import hjb from '../../assets/Images/IntroImg3.png'
+import hjb from '../../assets/Images/IntroImg3.png';
 
 const IntroOne: React.FC = () => {
   type RootStackParamList = {
     IntroTwo: undefined;
     IntroThree: undefined;
     Signup: undefined;
+    Hometab: undefined;
   };
 
   const navigation =
@@ -31,37 +32,27 @@ const IntroOne: React.FC = () => {
             resizeMode="contain"
           />
         </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.heading}>Teach , Learn and Grow</Text>
-          <Text style={styles.headingpart}>Together !</Text>
-          <View style={styles.paraContainer}>
-            <Text style={styles.para}>
-              This app aims to bring the students from all across the world
-              together and give them a platform where they can teach other
-              students as well as learn from them to aid their academics.
-            </Text>
-          </View>
-          <View style={styles.sliderLogoContainer}>
-            <Text style={styles.sliderLogoOne}></Text>
-            <Text
-              style={styles.sliderLogoTwo}
-              onPress={() => navigation.navigate('IntroTwo')}></Text>
-            <Text
-              style={styles.sliderLogoThree}
-              onPress={() => navigation.navigate('IntroThree')}></Text>
-          </View>
-          <View style={styles.btnContainer}>
-            <Text
-              style={styles.btntxt}
-              onPress={() => navigation.navigate('Signup')}>
-              Skip
-            </Text>
-            <TouchableOpacity
-              style={styles.btnTwo}
-              onPress={() => navigation.navigate('IntroTwo')}>
-              <Text style={styles.btntxtTwo}>Next</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.sliderLogoContainer}>
+          <Text style={styles.sliderLogoOne}></Text>
+          <Text
+            style={styles.sliderLogoTwo}
+            onPress={() => navigation.navigate('IntroTwo')}></Text>
+          <Text
+            style={styles.sliderLogoThree}
+            onPress={() => navigation.navigate('IntroThree')}></Text>
+        </View>
+
+        <View style={styles.btnContainer}>
+          <Text
+            style={styles.btntxt}
+            onPress={() => navigation.navigate('Signup')}>
+            Skip
+          </Text>
+          <TouchableOpacity
+            style={styles.btnTwo}
+            onPress={() => navigation.navigate('IntroTwo')}>
+            <Text style={styles.btntxtTwo}>Next</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

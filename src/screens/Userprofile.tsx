@@ -35,7 +35,7 @@ const Userprofile: React.FC = () => {
         compressImageMaxHeight: 300,
         compressImageQuality: 0.7,
         includeExif: true,
-        cropperToolbarTitle: 'Crop Image',
+        // cropperToolbarTitle: 'Crop Image',
         cropperToolbarColor: '#094067',
         cropperToolbarWidgetColor: '#FFF',
         cropperActiveWidgetColor: '#094067',
@@ -45,8 +45,8 @@ const Userprofile: React.FC = () => {
         compressVideoPreset: 'MediumQuality',
         writeTempFile: true,
         useFrontCamera: sourceType === 'camera',
-        cropping: true,
-        includeBase64: true,
+        // cropping: true,
+        // includeBase64: true,
       });
 
       console.log(image);
