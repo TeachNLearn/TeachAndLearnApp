@@ -5,11 +5,12 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
+import hjb from '../../assets/Images/IntroImg3.png';
 
 const IntroOne: React.FC = () => {
   type RootStackParamList = {
@@ -22,23 +23,14 @@ const IntroOne: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
-    <View style={styles.container}>
-      <View style={styles.imgContainer}>
-        <Image
-          source={require('../../assets/Images/IntroImg.png')}
-          style={styles.introImg}
-          resizeMode="contain"
-        />
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.heading}>Teach , Learn and Grow</Text>
-        <Text style={styles.headingpart}>Together !</Text>
-        <View style={styles.paraContainer}>
-          <Text style={styles.para}>
-            This app aims to bring the students from all across the world
-            together and give them a platform where they can teach other
-            students as well as learn from them to aid their academics.
-          </Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.imgContainer}>
+          <Image
+            source={require('../../assets/Images/IntroImg.png')}
+            style={styles.introImg}
+            resizeMode="contain"
+          />
         </View>
         <View style={styles.sliderLogoContainer}>
           <Text style={styles.sliderLogoOne}></Text>
@@ -53,8 +45,7 @@ const IntroOne: React.FC = () => {
         <View style={styles.btnContainer}>
           <Text
             style={styles.btntxt}
-            // onPress={() => navigation.navigate('Signup')}>
-            onPress={() => navigation.navigate('Hometab')}>
+            onPress={() => navigation.navigate('Signup')}>
             Skip
           </Text>
           <TouchableOpacity
@@ -64,7 +55,7 @@ const IntroOne: React.FC = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -74,7 +65,7 @@ const screenHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     width: screenWidth,
-    height: screenHeight,
+    // height: screenHeight,
     backgroundColor: '#D8CEFF',
   },
   introImg: {
