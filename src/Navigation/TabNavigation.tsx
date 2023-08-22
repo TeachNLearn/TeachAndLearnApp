@@ -4,11 +4,11 @@ import Home from '../screens/Home';
 import FontAwesom from 'react-native-vector-icons/FontAwesome5';
 // import FontAwesom6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Userprofile from '../screens/Userprofile';
-import Forum from '../screens/Forum/Forum';
-import CreateClass from '../screens/CreateClass';
+import Userprofile from '../screens/profile/Userprofile';
+import Forum from '../screens/forum/Forum';
+import CreateClass from '../screens/classroom/CreateClass';
 // import Detail from '../screens/Detail';
-import LearnCards from '../screens/LearnCards';
+import LearnCards from '../screens/requests/LearnCards';
 
 const Tab = createBottomTabNavigator();
 

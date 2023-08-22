@@ -5,9 +5,9 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionican from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Classes from '../components/SearchComponent/Classes';
-import Requests from '../components/SearchComponent/Requests';
-import UserClasses from '../components/SearchComponent/UserClasses';
+import Classes from '../../components/SearchComponent/Classes';
+import Requests from '../../components/SearchComponent/Requests';
+import UserClasses from '../../components/SearchComponent/UserClasses';
 
 const Tab = createMaterialTopTabNavigator();
 
