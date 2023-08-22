@@ -25,6 +25,7 @@
     "react-native-screens": "^3.24.0",
     "react-native-svg": "^13.11.0",
     "react-native-svg-transformer": "^1.1.0",
+    "react-native-switch": "^1.5.1",
     "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^10.0.0",
     "styled-components": "^6.0.7"

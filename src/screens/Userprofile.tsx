@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, ScrollView, Image, Switch , TouchableWithoutFeedback } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image,  TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import { useState } from 'react';
+import { Switch } from 'react-native-switch';
 // import Fontawesome from 'react-native-vector-icons/FontAwesome5';
 import Ionican from 'react-native-vector-icons/Ionicons';
 // import ImagePicker from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
+
 interface ImageInfo {
   uri: string;
   base64: string;
@@ -93,21 +95,30 @@ const Userprofile: React.FC = () => {
        <Text style={styles.userEduInfo}>B. Tech Artificial Intelligence student and part-time Web Developer</Text>
       <View style={styles.ModeOfuserConainer}>
       <Text style={isLearnMode ? styles.LearnModeTextActive : styles.LearnModeText}>Learn Mode</Text>
-      <Switch
-        value={isLearnMode}
-        onValueChange={toggleMode}
-        trackColor={{false: '#FFF', true: '#FFF'}}
-        thumbColor={isLearnMode ? '#094067' : '#094067'}
-        thumbStyle={{
-          width: thumbSize,
-          height: thumbSize,
-          borderRadius: thumbSize / 4,
-        }}
-      
-        style={{
-          transform: [{ scaleX: switchWidth / 50 }, { scaleY: switchHeight / 30 }],
-        }}
-      />
+       <Switch
+    value={isLearnMode}
+    onValueChange={toggleMode}
+    disabled={false}
+    activeText={'On'}
+    inActiveText={'Off'}
+    circleSize={12}
+    barHeight={14}
+    circleBorderWidth={1}
+    backgroundActive={'#fff'}
+    backgroundInactive={'#fff'}
+    // circleActiveColor={'#094067'}
+    // circleInActiveColor={'#094067'}
+    // renderInsideCircle={() => <CustomComponent />} // custom component to render inside the Switch circle (Text, Image, etc.)
+    changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete
+    innerCircleStyle={{ alignItems: "center", justifyContent: "center" ,backgroundColor:'#094067'}} // style for inner animated circle for what you (may) be rendering inside the circle
+    outerCircleStyle={{}} // style for outer animated circle
+    renderActiveText={false}
+    renderInActiveText={false}
+    switchLeftPx={2} // denominator for logic when sliding to TRUE position. Higher number = more space from RIGHT of the circle to END of the slider
+    switchRightPx={2} // denominator for logic when sliding to FALSE position. Higher number = more space from LEFT of the circle to BEGINNING of the slider
+    switchWidthMultiplier={2} // multiplied by the `circleSize` prop to calculate total width of the Switch
+    switchBorderRadius={30} // Sets the border Radius of the switch slider. If unset, it remains the circleSize.
+  />
       <Text style={!isLearnMode ? styles.TeachModeTextActive : styles.TeachModeText}>Teach Mode</Text>
     </View>
 

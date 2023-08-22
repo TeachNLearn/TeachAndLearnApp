@@ -163,7 +163,7 @@ const Home = () => {
                        {"   "} {item.length} interested
                     </Text>
                     <Text style={styles.coins}>{item.coins}
-                      <CoinSvg/>{"     "}
+                      <CoinSvg fill='#fff'/>{"     "}
                    250 coins</Text>
                   </View>
                 </View>)

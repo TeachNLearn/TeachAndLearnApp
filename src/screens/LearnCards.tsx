@@ -9,6 +9,7 @@ import Classes from '../components/SearchComponent/Classes';
 import Requests from '../components/SearchComponent/Requests';
 import UserClasses from '../components/SearchComponent/UserClasses';
 
+
 const Tab = createMaterialTopTabNavigator();
 
 const LearnCards: React.FC = () => {
