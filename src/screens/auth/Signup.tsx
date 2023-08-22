@@ -6,9 +6,8 @@ import DescriptionBox from '../../components/auth-components/descriptionBox';
 import {StyleSheet} from 'react-native';
 import UserInfoForm from '../../components/auth-components/UserInfoForm';
 import Button from '../../components/general-components/button';
-// import {Link, useNavigation} from '@react-navigation/native';
-// import { StackNavigationProp } from '@react-navigation/native-stack';
-// import { useNavigation } from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface USERDATA {
   fullName: string;
@@ -46,7 +45,7 @@ const initialData: USERDATA = {
   language: '',
 };
 
-const Signup = ({navigation}: any) => {
+const Signup = () => {
   const [userData, setUserData] = useState<USERDATA>(initialData);
 
   function updateFields(fields: Partial<USERDATA>) {
@@ -68,9 +67,15 @@ const Signup = ({navigation}: any) => {
     else console.log(userData);
   };
 
-  // const navigate = useNavigation<RootStackParamList>()
+  type RootStackParamList = {
+    Login: undefined;
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const loginNavigation = () => {
-    // navigation.navigate('Login');
+    navigation.navigate('Login');
   };
 
   return (

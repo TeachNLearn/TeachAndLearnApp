@@ -9,7 +9,7 @@ import {DATA_LIMIT} from '../../utils/globalContants';
 
 const Forum = () => {
   const authCtx = useContext(AuthContext);
-  const [userToken, setUserToken] = useState(authCtx.token);
+  const [userToken, setUserToken] = useState<string>('');
 
   const [forums, setForums] = useState<Array<forumProps>>([]);
   const [forumPageSet, setForumPageSet] = useState<number>(1);
@@ -17,19 +17,27 @@ const Forum = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
 
+  useEffect(() => {
+    if (authCtx) {
+      setUserToken(authCtx.token);
+    }
+  }, [authCtx]);
+
   async function fetchAllForums() {
+    console.log('Checking');
+
     setLoaderLoading(true);
     await axios
       .get(`${BASE_URL}${apiVersion}/forum`, {
         params: {
-          limit: DATA_LIMIT,
-          page: forumPageSet,
+          limit: 10,
+          page: 1,
         },
         headers: getHeaders(userToken),
       })
       .then(({data}) => {
         const forums = data.data.data;
-        console.log(forums);
+        console.log(data);
         checkMoreData(forums, setHasMoreData);
         setForums(prev => [...prev, ...forums]);
         setIsLoading(false);
@@ -43,11 +51,12 @@ const Forum = () => {
       });
   }
 
-  useEffect(() => {
-    if (userToken) {
-      fetchAllForums();
-    }
-  }, [userToken]);
+  // useEffect(() => {
+  //   console.log(userToken);
+  //   if (userToken) {
+  //     fetchAllForums();
+  //   }
+  // }, [userToken]);
 
   return (
     <View>

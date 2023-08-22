@@ -1,5 +1,5 @@
 module.exports = {
-  assets: ['/Teachandlearn App/TeachAndLearnApp/src/assets/Fonts'],
+  assets: ['./src/assets/Fonts'],
   dependencies: {
     'react-native-vector-icons': {
       platforms: {

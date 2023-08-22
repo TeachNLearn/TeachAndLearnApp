@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -22,6 +23,7 @@ const IntroThree: React.FC = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <StatusBar backgroundColor="#000" barStyle="light-content" />
       <View style={styles.imgContainer}>
@@ -60,6 +62,7 @@ const IntroThree: React.FC = () => {
         </View>
       </View>
     </View>
+    </ScrollView>
   );
 };
 
