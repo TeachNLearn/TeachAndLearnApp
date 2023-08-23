@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../store/auth-context';
 import {forumProps} from '../../types/ForumTypes';
@@ -10,15 +10,17 @@ import ForumCard from '../../components/forum-components/forumCard';
 
 const Forum = () => {
   const authCtx = useContext(AuthContext);
-  const [userToken, setUserToken] = useState<string>('');
+  const [userToken, setUserToken] = useState<string>(authCtx.token);
 
   const [forums, setForums] = useState<Array<forumProps>>([]);
-  const [forumPageSet, setForumPageSet] = useState<number>(1);
+  const [forumPageSet, setForumPageSet] = useState<number>(0);
   const [hasMoreData, setHasMoreData] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
 
   async function fetchAllForums() {
+    console.log('CHECKING');
+
     setLoaderLoading(true);
     await axios
       .get(`${BASE_URL}${apiVersion}/forum`, {
@@ -30,7 +32,7 @@ const Forum = () => {
       })
       .then(({data}) => {
         const forums = data.data.data;
-        console.log(data);
+        console.log(forums);
         checkMoreData(forums, setHasMoreData);
         setForums(prev => [...prev, ...forums]);
         setIsLoading(false);
@@ -51,13 +53,15 @@ const Forum = () => {
     }
   }, [userToken]);
 
-  return (
+  return !isLoading ? (
     <View style={styles.container}>
       {forums &&
         forums.map((forum, idx) => {
           return <ForumCard key={idx} userToken={userToken} {...forum} />;
         })}
     </View>
+  ) : (
+    <ActivityIndicator size={48} color="#094067" />
   );
 };
 
