@@ -1,7 +1,6 @@
 import React from 'react';
 import {forumProps} from '../../types/ForumTypes';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {styled} from 'styled-components/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';

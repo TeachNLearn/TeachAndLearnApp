@@ -3,19 +3,17 @@ import {StyleSheet, Text} from 'react-native';
 import {Pressable, View} from 'react-native';
 
 interface btnProps {
-  children: string;
+  children: string | JSX.Element;
   onPress: any;
 }
 
 const Button = ({children, onPress}: btnProps) => {
   return (
-    // <View style={styles.outerContainer}>
     <Pressable style={styles.pressableContainer} onPress={onPress}>
       <View>
         <Text style={styles.text}>{children}</Text>
       </View>
     </Pressable>
-    // </View>
   );
 };
 
