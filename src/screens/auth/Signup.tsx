@@ -54,11 +54,10 @@ const Signup = () => {
     });
   }
 
-  const {step, isFirstStep, isLastStep, next, back, currentStepIndex} =
-    useMultiStepForm([
-      <SignupForm {...userData} updateFields={updateFields} />,
-      <UserInfoForm {...userData} updateFields={updateFields} />,
-    ]);
+  const {step, isLastStep, next, back} = useMultiStepForm([
+    <SignupForm {...userData} updateFields={updateFields} />,
+    <UserInfoForm {...userData} updateFields={updateFields} />,
+  ]);
 
   const onSubmit = () => {
     console.log('CHECKING');
@@ -83,38 +82,60 @@ const Signup = () => {
       <View style={styles.container}>
         <DescriptionBox />
         <View style={styles.formWrapper}>
-          {step}
-          <Button onPress={onSubmit}>{isLastStep ? 'Signup' : 'Next'}</Button>
-          {isLastStep && <Button onPress={back}>Back</Button>}
-        </View>
-        <View>
-          <Text>Already have an account?</Text>
-          <View>
-            <Text onPress={loginNavigation} style={styles.link}>
-              Login!
-            </Text>
+          <View>{step}</View>
+          <View style={styles.buttonWrapper} >
+            <Button onPress={onSubmit}>{isLastStep ? 'Signup' : 'Next'}</Button>
+            {isLastStep && <Button onPress={back}>Back</Button>}
           </View>
+        </View>
+        <View style={styles.login}>
+          <Text style={styles.simpleText}>Already have an account?</Text>
+          <Text onPress={loginNavigation} style={styles.link}>
+            Login!!
+          </Text>
         </View>
       </View>
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    rowGap: 40,
+    rowGap: 20,
     paddingBottom: 50,
+    backgroundColor: 'white',
   },
   formWrapper: {
-    // flex: 1,
     width: '90%',
+    marginTop: 24,
     marginHorizontal: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 36,
+  },
+  buttonWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    rowGap: 12
+  },
+  login: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    columnGap: 4,
+    marginTop: 12,
+  },
+  simpleText: {
+    color: '#666666',
   },
   link: {
     color: '#094067',
+    fontWeight: '600',
   },
 });
 

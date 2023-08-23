@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import InputHolder from '../input/inputHolder';
 import MultipleInput from '../input/multipleInput';
+import ArrChip from '../input/arrChip';
 
 interface UserInfo {
   photo: string;
@@ -30,6 +31,7 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         name="number"
         updateFields={props.updateFields}
         placeholderText="Phone Number"
+        showLabel={true}
       />
       <InputHolder
         type="text"
@@ -41,6 +43,7 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         // dropdownData={}
         isRequired={true}
         placeholderText="Currently preparing for"
+        showLabel={true}
       />
       <InputHolder
         type="text"
@@ -50,20 +53,72 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         updateFields={props.updateFields}
         isRequired={false}
         placeholderText="Standard/Year"
-        isMultiInput={true}
+        showLabel={true}
       />
-      <View>
+      <View style={styles.inputWrapper}>
         <MultipleInput
           name="interestedSubjects"
           arr={props.interestedSubjects}
           elemName="interestedSubject"
           value={props.interestedSubject}
           label="Interested Subjects"
+          placeholder="Subjects you mostly need help in"
+          showLabel={true}
           updateFields={props.updateFields}
-          // dropdownData={}
           hasDropdown={false}
           maxLimit={5}
         />
+        {props.interestedSubjects.length != 0 ? (
+          <ArrChip
+            listArr={props.interestedSubjects}
+            // updateFields={props.updateFields}
+            // name="interestedSubjects"
+          />
+        ) : null}
+      </View>
+      <View style={styles.inputWrapper}>
+        <MultipleInput
+          label="Subjects you can help others in"
+          value={props.strongSubject}
+          elemName="strongSubject"
+          name="strongSubjects"
+          updateFields={props.updateFields}
+          arr={props.strongSubjects}
+          // hasDropdown={true}
+          // dropdownData={subjects}
+          maxLimit={5}
+          placeholder="Subject you can help others in"
+          showLabel={true}
+        />
+        {props.strongSubjects.length != 0 ? (
+          <ArrChip
+            listArr={props.strongSubjects}
+            // updateFields={props.updateFields}
+            // name="strongSubjects"
+          />
+        ) : null}
+      </View>
+      <View style={styles.inputWrapper}>
+        <MultipleInput
+          label="Preferred Languages"
+          value={props.language}
+          elemName="language"
+          name="preferredLanguages"
+          updateFields={props.updateFields}
+          arr={props.preferredLanguages}
+          placeholder="Preffered languages"
+          showLabel={true}
+          // hasDropdown={true}
+          // dropdownData={languages}
+          maxLimit={3}
+        />
+        {props.preferredLanguages.length != 0 ? (
+          <ArrChip
+            listArr={props.preferredLanguages}
+            // updateFields={props.updateFields}
+            // name="preferredLanguages"
+          />
+        ) : null}
       </View>
     </View>
   );

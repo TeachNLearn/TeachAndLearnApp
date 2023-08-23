@@ -42,6 +42,11 @@ const MultipleInput = (props: InputProps) => {
         editable={props.maxLimit ? props.arr.length < props.maxLimit : true}
       />
       <Text style={styles.label}>{props.label}</Text>
+      {props.showLabel && props.maxLimit && (
+        <View>
+          <Text>*Max {props.maxLimit}</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -76,6 +81,11 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingHorizontal: 5,
     transform: [{translateY: -5}],
+  },
+  maxLimit: {
+    color: 'rgba(0, 0, 0, 0.7)',
+    fontSize: 11,
+    textTransform: 'capitalize',
   },
 });
 

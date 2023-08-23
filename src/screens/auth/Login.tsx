@@ -8,6 +8,9 @@ import {isValidEmail} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
 import Button from '../../components/general-components/button';
 import {ScrollView} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import DescriptionBox from '../../components/auth-components/descriptionBox';
 
 interface loginDataProps {
   email: string;
@@ -59,18 +62,21 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    // console.log(loginData.email);
-  }, [loginData]);
+  type RootStackParamList = {
+    Signup: undefined;
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const loginNavigation = () => {
+    navigation.navigate('Signup');
+  };
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.upperContainer}>
-          <Text style={styles.text}>Welcome</Text>
-          <Text style={styles.text}>back</Text>
-          <Text style={styles.smallerText}>Log in to your account</Text>
-        </View>
+        <DescriptionBox />
         <View style={styles.formContainer}>
           <InputHolder
             label="Email"
@@ -80,6 +86,7 @@ const Login = () => {
             placeholderText="Enter Email"
             updateFields={updateFields}
             hasDropdown={false}
+            showLabel={true}
           />
           <InputHolder
             label="Password"
@@ -89,8 +96,15 @@ const Login = () => {
             updateFields={updateFields}
             placeholderText="Enter Password"
             hasDropdown={false}
+            showLabel={true}
           />
           <Button onPress={loginHandler}>Login</Button>
+        </View>
+        <View style={styles.signup}>
+          <Text style={styles.simpleText}>Already have an account?</Text>
+          <Text onPress={loginNavigation} style={styles.link}>
+            Signup!!
+          </Text>
         </View>
       </View>
     </ScrollView>
@@ -99,55 +113,38 @@ const Login = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: 'flex',
     flexDirection: 'column',
-    rowGap: 40,
     alignItems: 'center',
-  },
-  upperContainer: {
-    backgroundColor: '#094067',
-    width: '100%',
-    paddingTop: 90,
-    paddingBottom: 30,
-    paddingLeft: 16,
-  },
-  text: {
-    color: '#FFFFFF',
-    // font-family: Nunito;
-    fontSize: 46,
-    fontStyle: 'normal',
-    fontWeight: '600',
-    lineHeight: 52,
-  },
-  smallerText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontStyle: 'normal',
-    fontWeight: '300',
-    marginTop: 12,
-    // lineHeight: 1,
+    justifyContent: 'center',
+    rowGap: 20,
+    paddingBottom: 50,
+    backgroundColor: 'white',
   },
   formContainer: {
     width: '90%',
-    // borderWidth: 1,
-    // borderColor: "black",
+    marginTop: 24,
     marginHorizontal: 'auto',
-    rowGap: 28,
-  },
-  input: {
-    borderColor: '#D5D9EB',
-    borderRadius: 8,
-    borderWidth: 1.5,
-    height: 40,
-    margin: 12,
-    padding: 10,
-    color: '#000000',
-    outline: 'none',
-    fontSize: 16,
-    // fontWeight: '400',
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 36,
   },
   button: {
     borderRadius: 8,
+  },
+  signup: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    columnGap: 4,
+    marginTop: 12,
+  },
+  simpleText: {
+    color: '#666666',
+  },
+  link: {
+    color: '#094067',
   },
 });
 
