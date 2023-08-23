@@ -8,54 +8,7 @@ import {
   TextInputChangeEventData,
   View,
 } from 'react-native';
-import styled from 'styled-components/native';
 
-const Section = styled.View`
-  /* border: 1px solid red; */
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-  /* font-family: "Nunito"; */
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Input = styled.TextInput`
-  width: 100%;
-  padding: 15px 0px 15px 10px;
-
-  border: 1.5px solid #d5d9eb;
-  border-radius: 8px;
-  color: #000000;
-  font-size: 16px;
-  font-weight: 400;
-`;
-
-interface labelProps {
-  isValid: boolean;
-}
-
-const Label = styled.Text<labelProps>`
-  position: absolute;
-  top: 0;
-  /* font-family: "Nunito"; */
-  left: 10px;
-  pointer-events: none;
-  z-index: 100;
-  font-size: 11px;
-  background-color: white;
-  color: #b3b8db;
-  padding: 0 5px;
-  transform: translateY(-5px);
-`;
-
-const RequiredText = styled.View`
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 0.8rem;
-  text-transform: capitalize;
-  margin-left: 0.5rem;
-`;
 
 interface inputProps {
   value: string;
@@ -67,7 +20,9 @@ interface inputProps {
   hasDropdown?: boolean;
   dropdownData?: string[];
   isRequired?: boolean;
-  isMultiInput?: boolean;
+  isTextarea?: boolean;
+  textareaLines?: number;
+  showLabel?: boolean;
 }
 
 const InputHolder = (props: inputProps) => {
@@ -103,78 +58,70 @@ const InputHolder = (props: inputProps) => {
   };
 
   return (
-    <Section>
-      <Input
+    <View>
+      <TextInput
+        style={[styles.input, props.isTextarea && styles.textAreaInput]}
         value={props.value}
         onFocus={() => setshowPlaceholder(false)}
         placeholder={props.placeholderText}
         onChangeText={inputhandler.bind(this, props.name)}
         autoCapitalize="none"
-        secureTextEntry={props.type == 'password'}
+        secureTextEntry={props.type == "password"}
+        multiline={props.isTextarea}
+        numberOfLines={props.textareaLines ? props.textareaLines : 1}
       />
-      <Label isValid={isValid}>{props.label}</Label>
+      {props.showLabel && <Text style={[styles.label]}>{props.label}</Text>}
       {props.isRequired && (
-        <RequiredText>
-          <Text>*required</Text>
-        </RequiredText>
+        <View style={styles.requiredContainer}>
+          <Text style={styles.requiredText}>*required</Text>
+        </View>
       )}
-    </Section>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    position: 'relative',
-    width: '100%',
-    height: 40,
+    position: "relative",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   input: {
-    width: '100%',
-    height: '100%',
-    paddingVertical: 15,
+    width: "100%",
+    paddingVertical: 12,
     paddingRight: 0,
     paddingLeft: 10,
-    borderStyle: 'solid',
     borderWidth: 1.5,
-    borderColor: '#d5d9eb',
+    borderColor: "#d5d9eb",
     borderRadius: 8,
-    color: '#000000',
+    color: "#000000",
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: "400",
+  },
+  textAreaInput: {
+    paddingTop: 17,
+    textAlignVertical: "top",
   },
   label: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 10,
-    transform: [{translateY: 19}],
-    pointerEvents: 'none',
-    fontSize: 16,
-    lineHeight: 1,
-    borderWidth: 2,
-    borderColor: 'black',
-  },
-  validLabel: {
-    transform: [{translateX: 5}, {translateY: -5}],
-    fontSize: 20,
-    backgroundColor: 'white',
-    // color: "#b3b8db",
-    color: 'black',
-    paddingVertical: 0,
+    pointerEvents: "none",
+    zIndex: 100,
+    fontSize: 11,
+    backgroundColor: "white",
+    color: "#b3b8db",
     paddingHorizontal: 5,
+    transform: [{ translateY: -7 }],
   },
-  inValidLabel: {
-    // transform: [{ translateX: 0 }, { translateY: 0 }],
-    fontSize: 16,
-    backgroundColor: undefined,
-    color: '#564c4d',
-    paddingVertical: 0,
-    paddingHorizontal: 0,
+  requiredContainer: {
+    marginLeft: 8,
   },
-  required: {
-    color: 'rgba(0, 0, 0, 0.7)',
+  requiredText: {
+    color: "rgba(0, 0, 0, 0.7)",
     fontSize: 0.8,
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
   },
 });
 
