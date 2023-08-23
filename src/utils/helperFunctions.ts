@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {DATA_LIMIT, months} from './globalContants';
 
 export const getHeaders = (token: string) => {
@@ -107,3 +108,22 @@ export const getReadableTime = (ISODate: string) => {
   }
   return concatedTime;
 };
+
+export async function autoGenerateImage(topic: string) {
+  // console.log(process.env.REACT_APP_UNSPASH_ACCESS_KEY);
+
+  const res = await axios.get(
+    `https://api.unsplash.com/search/photos?page=1&query=${topic}&client_id=s26KY0b_ODGcUA1jZP4aqy-NPGIYX5qa-z8ZwJg49VU`
+  );
+  const randomImg = Math.floor(Math.random() * 10);
+  let img = res.data.results[randomImg].urls.full;
+  if (!img) {
+    for (let index = 0; index < res.data.results.length; index++) {
+      if (res.data.results[randomImg].urls.full) {
+        img = res.data.results[randomImg].urls.full;
+        break;
+      }
+    }
+  }
+  return img;
+}

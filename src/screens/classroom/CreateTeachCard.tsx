@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {ActivityIndicator, StyleSheet, View, ScrollView} from 'react-native';
-import {getHeaders} from '../../utils/helperFunctions';
+import {autoGenerateImage, getHeaders} from '../../utils/helperFunctions';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {AuthContext} from '../../store/auth-context';
@@ -62,12 +62,12 @@ const CreateTeachCard = ({route}: any) => {
   const teachCardHandler = async (e: any) => {
     e.preventDefault();
     console.log(teachCard);
-    // const img = await autoGenerateImage(teachCard.subject);
+    const img = await autoGenerateImage(teachCard.subject);
     // console.log(img);
     // if (handleValidation()) {
-    // if (!img) {
-    // return;
-    // }
+    if (!img) {
+      return;
+    }
     setIsLoading(true);
     await axios
       .post(
