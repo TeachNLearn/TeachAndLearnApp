@@ -11,7 +11,7 @@ interface ImageInfo {
 }
 const Userprofile: React.FC = () => {
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
- const defaultImageSource = require('../assets/Images/userProfilePic.png');
+ const defaultImageSource = require('../../assets/Images/userProfilePic.png');
   const [profileImage, setProfileImage] = useState<ImageInfo>({
     uri: defaultImageSource.uri,
     base64: '',
@@ -24,7 +24,6 @@ const Userprofile: React.FC = () => {
    const handleImagePicker = async (sourceType: 'gallery' | 'camera') => {
     try {
       const image = await ImagePicker.openPicker({
-
         width: 300,
         height: 300,
         cropping: true,
@@ -51,7 +50,6 @@ const Userprofile: React.FC = () => {
 
       console.log(image);
       
-
       setProfileImage({
         uri: image.path,
         base64: image.data,

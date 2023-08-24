@@ -5,16 +5,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import AuthContextProvider, {AuthContext} from './src/store/auth-context';
 import TabNavigation from './src/Navigation/TabNavigation';
 import StackNavigation from './src/Navigation/StackNavigation';
-import { AppAsyncStorage } from './src/utils/globalContants';
+import {AppAsyncUserStorage} from './src/utils/globalContants';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ForumOverview from './src/components/forum-components/ForumOverview';
+import Login from './src/screens/auth/Login';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
 
-  return (
-    <NavigationContainer>
-      {authCtx.isAuthenticated ? <TabNavigation /> : <StackNavigation />}
-    </NavigationContainer>
-  );
+  return authCtx.isAuthenticated ? <TabNavigation /> : <StackNavigation />;
 };
 
 function Root() {
@@ -24,10 +23,11 @@ function Root() {
 
   useEffect(() => {
     async function fetchToken() {
-      const storedToken = await AsyncStorage.getItem(AppAsyncStorage);
+      const storedUserData = await AsyncStorage.getItem(AppAsyncUserStorage);
 
-      if (storedToken) {
-        authCtx.authenticate(storedToken);
+      if (storedUserData) {
+        const parsedData = JSON.parse(storedUserData);
+        authCtx.setLocalUser(parsedData);
       }
 
       setIsTryingLogin(false);
@@ -43,10 +43,34 @@ function Root() {
   return <Navigation />;
 }
 
+const Stack = createNativeStackNavigator();
+
+const NavigationScreens = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen
+          name="BottomTabs"
+          component={Root}
+          options={{
+            title: 'Bottom Tabs',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="ForumOverview" component={ForumOverview} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <AuthContextProvider>
-      <Root />
+      <NavigationScreens />
     </AuthContextProvider>
   );
 };
