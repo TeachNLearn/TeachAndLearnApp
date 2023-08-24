@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createContext, useState} from 'react';
-import {AppAsyncStorage} from '../utils/globalContants';
+import {AppAsyncUserStorage} from '../utils/globalContants';
 
 const initialUser = {
   _id: '',
@@ -17,8 +17,8 @@ const initialUser = {
   interestedSubjects: [] as string[],
   strongSubjects: [] as string[],
   preferredLanguages: [] as string[],
+  token: '',
 };
-
 
 interface userProps {
   _id: string;
@@ -30,18 +30,19 @@ interface userProps {
   enrolledProgramme: string;
   role: string;
   phoneNumber: string;
-  classesEnrolled: Array<any>
+  classesEnrolled: Array<any>;
   classesTaken: string[];
   interestedSubjects: string[];
   strongSubjects: string[];
   preferredLanguages: string[];
+  token: string;
 }
-
 
 export const AuthContext = createContext({
   token: '',
   isAuthenticated: false,
-  authenticate: (token: string, user: userProps) => {},
+  // authenticate: (token: string) => {},
+  setLocalUser: (user: userProps) => {},
   logout: () => {},
   user: initialUser,
 });
@@ -54,21 +55,21 @@ function AuthContextProvider({children}: authProvideProps) {
   const [authToken, setAuthToken] = useState<string>('');
   const [userData, setUserData] = useState<userProps>(initialUser);
 
-  function authenticate(token: string, user: userProps) {
-    setAuthToken(token);
+  function localUser(user: userProps) {
     setUserData(user);
-    AsyncStorage.setItem(AppAsyncStorage, token);
+    AsyncStorage.setItem(AppAsyncUserStorage, JSON.stringify(user));
+    setAuthToken(user.token);
   }
 
   function logout() {
     setAuthToken('');
-    AsyncStorage.removeItem(AppAsyncStorage);
+    AsyncStorage.removeItem(AppAsyncUserStorage);
   }
 
   const value = {
     token: authToken,
     isAuthenticated: !!authToken,
-    authenticate: authenticate,
+    setLocalUser: localUser,
     logout: logout,
     user: userData,
   };

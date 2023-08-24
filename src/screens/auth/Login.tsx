@@ -52,9 +52,10 @@ const Login = () => {
           password: loginData.password,
         })
         .then(({data}) => {
-          const user = data.data.user;
+          let user = data.data.user;
           console.log(data.token);
-          authCtx.authenticate(data.token);
+          user.token = data.token;
+          authCtx.setLocalUser(user);
         })
         .catch(data => {
           console.log(data);
