@@ -119,7 +119,6 @@ const LearnCards: React.FC = () => {
           </TouchableOpacity>
         </View>
       </View>
-
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.content}>
           {activeSection === 'Classes' && <Classes />}

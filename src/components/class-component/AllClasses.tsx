@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ActivityIndicator} from 'react-native';
 import {AuthContext} from '../../store/auth-context';
 import {teachingCardProps} from '../../types/teachingCardType';
 import axios from 'axios';
@@ -54,7 +54,15 @@ const AllClasses = () => {
 
   return (
     <View>
-      <Text>All Classes</Text>
+      {
+        isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          // teachCards.length != 0 && (
+<Text>Classes</Text>
+          // )
+        )
+      }
     </View>
   );
 };
