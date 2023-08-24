@@ -4,11 +4,12 @@ import Home from '../screens/Home';
 import FontAwesom from 'react-native-vector-icons/FontAwesome5';
 // import FontAwesom6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Userprofile from '../screens/Userprofile';
+import Userprofile from '../screens/profile/Userprofile';
 import Forum from '../screens/Forum/Forum';
-import CreateClass from '../screens/CreateClass';
+// import CreateClass from '../screens/classroom/CreateClass';
+import LearnCards from '../screens/requests/LearnCards';
 // import Detail from '../screens/Detail';
-import LearnCards from '../screens/LearnCards';
+import Search from '../screens/Search';
 
 const Tab = createBottomTabNavigator();
 
@@ -57,8 +58,8 @@ const TabNavigation: React.FC = () => (
       }}
     />
     <Tab.Screen
-      name="CreatClass"
-      component={CreateClass}
+      name="LearnCards"
+      component={LearnCards}
       options={{
         headerShown: false,
         tabBarIcon: ({ color, size }) => (
@@ -68,8 +69,8 @@ const TabNavigation: React.FC = () => (
     />
 
      <Tab.Screen
-      name="LearnCards"
-      component={LearnCards}
+      name="Search"
+      component={Search}
       options={{
         headerShown: false,
         tabBarIcon: ({ color, size }) => (

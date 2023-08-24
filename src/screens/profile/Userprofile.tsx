@@ -13,7 +13,7 @@ interface ImageInfo {
 }
 const Userprofile: React.FC = () => {
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
- const defaultImageSource = require('../assets/Images/userProfilePic.png');
+ const defaultImageSource = require('../../assets/Images/userProfilePic.png');
   const [profileImage, setProfileImage] = useState<ImageInfo>({
     uri: defaultImageSource.uri,
     base64: '',
