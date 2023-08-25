@@ -8,6 +8,7 @@ import UserChip from '../general-components/UserChip';
 import SvgComponent from '../SVGComponents/InterestedSvg';
 import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
 import ArrowIcon from '../SVGComponents/ArrowIcon';
+import ClassCardBtn from './ClassCardBtn';
 
 interface classCardProps {
   teachCard: teachingCardProps;
@@ -51,21 +52,21 @@ const ClassroomCard = (props: classCardProps) => {
   //   return date > ISOstring;
   // };
 
-  const checkIsReviewed = () => {
-    const userId = localUser?._id;
-    const reviews = props.teachCard.reviews;
+  // const checkIsReviewed = () => {
+  //   const userId = localUser?._id;
+  //   const reviews = props.teachCard.reviews;
 
-    let hasReviewed = false;
+  //   let hasReviewed = false;
 
-    // console.log(reviews);
-    reviews.forEach(element => {
-      if (element.user._id == userId) {
-        hasReviewed = true;
-      }
-    });
+  //   // console.log(reviews);
+  //   reviews.forEach(element => {
+  //     if (element.user._id == userId) {
+  //       hasReviewed = true;
+  //     }
+  //   });
 
-    return hasReviewed;
-  };
+  //   return hasReviewed;
+  // };
 
   return (
     props.teachCard && (
@@ -106,26 +107,14 @@ const ClassroomCard = (props: classCardProps) => {
             </Text>
           </View>
         </View>
-        {/* <TouchableOpacity style={styles.enrollBtn}>
-          <View>
-            <Text style={styles.enrollBtnText}>
-              {props.teachCard.hasCancelled
-                ? 'Class Cancelled'
-                : checkClassTeacher()
-                ? 'Check Class'
-                : checkEnrolledClass() == 1
-                ? !checkIsCompleted()
-                  ? 'Check Class'
-                  : checkIsReviewed()
-                  ? 'Check Class'
-                  : 'Give Review'
-                : checkIsCompleted()
-                ? 'Check Class'
-                : 'Enroll Now'}
-            </Text>
-          </View>
-          <ArrowIcon />
-        </TouchableOpacity> */}
+        <ClassCardBtn
+          localUserId={localUser._id}
+          teacherId={props.teachCard.createdBy._id}
+          enrolledArr={props.teachCard.studentsEnrolled}
+          classEndsAt={props.teachCard.classEndsAt}
+          hasCancelled={props.teachCard.hasCancelled}
+          reviews={props.teachCard.reviews}
+        />
       </View>
     )
   );
@@ -174,22 +163,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     textTransform: 'capitalize',
-  },
-  enrollBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    columnGap: 6,
-    backgroundColor: '#ef4565',
-    borderRadius: 4,
-  },
-  enrollBtnText: {
-    fontWeight: '500',
-    fontSize: 16,
-    color: '#ffffff',
   },
 });
 

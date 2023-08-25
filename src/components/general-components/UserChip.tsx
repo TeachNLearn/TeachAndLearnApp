@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 28,
     objectFit: 'cover',
-    // marginRight: 6,
   },
   text: {
     fontWeight: '500',
