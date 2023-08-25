@@ -9,6 +9,7 @@ import Forum from '../screens/forum/Forum';
 import LearnCards from '../screens/Search';
 import Classes from '../screens/classroom/Classes';
 import Logout from '../components/profile-components/Logout';
+import CreateLearnCard from '../screens/requests/CreateLearnCard';
 
 const Tab = createBottomTabNavigator();
 
@@ -57,7 +58,7 @@ const TabNavigation: React.FC = () => (
     />
     <Tab.Screen
       name="CreatClass"
-      component={Logout}
+      component={CreateLearnCard}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (

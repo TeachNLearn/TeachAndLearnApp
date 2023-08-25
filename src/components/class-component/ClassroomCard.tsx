@@ -23,50 +23,7 @@ const ClassroomCard = (props: classCardProps) => {
   const [userToken, setuserToken] = useState<string>(authCtx.token);
   const [localUser, setLocalUser] = useState<userDataType>(authCtx.user);
 
-  // const checkEnrolledClass = () => {
-  //   if (localUser) {
-  //     // console.log(props.teachCard.studentsEnrolled);
-  //     const bool = props.teachCard.studentsEnrolled.filter(student => {
-  //       return student == localUser._id;
-  //     });
-  //     // console.log(bool);
-  //     return bool.length;
-  //   } else {
-  //     return null;
-  //   }
-  // };
-
-  // const checkClassTeacher = () => {
-  //   if (localUser) {
-  //     const isTeacher = props.teachCard.createdBy._id == localUser._id;
-  //     return isTeacher;
-  //   } else {
-  //     return null;
-  //   }
-  // };
-
-  // const checkIsCompleted = () => {
-  //   const date = new Date();
-  //   const classEndingDate = props.teachCard.classEndsAt;
-  //   const ISOstring = new Date(classEndingDate);
-  //   return date > ISOstring;
-  // };
-
-  // const checkIsReviewed = () => {
-  //   const userId = localUser?._id;
-  //   const reviews = props.teachCard.reviews;
-
-  //   let hasReviewed = false;
-
-  //   // console.log(reviews);
-  //   reviews.forEach(element => {
-  //     if (element.user._id == userId) {
-  //       hasReviewed = true;
-  //     }
-  //   });
-
-  //   return hasReviewed;
-  // };
+  
 
   return (
     props.teachCard && (
