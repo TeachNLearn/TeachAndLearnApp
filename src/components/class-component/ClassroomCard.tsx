@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import {AuthContext} from '../../store/auth-context';
 import {userProps} from '../../types/UserTypes';
 import {userDataType} from '../../types/userDataType';
 import UserChip from '../general-components/UserChip';
-import {InterestedIcon} from '../SVGComponents/InterestedIcon';
 import SvgComponent from '../SVGComponents/InterestedSvg';
+import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
+import ArrowIcon from '../SVGComponents/ArrowIcon';
 
 interface classCardProps {
   teachCard: teachingCardProps;
@@ -21,34 +22,34 @@ const ClassroomCard = (props: classCardProps) => {
   const [userToken, setuserToken] = useState<string>(authCtx.token);
   const [localUser, setLocalUser] = useState<userDataType>(authCtx.user);
 
-  const checkEnrolledClass = () => {
-    if (localUser) {
-      // console.log(props.teachCard.studentsEnrolled);
-      const bool = props.teachCard.studentsEnrolled.filter(student => {
-        return student == localUser._id;
-      });
-      // console.log(bool);
-      return bool.length;
-    } else {
-      return null;
-    }
-  };
+  // const checkEnrolledClass = () => {
+  //   if (localUser) {
+  //     // console.log(props.teachCard.studentsEnrolled);
+  //     const bool = props.teachCard.studentsEnrolled.filter(student => {
+  //       return student == localUser._id;
+  //     });
+  //     // console.log(bool);
+  //     return bool.length;
+  //   } else {
+  //     return null;
+  //   }
+  // };
 
-  const checkClassTeacher = () => {
-    if (localUser) {
-      const isTeacher = props.teachCard.createdBy._id == localUser._id;
-      return isTeacher;
-    } else {
-      return null;
-    }
-  };
+  // const checkClassTeacher = () => {
+  //   if (localUser) {
+  //     const isTeacher = props.teachCard.createdBy._id == localUser._id;
+  //     return isTeacher;
+  //   } else {
+  //     return null;
+  //   }
+  // };
 
-  const checkIsCompleted = () => {
-    const date = new Date();
-    const classEndingDate = props.teachCard.classEndsAt;
-    const ISOstring = new Date(classEndingDate);
-    return date > ISOstring;
-  };
+  // const checkIsCompleted = () => {
+  //   const date = new Date();
+  //   const classEndingDate = props.teachCard.classEndsAt;
+  //   const ISOstring = new Date(classEndingDate);
+  //   return date > ISOstring;
+  // };
 
   const checkIsReviewed = () => {
     const userId = localUser?._id;
@@ -88,9 +89,43 @@ const ClassroomCard = (props: classCardProps) => {
             userId={props.teachCard.createdBy._id}
           />
         </View>
-        <View>
-          <SvgComponent />
+        <View style={styles.statsContainer}>
+          <View style={styles.stats}>
+            <SvgComponent />
+            <Text style={styles.statText}>
+              {props.teachCard.studentsEnrolled.length}
+            </Text>
+          </View>
+          <View style={styles.stats}>
+            <Text style={styles.statText}>
+              {getReadableDate(props.teachCard.date) +
+                ', ' +
+                getReadableTime(props.teachCard.classStartsAt) +
+                ' - ' +
+                getReadableTime(props.teachCard.classEndsAt)}
+            </Text>
+          </View>
         </View>
+        {/* <TouchableOpacity style={styles.enrollBtn}>
+          <View>
+            <Text style={styles.enrollBtnText}>
+              {props.teachCard.hasCancelled
+                ? 'Class Cancelled'
+                : checkClassTeacher()
+                ? 'Check Class'
+                : checkEnrolledClass() == 1
+                ? !checkIsCompleted()
+                  ? 'Check Class'
+                  : checkIsReviewed()
+                  ? 'Check Class'
+                  : 'Give Review'
+                : checkIsCompleted()
+                ? 'Check Class'
+                : 'Enroll Now'}
+            </Text>
+          </View>
+          <ArrowIcon />
+        </TouchableOpacity> */}
       </View>
     )
   );
@@ -119,6 +154,42 @@ const styles = StyleSheet.create({
     color: '#d8eefe',
     fontSize: 22,
     lineHeight: 32,
+  },
+  statsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: '100%',
+  },
+  stats: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    columnGap: 4,
+  },
+  statText: {
+    fontWeight: '500',
+    fontSize: 18,
+    color: 'white',
+    textTransform: 'capitalize',
+  },
+  enrollBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    columnGap: 6,
+    backgroundColor: '#ef4565',
+    borderRadius: 4,
+  },
+  enrollBtnText: {
+    fontWeight: '500',
+    fontSize: 16,
+    color: '#ffffff',
   },
 });
 
