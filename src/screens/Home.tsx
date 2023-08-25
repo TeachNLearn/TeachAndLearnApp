@@ -7,16 +7,16 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import React, {useState , useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconS from 'react-native-vector-icons/FontAwesome5';
 import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
-import { BASE_URL , apiVersion } from '../utils/apiRoutes';
-import { AuthContext } from '../store/auth-context';
-import SvgImg from '../components/SVGComponents/InterestedSvg' ;
-import CoinSvg from '../components/SVGComponents/CoinsSvg' ;
-
+import {BASE_URL, apiVersion} from '../utils/apiRoutes';
+import {AuthContext} from '../store/auth-context';
+import CoinSvg from '../components/SVGComponents/CoinsSvg';
+import SvgComponent from '../components/SVGComponents/InterestedSvg';
+// import {InterestedIcon} from '../components/SVGComponents/InterestedSvg';
 
 interface PopularCourse {
   subject: string;
@@ -25,9 +25,9 @@ interface PopularCourse {
   coins: number;
   length: number;
   createdBy: {
-     userName: string;
-     photo: string;
-  }
+    userName: string;
+    photo: string;
+  };
   // Add more properties as needed
 }
 
@@ -38,68 +38,64 @@ interface UpcomingClass {
   coins: number;
   length: number;
   createdBy: {
-     userName: string;
-     photo: string;
-  }
+    userName: string;
+    photo: string;
+  };
   // Add more properties as needed
 }
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
-  const [popularcourseData, setPopularcourseData] = useState<PopularCourse[]>([]);
-  const [upcomingClassesData, setupcomingClassesData] = useState<UpcomingClass[]>([]);
-  const { token } = useContext(AuthContext);
+  const [popularcourseData, setPopularcourseData] = useState<PopularCourse[]>(
+    [],
+  );
+  const [upcomingClassesData, setupcomingClassesData] = useState<
+    UpcomingClass[]
+  >([]);
+  const {token} = useContext(AuthContext);
 
   const handleSearch = () => {
     // Perform search action with searchText
     console.log('Searching for:', searchText);
   };
 
-
   const FetchRecommendedClasses = () => {
-     axios.get(`${BASE_URL}${apiVersion}/teach/recommended-classes`,{
-     headers: {
-        Authorization: `Bearer ${token}`
-      }
-   })
-   .then(response => {
-     setPopularcourseData(response.data.stats);
-    //  console.log(response.data.stats);
-     
-     
-     
-   })
-   .catch(error => {
-    console.log("error fetching data", error);
-    
-   }) ;
-  }
-
+    axios
+      .get(`${BASE_URL}${apiVersion}/teach/recommended-classes`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        setPopularcourseData(response.data.stats);
+        //  console.log(response.data.stats);
+      })
+      .catch(error => {
+        console.log('error fetching data', error);
+      });
+  };
 
   const UpcomingClasses = () => {
-     axios.get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`,{
-     headers: {
-        Authorization: `Bearer ${token}`
-      }
-   })
-   .then(response => {
-     setupcomingClassesData(response.data);
-     console.log(response.data);
-     
-     
-     
-   })
-   .catch(error => {
-    console.log("error fetching data", error);
-    
-   }) ;
-  }
+    axios
+      .get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        setupcomingClassesData(response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log('error fetching data', error);
+      });
+  };
 
   useEffect(() => {
-   FetchRecommendedClasses();
-   UpcomingClasses();
-  }, [token]) ;
-  
+    FetchRecommendedClasses();
+    UpcomingClasses();
+  }, [token]);
+
   return (
     <View style={styles.HomeParentContainer}>
       <View style={styles.HomeTxtContainer}>
@@ -120,7 +116,6 @@ const Home = () => {
             value={searchText}
             onChangeText={setSearchText}
           />
-          
         </View>
 
         <View style={styles.searchBtnContainer}>
@@ -129,51 +124,58 @@ const Home = () => {
       </View>
 
       <View style={styles.SecondParentContainer}>
-        <ScrollView style={{marginBottom: 80 , marginTop:40 ,}}>
+        <ScrollView style={{marginBottom: 80, marginTop: 40}}>
           <View style={styles.txtOneParentContainer}>
             <Text style={styles.txtOneSecondContainer}>Popular Courses</Text>
             <Text style={styles.txtTwoSecondContainer}>
               See all <IconS name="arrow-right" size={14} color="#000" />{' '}
             </Text>
           </View>
-           {/* From here I want to add map method for dynamic Learn card I want the data that is coming from APi  */}
-           <View style={styles.LearningcardContainer}>
+          {/* From here I want to add map method for dynamic Learn card I want the data that is coming from APi  */}
+          <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* Here you can map over your data and generate Learningcards */}
-              {popularcourseData.length > 0 && popularcourseData.map((item, index) => { 
-                 console.log(item);
-                
-                    return (
-                <View style={styles.Learningcards} key={index}>
-                  <View style={styles.cardTxtContainer}>
-                    <Text style={styles.cardHead}>{item.subject}</Text>
-                    <Text style={styles.cardDesc}>{item.topic} Get started in Web Development and get selected in MH Fellowsip</Text>
-                  </View>
+              {popularcourseData.length > 0 &&
+                popularcourseData.map((item, index) => {
+                  console.log(item);
 
-                  <View style={styles.ImgAndNameContainer}>
-                    <Image source={{uri:item.createdBy.photo}} style={{height:18 , width:18 , borderRadius:50}}/>
-                    <Text style={styles.NameInCard}>{item.createdBy.userName}</Text>
-                  </View>
+                  return (
+                    <View style={styles.Learningcards} key={index}>
+                      <View style={styles.cardTxtContainer}>
+                        <Text style={styles.cardHead}>{item.subject}</Text>
+                        <Text style={styles.cardDesc}>
+                          {item.topic} Get started in Web Development and get
+                          selected in MH Fellowsip
+                        </Text>
+                      </View>
 
-                  <View style={styles.InterestedStudentConatiner}>
-                   
-                    <Text style={styles.Interested}>
-                       <SvgImg/>
-                       
-                       {"   "} {item.length} interested
-                    </Text>
-                    <Text style={styles.coins}>{item.coins}
-                      <CoinSvg/>{"     "}
-                   250 coins</Text>
-                  </View>
-                </View>)
-             
-               })}
+                      <View style={styles.ImgAndNameContainer}>
+                        <Image
+                          source={{uri: item.createdBy.photo}}
+                          style={{height: 18, width: 18, borderRadius: 50}}
+                        />
+                        <Text style={styles.NameInCard}>
+                          {item.createdBy.userName}
+                        </Text>
+                      </View>
 
-             
+                      <View style={styles.InterestedStudentConatiner}>
+                        <Text style={styles.Interested}>
+                          <SvgComponent />
+                          {'   '} {item.length} interested
+                        </Text>
+                        <Text style={styles.coins}>
+                          {item.coins}
+                          <CoinSvg />
+                          {'     '}
+                          250 coins
+                        </Text>
+                      </View>
+                    </View>
+                  );
+                })}
             </ScrollView>
           </View>
-
 
           <View style={styles.UpcomingtxtContainer}>
             <Text style={styles.txtOneSecondContainer}>Upcoming Classes</Text>
@@ -183,15 +185,13 @@ const Home = () => {
           </View>
 
           <View style={styles.UpcomingcardsParentContainer}>
-            
-            
-             {/* {upcomingClassesData.map((it , index ) => {
+            {/* {upcomingClassesData.map((it , index ) => {
                console.log(it);
                
               return ( */}
 
-              <View style={styles.Upcomingcards} >
-                <View style={styles.cardTxtContainer}>
+            <View style={styles.Upcomingcards}>
+              <View style={styles.cardTxtContainer}>
                 <View
                   style={{
                     backgroundColor: '#094067',
@@ -212,20 +212,18 @@ const Home = () => {
                   Get started in App Development and get selected in MH
                   Fellowsip
                 </Text>
-               </View>
+              </View>
 
-                <View style={styles.UpcomingCardTimeAndNameContainer}>
+              <View style={styles.UpcomingCardTimeAndNameContainer}>
                 <Text style={styles.UpcomingCardName}>
                   <IconS name="user-circle" size={14} color="#094067" />{' '}
                   Priyanshu Joshi
                 </Text>
                 <Text style={styles.UpcomingCardTime}>10 pm - 11 pm</Text>
-               </View>
               </View>
-              {/* )
+            </View>
+            {/* )
              })} */}
-            
-           
           </View>
         </ScrollView>
       </View>
@@ -365,41 +363,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 17,
-    marginTop:4 ,
+    marginTop: 4,
   },
-
-
 
   NameInCard: {
     color: '#FFF',
     fontSize: 13,
     fontWeight: '400',
-    marginLeft:10 ,
+    marginLeft: 10,
   },
 
   InterestedStudentConatiner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-   
+
     alignItems: 'center',
     marginTop: 8,
-    marginLeft:20 ,
-    marginRight:16 ,
-    
+    marginLeft: 20,
+    marginRight: 16,
   },
 
   Interested: {
     color: '#FFF',
     fontSize: 12,
     fontWeight: '500',
-    marginRight:12 ,
+    marginRight: 12,
   },
 
   coins: {
     color: '#FFF',
     fontSize: 12,
     fontWeight: '500',
-   
   },
 
   Upcomingcards: {

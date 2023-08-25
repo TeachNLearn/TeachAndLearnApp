@@ -8,6 +8,7 @@ import Userprofile from '../screens/profile/Userprofile';
 import Forum from '../screens/forum/Forum';
 import LearnCards from '../screens/Search';
 import Classes from '../screens/classroom/Classes';
+import Logout from '../components/profile-components/Logout';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,16 +55,16 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-    {/* <Tab.Screen
+    <Tab.Screen
       name="CreatClass"
-      component={CreateClass}
+      component={Logout}
       options={{
         headerShown: false,
-        tabBarIcon: ({ color, size }) => (
-           <FontAwesom name="plus-circle" color={color} size={size} />
+        tabBarIcon: ({color, size}) => (
+          <FontAwesom name="plus-circle" color={color} size={size} />
         ),
       }}
-    /> */}
+    />
 
     <Tab.Screen
       name="Classes"

@@ -70,6 +70,9 @@ const NavigationScreens = () => {
 const App: React.FC = () => {
   return (
     <AuthContextProvider>
+      {/* <NavigationContainer> */}
+      {/* <TabNavigation /> */}
+      {/* </NavigationContainer> */}
       <NavigationScreens />
     </AuthContextProvider>
   );

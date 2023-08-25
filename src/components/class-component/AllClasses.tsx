@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, ActivityIndicator} from 'react-native';
+import {View, ActivityIndicator, ScrollView, StyleSheet} from 'react-native';
 import {AuthContext} from '../../store/auth-context';
 import {teachingCardProps} from '../../types/teachingCardType';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {DATA_LIMIT} from '../../utils/globalContants';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
+import ClassGrid from './ClassGrid';
 
 const AllClasses = () => {
   const authCtx = useContext(AuthContext);
@@ -20,6 +21,7 @@ const AllClasses = () => {
   const [loaderLoading, setLoaderLoading] = useState(true);
 
   async function fetchAllTeachCards() {
+    console.log('CHECKING');
     setLoaderLoading(true);
     await axios
       .get(`${BASE_URL}${apiVersion}/teach`, {
@@ -53,18 +55,24 @@ const AllClasses = () => {
   }, [userToken]);
 
   return (
-    <View>
-      {
-        isLoading ? (
+    <ScrollView>
+      <View style={styles.container}>
+        {isLoading ? (
           <ActivityIndicator />
         ) : (
-          // teachCards.length != 0 && (
-<Text>Classes</Text>
-          // )
-        )
-      }
-    </View>
+          teachCards.length != 0 && (
+            <ClassGrid teachCards={teachCards} elemType="all classes" />
+          )
+        )}
+      </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 120,
+  },
+});
 
 export default AllClasses;
