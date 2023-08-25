@@ -9,6 +9,8 @@ import InputHolder from '../../components/input/inputHolder';
 import MultipleInput from '../../components/input/multipleInput';
 import ArrChip from '../../components/input/arrChip';
 import Button from '../../components/general-components/button';
+import DateInput from '../../components/input/DateInput';
+import TimeInput from '../../components/input/TImeInput';
 
 interface teachCardDetails {
   subject: string;
@@ -213,6 +215,27 @@ const CreateTeachCard = ({route}: any) => {
             />
           }
           inputDesc="Preferred Language"
+        />
+        <FormField
+          elem={
+            <DateInput
+              label="Date"
+              name="date"
+              updateFields={updateFields}
+              placeholderText="Pick a Date"
+            />
+          }
+          inputDesc="Date"
+        />
+        <FormField
+          elem={
+            <TimeInput
+              name="startingTime"
+              updateFields={updateFields}
+              placeholderText="Pick Starting Time"
+            />
+          }
+          inputDesc="Starting Time"
         />
         <FormField
           elem={
