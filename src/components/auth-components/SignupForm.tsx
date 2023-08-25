@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import InputHolder from "../input/inputHolder";
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import InputHolder from '../input/inputHolder';
 
 interface SignUpData {
   fullName: string;
@@ -25,6 +25,7 @@ const SignupForm = (props: SignupFormProps) => {
         updateFields={props.updateFields}
         // isRequired={true}
         placeholderText="Full Name"
+        showLabel={true}
       />
       <InputHolder
         type="text"
@@ -34,6 +35,7 @@ const SignupForm = (props: SignupFormProps) => {
         updateFields={props.updateFields}
         // isRequired={true}
         placeholderText="Username (publicly visible)"
+        showLabel={true}
       />
       <InputHolder
         type="email"
@@ -43,6 +45,7 @@ const SignupForm = (props: SignupFormProps) => {
         updateFields={props.updateFields}
         // isRequired={true}
         placeholderText="Email"
+        showLabel={true}
       />
       <InputHolder
         type="password"
@@ -52,6 +55,7 @@ const SignupForm = (props: SignupFormProps) => {
         updateFields={props.updateFields}
         // isRequired={true}
         placeholderText="Password"
+        showLabel={true}
       />
       <InputHolder
         type="password"
@@ -61,6 +65,7 @@ const SignupForm = (props: SignupFormProps) => {
         updateFields={props.updateFields}
         // isRequired={true}
         placeholderText="Confirm Password"
+        showLabel={true}
       />
     </View>
   );
@@ -68,8 +73,8 @@ const SignupForm = (props: SignupFormProps) => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     rowGap: 28,
   },
 });

@@ -1,4 +1,5 @@
-export const AppAsyncStorage = 'teachAndlearnToken';
+export const AppAsyncUserStorage = 'teachAndlearnUser';
+
 
 export const DATA_LIMIT = 10;
 

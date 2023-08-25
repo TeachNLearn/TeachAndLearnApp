@@ -11,6 +11,8 @@ interface InputProps {
   hasDropdown?: boolean;
   dropdownData?: string[];
   maxLimit?: number;
+  placeholder: string;
+  showLabel?: boolean;
 }
 
 const MultipleInput = (props: InputProps) => {
@@ -22,12 +24,10 @@ const MultipleInput = (props: InputProps) => {
   };
 
   const keyhandler = (e: any) => {
-    console.log('kfjvnvnk');
-    if (e.nativeEvent.key == 'Enter') {
-      props.arr?.push(props.value);
-      console.log(props.arr);
-      props.updateFields({[props.name]: props.arr, [props.elemName]: ''});
-    }
+    if (props.value == '') return;
+    props.arr?.push(props.value);
+    console.log(props.arr);
+    props.updateFields({[props.name]: props.arr, [props.elemName]: ''});
   };
 
   return (
@@ -35,14 +35,16 @@ const MultipleInput = (props: InputProps) => {
       <TextInput
         style={styles.input}
         value={props.value}
+        placeholder={props.placeholder}
         onChangeText={inputhandler.bind(this, props.elemName)}
         autoCapitalize="none"
         onEndEditing={keyhandler}
+        editable={props.maxLimit ? props.arr.length < props.maxLimit : true}
       />
       <Text style={styles.label}>{props.label}</Text>
-      {props.maxLimit && (
+      {props.showLabel && props.maxLimit && (
         <View>
-          <Text>Max {props.maxLimit}</Text>
+          <Text>*Max {props.maxLimit}</Text>
         </View>
       )}
     </View>
@@ -79,6 +81,11 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingHorizontal: 5,
     transform: [{translateY: -5}],
+  },
+  maxLimit: {
+    color: 'rgba(0, 0, 0, 0.7)',
+    fontSize: 11,
+    textTransform: 'capitalize',
   },
 });
 

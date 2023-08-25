@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../store/auth-context';
 import {forumProps} from '../../types/ForumTypes';
@@ -6,38 +6,33 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {DATA_LIMIT} from '../../utils/globalContants';
+import ForumCard from '../../components/forum-components/forumCard';
 
 const Forum = () => {
   const authCtx = useContext(AuthContext);
-  const [userToken, setUserToken] = useState<string>('');
+  const [userToken, setUserToken] = useState<string>(authCtx.token);
 
   const [forums, setForums] = useState<Array<forumProps>>([]);
-  const [forumPageSet, setForumPageSet] = useState<number>(1);
+  const [forumPageSet, setForumPageSet] = useState<number>(0);
   const [hasMoreData, setHasMoreData] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
 
-  useEffect(() => {
-    if (authCtx) {
-      setUserToken(authCtx.token);
-    }
-  }, [authCtx]);
-
   async function fetchAllForums() {
-    console.log('Checking');
+    console.log('CHECKING');
 
     setLoaderLoading(true);
     await axios
       .get(`${BASE_URL}${apiVersion}/forum`, {
         params: {
-          limit: 10,
-          page: 1,
+          limit: DATA_LIMIT,
+          page: forumPageSet + 1,
         },
         headers: getHeaders(userToken),
       })
       .then(({data}) => {
         const forums = data.data.data;
-        console.log(data);
+        console.log(forums);
         checkMoreData(forums, setHasMoreData);
         setForums(prev => [...prev, ...forums]);
         setIsLoading(false);
@@ -51,18 +46,33 @@ const Forum = () => {
       });
   }
 
-  // useEffect(() => {
-  //   console.log(userToken);
-  //   if (userToken) {
-  //     fetchAllForums();
-  //   }
-  // }, [userToken]);
+  useEffect(() => {
+    console.log(userToken);
+    if (userToken) {
+      fetchAllForums();
+    }
+  }, [userToken]);
 
-  return (
-    <View>
-      <Text>Forum</Text>
+  return !isLoading ? (
+    <View style={styles.container}>
+      {forums &&
+        forums.map((forum, idx) => {
+          return <ForumCard key={idx} userToken={userToken} {...forum} />;
+        })}
     </View>
+  ) : (
+    <ActivityIndicator size={48} color="#094067" />
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 40,
+    marginHorizontal: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 10,
+  },
+});
 
 export default Forum;
