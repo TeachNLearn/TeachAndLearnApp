@@ -10,6 +10,8 @@ import Forum from '../screens/Forum/Forum';
 import LearnCards from '../screens/requests/LearnCards';
 // import Detail from '../screens/Detail';
 import Search from '../screens/Search';
+import LearnCardOverview from '../screens/requests/LearnCardOverview';
+// import LearnCardOverviewNavigator from './LearnCardOverview';
 
 const Tab = createBottomTabNavigator();
 
@@ -67,6 +69,8 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
+    <Tab.Screen name="LearnCardOverview" component={LearnCardOverview}options={{ headerShown: false,  }} />
+    
 
      <Tab.Screen
       name="Search"
@@ -77,6 +81,7 @@ const TabNavigation: React.FC = () => (
            <FontAwesom name="book" color={color} size={size} />
         ),
       }}
+     
     />
 
     <Tab.Screen

@@ -9,6 +9,10 @@ import TabNavigation from '../Navigation/TabNavigation';
 
 import Login from '../screens/auth/Login';
 import Signup from '../screens/auth/Signup';
+// import LearnCardOverviewNavigator from './LearnCardOverview';
+import Home from '../screens/Home';
+import LearnCarOverview from '../screens/requests/LearnCardOverview'
+
 
 
 type RootStackParamList = {
@@ -20,6 +24,8 @@ type RootStackParamList = {
   Hometab: undefined;
   Login: undefined;
   Signup: undefined;
+  LearnCardOverview:undefined ;
+  
 
 };
 
@@ -31,8 +37,9 @@ const StackNavigation = () => {
    
       <Stack.Navigator screenOptions={{headerShown: false,}}>
         <Stack.Screen name="IntroOne" component={IntroOne} />
-        <Stack.Screen name="Hometab" component={TabNavigation} />
-      
+        <Stack.Screen name="Hometab" component={Home} />
+        
+        
         <Stack.Screen name="IntroTwo" component={IntroTwo} />
         <Stack.Screen name="IntroThree" component={IntroThree} />
         <Stack.Screen name="Login" component={Login} />
