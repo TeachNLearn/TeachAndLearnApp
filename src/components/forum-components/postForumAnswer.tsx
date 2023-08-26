@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView, StyleSheet, View, ActivityIndicator } from "react-native";
 
-const postForumAnswer = () => {
+const PostForumAnswer = () => {
   return (
     <View>
         
@@ -9,4 +9,4 @@ const postForumAnswer = () => {
   )
 }
 
-export default postForumAnswer
+export default PostForumAnswer

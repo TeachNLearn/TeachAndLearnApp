@@ -63,7 +63,6 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-
     <Tab.Screen
       name="LearnCards"
       component={LearnCards}
@@ -84,7 +83,6 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-
     <Tab.Screen
       name="Userprofile"
       component={Userprofile}

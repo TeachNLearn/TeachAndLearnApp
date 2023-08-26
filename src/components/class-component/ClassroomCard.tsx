@@ -2,17 +2,14 @@ import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import {AuthContext} from '../../store/auth-context';
-import {userProps} from '../../types/UserTypes';
 import {userDataType} from '../../types/userDataType';
 import UserChip from '../general-components/UserChip';
 import SvgComponent from '../SVGComponents/InterestedSvg';
-import {
-  getReadableDate,
-  getReadableTime,
-  getReadableTime2,
-} from '../../utils/helperFunctions';
-import ArrowIcon from '../SVGComponents/ArrowIcon';
+import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
 import ClassCardBtn from './ClassCardBtn';
+import {checkClassTeacher, checkEnrolledClass} from './classFunctions';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
 interface classCardProps {
   teachCard: teachingCardProps;
@@ -27,9 +24,49 @@ const ClassroomCard = (props: classCardProps) => {
   const [userToken, setuserToken] = useState<string>(authCtx.token);
   const [localUser, setLocalUser] = useState<userDataType>(authCtx.user);
 
+  type RootStackParamList = {
+    ClassOverview: {
+      id: string;
+      elemType: string | undefined;
+      learnCardId: string | undefined;
+    };
+    SingleClassroom: {
+      id: string;
+      elemType: string | undefined;
+      learnCardId: string | undefined;
+    };
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const classNavigator = () => {
+    if (checkClassTeacher(props.teachCard.createdBy._id, localUser._id)) {
+      navigation.navigate('SingleClassroom', {
+        id: props.teachCard._id,
+        elemType: props.elemType,
+        learnCardId: props.learnCardId,
+      });
+    } else {
+      if (checkEnrolledClass(props.teachCard.studentsEnrolled, localUser._id)) {
+        navigation.navigate('SingleClassroom', {
+          id: props.teachCard._id,
+          elemType: props.elemType,
+          learnCardId: props.learnCardId,
+        });
+      } else {
+        navigation.navigate('ClassOverview', {
+          id: props.teachCard._id,
+          elemType: props.elemType,
+          learnCardId: props.learnCardId,
+        });
+      }
+    }
+  };
+
   return (
     props.teachCard && (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={classNavigator}>
         <View>
           <Text style={styles.subject}>{props.teachCard.subject}</Text>
         </View>
@@ -74,7 +111,7 @@ const ClassroomCard = (props: classCardProps) => {
           hasCancelled={props.teachCard.hasCancelled}
           reviews={props.teachCard.reviews}
         />
-      </View>
+      </TouchableOpacity>
     )
   );
 };
