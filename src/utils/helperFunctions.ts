@@ -113,7 +113,7 @@ export async function autoGenerateImage(topic: string) {
   // console.log(process.env.REACT_APP_UNSPASH_ACCESS_KEY);
 
   const res = await axios.get(
-    `https://api.unsplash.com/search/photos?page=1&query=${topic}&client_id=s26KY0b_ODGcUA1jZP4aqy-NPGIYX5qa-z8ZwJg49VU`
+    `https://api.unsplash.com/search/photos?page=1&query=${topic}&client_id=s26KY0b_ODGcUA1jZP4aqy-NPGIYX5qa-z8ZwJg49VU`,
   );
   const randomImg = Math.floor(Math.random() * 10);
   let img = res.data.results[randomImg].urls.full;
@@ -127,3 +127,11 @@ export async function autoGenerateImage(topic: string) {
   }
   return img;
 }
+
+export const getReadableTime2 = (ISOString: string) => {
+  const date = new Date(ISOString);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return String(hours + ':' + minutes);
+};

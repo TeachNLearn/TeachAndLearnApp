@@ -41,7 +41,7 @@ const MultipleInput = (props: InputProps) => {
         onEndEditing={keyhandler}
         editable={props.maxLimit ? props.arr.length < props.maxLimit : true}
       />
-      <Text style={styles.label}>{props.label}</Text>
+      {props.showLabel && <Text style={styles.label}>{props.label}</Text>}
       {props.showLabel && props.maxLimit && (
         <View>
           <Text>*Max {props.maxLimit}</Text>

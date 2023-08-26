@@ -6,7 +6,11 @@ import {userProps} from '../../types/UserTypes';
 import {userDataType} from '../../types/userDataType';
 import UserChip from '../general-components/UserChip';
 import SvgComponent from '../SVGComponents/InterestedSvg';
-import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
+import {
+  getReadableDate,
+  getReadableTime,
+  getReadableTime2,
+} from '../../utils/helperFunctions';
 import ArrowIcon from '../SVGComponents/ArrowIcon';
 import ClassCardBtn from './ClassCardBtn';
 
@@ -22,8 +26,6 @@ const ClassroomCard = (props: classCardProps) => {
 
   const [userToken, setuserToken] = useState<string>(authCtx.token);
   const [localUser, setLocalUser] = useState<userDataType>(authCtx.user);
-
-  
 
   return (
     props.teachCard && (
