@@ -18,7 +18,7 @@ import CoinSvg from '../components/SVGComponents/CoinsSvg';
 import SvgComponent from '../components/SVGComponents/InterestedSvg';
 // import {InterestedIcon} from '../components/SVGComponents/InterestedSvg';
 
-interface PopularCourse {
+interface RecommendedCourse {
   subject: string;
   topic: string;
   interested: number;
@@ -44,15 +44,25 @@ interface UpcomingClass {
   // Add more properties as needed
 }
 
+interface PopularCourse {
+  subject: string;
+  topic: string;
+  interested: number;
+  coins: number;
+  length: number;
+  createdBy: {
+     userName: string;
+     photo: string;
+  }
+  // Add more properties as needed
+}
+
 const Home = () => {
   const [searchText, setSearchText] = useState('');
-  const [popularcourseData, setPopularcourseData] = useState<PopularCourse[]>(
-    [],
-  );
-  const [upcomingClassesData, setupcomingClassesData] = useState<
-    UpcomingClass[]
-  >([]);
-  const {token} = useContext(AuthContext);
+  const [RecommendedcourseData, setRecommendedcourseData] = useState<RecommendedCourse[]>([]);
+  const [upcomingClassesData, setupcomingClassesData] = useState<UpcomingClass[]>([]);
+  const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>([]);
+  const { token } = useContext(AuthContext);
 
   const handleSearch = () => {
     // Perform search action with searchText
@@ -60,42 +70,68 @@ const Home = () => {
   };
 
   const FetchRecommendedClasses = () => {
-    axios
-      .get(`${BASE_URL}${apiVersion}/teach/recommended-classes`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        setPopularcourseData(response.data.stats);
-        //  console.log(response.data.stats);
-      })
-      .catch(error => {
-        console.log('error fetching data', error);
-      });
-  };
+     axios.get(`${BASE_URL}${apiVersion}/teach/recommended-classes`,{
+     headers: {
+        Authorization: `Bearer ${token}`
+      }
+   })
+   .then(response => {
+      setRecommendedcourseData(response.data.stats);
+    //  console.log(response.data.stats);
+     
+     
+     
+   })
+   .catch(error => {
+    console.log("error fetching data", error);
+    
+   }) ;
+  }
+
 
   const UpcomingClasses = () => {
-    axios
-      .get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        setupcomingClassesData(response.data);
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log('error fetching data', error);
-      });
-  };
+     axios.get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`,{
+     headers: {
+        Authorization: `Bearer ${token}`
+      }
+   })
+   .then(response => {
+     setupcomingClassesData(response.data);
+    //  console.log(response.data);
+     
+     
+     
+   })
+   .catch(error => {
+    console.log("error fetching data", error);
+    
+   }) ;
+  }
+  const PopularCourses = () => {
+     axios.get(`${BASE_URL}${apiVersion}/learn/top-requests`,{
+     headers: {
+        Authorization: `Bearer ${token}`
+      }
+   })
+   .then(response => {
+     setPopularCourseData(response.data.stats);
+     console.log(response.data.stats , "Poppuler cards");
+     
+     
+     
+   })
+   .catch(error => {
+    console.log("error fetching data", error);
+    
+   }) ;
+  }
 
   useEffect(() => {
-    FetchRecommendedClasses();
-    UpcomingClasses();
-  }, [token]);
-
+   FetchRecommendedClasses();
+   UpcomingClasses();
+   PopularCourses();
+  }, [token]) ;
+  
   return (
     <View style={styles.HomeParentContainer}>
       <View style={styles.HomeTxtContainer}>
@@ -135,9 +171,15 @@ const Home = () => {
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* Here you can map over your data and generate Learningcards */}
-              {popularcourseData.length > 0 &&
-                popularcourseData.map((item, index) => {
-                  console.log(item);
+              {RecommendedcourseData.length > 0 && RecommendedcourseData.map((item, index) => { 
+                //  console.log(item);
+                
+                    return (
+                <View style={styles.Learningcards} key={index}>
+                  <View style={styles.cardTxtContainer}>
+                    <Text style={styles.cardHead}>{item.subject}</Text>
+                    <Text style={styles.cardDesc}>{item.topic.length > 60 ? `${item.topic.substring(0, 60)}...` : item.topic}</Text>
+                  </View>
 
                   return (
                     <View style={styles.Learningcards} key={index}>
@@ -149,15 +191,20 @@ const Home = () => {
                         </Text>
                       </View>
 
-                      <View style={styles.ImgAndNameContainer}>
-                        <Image
-                          source={{uri: item.createdBy.photo}}
-                          style={{height: 18, width: 18, borderRadius: 50}}
-                        />
-                        <Text style={styles.NameInCard}>
-                          {item.createdBy.userName}
-                        </Text>
-                      </View>
+                  <View style={styles.InterestedStudentConatiner}>
+                   
+                    <Text style={styles.Interested}>
+                       <SvgImg/>
+                       
+                       {"   "} {item.length} interested
+                    </Text>
+                    <Text style={styles.coins}>{item.coins}
+                      <CoinSvg fill='#fff'/>{"     "}
+                   250 coins</Text>
+                  </View>
+                </View>)
+             
+               })}
 
                       <View style={styles.InterestedStudentConatiner}>
                         <Text style={styles.Interested}>
@@ -224,6 +271,50 @@ const Home = () => {
             </View>
             {/* )
              })} */}
+          </View>
+             {/* Popular Request section  */}
+          <View style={styles.txtOneParentContainer}>
+            <Text style={styles.txtOneSecondContainer}>Popular Request</Text>
+            <Text style={styles.txtTwoSecondContainer}>
+              See all <IconS name="arrow-right" size={14} color="#000" />{' '}
+            </Text>
+          </View>
+
+           <View style={styles.LearningcardContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {/* Here you can map over your data and generate Learningcards */}
+              {PopularCourseData.length > 0 && PopularCourseData.map((item, index) => { 
+                //  console.log(item);
+                
+                    return (
+                <View style={[styles.Learningcards ,{backgroundColor:'green'}]} key={index}>
+                  <View style={styles.cardTxtContainer}>
+                    <Text style={styles.cardHead}>{item.subject}</Text>
+                    <Text style={styles.cardDesc}>{item.topic.length > 60 ? `${item.topic.substring(0, 60)}...` : item.topic}</Text>
+                  </View>
+
+                  <View style={styles.ImgAndNameContainer}>
+                    <Image source={{uri:item.createdBy.photo}} style={{height:18 , width:18 , borderRadius:50}}/>
+                    <Text style={styles.NameInCard}>{item.createdBy.userName}</Text>
+                  </View>
+
+                  <View style={styles.InterestedStudentConatiner}>
+                   
+                    <Text style={styles.Interested}>
+                       <SvgImg/>
+                       
+                       {"   "} {item.length} interested
+                    </Text>
+                    <Text style={styles.coins}>{item.coins}
+                      <CoinSvg fill='#fff'/>{"     "}
+                   250 coins</Text>
+                  </View>
+                </View>)
+             
+               })}
+
+             
+            </ScrollView>
           </View>
         </ScrollView>
       </View>
@@ -330,8 +421,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#094067',
     borderRadius: 16,
     marginTop: 30,
-    marginRight: 0, // Space between cards
-    marginLeft: 40, // Space between cards
+    marginRight: 10, // Space between cards
+    marginLeft: 20, // Space between cards
   },
 
   cardHead: {
@@ -351,7 +442,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     padding: 0,
+    lineHeight:28 ,
     margin: 10,
+   
+    
     fontFamily: 'Nunito',
   },
 
@@ -378,9 +472,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
 
     alignItems: 'center',
+<<<<<<< HEAD
     marginTop: 8,
     marginLeft: 20,
     marginRight: 16,
+=======
+    marginTop: 13,
+    marginLeft:20 ,
+    marginRight:16 ,
+    
+>>>>>>> 645c1ec00dada345d856aa1de95d71f268c8ce09
   },
 
   Interested: {

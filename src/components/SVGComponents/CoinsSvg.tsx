@@ -10,7 +10,7 @@ interface SvgComponentProps {
 const CoinsSvg: React.FC<SvgComponentProps> = ({
   width = 14,
   height = 14,
-  fill = "#fff",
+  fill = "#000",
 }) => {
   return (
     <Svg

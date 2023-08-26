@@ -5,6 +5,12 @@ import FontAwesom from 'react-native-vector-icons/FontAwesome5';
 // import FontAwesom6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Userprofile from '../screens/profile/Userprofile';
+// import CreateClass from '../screens/classroom/CreateClass';
+
+// import Detail from '../screens/Detail';
+import Search from '../screens/Search';
+import LearnCardOverview from '../screens/requests/LearnCardOverview';
+
 import Forum from '../screens/forum/Forum';
 import LearnCards from '../screens/Search';
 import Classes from '../screens/classroom/Classes';
@@ -37,7 +43,7 @@ const TabNavigation: React.FC = () => (
       },
       tabBarShowLabel: false,
     }}>
-    <Tab.Screen
+    {/* <Tab.Screen
       name="Home"
       component={Home}
       options={{
@@ -46,7 +52,7 @@ const TabNavigation: React.FC = () => (
           <MaterialIcon name="home" color={color} size={size} />
         ),
       }}
-    />
+    /> */}
     <Tab.Screen
       name="Forum"
       component={Forum}
@@ -57,9 +63,10 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
+
     <Tab.Screen
-      name="CreatClass"
-      component={CreateTeachCard}
+      name="LearnCards"
+      component={LearnCards}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (
@@ -67,7 +74,6 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-
     <Tab.Screen
       name="Classes"
       component={Classes}

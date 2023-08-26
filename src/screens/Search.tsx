@@ -16,9 +16,10 @@ import Classes from '../components/SearchComponent/Classes';
 import Requests from '../components/SearchComponent/Requests';
 import UserClasses from '../components/SearchComponent/UserClasses';
 
+
 const Tab = createMaterialTopTabNavigator();
 
-const LearnCards: React.FC = () => {
+const Search: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const navigation = useNavigation();
   const [activeSection, setActiveSection] = useState<
@@ -63,8 +64,14 @@ const LearnCards: React.FC = () => {
               fontSize: 18,
               fontWeight: '600',
               letterSpacing: 0.36,
-            }}>
-            Learn Cards
+
+            }}
+          >
+            Search
+
+            {/* }}>
+            Learn Cards */}
+
           </Text>
           <Ionican name="ellipsis-vertical-sharp" size={20} color="#000000" />
         </View>
@@ -183,4 +190,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LearnCards;
+export default Search;
