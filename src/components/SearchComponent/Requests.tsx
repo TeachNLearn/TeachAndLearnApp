@@ -3,6 +3,8 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconS from 'react-native-vector-icons/FontAwesome5';
 import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
+import InterestedSvgImg from '../SVGComponents/InterestedSvg' ;
+import CoinSvgImg from '../SVGComponents/CoinsSvg' ;
 
 const Requests = () => {
   return (
@@ -22,8 +24,8 @@ const Requests = () => {
             </View>
 
             <View style={styles.InterestedStudentConatiner}>
-            <Text style={styles.Interested}><IconS name="bolt" size={14} color="#FFD465"/> 22 interested</Text>
-            <Text style={styles.coins}>icon 220 coins</Text>
+            <Text style={styles.Interested}><InterestedSvgImg/> 22 interested</Text>
+            <Text style={styles.coins}><CoinSvgImg/> 220 coins</Text>
             </View>
 
          
@@ -40,8 +42,8 @@ const Requests = () => {
             </View>
 
             <View style={styles.InterestedStudentConatiner}>
-            <Text style={styles.Interested}><IconS name="bolt" size={14} color="#FFD465"/> 22 interested</Text>
-            <Text style={styles.coins}>icon 220 coins</Text>
+            <Text style={styles.Interested}><InterestedSvgImg/> 22 interested</Text>
+            <Text style={styles.coins}><CoinSvgImg/> 220 coins</Text>
             </View>
         </View>
         <View style={styles.Learningcards}>

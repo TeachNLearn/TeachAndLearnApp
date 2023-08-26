@@ -5,9 +5,18 @@ import FontAwesom from 'react-native-vector-icons/FontAwesome5';
 // import FontAwesom6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Userprofile from '../screens/profile/Userprofile';
+;
+// import CreateClass from '../screens/classroom/CreateClass';
+
+// import Detail from '../screens/Detail';
+import Search from '../screens/Search';
+import LearnCardOverview from '../screens/requests/LearnCardOverview';
+// import LearnCardOverviewNavigator from './LearnCardOverview';
+
 import Forum from '../screens/forum/Forum';
 import LearnCards from '../screens/Search';
 import Classes from '../screens/classroom/Classes';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -54,26 +63,37 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-    {/* <Tab.Screen
-      name="CreatClass"
-      component={CreateClass}
+
+    
+
+     <Tab.Screen
+      name="LearnCards"
+      component={LearnCards}
+
       options={{
         headerShown: false,
         tabBarIcon: ({ color, size }) => (
            <FontAwesom name="plus-circle" color={color} size={size} />
         ),
       }}
-    /> */}
+
+    />
+    <Tab.Screen name="LearnCardOverview" component={LearnCardOverview}options={{ headerShown: false,  }} />
+    
+
+    
 
     <Tab.Screen
       name="Classes"
       component={Classes}
+
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (
           <FontAwesom name="book" color={color} size={size} />
         ),
       }}
+     
     />
 
     <Tab.Screen
