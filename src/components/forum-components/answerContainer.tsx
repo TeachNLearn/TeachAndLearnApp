@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import moment from "moment";
 import { answerProps } from "../../types/ForumTypes";
 
+
 interface answersProps {
   answer: answerProps;
 }

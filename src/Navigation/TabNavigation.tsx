@@ -13,7 +13,7 @@ import Search from '../screens/Search';
 import LearnCardOverview from '../screens/requests/LearnCardOverview';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
 
-import Forum from '../screens/forum/Forum';
+import Forum from '../screens/Forum/Forum';
 import LearnCards from '../screens/Search';
 import Classes from '../screens/classroom/Classes';
 
