@@ -1,22 +1,14 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import IconS from 'react-native-vector-icons/FontAwesome5';
-import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../utils/apiRoutes';
 import {AuthContext} from '../store/auth-context';
-import CoinSvg from '../components/SVGComponents/CoinsSvg';
+import RecommendedCards from '../components/HomeScreenComponent/RecommendedCards';
+import UpcomingCards from '../components/HomeScreenComponent/UpcomingCards';
+import PopularRequest from '../components/HomeScreenComponent/PopularRequest';
+import HomeCardsHeader from '../components/HomeScreenComponent/HomeCardsHeader';
+import SearchComponent from '../components/HomeScreenComponent/SearchComponent';
 import SvgComponent from '../components/SVGComponents/InterestedSvg';
-// import {InterestedIcon} from '../components/SVGComponents/InterestedSvg';
 
 interface RecommendedCourse {
   subject: string;
@@ -134,194 +126,41 @@ const Home = () => {
         <Text style={styles.txtOne}>Hello Rahul 👋</Text>
         <Text style={styles.txtTwo}>What do you want to learn today?</Text>
       </View>
-
-      <View
-        style={{flexDirection: 'row', alignItems: 'center', marginBottom: 40}}>
-        <View style={styles.searchContainer}>
-          <TouchableOpacity style={styles.submitButton} onPress={handleSearch}>
-            <Icon name="search" size={24} color="white" />
-          </TouchableOpacity>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search"
-            placeholderTextColor="rgba(255, 255, 255, 0.5)"
-            value={searchText}
-            onChangeText={setSearchText}
-          />
-        </View>
-
-        <View style={styles.searchBtnContainer}>
-          <IconSe name="arrow-top-right" size={24} color="#000" />
-        </View>
-      </View>
+      <SearchComponent
+        searchText={searchText}
+        onSearchPress={handleSearch}
+        onSearchTextChange={setSearchText}
+      />
 
       <View style={styles.SecondParentContainer}>
         <ScrollView style={{marginBottom: 80, marginTop: 40}}>
-          <View style={styles.txtOneParentContainer}>
-            <Text style={styles.txtOneSecondContainer}>Popular Courses</Text>
-            <Text style={styles.txtTwoSecondContainer}>
-              See all <IconS name="arrow-right" size={14} color="#000" />{' '}
-            </Text>
-          </View>
-          {/* From here I want to add map method for dynamic Learn card I want the data that is coming from APi  */}
+          <HomeCardsHeader title="Popular Course" onViewAllPress={() => {}} />
+          {/* Recommended Courses cards */}
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {/* Here you can map over your data and generate Learningcards */}
+              {/* Here you can map over your data and generate Recommended cards */}
               {RecommendedcourseData.length > 0 &&
-                RecommendedcourseData.map((item, index) => {
-                  return (
-                    <View style={styles.Learningcards} key={index}>
-                      <View style={styles.cardTxtContainer}>
-                        <Text style={styles.cardHead}>{item.subject}</Text>
-                        <Text style={styles.cardDesc}>
-                          {item.topic.length > 60
-                            ? `${item.topic.substring(0, 60)}...`
-                            : item.topic}
-                        </Text>
-                      </View>
-
-                      <View style={styles.Learningcards} key={index}>
-                        <View style={styles.cardTxtContainer}>
-                          <Text style={styles.cardHead}>{item.subject}</Text>
-                          <Text style={styles.cardDesc}>
-                            {item.topic} Get started in Web Development and get
-                            selected in MH Fellowsip
-                          </Text>
-                        </View>
-
-                        <View style={styles.InterestedStudentConatiner}>
-                          <Text style={styles.Interested}>
-                            <SvgComponent />
-                            {'   '} {item.length} interested
-                          </Text>
-                          <Text style={styles.coins}>
-                            {item.coins}
-                            <CoinSvg fill="#fff" />
-                            {'     '}
-                            250 coins
-                          </Text>
-                        </View>
-                      </View>
-
-                      <View style={styles.InterestedStudentConatiner}>
-                        <Text style={styles.Interested}>
-                          <SvgComponent />
-                          {'   '} {item.length} interested
-                        </Text>
-                        <Text style={styles.coins}>
-                          {item.coins}
-                          <CoinSvg />
-                          {'     '}
-                          250 coins
-                        </Text>
-                      </View>
-                    </View>
-                  );
-                })}
+                RecommendedcourseData.map((item, index) => (
+                  <RecommendedCards item={item} key={index} />
+                ))}
             </ScrollView>
           </View>
 
-          <View style={styles.UpcomingtxtContainer}>
-            <Text style={styles.txtOneSecondContainer}>Upcoming Classes</Text>
-            <Text style={styles.txtTwoSecondContainer}>
-              See all <IconS name="arrow-right" size={14} color="#000" />{' '}
-            </Text>
-          </View>
-
+          <HomeCardsHeader title="Upcoming Classes" onViewAllPress={() => {}} />
           <View style={styles.UpcomingcardsParentContainer}>
-            {/* {upcomingClassesData.map((it , index ) => {
-               console.log(it);
-               
-              return ( */}
-
-            <View style={styles.Upcomingcards}>
-              <View style={styles.cardTxtContainer}>
-                <View
-                  style={{
-                    backgroundColor: '#094067',
-                    width: '100%',
-                    padding: 10,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: 20,
-                    borderRadius: 30,
-                  }}>
-                  <Text style={styles.UpcomingCardDate}>
-                    <IconS name="calendar-week" size={14} color="#FFF" />{' '}
-                    10-8-2023
-                  </Text>
-                </View>
-
-                <Text style={styles.UpComingCardDesc}>
-                  Get started in App Development and get selected in MH
-                  Fellowsip
-                </Text>
-              </View>
-
-              <View style={styles.UpcomingCardTimeAndNameContainer}>
-                <Text style={styles.UpcomingCardName}>
-                  <IconS name="user-circle" size={14} color="#094067" />{' '}
-                  Priyanshu Joshi
-                </Text>
-                <Text style={styles.UpcomingCardTime}>10 pm - 11 pm</Text>
-              </View>
-            </View>
-            {/* )
-             })} */}
+            <UpcomingCards />
           </View>
+
           {/* Popular Request section  */}
-          <View style={styles.txtOneParentContainer}>
-            <Text style={styles.txtOneSecondContainer}>Popular Request</Text>
-            <Text style={styles.txtTwoSecondContainer}>
-              See all <IconS name="arrow-right" size={14} color="#000" />{' '}
-            </Text>
-          </View>
-
+          <HomeCardsHeader title="Popular Request" onViewAllPress={() => {}} />
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {/* Here you can map over your data and generate Learningcards */}
+              {/* Here you can map over Popular cards*/}
               {PopularCourseData.length > 0 &&
-                PopularCourseData.map((item, index) => {
+                PopularCourseData.map((item, index) => (
                   //  console.log(item);
-
-                  return (
-                    <View
-                      style={[styles.Learningcards, {backgroundColor: 'green'}]}
-                      key={index}>
-                      <View style={styles.cardTxtContainer}>
-                        <Text style={styles.cardHead}>{item.subject}</Text>
-                        <Text style={styles.cardDesc}>
-                          {item.topic.length > 60
-                            ? `${item.topic.substring(0, 60)}...`
-                            : item.topic}
-                        </Text>
-                      </View>
-
-                      <View style={styles.ImgAndNameContainer}>
-                        <Image
-                          source={{uri: item.createdBy.photo}}
-                          style={{height: 18, width: 18, borderRadius: 50}}
-                        />
-                        <Text style={styles.NameInCard}>
-                          {item.createdBy.userName}
-                        </Text>
-                      </View>
-
-                      <View style={styles.InterestedStudentConatiner}>
-                        <Text style={styles.Interested}>
-                          <SvgComponent />
-                          {'   '} {item.length} interested
-                        </Text>
-                        <Text style={styles.coins}>
-                          {item.coins}
-                          <CoinSvg fill="#fff" />
-                          {'     '}
-                          250 coins
-                        </Text>
-                      </View>
-                    </View>
-                  );
-                })}
+                  <PopularRequest item={item} key={index} />
+                ))}
             </ScrollView>
           </View>
         </ScrollView>
@@ -340,7 +179,6 @@ const styles = StyleSheet.create({
     // alignItems:'center',
     margin: 25,
   },
-
   txtOne: {
     fontSize: 16,
     fontWeight: '600',
@@ -355,200 +193,27 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontFamily: 'Nunito',
   },
-
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.10)',
-    margin: 20,
-
-    width: '70%',
-  },
-  searchInput: {
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    color: 'white',
-  },
-  submitButton: {
-    padding: 10,
-  },
-
-  searchBtnContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFF',
-    borderRadius: 8,
-    width: 50,
-    height: 50,
-  },
-
   SecondParentContainer: {
     flex: 1,
     backgroundColor: '#FFF',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
-
-  txtOneParentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  UpcomingcardsParentContainer: {
+    flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 20,
+    justifyContent: 'center',
   },
-
   UpcomingtxtContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: 10,
   },
-
-  txtOneSecondContainer: {
-    margin: 10,
-    fontSize: 24,
-    color: '#000',
-    fontWeight: '700',
-  },
-
-  txtTwoSecondContainer: {
-    margin: 10,
-    fontSize: 16,
-    color: '#000',
-    fontWeight: '600',
-  },
   LearningcardContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  Learningcards: {
-    width: 260,
-    height: 200,
-    backgroundColor: '#094067',
-    borderRadius: 16,
-    marginTop: 30,
-    marginRight: 10, // Space between cards
-    marginLeft: 20, // Space between cards
-  },
-
-  cardHead: {
-    color: '#FFF',
-    fontSize: 10,
-    fontWeight: '500',
-    textTransform: 'uppercase',
-    letterSpacing: 0.2,
-    // margin:10 ,
-    marginTop: 20,
-    marginLeft: 10,
-    fontFamily: 'Nunito',
-  },
-
-  cardDesc: {
-    color: '#FFF',
-    fontSize: 18,
-    fontWeight: '700',
-    padding: 0,
-    lineHeight: 28,
-    margin: 10,
-
-    fontFamily: 'Nunito',
-  },
-
-  cardTxtContainer: {
-    marginLeft: 10,
-  },
-
-  ImgAndNameContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 17,
-    marginTop: 4,
-  },
-
-  NameInCard: {
-    color: '#FFF',
-    fontSize: 13,
-    fontWeight: '400',
-    marginLeft: 10,
-  },
-
-  InterestedStudentConatiner: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-
-    alignItems: 'center',
-    marginTop: 13,
-    marginLeft: 20,
-    marginRight: 16,
-  },
-
-  Interested: {
-    color: '#FFF',
-    fontSize: 12,
-    fontWeight: '500',
-    marginRight: 12,
-  },
-
-  coins: {
-    color: '#FFF',
-    fontSize: 12,
-    fontWeight: '500',
-  },
-
-  Upcomingcards: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 320,
-    height: 190,
-    backgroundColor: '#D8EEFE',
-    borderRadius: 16,
-    marginTop: 13,
-    marginBottom: 10,
-    paddingRight: 30,
-    paddingTop: 10,
-  },
-
-  UpcomingcardsParentContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  UpcomingCardTimeAndNameContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 20,
-  },
-
-  UpComingCardDesc: {
-    color: '#000',
-    fontWeight: '700',
-    fontSize: 18,
-    fontFamily: 'Nunito',
-  },
-
-  UpcomingCardDate: {
-    color: '#FFF',
-    fontWeight: '600',
-    fontSize: 16,
-    fontFamily: 'Nunito',
-  },
-
-  UpcomingCardName: {
-    marginRight: 20,
-    // fontSize:15 ,
-    color: '#000',
-    fontWeight: '500',
-    fontFamily: 'Nunito',
-  },
-  UpcomingCardTime: {
-    marginLeft: 20,
-    //  fontSize:10 ,
-    color: '#000',
-    fontWeight: '500',
-    fontFamily: 'Nunito',
   },
 });
 

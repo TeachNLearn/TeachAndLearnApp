@@ -21,7 +21,7 @@ const UserChip = (props: userChipProps) => {
   return (
     <View style={styles.container}>
       <Image
-        style={[styles.image, {backgroundColor: props.imgBorder}]}
+        style={[styles.image, {borderColor: props.imgBorder}]}
         source={{uri: props.photo}}
       />
       <Text
