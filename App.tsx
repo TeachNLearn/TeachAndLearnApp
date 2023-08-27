@@ -9,7 +9,7 @@ import {AppAsyncUserStorage} from './src/utils/globalContants';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ForumOverview from './src/components/forum-components/ForumOverview';
 import Login from './src/screens/auth/Login';
-
+import LearnCardOverview from './src/screens/requests/LearnCardOverview';
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
 
@@ -62,6 +62,7 @@ const NavigationScreens = () => {
         />
         <Stack.Screen name="ForumOverview" component={ForumOverview} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="LearnCardOverview" component={LearnCardOverview} />
       </Stack.Navigator>
     </NavigationContainer>
   );

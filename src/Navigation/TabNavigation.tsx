@@ -13,8 +13,9 @@ import Search from '../screens/Search';
 import LearnCardOverview from '../screens/requests/LearnCardOverview';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
 
-import Forum from '../screens/forum/Forum';
-import LearnCards from '../screens/Search';
+import Forum from '../screens/Forum/Forum';
+// import LearnCards from '../screens/Search';
+import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';
 
 
@@ -78,7 +79,7 @@ const TabNavigation: React.FC = () => (
       }}
 
     />
-    <Tab.Screen name="LearnCardOverview" component={LearnCardOverview}options={{ headerShown: false,  }} />
+    {/* <Tab.Screen name="LearnCardOverview" component={LearnCardOverview}options={{ headerShown: false,  }} /> */}
     
 
     
