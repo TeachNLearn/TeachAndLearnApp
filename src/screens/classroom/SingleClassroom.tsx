@@ -5,6 +5,9 @@ import {AuthContext} from '../../store/auth-context';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
+import Overview from '../../components/class-component/signleClass-components/Overview';
+import AllAnnouncements from '../../components/class-component/signleClass-components/AllAnnouncements';
+import Participants from '../../components/class-component/signleClass-components/Participants';
 
 const SingleClassroom = ({route}: any) => {
   const authCtx = useContext(AuthContext);
@@ -66,13 +69,46 @@ const SingleClassroom = ({route}: any) => {
 
   const [element, setElement] = useState<ReactElement>();
 
-  // useEffect(() => {
-  //   if (classroom) {
-  //     setElement(
-  //       <Overview {...classroom} userId={userId} userToken={userToken} />
-  //     );
-  //   }
-  // }, [classroom]);
+  useEffect(() => {
+    if (classroom) {
+      setElement(
+        <Overview {...classroom} userId={userId} userToken={userToken} />,
+      );
+    }
+  }, [classroom]);
+
+  useEffect(() => {
+    if (classroom) {
+      if (activeLink == 'overview') {
+        setElement(
+          <Overview {...classroom} userId={userId} userToken={userToken} />,
+        );
+      } else if (activeLink == 'classroom') {
+        setElement(
+          <AllAnnouncements
+          // callLink={classroom.callLink}
+          // cardBanner={classroom.cardBanner}
+          // topic={classroom.topic}
+          // isTeacher={checkTeacher(userId, classroom.createdBy._id)}
+          // teachCardId={classroom._id}
+          // userToken={userToken}
+          // classElemType={classElemType}
+          />,
+        );
+      } else if (activeLink == 'people') {
+        setElement(
+          <Participants
+          // cardBanner={classroom.cardBanner}
+          // createdBy={classroom.createdBy}
+          // studentsEnrolled={classroom.studentsEnrolled}
+          // topic={classroom.topic}
+          // localUserId={userId}
+          />,
+        );
+      }
+    } else {
+    }
+  }, [activeLink]);
 
   const handleSectionChange = (
     section: 'overview' | 'classroom' | 'people',

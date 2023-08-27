@@ -14,6 +14,7 @@ import ClassBanner from '../../components/class-component/ClassBanner';
 import UserChip from '../../components/general-components/UserChip';
 import CardDescription from '../../components/LearnCardsComponent/CardDescription';
 import Tagbox from '../../components/LearnCardsComponent/Tagbox';
+import CardTopic from '../../components/LearnCardsComponent/CardTopic';
 
 const ClassOverview = ({route}: any) => {
   const authCtx = useContext(AuthContext);
@@ -93,16 +94,7 @@ const ClassOverview = ({route}: any) => {
     teachCard && (
       <View>
         <ClassBanner image={teachCard.cardBanner} />
-        <Text
-          style={{
-            color: '#000',
-            fontFamily: 'Nunito',
-            fontSize: 22,
-            fontWeight: '700',
-            lineHeight: 30,
-          }}>
-          {teachCard.topic}
-        </Text>
+        <CardTopic topic={teachCard.topic} />
         <View>
           <UserChip
             name={teachCard.createdBy.name}

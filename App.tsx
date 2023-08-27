@@ -72,12 +72,11 @@ const NavigationScreens = () => {
         <Stack.Screen name="CreateForum" component={CreateForum} />
         <Stack.Screen name="CreateForumAnswer" component={PostForumAnswer} />
         <Stack.Screen name="LearnCardOverview" component={LearnCardOverview} />
+        <Stack.Screen name="CreateLearnCard" component={CreateLearnCard} />
         <Stack.Screen name="ClassOverview" component={ClassOverview} />
         <Stack.Screen name="SingleClassroom" component={SingleClassroom} />
-        <Stack.Screen name="CreateLearnCard" component={CreateLearnCard} />
         <Stack.Screen name="CreateTeachCard" component={CreateTeachCard} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="LearnCardOverview" component={LearnCardOverview} />
       </Stack.Navigator>
     </NavigationContainer>
   );

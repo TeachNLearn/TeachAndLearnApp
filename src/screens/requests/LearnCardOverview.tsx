@@ -14,6 +14,7 @@ import InterestedButton from '../../components/LearnCardsComponent/InterestedBut
 import UserChip from '../../components/general-components/UserChip';
 import CardDescription from '../../components/LearnCardsComponent/CardDescription';
 import DueDate from '../../components/LearnCardsComponent/DueDate';
+import CardTopic from '../../components/LearnCardsComponent/CardTopic';
 
 const LearnCardOverview = ({route}: any) => {
   const authCtx = useContext(AuthContext);
@@ -98,16 +99,7 @@ const LearnCardOverview = ({route}: any) => {
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.OverviewContainer}>
             <View style={{margin: 30}}>
-              <Text
-                style={{
-                  color: '#000',
-                  fontFamily: 'Nunito',
-                  fontSize: 22,
-                  fontWeight: '700',
-                  lineHeight: 30,
-                }}>
-                {learnCard.topic}
-              </Text>
+              <CardTopic topic={learnCard.topic} />
               <DueDate dueDate={learnCard.dueDate} />
               <View
                 style={{
