@@ -40,7 +40,7 @@ const Forum = () => {
         setForumPageSet(prev => prev + 1);
       })
       .catch(data => {
-        console.log(data);
+        console.log(Object.values(data));
         setIsLoading(false);
         setLoaderLoading(false);
       });

@@ -43,7 +43,7 @@ const TabNavigation: React.FC = () => (
       },
       tabBarShowLabel: false,
     }}>
-    {/* <Tab.Screen
+    <Tab.Screen
       name="Home"
       component={Home}
       options={{
@@ -52,7 +52,7 @@ const TabNavigation: React.FC = () => (
           <MaterialIcon name="home" color={color} size={size} />
         ),
       }}
-    /> */}
+    />
     <Tab.Screen
       name="Forum"
       component={Forum}

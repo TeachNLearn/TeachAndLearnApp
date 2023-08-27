@@ -4,6 +4,7 @@ import {DATA_LIMIT, months} from './globalContants';
 export const getHeaders = (token: string) => {
   return {
     Authorization: `Bearer ${token}`,
+    'Content-type': 'application/json',
   };
 };
 

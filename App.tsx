@@ -31,6 +31,7 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       const storedUserData = await AsyncStorage.getItem(AppAsyncUserStorage);
+      console.log(storedUserData);
 
       if (storedUserData) {
         const parsedData = JSON.parse(storedUserData);
