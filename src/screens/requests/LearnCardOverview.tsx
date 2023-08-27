@@ -91,7 +91,7 @@ const LearnCardOverview = () => {
            
             <View style={{margin:30, }}>
                 <Text style={{color:'#000' , fontFamily:'Nunito' , fontSize:22 , fontWeight:'700' ,lineHeight:30 , }}>Web Development Essentials - Crash Course from scratch</Text>
-               <View style={{backgroundColor:'#094067' , padding:20 , width:'50%' , alignItems:'center' , marginTop:20 ,borderRadius:10}}>
+               <View style={{backgroundColor:'#094067' , padding:12 , width:'40%' , alignItems:'center' , marginTop:20 ,borderRadius:50}}>
                  <Text style={{color:'#FFF' , fontSize:15 , fontWeight:'600' , fontFamily:'Nunito' , }}>Due By- 24 Aug</Text>
                </View>
                <View style={{flexDirection:'row' , justifyContent:'space-between' , alignItems:'center' ,marginTop:20 ,}}>
@@ -106,7 +106,7 @@ const LearnCardOverview = () => {
               
             </View>
             <Text style={{marginTop:20 ,color:'#000' , fontFamily:'Nunito'}}>For:-B.tech | 4th Year</Text>
-            <Text style={{marginTop:20 ,color:'#000' ,fontFamily:'Nunito' , fontWeight:'400' , fontSize:16 }}>Lorem Lorem30 ipsum dolor sit amet consectetur adipisicing elit. Adipisci voluptas illum vel provident. Facilis repudiandae modi tempora illum accusantium molestiae animi. Dolor quam, repudiandae vitae veritatis maiores tenetur. Ipsa, ratione.</Text>
+            <Text style={{marginTop:20 ,color:'#000' ,fontFamily:'Nunito' , fontWeight:'400' , fontSize:16 , lineHeight:27 , }}>Lorem Lorem30 ipsum dolor sit amet consectetur adipisicing elit. Adipisci voluptas illum vel provident. Facilis repudiandae modi tempora illum accusantium molestiae animi. Dolor quam, repudiandae vitae veritatis maiores tenetur. Ipsa, ratione.</Text>
 
             <View style={{marginTop:20}}>
               <View style={{backgroundColor:'#ef4565' , padding:16 , width:'40%' , alignItems:'center' , borderRadius:10 , marginBottom:10 ,}}>
@@ -116,7 +116,7 @@ const LearnCardOverview = () => {
                 <Text style={{color:'#FFF' , fontWeight:'700' , fontSize:16 ,letterSpacing:1 ,}}>CardId :- ijisjdij23i3jijs</Text>
               </View>
               
-                <View style={{flexDirection:'row' , flexWrap:'wrap' , marginTop:20 , marginBottom:90 ,}} >
+                <View style={{flexDirection:'row' , flexWrap:'wrap' , marginTop:20 , marginBottom:90 , alignItems:'center'}} >
                   <Text style={{flex:1 , flexWrap:'wrap',borderColor:'#000' , borderWidth:1 , padding:10 ,color:'#000' , width:'20%' , textAlign:'center' , fontFamily:'Nunito' , fontWeight:'500' ,height:40,fontSize:16 , marginRight:10, borderRadius:10 ,}} >
                     HTML
                   </Text>
