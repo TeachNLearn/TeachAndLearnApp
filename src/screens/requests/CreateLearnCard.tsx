@@ -1,20 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, {useState, useContext, useEffect} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
-  TextInput,
+  Text,
+  TouchableOpacity,
   View,
-} from "react-native";
-import InputHolder from "../../components/input/inputHolder";
-import { AuthContext } from "../../store/auth-context";
-import { getHeaders } from "../../utils/helperFunctions";
-import { BASE_URL, apiVersion } from "../../utils/apiRoutes";
-import axios from "axios";
-import FormField from "../../components/general-components/FormField";
-import MultipleInput from "../../components/input/multipleInput";
-import Button from "../../components/general-components/button";
-import ArrChip from "../../components/input/arrChip";
+} from 'react-native';
+import InputHolder from '../../components/input/inputHolder';
+import {AuthContext} from '../../store/auth-context';
+import {getHeaders, getReadableDate} from '../../utils/helperFunctions';
+import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
+import axios from 'axios';
+import FormField from '../../components/general-components/FormField';
+import MultipleInput from '../../components/input/multipleInput';
+import Button from '../../components/general-components/button';
+import ArrChip from '../../components/input/arrChip';
+import DatePicker from 'react-native-date-picker';
+import DateInput from '../../components/input/DateInput';
 
 interface learnCardDetails {
   subject: string;
@@ -23,23 +26,21 @@ interface learnCardDetails {
   standard: string;
   preferredLanguage: string;
   description: string;
-  expectation: string;
   tag: string;
   tags: string[];
   dueDate: string;
 }
 
 const initialData: learnCardDetails = {
-  subject: "",
-  topic: "",
-  programme: "",
-  standard: "",
-  preferredLanguage: "",
-  description: "",
-  expectation: "",
-  tag: "",
+  subject: '',
+  topic: '',
+  programme: '',
+  standard: '',
+  preferredLanguage: '',
+  description: '',
+  tag: '',
   tags: [],
-  dueDate: "",
+  dueDate: '',
 };
 
 const CreateLearnCard = () => {
@@ -50,8 +51,8 @@ const CreateLearnCard = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   function updateFields(fields: Partial<learnCardDetails>) {
-    setLearnCard((prev) => {
-      return { ...prev, ...fields };
+    setLearnCard(prev => {
+      return {...prev, ...fields};
     });
   }
 
@@ -75,15 +76,15 @@ const CreateLearnCard = () => {
         },
         {
           headers: getHeaders(userToken),
-        }
+        },
       )
-      .then(({ data }) => {
+      .then(({data}) => {
         console.log(data);
         setLearnCard(initialData);
         setIsLoading(false);
         //   navigate("/requests");
       })
-      .catch((data) => {
+      .catch(data => {
         setIsLoading(false);
         console.log(data);
 
@@ -93,21 +94,6 @@ const CreateLearnCard = () => {
         //   });
       });
     // }
-  };
-
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState<string>("date");
-  const [show, setShow] = useState(false);
-
-  const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate;
-    setShow(false);
-    setDate(currentDate);
-  };
-
-  const showMode = (currentMode: any) => {
-    setShow(true);
-    setMode(currentMode);
   };
 
   return (
@@ -187,13 +173,17 @@ const CreateLearnCard = () => {
           }
           inputDesc="Preferred Language"
         />
-        {/* <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={"date"}
-          is24Hour={true}
-          onChange={onChange}
-        /> */}
+        <FormField
+          elem={
+            <DateInput
+              label="Due Date"
+              name="dueDate"
+              updateFields={updateFields}
+              placeholderText="Pick a Due Date"
+            />
+          }
+          inputDesc="Due Date"
+        />
         <FormField
           elem={
             <InputHolder
@@ -234,7 +224,11 @@ const CreateLearnCard = () => {
           inputDesc="Tags to add"
         />
         <Button onPress={learnCardHandler}>
-          {isLoading ? <ActivityIndicator size={24} color="white"    /> : "Create Learn Card"}
+          {isLoading ? (
+            <ActivityIndicator size={24} color="white" />
+          ) : (
+            'Create Learn Card'
+          )}
         </Button>
       </View>
     </ScrollView>
@@ -243,10 +237,10 @@ const CreateLearnCard = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingTop: 40,
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     rowGap: 24,
     paddingHorizontal: 10,
     paddingBottom: 90,

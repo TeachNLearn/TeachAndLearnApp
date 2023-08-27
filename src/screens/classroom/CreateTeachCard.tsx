@@ -1,5 +1,11 @@
 import React, {useContext, useState} from 'react';
-import {ActivityIndicator, StyleSheet, View, ScrollView} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {autoGenerateImage, getHeaders} from '../../utils/helperFunctions';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
@@ -9,6 +15,8 @@ import InputHolder from '../../components/input/inputHolder';
 import MultipleInput from '../../components/input/multipleInput';
 import ArrChip from '../../components/input/arrChip';
 import Button from '../../components/general-components/button';
+import DateInput from '../../components/input/DateInput';
+import TimeInput from '../../components/input/TimeInput';
 
 interface teachCardDetails {
   subject: string;
@@ -79,7 +87,7 @@ const CreateTeachCard = ({route}: any) => {
           standard: teachCard.standard,
           date: teachCard.date,
           preferredLanguage: teachCard.preferredLanguage,
-          // cardBanner: img,
+          cardBanner: img,
           classStartsAt: teachCard.startingTime,
           classEndsAt: teachCard.endingTime,
           description: teachCard.description,
@@ -140,126 +148,159 @@ const CreateTeachCard = ({route}: any) => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <FormField
-          elem={
-            <InputHolder
-              type="text"
-              label="Subject"
-              value={teachCard.subject}
-              name="subject"
-              updateFields={updateFields}
-              // hasDropdown={true}
-              // dropdownData={subjects}
-              placeholderText="Physics, English, Botany, Accounts. etc."
-            />
-          }
-          inputDesc="Subject"
-        />
-        <FormField
-          elem={
-            <InputHolder
-              label="Topic"
-              value={teachCard.topic}
-              name="topic"
-              updateFields={updateFields}
-              type="text"
-              textareaLines={4}
-              isTextarea={true}
-              placeholderText="Pythagoras’ Theorem, World War 2, Balance Sheet, Leibniz Rule, etc."
-            />
-          }
-          inputDesc="Topic"
-        />
-        <FormField
-          elem={
-            <InputHolder
-              type="text"
-              label="Course/Exam/Board/Programme"
-              value={teachCard.programme}
-              name="programme"
-              updateFields={updateFields}
-              placeholderText="I.C.S.E, B.Tech, NEET, UPSC, etc."
-            />
-          }
-          inputDesc="Course/Exam/Board/Programme"
-        />
-        <FormField
-          elem={
-            <InputHolder
-              type="text"
-              label="Standard"
-              value={teachCard.standard}
-              name="standard"
-              updateFields={updateFields}
-              // hasDropdown={true}
-              // dropdownData={standard}
-              placeholderText="10th class/2nd year etc (optional)"
-            />
-          }
-          inputDesc="Standard/Year"
-        />
-        <FormField
-          elem={
-            <InputHolder
-              type="text"
-              label="Preferred Language"
-              value={teachCard.preferredLanguage}
-              name="preferredLanguage"
-              updateFields={updateFields}
-              // hasDropdown={true}
-              // dropdownData={languages}
-              placeholderText="Hindi, English, Tamil, Marathi, French etc"
-            />
-          }
-          inputDesc="Preferred Language"
-        />
-        <FormField
-          elem={
-            <InputHolder
-              type="text"
-              label="Description"
-              name="description"
-              updateFields={updateFields}
-              value={teachCard.description}
-              textareaLines={6}
-              isTextarea={true}
-              placeholderText="Can not exceed 400 characters"
-            />
-          }
-          inputDesc="Description of the topic covered"
-        />
-        <FormField
-          elem={
-            <View>
-              <MultipleInput
-                label="Tag"
-                elemName="tag"
-                value={teachCard.tag}
-                name="tags"
-                arr={teachCard.tags}
+      <KeyboardAvoidingView enabled={true} behavior="height">
+        <View style={styles.container}>
+          <FormField
+            elem={
+              <InputHolder
+                type="text"
+                label="Subject"
+                value={teachCard.subject}
+                name="subject"
                 updateFields={updateFields}
-                placeholder="#Physics, #BusinessManagement (optional)"
+                // hasDropdown={true}
+                // dropdownData={subjects}
+                placeholderText="Physics, English, Botany, Accounts. etc."
               />
-              {teachCard.tags.length != 0 ? (
-                <ArrChip
-                  listArr={teachCard.tags}
-                  // name="tags"
-                  // updateFields={updateFields}
+            }
+            inputDesc="Subject"
+          />
+          <FormField
+            elem={
+              <InputHolder
+                label="Topic"
+                value={teachCard.topic}
+                name="topic"
+                updateFields={updateFields}
+                type="text"
+                textareaLines={4}
+                isTextarea={true}
+                placeholderText="Pythagoras’ Theorem, World War 2, Balance Sheet, Leibniz Rule, etc."
+              />
+            }
+            inputDesc="Topic"
+          />
+          <FormField
+            elem={
+              <InputHolder
+                type="text"
+                label="Course/Exam/Board/Programme"
+                value={teachCard.programme}
+                name="programme"
+                updateFields={updateFields}
+                placeholderText="I.C.S.E, B.Tech, NEET, UPSC, etc."
+              />
+            }
+            inputDesc="Course/Exam/Board/Programme"
+          />
+          <FormField
+            elem={
+              <InputHolder
+                type="text"
+                label="Standard"
+                value={teachCard.standard}
+                name="standard"
+                updateFields={updateFields}
+                // hasDropdown={true}
+                // dropdownData={standard}
+                placeholderText="10th class/2nd year etc (optional)"
+              />
+            }
+            inputDesc="Standard/Year"
+          />
+          <FormField
+            elem={
+              <InputHolder
+                type="text"
+                label="Preferred Language"
+                value={teachCard.preferredLanguage}
+                name="preferredLanguage"
+                updateFields={updateFields}
+                // hasDropdown={true}
+                // dropdownData={languages}
+                placeholderText="Hindi, English, Tamil, Marathi, French etc"
+              />
+            }
+            inputDesc="Preferred Language"
+          />
+          <FormField
+            elem={
+              <DateInput
+                label="Date"
+                name="date"
+                updateFields={updateFields}
+                placeholderText="Pick a Date"
+              />
+            }
+            inputDesc="Date"
+          />
+          <FormField
+            elem={
+              <TimeInput
+                name="startingTime"
+                updateFields={updateFields}
+                placeholderText="Pick Starting Time"
+              />
+            }
+            inputDesc="Starting Time"
+          />
+          <FormField
+            elem={
+              <TimeInput
+                name="endingTime"
+                updateFields={updateFields}
+                placeholderText="Pick End Time"
+              />
+            }
+            inputDesc="End Time"
+          />
+          <FormField
+            elem={
+              <InputHolder
+                type="text"
+                label="Description"
+                name="description"
+                updateFields={updateFields}
+                value={teachCard.description}
+                textareaLines={6}
+                isTextarea={true}
+                placeholderText="Can not exceed 400 characters"
+              />
+            }
+            inputDesc="Description of the topic covered"
+          />
+          <FormField
+            elem={
+              <View>
+                <MultipleInput
+                  label="Tag"
+                  elemName="tag"
+                  value={teachCard.tag}
+                  name="tags"
+                  arr={teachCard.tags}
+                  updateFields={updateFields}
+                  placeholder="#Physics, #BusinessManagement (optional)"
                 />
-              ) : null}
-            </View>
-          }
-          inputDesc="Tags"
-        />
-        <Button onPress={teachCardHandler}>
-          {isLoading ? (
-            <ActivityIndicator size={24} color="white" />
-          ) : (
-            'Create Teach Card'
-          )}
-        </Button>
-      </View>
+                {teachCard.tags.length != 0 ? (
+                  <ArrChip
+                    listArr={teachCard.tags}
+                    // name="tags"
+                    // updateFields={updateFields}
+                  />
+                ) : null}
+              </View>
+            }
+            inputDesc="Tags"
+          />
+          <Button onPress={teachCardHandler}>
+            {isLoading ? (
+              <ActivityIndicator size={24} color="white" />
+            ) : (
+              'Create Teach Card'
+            )}
+          </Button>
+        </View>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };

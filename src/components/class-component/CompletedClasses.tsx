@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
@@ -8,10 +8,10 @@ import {AuthContext} from '../../store/auth-context';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import ClassGrid from './ClassGrid';
 
-const UpcomingClasses = () => {
+const CompletedClasses = () => {
   const [teachCards, setTeachCards] = useState<Array<teachingCardProps>>([]);
 
-  const [upcomingClassSet, setUpcomingClassSet] = useState<number>(0);
+  const [completedClassSet, setCompletedClassSet] = useState<number>(0);
   const [hasMoreData, sethasMoreData] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -19,25 +19,25 @@ const UpcomingClasses = () => {
 
   const {token} = useContext(AuthContext);
 
-  async function fetchAllUpcomingClasses() {
+  async function fetchAllCompletedClasses() {
     setLoaderLoading(true);
     await axios
-      .get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`, {
+      .get(`${BASE_URL}${apiVersion}/user/myclasses/completed`, {
         params: {
-          sort: 'classStartsAt',
+          sort: '-classStartsAt',
           limit: DATA_LIMIT,
-          page: upcomingClassSet + 1,
+          page: completedClassSet + 1,
         },
         headers: getHeaders(token),
       })
       .then(({data}) => {
-        const classes = data.upcomingClasses;
-        console.log(classes);
+        console.log(data);
+        const classes = data.completedClasses;
         checkMoreData(classes, sethasMoreData);
         setTeachCards(prev => [...prev, ...classes]);
         setIsLoading(false);
         setLoaderLoading(false);
-        setUpcomingClassSet(prev => prev + 1);
+        setCompletedClassSet(prev => prev + 1);
       })
       .catch(data => {
         console.log(data);
@@ -48,17 +48,17 @@ const UpcomingClasses = () => {
 
   useEffect(() => {
     if (token) {
-      fetchAllUpcomingClasses();
+      fetchAllCompletedClasses();
     }
   }, [token]);
 
   return (
     <View>
       {teachCards.length != 0 ? (
-        <ClassGrid teachCards={teachCards} elemType="upcoming" />
+        <ClassGrid teachCards={teachCards} elemType="completed" />
       ) : null}
     </View>
   );
 };
 
-export default UpcomingClasses;
+export default CompletedClasses;

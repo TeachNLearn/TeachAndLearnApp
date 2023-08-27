@@ -10,6 +10,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ForumOverview from './src/components/forum-components/ForumOverview';
 import Login from './src/screens/auth/Login';
 import LearnCardOverview from './src/screens/requests/LearnCardOverview';
+import ClassOverview from './src/screens/classroom/ClassOverview';
+import CreateLearnCard from './src/screens/requests/CreateLearnCard';
+import CreateTeachCard from './src/screens/classroom/CreateTeachCard';
+import CreateForum from './src/screens/forum/CreateForum';
+import PostForumAnswer from './src/components/forum-components/postForumAnswer';
+import SingleClassroom from './src/screens/classroom/SingleClassroom';
+
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
 
@@ -24,6 +31,7 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       const storedUserData = await AsyncStorage.getItem(AppAsyncUserStorage);
+      console.log(storedUserData);
 
       if (storedUserData) {
         const parsedData = JSON.parse(storedUserData);
@@ -61,8 +69,14 @@ const NavigationScreens = () => {
           }}
         />
         <Stack.Screen name="ForumOverview" component={ForumOverview} />
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="CreateForum" component={CreateForum} />
+        <Stack.Screen name="CreateForumAnswer" component={PostForumAnswer} />
         <Stack.Screen name="LearnCardOverview" component={LearnCardOverview} />
+        <Stack.Screen name="CreateLearnCard" component={CreateLearnCard} />
+        <Stack.Screen name="ClassOverview" component={ClassOverview} />
+        <Stack.Screen name="SingleClassroom" component={SingleClassroom} />
+        <Stack.Screen name="CreateTeachCard" component={CreateTeachCard} />
+        <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );
