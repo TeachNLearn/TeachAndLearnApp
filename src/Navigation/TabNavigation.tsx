@@ -15,7 +15,7 @@ import ClassesSvg from '../components/SVGComponents/ClassesSvg';
 import Search from '../screens/Search';
 import LearnCardOverview from '../screens/requests/LearnCardOverview';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
-
+import BuyClass from '../screens/Modals/BuyClass';
 import Forum from '../screens/Forum/Forum';
 // import LearnCards from '../screens/Search';
 import LearnCards from '../screens/requests/LearnCards';
@@ -102,7 +102,7 @@ const TabNavigation: React.FC = () => (
 
     <Tab.Screen
       name="Userprofile"
-      component={Userprofile}
+      component={BuyClass}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size ,focused}) => (
