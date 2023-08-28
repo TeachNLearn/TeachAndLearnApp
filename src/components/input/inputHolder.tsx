@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 
-
 interface inputProps {
   value: string;
   type: string;
@@ -26,22 +25,7 @@ interface inputProps {
 }
 
 const InputHolder = (props: inputProps) => {
-  const [inputType, setInputType] = useState(props.type);
-  const [isValid, setisValid] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showPlaceholder, setshowPlaceholder] = useState(true);
-
-  useEffect(() => {
-    if (typeof props.value == 'string') {
-      if (props.value?.trim().length > 0) {
-        setisValid(true);
-      }
-    } else if (typeof props.value == 'number') {
-      if (props.value >= 0) {
-        setisValid(true);
-      }
-    }
-  }, [props]);
 
   const inputhandler = (inputIdentifier: any, enteredValue: any) => {
     setShowDropdown(true);
@@ -62,11 +46,10 @@ const InputHolder = (props: inputProps) => {
       <TextInput
         style={[styles.input, props.isTextarea && styles.textAreaInput]}
         value={props.value}
-        onFocus={() => setshowPlaceholder(false)}
-        placeholder={props.placeholderText}
-        onChangeText={inputhandler.bind(this, props.name)}
         autoCapitalize="none"
-        secureTextEntry={props.type == "password"}
+        placeholder={props.placeholderText}
+        secureTextEntry={props.type == 'password'}
+        onChangeText={inputhandler.bind(this, props.name)}
         multiline={props.isTextarea}
         numberOfLines={props.textareaLines ? props.textareaLines : 1}
       />
@@ -81,47 +64,47 @@ const InputHolder = (props: inputProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    position: "relative",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
+  // container: {
+  //   position: "relative",
+  //   width: "100%",
+  //   display: "flex",
+  //   flexDirection: "column",
+  // },
   input: {
-    width: "100%",
+    width: '100%',
     paddingVertical: 12,
     paddingRight: 0,
     paddingLeft: 10,
     borderWidth: 1.5,
-    borderColor: "#d5d9eb",
+    borderColor: '#d5d9eb',
     borderRadius: 8,
-    color: "#000000",
+    color: '#000000',
     fontSize: 16,
-    fontWeight: "400",
+    fontWeight: '400',
   },
   textAreaInput: {
     paddingTop: 17,
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
   },
   label: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 10,
-    pointerEvents: "none",
+    pointerEvents: 'none',
     zIndex: 100,
     fontSize: 11,
-    backgroundColor: "white",
-    color: "#b3b8db",
+    backgroundColor: 'white',
+    color: '#b3b8db',
     paddingHorizontal: 5,
-    transform: [{ translateY: -7 }],
+    transform: [{translateY: -7}],
   },
   requiredContainer: {
     marginLeft: 8,
   },
   requiredText: {
-    color: "rgba(0, 0, 0, 0.7)",
+    color: 'rgba(0, 0, 0, 0.7)',
     fontSize: 0.8,
-    textTransform: "capitalize",
+    textTransform: 'capitalize',
   },
 });
 

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {AuthContext} from '../../store/auth-context';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 const Logout = () => {
   const authCtx = useContext(AuthContext);
@@ -11,7 +11,9 @@ const Logout = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={logouthandler}>Logout</TouchableOpacity>
+      <TouchableOpacity onPress={logouthandler}>
+        <Text>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };

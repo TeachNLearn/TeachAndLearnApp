@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AllClasses from '../../components/class-component/AllClasses';
 import UpcomingClasses from '../../components/class-component/UpcomingClasses';
 import {AuthContext} from '../../store/auth-context';
+import CompletedClasses from '../../components/class-component/CompletedClasses';
 
 const Classes = () => {
   const [activeLink, setActiveLink] = useState('all classes');
@@ -13,6 +14,8 @@ const Classes = () => {
       setElement(<AllClasses />);
     } else if (activeLink == 'upcoming') {
       setElement(<UpcomingClasses />);
+    } else if (activeLink == 'completed') {
+      setElement(<CompletedClasses />);
     }
   }, [activeLink]);
 

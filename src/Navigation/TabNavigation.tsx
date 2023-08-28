@@ -2,9 +2,9 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import FontAwesom from 'react-native-vector-icons/FontAwesome5';
-// import FontAwesom6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Userprofile from '../screens/profile/Userprofile';
+
 import HomeSvg from '../components/SVGComponents/HomeIconSvg';
 import UserprofileSvg from '../components/SVGComponents/UserProfileIconSvg';
 import BookClasedSvg from '../components/SVGComponents/BookCloasedSvg';
@@ -16,11 +16,11 @@ import Search from '../screens/Search';
 import LearnCardOverview from '../screens/requests/LearnCardOverview';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
 import BuyClass from '../screens/Modals/BuyClass';
-import Forum from '../screens/Forum/Forum';
 // import LearnCards from '../screens/Search';
+import Forum from '../screens/forum/Forum';
+
 import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';
-
 
 const Tab = createBottomTabNavigator();
 
@@ -67,39 +67,29 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-
-    
-
-     <Tab.Screen
+    <Tab.Screen
       name="LearnCards"
       component={LearnCards}
-
       options={{
         headerShown: false,
+
         tabBarIcon: ({ color, size }) => (
           <BookClasedSvg fill={color} height={size} width={size} />
+
+       
         ),
       }}
-
     />
-    {/* <Tab.Screen name="LearnCardOverview" component={LearnCardOverview}options={{ headerShown: false,  }} /> */}
-    
-
-    
-
     <Tab.Screen
       name="Classes"
       component={Classes}
-
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (
           <ClassesSvg fill={color} height={size} width={size}/>
         ),
       }}
-     
     />
-
     <Tab.Screen
       name="Userprofile"
       component={BuyClass}
