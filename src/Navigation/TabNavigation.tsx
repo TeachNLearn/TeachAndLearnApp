@@ -4,7 +4,21 @@ import Home from '../screens/Home';
 import FontAwesom from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Userprofile from '../screens/profile/Userprofile';
-import Forum from '../screens/forum/Forum';
+
+import HomeSvg from '../components/SVGComponents/HomeIconSvg';
+import UserprofileSvg from '../components/SVGComponents/UserProfileIconSvg';
+import BookClasedSvg from '../components/SVGComponents/BookCloasedSvg';
+import ForumSvg from '../components/SVGComponents/ForumSvg';
+// import CreateClass from '../screens/classroom/CreateClass';
+import ClassesSvg from '../components/SVGComponents/ClassesSvg';
+// import Detail from '../screens/Detail';
+import Search from '../screens/Search';
+import LearnCardOverview from '../screens/requests/LearnCardOverview';
+// import LearnCardOverviewNavigator from './LearnCardOverview';
+import BuyClass from '../screens/Modals/BuyClass';
+// import LearnCards from '../screens/Search';
+import Forum from '../screens/Forum/Forum';
+
 import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';
 
@@ -39,7 +53,7 @@ const TabNavigation: React.FC = () => (
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (
-          <MaterialIcon name="home" color={color} size={size} />
+          <HomeSvg  fill={color} height={size} width={size} />
         ),
       }}
     />
@@ -49,7 +63,7 @@ const TabNavigation: React.FC = () => (
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (
-          <FontAwesom name="wpforms" color={color} size={size} />
+         <ForumSvg fill={color} height={size} width={size}/>
         ),
       }}
     />
@@ -58,8 +72,11 @@ const TabNavigation: React.FC = () => (
       component={LearnCards}
       options={{
         headerShown: false,
-        tabBarIcon: ({color, size}) => (
-          <FontAwesom name="plus-circle" color={color} size={size} />
+
+        tabBarIcon: ({ color, size }) => (
+          <BookClasedSvg fill={color} height={size} width={size} />
+
+       
         ),
       }}
     />
@@ -69,17 +86,17 @@ const TabNavigation: React.FC = () => (
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (
-          <FontAwesom name="book" color={color} size={size} />
+          <ClassesSvg fill={color} height={size} width={size}/>
         ),
       }}
     />
     <Tab.Screen
       name="Userprofile"
-      component={Userprofile}
+      component={BuyClass}
       options={{
         headerShown: false,
-        tabBarIcon: ({color, size}) => (
-          <MaterialIcon name="account" color={color} size={size} />
+        tabBarIcon: ({color, size ,focused}) => (
+          <UserprofileSvg  fill={color} height={size} width={size} active={focused} />
         ),
       }}
     />

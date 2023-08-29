@@ -21,6 +21,7 @@ const CardDescription = (props: descriptioProps) => {
           fontFamily: 'Nunito',
           fontWeight: '400',
           fontSize: 16,
+          lineHeight:27 ,
         }}>
         {props.description}
       </Text>

@@ -15,7 +15,7 @@ import InputHolder from '../../components/input/inputHolder';
 import MultipleInput from '../../components/input/multipleInput';
 import ArrChip from '../../components/input/arrChip';
 import Button from '../../components/general-components/button';
-import DateInput from '../../components/input/DateInput';
+import DateInput from '../../components/input/dateInput';
 import TimeInput from '../../components/input/TimeInput';
 
 interface teachCardDetails {

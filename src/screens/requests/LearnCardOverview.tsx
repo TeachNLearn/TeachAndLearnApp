@@ -125,6 +125,7 @@ const LearnCardOverview = ({route}: any) => {
                       fontFamily: 'Nunito',
                     }}>
                     {totalInterestedStudents} Interested
+
                   </Text>
                 </View>
               </View>

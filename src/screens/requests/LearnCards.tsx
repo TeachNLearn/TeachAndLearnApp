@@ -5,6 +5,7 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {DATA_LIMIT} from '../../utils/globalContants';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
+import CardHeader from '../../components/LearnCardsComponent/CardHeader';
 import {
   Text,
   View,
@@ -73,13 +74,21 @@ const LearnCards: React.FC<LearnCardsProps> = ({navigation}) => {
     }
   }, [userToken]);
 
+  const handleBackPress = () => {
+    // Handle back press logic here
+  };
+
+  const handleMenuPress = () => {
+    // Handle menu press logic here
+  };
+
   return (
     <View style={styles.learncardParentConainer}>
-      <View style={styles.learncardHeadConainer}>
-        <Ionican name="arrow-back-sharp" size={20} color="#000" />
-        <Text style={styles.headTxt}>Learn Cards</Text>
-        <Ionican name="ellipsis-vertical-sharp" size={20} color="#000000" />
-      </View>
+      <CardHeader
+        title="Learn Cards"
+        onBackPress={handleBackPress}
+        onMenuPress={handleMenuPress}
+      />
       <ScrollView>
         <View style={styles.learnCardContainer}>
           {learnCards.map((card, index) => (
