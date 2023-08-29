@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: '500',
-    fontSize: 18,
+    fontSize: 16,
   },
 });
 

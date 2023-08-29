@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {getReadableDate} from '../../utils/helperFunctions';
+import CopySvg from '../SVGComponents/CopySvg';
 
 interface dueDateProps {
   dueDate: string;
@@ -12,9 +13,7 @@ const DueDate = ({dueDate}: dueDateProps) => {
       style={{
         backgroundColor: '#094067',
         padding: 15,
-        width: '50%',
-        alignItems: 'center',
-        marginTop: 20,
+        alignSelf: 'flex-start',
         borderRadius: 30,
       }}>
       <Text
@@ -24,7 +23,7 @@ const DueDate = ({dueDate}: dueDateProps) => {
           fontWeight: '600',
           fontFamily: 'Nunito',
         }}>
-        Due By- {getReadableDate(dueDate)}
+        Due By :- {getReadableDate(dueDate)}
       </Text>
     </View>
   );

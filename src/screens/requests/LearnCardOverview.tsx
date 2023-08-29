@@ -98,7 +98,13 @@ const LearnCardOverview = ({route}: any) => {
 
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.OverviewContainer}>
-            <View style={{margin: 30}}>
+            <View
+              style={{
+                margin: 30,
+                display: 'flex',
+                flexDirection: 'column',
+                rowGap: 20,
+              }}>
               <CardTopic topic={learnCard.topic} />
               <DueDate dueDate={learnCard.dueDate} />
               <View
@@ -106,26 +112,29 @@ const LearnCardOverview = ({route}: any) => {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginTop: 20,
                 }}>
                 <UserChip
-                  name={learnCard.createdBy.name}
+                  name={learnCard.createdBy.userName}
                   photo={learnCard.createdBy.photo}
                   userId={learnCard.createdBy._id}
                   imgBorder="#000000"
                   textColor="black"
                   hasUnderline={true}
                 />
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    columnGap: 4,
+                  }}>
                   <SvgComponentInterested />
                   <Text
                     style={{
-                      color: '#000',
-                      fontWeight: '500',
+                      color: '#000000',
+                      fontWeight: '700',
                       fontFamily: 'Nunito',
                     }}>
                     {totalInterestedStudents} Interested
-
                   </Text>
                 </View>
               </View>
@@ -134,10 +143,16 @@ const LearnCardOverview = ({route}: any) => {
                 programme={learnCard.programme}
                 standard={learnCard.standard}
               />
-              <View style={{marginTop: 20}}>
+              <Tagbox tags={[learnCard.preferredLanguage, ...learnCard.tags]} />
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
                 <InterestedButton />
                 <CardID id={learnCard._id} />
-                <Tagbox tags={learnCard.tags} />
               </View>
             </View>
           </View>

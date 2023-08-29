@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 interface descriptioProps {
   programme: string;
@@ -10,23 +10,30 @@ interface descriptioProps {
 const CardDescription = (props: descriptioProps) => {
   return (
     <View>
-      <Text style={{marginTop: 20, color: '#000', fontFamily: 'Nunito'}}>
+      <Text style={styles.programme}>
         For :- {props.programme} {props.standard && ' | '}
         {props.standard ? props.standard : null}
       </Text>
-      <Text
-        style={{
-          marginTop: 20,
-          color: '#000',
-          fontFamily: 'Nunito',
-          fontWeight: '400',
-          fontSize: 16,
-          lineHeight:27 ,
-        }}>
-        {props.description}
-      </Text>
+      <Text style={styles.desc}>{props.description}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  programme: {
+    color: '#000',
+    fontFamily: 'Nunito',
+    fontWeight: '600',
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  desc: {
+    color: '#4A5578',
+    fontFamily: 'Nunito',
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+});
 
 export default CardDescription;

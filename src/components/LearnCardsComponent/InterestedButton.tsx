@@ -7,10 +7,8 @@ const InterestedButton = () => {
       style={{
         backgroundColor: '#ef4565',
         padding: 16,
-        width: '40%',
         alignItems: 'center',
         borderRadius: 10,
-        marginBottom: 10,
       }}>
       <Text
         style={{

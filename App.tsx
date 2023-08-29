@@ -14,10 +14,9 @@ import BuyClass from './src/screens/Modals/BuyClass';
 import ClassOverview from './src/screens/classroom/ClassOverview';
 import CreateLearnCard from './src/screens/requests/CreateLearnCard';
 import CreateTeachCard from './src/screens/classroom/CreateTeachCard';
-import CreateForum from './src/screens/Forum/CreateForum';
+import CreateForum from './src/screens/forum/CreateForum';
 import PostForumAnswer from './src/components/forum-components/postForumAnswer';
 import SingleClassroom from './src/screens/classroom/SingleClassroom';
-
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
