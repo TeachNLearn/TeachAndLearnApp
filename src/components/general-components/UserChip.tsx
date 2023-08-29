@@ -45,15 +45,15 @@ const styles = StyleSheet.create({
     columnGap: 8,
   },
   image: {
-    width: 30,
-    height: 30,
+    width: 32,
+    height: 32,
     borderWidth: 1,
     borderRadius: 28,
     objectFit: 'cover',
   },
   text: {
     fontWeight: '500',
-    fontSize: 16,
+    fontSize: 18,
   },
 });
 

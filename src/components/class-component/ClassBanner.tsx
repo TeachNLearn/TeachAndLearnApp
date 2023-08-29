@@ -17,16 +17,17 @@ const ClassBanner = (props: bannerProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: 'black',
     width: '100%',
-    height: 200,
+    height: 190,
+    borderRadius: 8,
   },
   image: {
     borderWidth: 1,
     borderColor: 'black',
     width: '100%',
-    height: 200,
+    height: 190,
+    objectFit: 'contain',
+    borderRadius: 8,
   },
 });
 

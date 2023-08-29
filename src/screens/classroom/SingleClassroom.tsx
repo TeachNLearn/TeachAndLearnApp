@@ -160,7 +160,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   elementWrapper: {
-    marginHorizontal: 8,
+    // marginHorizontal: 8,
+    margin: 30,
   },
 });
 

@@ -92,7 +92,13 @@ const ClassOverview = ({route}: any) => {
 
   return (
     teachCard && (
-      <View>
+      <View
+        style={{
+          margin: 30,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: 20,
+        }}>
         <ClassBanner image={teachCard.cardBanner} />
         <CardTopic topic={teachCard.topic} />
         <View>

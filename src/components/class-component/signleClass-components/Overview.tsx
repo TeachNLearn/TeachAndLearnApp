@@ -3,13 +3,19 @@ import {Text, View} from 'react-native';
 import {classroomProps} from '../../../types/classroomType';
 import {classReview} from '../../../types/classReviewProps';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
-import {getHeaders} from '../../../utils/helperFunctions';
+import {
+  getHeaders,
+  getReadableDate,
+  getReadableTime,
+} from '../../../utils/helperFunctions';
 import axios from 'axios';
 import ClassBanner from '../ClassBanner';
 import UserChip from '../../general-components/UserChip';
 import CardDescription from '../../LearnCardsComponent/CardDescription';
 import Tagbox from '../../LearnCardsComponent/Tagbox';
 import CardTopic from '../../LearnCardsComponent/CardTopic';
+import CardID from '../../LearnCardsComponent/CardID';
+import ClassDate from '../ClassDate';
 
 type overallOverviewProps = classroomProps & {
   userId: string;
@@ -55,17 +61,38 @@ const Overview = (props: overallOverviewProps) => {
   }, []);
 
   return (
-    <View>
+    <View style={{display: 'flex', flexDirection: 'column', rowGap: 20}}>
       <ClassBanner image={props.cardBanner} />
       <CardTopic topic={props.topic} />
-      <UserChip
-        name={props.createdBy.userName}
-        photo={props.createdBy.photo}
-        imgBorder="black"
-        textColor="black"
-        userId={props.createdBy._id}
-        hasUnderline={true}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            rowGap: 6,
+          }}>
+          <UserChip
+            name={props.createdBy.userName}
+            photo={props.createdBy.photo}
+            imgBorder="black"
+            textColor="black"
+            userId={props.createdBy._id}
+            hasUnderline={true}
+          />
+          <ClassDate
+            date={props.date}
+            classEndsAt={props.classEndsAt}
+            classStartsAt={props.classStartsAt}
+          />
+        </View>
+        <CardID id={props._id} />
+      </View>
       <CardDescription
         programme={props.programme}
         standard={props.standard}
