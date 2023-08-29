@@ -17,7 +17,7 @@ import LearnCardOverview from '../screens/requests/LearnCardOverview';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
 import BuyClass from '../screens/Modals/BuyClass';
 // import LearnCards from '../screens/Search';
-import Forum from '../screens/forum/Forum';
+import Forum from '../screens/Forum/Forum';
 
 import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';

@@ -91,7 +91,7 @@ const LearnCardData: React.FC<learnCardProps> = props => {
 
 const styles = StyleSheet.create({
   learnCard: {
-    width: '88%',
+    width: 330,
     height: 200,
     backgroundColor: '#094067',
     borderRadius: 16,
