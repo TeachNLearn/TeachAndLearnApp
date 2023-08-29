@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import {classroomProps} from '../../../types/classroomType';
 import {classReview} from '../../../types/classReviewProps';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
-import {
-  getHeaders,
-  getReadableDate,
-  getReadableTime,
-} from '../../../utils/helperFunctions';
+import {getHeaders} from '../../../utils/helperFunctions';
 import axios from 'axios';
 import ClassBanner from '../ClassBanner';
 import UserChip from '../../general-components/UserChip';

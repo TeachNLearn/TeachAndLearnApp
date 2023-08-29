@@ -8,6 +8,7 @@ import {getHeaders} from '../../utils/helperFunctions';
 import Overview from '../../components/class-component/signleClass-components/Overview';
 import AllAnnouncements from '../../components/class-component/signleClass-components/AllAnnouncements';
 import Participants from '../../components/class-component/signleClass-components/Participants';
+import { ScrollView } from 'react-native';
 
 const SingleClassroom = ({route}: any) => {
   const authCtx = useContext(AuthContext);
@@ -98,11 +99,10 @@ const SingleClassroom = ({route}: any) => {
       } else if (activeLink == 'people') {
         setElement(
           <Participants
-          // cardBanner={classroom.cardBanner}
-          // createdBy={classroom.createdBy}
-          // studentsEnrolled={classroom.studentsEnrolled}
-          // topic={classroom.topic}
-          // localUserId={userId}
+          createdBy={classroom.createdBy}
+          studentsEnrolled={classroom.studentsEnrolled}
+          topic={classroom.topic}
+          localUserId={userId}
           />,
         );
       }
@@ -117,7 +117,7 @@ const SingleClassroom = ({route}: any) => {
   };
 
   return (
-    <View>
+    <ScrollView>
       <View
         style={{
           flexDirection: 'row',
@@ -141,7 +141,7 @@ const SingleClassroom = ({route}: any) => {
         </TouchableOpacity>
       </View>
       <View style={styles.elementWrapper}>{element}</View>
-    </View>
+    </ScrollView>
   );
 };
 
