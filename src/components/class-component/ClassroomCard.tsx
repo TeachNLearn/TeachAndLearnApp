@@ -66,7 +66,7 @@ const ClassroomCard = (props: classCardProps) => {
 
   return (
     props.teachCard && (
-      <TouchableOpacity style={styles.container} onPress={classNavigator}>
+      <TouchableOpacity style={styles.container}>
         <View>
           <Text style={styles.subject}>{props.teachCard.subject}</Text>
         </View>
@@ -110,6 +110,7 @@ const ClassroomCard = (props: classCardProps) => {
           classEndsAt={props.teachCard.classEndsAt}
           hasCancelled={props.teachCard.hasCancelled}
           reviews={props.teachCard.reviews}
+          onPressFunc={classNavigator}
         />
       </TouchableOpacity>
     )

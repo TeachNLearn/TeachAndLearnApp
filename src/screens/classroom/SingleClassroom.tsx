@@ -8,7 +8,8 @@ import {getHeaders} from '../../utils/helperFunctions';
 import Overview from '../../components/class-component/signleClass-components/Overview';
 import AllAnnouncements from '../../components/class-component/signleClass-components/AllAnnouncements';
 import Participants from '../../components/class-component/signleClass-components/Participants';
-import { ScrollView } from 'react-native';
+import {ScrollView} from 'react-native';
+import {checkClassTeacher} from '../../components/class-component/classFunctions';
 
 const SingleClassroom = ({route}: any) => {
   const authCtx = useContext(AuthContext);
@@ -87,22 +88,21 @@ const SingleClassroom = ({route}: any) => {
       } else if (activeLink == 'classroom') {
         setElement(
           <AllAnnouncements
-          // callLink={classroom.callLink}
-          // cardBanner={classroom.cardBanner}
-          // topic={classroom.topic}
-          // isTeacher={checkTeacher(userId, classroom.createdBy._id)}
-          // teachCardId={classroom._id}
-          // userToken={userToken}
-          // classElemType={classElemType}
+            callLink={classroom.callLink}
+            topic={classroom.topic}
+            isTeacher={checkClassTeacher(classroom.createdBy._id, userId)}
+            teachCardId={classroom._id}
+            userToken={userToken}
+            classElemType={classElemType}
           />,
         );
       } else if (activeLink == 'people') {
         setElement(
           <Participants
-          createdBy={classroom.createdBy}
-          studentsEnrolled={classroom.studentsEnrolled}
-          topic={classroom.topic}
-          localUserId={userId}
+            createdBy={classroom.createdBy}
+            studentsEnrolled={classroom.studentsEnrolled}
+            topic={classroom.topic}
+            localUserId={userId}
           />,
         );
       }

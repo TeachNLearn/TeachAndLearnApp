@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     width: '100%',
     height: 190,
-    objectFit: 'contain',
+    objectFit: 'cover',
     borderRadius: 8,
   },
 });

@@ -11,8 +11,9 @@ const CardDescription = (props: descriptioProps) => {
   return (
     <View>
       <Text style={styles.programme}>
-        For :- {props.programme} {props.standard && ' | '}
-        {props.standard ? props.standard : null}
+        For :- {props.programme}
+        {props.standard && ' | '}
+        {props.standard && props.standard}
       </Text>
       <Text style={styles.desc}>{props.description}</Text>
     </View>
