@@ -20,6 +20,8 @@ interface RecommendedCourse {
     userName: string;
     photo: string;
   };
+  dueDate: string;
+  tags:string[] ;
   // Add more properties as needed
 }
 
@@ -42,10 +44,13 @@ interface PopularCourse {
   interested: number;
   coins: number;
   length: number;
+  dueDate: string;
+  tags:string[] ;
   createdBy: {
     userName: string;
     photo: string;
   };
+  
   // Add more properties as needed
 }
 
@@ -76,7 +81,7 @@ const Home = () => {
       })
       .then(response => {
         setRecommendedcourseData(response.data.stats);
-        //  console.log(response.data.stats);
+         console.log(response.data.stats);
       })
       .catch(error => {
         console.log('error fetching data', error);
@@ -92,6 +97,7 @@ const Home = () => {
       })
       .then(response => {
         setupcomingClassesData(response.data);
+        // console.info("upcoming courses data")
         //  console.log(response.data);
       })
       .catch(error => {
@@ -107,7 +113,7 @@ const Home = () => {
       })
       .then(response => {
         setPopularCourseData(response.data.stats);
-        console.log(response.data.stats, 'Poppuler cards');
+        // console.log(response.data.stats, 'Poppuler cards');
       })
       .catch(error => {
         console.log('error fetching data', error);
@@ -134,7 +140,7 @@ const Home = () => {
 
       <View style={styles.SecondParentContainer}>
         <ScrollView style={{marginBottom: 80, marginTop: 40}}>
-          <HomeCardsHeader title="Popular Course" onViewAllPress={() => {}} />
+          <HomeCardsHeader title="Recommended Classes" onViewAllPress={() => {}} />
           {/* Recommended Courses cards */}
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -152,7 +158,7 @@ const Home = () => {
           </View>
 
           {/* Popular Request section  */}
-          <HomeCardsHeader title="Popular Request" onViewAllPress={() => {}} />
+          <HomeCardsHeader title="Rising Requests" onViewAllPress={() => {}} />
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* Here you can map over Popular cards*/}

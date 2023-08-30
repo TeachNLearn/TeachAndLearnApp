@@ -5,7 +5,9 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {DATA_LIMIT} from '../../utils/globalContants';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
-import CardHeader from '../../components/LearnCardsComponent/CardHeader';
+import CardHeader from '../../components/general-components/CardHeader';
+import { ActivityIndicator } from 'react-native';
+
 import {
   Text,
   View,
@@ -31,7 +33,7 @@ const LearnCards: React.FC<LearnCardsProps> = ({navigation}) => {
   const [learnCards, setLearnCards] = useState<Array<learnCardProps>>([]);
   const [requestPageSet, setrequestPageSet] = useState<number>(1);
   const [hasMoreData, sethasMoreData] = useState(false);
-
+  const [showActivityIndicator, setShowActivityIndicator] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
 
@@ -70,7 +72,10 @@ const LearnCards: React.FC<LearnCardsProps> = ({navigation}) => {
 
   useEffect(() => {
     if (userToken) {
-      fetchLearnCards();
+      setTimeout(() => {
+        fetchLearnCards();
+        setShowActivityIndicator(false);
+      }, 3000); // Show ActivityIndicator for 3 seconds (3000 milliseconds)
     }
   }, [userToken]);
 
@@ -90,11 +95,17 @@ const LearnCards: React.FC<LearnCardsProps> = ({navigation}) => {
         onMenuPress={handleMenuPress}
       />
       <ScrollView>
-        <View style={styles.learnCardContainer}>
-          {learnCards.map((card, index) => (
-            <LearnCardData {...card} key={index} />
-          ))}
-        </View>
+         {showActivityIndicator ? (
+          <View style={styles.activityIndicatorContainer}>
+            <ActivityIndicator size="large" color="#000" />
+          </View>
+        ) : (
+          <View style={styles.learnCardContainer}>
+            {learnCards.map((card, index) => (
+              <LearnCardData {...card} key={index} />
+            ))}
+          </View>
+        )}
       </ScrollView>
     </View>
   );
@@ -132,6 +143,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#FAFAFC',
+  },
+
+    activityIndicatorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

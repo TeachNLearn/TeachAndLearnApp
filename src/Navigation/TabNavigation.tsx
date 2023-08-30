@@ -18,9 +18,10 @@ import LearnCardOverview from '../screens/requests/LearnCardOverview';
 import BuyClass from '../screens/Modals/BuyClass';
 // import LearnCards from '../screens/Search';
 import Forum from '../screens/Forum/Forum';
-
+import Signup from '../screens/auth/Signup';
 import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';
+import Login from '../screens/auth/Login';
 
 const Tab = createBottomTabNavigator();
 
@@ -92,7 +93,7 @@ const TabNavigation: React.FC = () => (
     />
     <Tab.Screen
       name="Userprofile"
-      component={BuyClass}
+      component={Userprofile}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size ,focused}) => (

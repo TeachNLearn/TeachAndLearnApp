@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   
    txtOneSecondContainer: {
     margin: 10,
-    fontSize: 24,
+    fontSize: 22,
     color: '#000',
     fontWeight: '700',
   },

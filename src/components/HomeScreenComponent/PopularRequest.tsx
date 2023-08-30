@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import CoinSvg from '../SVGComponents/CoinsSvg';
 import SvgImg from '../SVGComponents/InterestedSvg';
+import {getReadableDate} from '../../utils/helperFunctions';
 
 interface PopularCourse {
   subject: string;
@@ -9,10 +10,14 @@ interface PopularCourse {
   interested: number;
   coins: number;
   length: number;
+  dueDate: string;
   createdBy: {
     userName: string;
     photo: string;
   };
+
+  tags:string[] ;
+
   // Add more properties as needed
 }
 
@@ -22,11 +27,11 @@ interface PopularRequestProps {
 
 const PopularRequest: React.FC<PopularRequestProps> = ({ item }) => {
   return (
-    <View style={[styles.Learningcards, { backgroundColor: 'green' }]}>
+    <View style={styles.Learningcards}>
       <View style={styles.cardTxtContainer}>
         <Text style={styles.cardHead}>{item.subject}</Text>
         <Text style={styles.cardDesc}>
-          {item.topic.length > 60 ? `${item.topic.substring(0, 60)}...` : item.topic}
+          {item.topic.length > 49 ? `${item.topic.substring(0, 49)}...` : item.topic}
         </Text>
       </View>
 
@@ -42,11 +47,15 @@ const PopularRequest: React.FC<PopularRequestProps> = ({ item }) => {
           {item.length} interested
         </Text>
         <Text style={styles.coins}>
-          {item.coins}
-          <CoinSvg fill="#fff" />
-          {'     '}
-          250 coins
+         Due By- {getReadableDate(item.dueDate)}
         </Text>
+      </View>
+       <View style={styles.tagsContainer}>
+        {item.tags.map((tag, index) => (
+          <View key={index} style={styles.tag}>
+            <Text style={styles.tagText}>{tag}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -54,13 +63,14 @@ const PopularRequest: React.FC<PopularRequestProps> = ({ item }) => {
 
 const styles = StyleSheet.create({
   Learningcards: {
-    width: 260,
-    height: 200,
+    width: 280,
+    height: 230,
     backgroundColor: '#094067',
     borderRadius: 16,
     marginTop: 30,
     marginRight: 10,
     marginLeft: 20,
+    
   },
 
   cardTxtContainer: {
@@ -68,9 +78,9 @@ const styles = StyleSheet.create({
   },
 
   cardHead: {
-    color: '#FFF',
-    fontSize: 10,
-    fontWeight: '500',
+    color: '#ef4565',
+    fontSize: 12,
+    fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.2,
     marginTop: 20,
@@ -121,6 +131,28 @@ const styles = StyleSheet.create({
   coins: {
     color: '#FFF',
     fontSize: 12,
+    fontWeight: '500',
+  },
+
+   tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 19,
+    marginLeft:18 ,
+  },
+
+  tag: {
+    backgroundColor: '#3da9fc',
+    borderRadius: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+
+  tagText: {
+    color: '#FFF',
+    fontSize: 10,
     fontWeight: '500',
   },
 });
