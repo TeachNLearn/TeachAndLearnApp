@@ -4,6 +4,8 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
+import PlusSvg from '../SVGComponents/PlusSvg';
+import CommentSvg from '../SVGComponents/CommentSvg';
 
 type forumCardProps = forumProps & {
   userToken: string;
@@ -45,12 +47,12 @@ const ForumCard = (props: forumCardProps) => {
         <Text style={styles.userText}>{moment(props.createdAt).fromNow()}</Text>
       </View>
       <View style={styles.stats}>
-        <View>
-          {/* <Plus color="#fff" /> */}
+        <View style={styles.stat}>
+          <PlusSvg color="#fff" />
           <Text style={styles.userText}>{props.upvotes.length}</Text>
         </View>
-        <View>
-          {/* <Comments /> */}
+        <View style={styles.stat}>
+          <CommentSvg />
           <Text style={styles.userText}>{props.answers.length}</Text>
         </View>
       </View>
@@ -105,6 +107,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     columnGap: 20,
+  },
+  stat: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 5,
   },
 });
 
