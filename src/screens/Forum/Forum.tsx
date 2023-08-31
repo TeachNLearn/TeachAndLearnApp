@@ -7,7 +7,9 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {DATA_LIMIT} from '../../utils/globalContants';
 import ForumCard from '../../components/forum-components/forumCard';
-import PostForumBtn from '../../components/forum-components/postForumBtn';
+import PostForumBtn from '../../components/forum-components/ForumBtn';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
 const Forum = () => {
   const authCtx = useContext(AuthContext);
@@ -54,15 +56,30 @@ const Forum = () => {
     }
   }, [userToken]);
 
+  type RootStackParamList = {
+    CreateForum: undefined;
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const createForumnavigator = () => {
+    navigation.navigate('CreateForum');
+  };
+
   return !isLoading ? (
     <View style={{margin: 18}}>
       <View
         style={{
           display: 'flex',
-          alignItems: 'flex-end',
+          flexDirection: 'row',
+          alignItems: 'center',
           justifyContent: 'flex-end',
         }}>
-        <PostForumBtn />
+        <PostForumBtn
+          text="Post your query"
+          onPressFunc={createForumnavigator}
+        />
       </View>
       <View style={styles.container}>
         {forums &&

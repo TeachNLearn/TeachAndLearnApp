@@ -13,8 +13,12 @@ import axios from 'axios';
 import {forumProps} from '../../types/ForumTypes';
 import QuestionContainer from './questionContainer';
 import AnswerContainer from './answerContainer';
+import PostForumBtn from './ForumBtn';
+import {useNavigation} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-const ForumOverview = ({navigation, route}: any) => {
+const ForumOverview = ({route}: any) => {
   console.log(route.params.id);
 
   const authCtx = useContext(AuthContext);
@@ -31,7 +35,6 @@ const ForumOverview = ({navigation, route}: any) => {
       .then(({data}: any) => {
         const forumData = data.data.data[0];
         console.log('FORUM DATA');
-
         console.log(data.data.data[0]);
         setForum(forumData);
         // setIsLoading(false);
@@ -42,14 +45,45 @@ const ForumOverview = ({navigation, route}: any) => {
       });
   }
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
-    if (forumId && userToken) {
+    if (forumId) {
       fetchForum();
     }
-  }, [forumId, userToken]);
+  }, [forumId, isFocused]);
+
+  type RootStackParamList = {
+    CreateForumAnswer: {forumID: string | undefined};
+  };
+
+  const screenNavigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const createForumAnswerNavigator = () => {
+    if (forum) {
+      screenNavigation.navigate('CreateForumAnswer', {
+        forumID: forum._id,
+      });
+    } else {
+      return;
+    }
+  };
 
   return forum ? (
     <ScrollView>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}>
+        <PostForumBtn
+          text="Post answer"
+          onPressFunc={createForumAnswerNavigator}
+        />
+      </View>
       <View style={styles.container}>
         <QuestionContainer
           createdBy={forum.createdBy}
@@ -87,7 +121,7 @@ const ForumOverview = ({navigation, route}: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
+    // paddingTop: 40,
     marginHorizontal: 8,
     display: 'flex',
     flexDirection: 'column',

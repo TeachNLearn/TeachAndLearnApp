@@ -2,11 +2,16 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PlusSvg from '../SVGComponents/PlusSvg';
 
-const PostForumBtn = () => {
+interface btnProps {
+  onPressFunc: () => void;
+  text: string;
+}
+
+const PostForumBtn = (props: btnProps) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={props.onPressFunc}>
       <PlusSvg color="#ffffff" />
-      <Text style={styles.text}>Post your query</Text>
+      <Text style={styles.text}>{props.text}</Text>
     </TouchableOpacity>
   );
 };
@@ -17,7 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
     paddingHorizontal: 18,
     paddingVertical: 10,
     columnGap: 10,
