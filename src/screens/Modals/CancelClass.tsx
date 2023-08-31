@@ -6,9 +6,10 @@ interface CustomAlertProps {
   title: string;
   message: string;
   onClose: () => void;
+  btn:string ;
 }
 
-const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onClose }) => {
+const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onClose , btn }) => {
   return (
     <Modal  transparent visible={visible}>
       <View style={styles.modalContainer}>
@@ -24,7 +25,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onCl
           <Text style={styles.message}>{message}</Text>
           <View style={{alignItems:'flex-end'}}>
                <TouchableOpacity onPress={onClose} style={styles.button}>
-                 <Text style={{color:'#FFF' , fontWeight:'600' , fontSize:12}}>Cancel Class</Text>
+                 <Text style={{color:'#FFF' , fontWeight:'600' , fontSize:12}}>{btn}</Text>
                </TouchableOpacity>
              
          </View>
@@ -61,9 +62,10 @@ const styles = StyleSheet.create<Styles>({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
-    borderBottomWidth:1 ,
-    borderBottomColor:'#094067' ,
-    width:120,
+    textDecorationLine:'underline',
+    // borderBottomWidth:1 ,
+    // borderBottomColor:'#094067' ,
+    // width:120,
     color:'#000'
     
   },
@@ -75,7 +77,7 @@ const styles = StyleSheet.create<Styles>({
   button: {
     alignSelf: 'flex-end',
     padding: 10,
-    backgroundColor:'red' ,
+    backgroundColor:'#e53170' ,
     borderRadius:10,
     marginTop:10 ,
   },

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, Image,  TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image,  TouchableWithoutFeedback, TouchableOpacity , ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useState  , useContext} from 'react';
 import { AuthContext } from '../../store/auth-context';
@@ -12,12 +12,25 @@ import UserMode from '../../components/user-profile-component/UserMode'
 import UserNameAndTagline from '../../components/user-profile-component/UserNameAndTagline';
 import UserStats from '../../components/user-profile-component/UserStats'
 import {GeneralMenu ,GeneralMenuItem } from '../../components/user-profile-component/UserMenu'
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import CustomAlert from '../Modals/CancelClass';
 interface ImageInfo {
   uri: string;
   base64: string;
 }
 const Userprofile: React.FC = () => {
+   type RootStackParamList = {
+   Login:undefined;
+   Mywallet:undefined;
+   MyFav:undefined;
+   EditAcademicInfo:undefined;
+   EditContactInfo:undefined;
+  };
+
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const authCtx = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
  const defaultImageSource = require('../../assets/Images/userProfilePic.png');
   const [profileImage, setProfileImage] = useState<ImageInfo>({
@@ -27,6 +40,16 @@ const Userprofile: React.FC = () => {
 
   const toggleMode = () => {
     setIsLearnMode(!isLearnMode);
+  };
+
+  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+
+  const showAlert = () => {
+    setIsAlertVisible(true);
+  };
+
+  const hideAlert = () => {
+    setIsAlertVisible(false);
   };
 
    const handleImagePicker = async (sourceType: 'gallery' | 'camera') => {
@@ -68,7 +91,14 @@ const Userprofile: React.FC = () => {
   };
 
  const handleLogout = () => {
-  authCtx.logout();
+     setIsLoading(true); // Start loading
+
+    // Simulate an asynchronous action (e.g., API call) with a timeout
+    setTimeout(() => {
+      // authCtx.logout();
+      setIsLoading(false); // Stop loading
+      navigation.navigate('Login');
+    }, 1500); 
 
  }
 
@@ -78,6 +108,7 @@ const Userprofile: React.FC = () => {
   const switchHeight = 30;
     const thumbSize = 10;
   return (
+   
     <ScrollView style={{}}>
     <View style={styles.userProfileParentContainer}>
      <UserProfileHeader title='@ethanatex' onBackPress={() => {}} onMenuPress={() =>{}} />
@@ -118,16 +149,32 @@ const Userprofile: React.FC = () => {
       </View>
      
        <GeneralMenu>
+         {isLoading &&<ActivityIndicator color='#000' size={50} style={styles.loadingIndicator} />}
         <Text style={{color:"#000" , fontFamily:'Nunito' , fontWeight:'600' , letterSpacing:0.44, margin:40 ,fontSize:22 ,}}>General</Text>
-        <GeneralMenuItem iconName="card-outline" text="My Wallet" onPress={() => {}} />
-        <GeneralMenuItem iconName="heart-outline" text="My Favourites" onPress={() => {}} />
-        <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={() => {}} />
+        <GeneralMenuItem iconName="card-outline" text="My Wallet" onPress={() => {navigation.navigate('Mywallet')}} />
+        <GeneralMenuItem iconName="heart-outline" text="My Favourites" onPress={() => {navigation.navigate('MyFav')}} />
+       
+        <GeneralMenuItem iconName="person-outline" text="Contact Information" onPress={() => {navigation.navigate('EditContactInfo')}} />
+        <GeneralMenuItem iconName="book-outline" text="Academic Information" onPress={() => {navigation.navigate('EditAcademicInfo')}} />
         <GeneralMenuItem iconName="log-out-outline" text="Logout" onPress={handleLogout} />
+         <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={showAlert} />
+        
       </GeneralMenu>
       
    
-    </View>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
+      <CustomAlert
+        visible={isAlertVisible}
+        title="Delete Account"
+        message="Are you sure you want to delete your account."
+        onClose={hideAlert}
+        btn="Delete Account"
+        
+      />
+    </View>
+    </View>
+ 
      </ScrollView>
   
   )
@@ -154,7 +201,16 @@ GeneralMenu:{
   fontWeight:'500' ,
   marginLeft:10 ,
 
-}
+},
+
+ loadingIndicator: {
+    marginTop: 20,
+    flex:1 ,
+    height:80 ,
+    width:80 ,
+    color:'#000' ,
+    backgroundColor:'00FFFFFF'
+  },
 })
 
 export default Userprofile
