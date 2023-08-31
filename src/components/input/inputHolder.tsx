@@ -14,7 +14,7 @@ interface inputProps {
   type: string;
   updateFields: any;
   name: string;
-  label: string;
+  label?: string;
   placeholderText?: string;
   hasDropdown?: boolean;
   dropdownData?: string[];
@@ -22,6 +22,7 @@ interface inputProps {
   isTextarea?: boolean;
   textareaLines?: number;
   showLabel?: boolean;
+  hasSignleUpdate?: boolean;
 }
 
 const InputHolder = (props: inputProps) => {
@@ -41,6 +42,10 @@ const InputHolder = (props: inputProps) => {
     setShowDropdown(false);
   };
 
+  const singleUpdate = (enteredValue: any) => {
+    props.updateFields(enteredValue);
+  };
+
   return (
     <View>
       <TextInput
@@ -49,7 +54,11 @@ const InputHolder = (props: inputProps) => {
         autoCapitalize="none"
         placeholder={props.placeholderText}
         secureTextEntry={props.type == 'password'}
-        onChangeText={inputhandler.bind(this, props.name)}
+        onChangeText={
+          !props.hasSignleUpdate
+            ? inputhandler.bind(this, props.name)
+            : singleUpdate
+        }
         multiline={props.isTextarea}
         numberOfLines={props.textareaLines ? props.textareaLines : 1}
       />

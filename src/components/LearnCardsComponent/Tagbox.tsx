@@ -10,7 +10,7 @@ const Tagbox = (props: tagProps) => {
     <View style={styles.container}>
       {props.tags.map((tag, idx) => {
         return (
-          <Text key={idx} style={styles.tag}>
+          <Text key={idx} style={[styles.tag, idx == 0 && styles.lang]}>
             {tag}
           </Text>
         );
@@ -23,24 +23,23 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // marginTop: 20,
-    // marginBottom: 90,
+    columnGap: 12,
+    rowGap: 10,
   },
   tag: {
-    flex: 1,
-    flexWrap: 'wrap',
-    borderColor: '#000',
+    borderColor: 'grey',
     borderWidth: 1,
-    padding: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     color: '#000',
-    width: '20%',
-    textAlign: 'center',
     fontFamily: 'Nunito',
     fontWeight: '500',
-    height: 40,
     fontSize: 16,
-    marginRight: 10,
-    borderRadius: 10,
+    borderRadius: 6,
+  },
+  lang: {
+    color: '#ef4565',
+    fontWeight: '700',
   },
 });
 

@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'; // Import the Image component
+import {View, Text, Image} from 'react-native'; // Import the Image component
 import React from 'react';
 
 const UserClasses = () => {
@@ -10,14 +10,11 @@ const UserClasses = () => {
           margin: 40,
           backgroundColor: '#FFF',
           height: 80,
-          width:300,
+          width: 300,
           alignItems: 'center',
-          borderRadius:8,
-          elevation:4 ,
-         
-        }}
-      >
-        {/* Image */}
+          borderRadius: 8,
+          elevation: 4,
+        }}>
         <Image
           source={require('../../assets/Images/userProfilePic.png')} // Replace with the actual path to your image
           style={{
@@ -28,15 +25,14 @@ const UserClasses = () => {
             marginLeft: 10,
           }}
         />
-        <View style={{ flexDirection: 'column' }}>
+        <View style={{flexDirection: 'column'}}>
           <Text
             style={{
               color: '#000',
               fontFamily: 'Nunito',
               fontSize: 22,
               fontWeight: '700',
-            }}
-          >
+            }}>
             Ethan Alexander
           </Text>
           <Text
@@ -45,8 +41,7 @@ const UserClasses = () => {
               fontFamily: 'Nunito',
               fontSize: 14,
               fontWeight: '400',
-            }}
-          >
+            }}>
             @ethanalex
           </Text>
         </View>

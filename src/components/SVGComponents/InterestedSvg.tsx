@@ -8,8 +8,8 @@ interface SvgComponentProps {
 }
 
 const SvgComponent: React.FC<SvgComponentProps> = ({
-  width = 16,
-  height = 16,
+  width = 20,
+  height = 20,
   fill = '#FFD465',
 }) => {
   return (

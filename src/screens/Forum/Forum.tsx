@@ -7,6 +7,9 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {DATA_LIMIT} from '../../utils/globalContants';
 import ForumCard from '../../components/forum-components/forumCard';
+import PostForumBtn from '../../components/forum-components/ForumBtn';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
 const Forum = () => {
   const authCtx = useContext(AuthContext);
@@ -53,12 +56,37 @@ const Forum = () => {
     }
   }, [userToken]);
 
+  type RootStackParamList = {
+    CreateForum: undefined;
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const createForumnavigator = () => {
+    navigation.navigate('CreateForum');
+  };
+
   return !isLoading ? (
-    <View style={styles.container}>
-      {forums &&
-        forums.map((forum, idx) => {
-          return <ForumCard key={idx} userToken={userToken} {...forum} />;
-        })}
+    <View style={{margin: 18}}>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}>
+        <PostForumBtn
+          text="Post your query"
+          onPressFunc={createForumnavigator}
+        />
+      </View>
+      <View style={styles.container}>
+        {forums &&
+          forums.map((forum, idx) => {
+            return <ForumCard key={idx} userToken={userToken} {...forum} />;
+          })}
+      </View>
     </View>
   ) : (
     <ActivityIndicator size={48} color="#094067" />
@@ -68,7 +96,6 @@ const Forum = () => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 40,
-    marginHorizontal: 8,
     display: 'flex',
     flexDirection: 'column',
     rowGap: 10,
