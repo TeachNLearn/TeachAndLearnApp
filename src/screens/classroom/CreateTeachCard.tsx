@@ -70,7 +70,11 @@ const CreateTeachCard = ({route}: any) => {
   const teachCardHandler = async (e: any) => {
     e.preventDefault();
     console.log(teachCard);
-    const img = await autoGenerateImage(teachCard.subject);
+    const img = await autoGenerateImage(
+      teachCard.subject,
+      teachCard.tags,
+      teachCard.topic,
+    );
     // console.log(img);
     // if (handleValidation()) {
     if (!img) {

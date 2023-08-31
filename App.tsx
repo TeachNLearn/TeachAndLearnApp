@@ -18,6 +18,7 @@ import CreateForum from './src/screens/forum/CreateForum';
 import PostForumAnswer from './src/components/forum-components/postForumAnswer';
 import SingleClassroom from './src/screens/classroom/SingleClassroom';
 import Forum from './src/screens/forum/Forum';
+import Classes from './src/screens/classroom/Classes';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -75,8 +76,8 @@ const NavigationScreens = () => {
         <Stack.Screen name="CreateForum" component={CreateForum} />
         <Stack.Screen name="CreateForumAnswer" component={PostForumAnswer} />
         <Stack.Screen name="LearnCardOverview" component={LearnCardOverview} />
-        <Stack.Screen name="BuyClass" component={BuyClass} />
         <Stack.Screen name="CreateLearnCard" component={CreateLearnCard} />
+        <Stack.Screen name="Classes" component={Classes} />
         <Stack.Screen name="ClassOverview" component={ClassOverview} />
         <Stack.Screen name="SingleClassroom" component={SingleClassroom} />
         <Stack.Screen name="CreateTeachCard" component={CreateTeachCard} />
