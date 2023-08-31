@@ -1,8 +1,10 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import React , {useState} from 'react';
+import {StyleSheet, View , TouchableOpacity , Image, Text} from 'react-native';
 import InputHolder from '../input/inputHolder';
 import MultipleInput from '../input/multipleInput';
 import ArrChip from '../input/arrChip';
+import ImagePicker from 'react-native-image-crop-picker';
+import DocUploadSvg from '../SVGComponents/DocUploadSvg' ;
 
 interface UserInfo {
   photo: string;
@@ -22,8 +24,40 @@ type UserInfoFormProps = UserInfo & {
 };
 
 const UserInfoForm = (props: UserInfoFormProps) => {
+   const [image, setImage] = useState<string | undefined>(props.photo);
+
+  const handleImagePicker = async () => {
+    try {
+      const result = await ImagePicker.openPicker({
+        width: 300,
+        height: 300,
+        cropping: true,
+      });
+
+      setImage(result.path);
+      props.updateFields({ photo: result.path });
+    } catch (error) {
+      console.log('Error selecting image:', error);
+    }
+  };
   return (
     <View style={styles.formContainer}>
+            <TouchableOpacity onPress={handleImagePicker} style={styles.imagePicker}>
+               <Text style={styles.profilePicLabel}>Profile pic</Text>
+        {image ? (
+          <View style={{flexDirection:'row' , alignItems:'center', justifyContent:'space-between' ,}}>
+            <Image source={{ uri: image }} style={styles.image} />
+            <Text style={{color:'#000' , marginRight:20 ,}}>Profile pic uploaded</Text>
+          </View>
+          
+        ) : (
+          <View style={{flexDirection:'row' , alignItems:'center'}}>
+            <DocUploadSvg/>
+            <Text>Click to Upload</Text>
+          </View>
+          
+        )}
+      </TouchableOpacity>
       <InputHolder
         type="text"
         label="Phone Number"
@@ -136,6 +170,41 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 8,
   },
+
+  imagePicker: {
+    width: '100%',
+    paddingVertical: 15,
+    paddingRight: 0,
+    paddingLeft: 10,
+    borderWidth: 1.5,
+    borderColor: '#d5d9eb',
+    borderRadius: 8,
+    color: '#000000',
+    fontSize: 16,
+    fontWeight: '400',
+    flexDirection: 'column',
+    
+    position: 'relative', // Added for positioning
+  },
+  profilePicLabel: {
+    position: 'absolute',
+    top: 0,
+    left: 10,
+    pointerEvents: 'none',
+    zIndex: 100,
+    fontSize: 11,
+    backgroundColor: 'white',
+    color: '#b3b8db',
+    paddingHorizontal: 5,
+    transform: [{ translateY: -7 }],
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+   
+ 
 });
 
 export default UserInfoForm;

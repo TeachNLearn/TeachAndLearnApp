@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, ScrollView, Image,  TouchableWithoutFeedback } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image,  TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useState } from 'react';
+import { useState  , useContext} from 'react';
+import { AuthContext } from '../../store/auth-context';
 import { Switch } from 'react-native-switch';
 // import Fontawesome from 'react-native-vector-icons/FontAwesome5';
 import Ionican from 'react-native-vector-icons/Ionicons';
@@ -12,6 +13,7 @@ interface ImageInfo {
   base64: string;
 }
 const Userprofile: React.FC = () => {
+  const authCtx = useContext(AuthContext);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
  const defaultImageSource = require('../../assets/Images/userProfilePic.png');
   const [profileImage, setProfileImage] = useState<ImageInfo>({
@@ -61,7 +63,10 @@ const Userprofile: React.FC = () => {
     }
   };
 
- 
+ const handleLogout = () => {
+  authCtx.logout();
+
+ }
 
  
   
@@ -155,27 +160,27 @@ const Userprofile: React.FC = () => {
       
 
       </View>
-      <View style={{ flexDirection:'row' , borderBottomColor:'#000' , borderBottomWidth:1 , marginLeft:30 ,  marginRight:30 , marginTop:20 , marginBottom:30 ,alignItems:'center' }}>
+      <View style={{ flexDirection:'row' , borderBottomColor:'#000' , borderBottomWidth:1 , marginLeft:30 ,  marginRight:30 , marginTop:20 , marginBottom:30  }}>
         <Ionican name="card-outline" size={24} color="#000000" />
        <View style={{flexDirection:'row' , justifyContent:'space-between' , alignItems:'center' , width:'90%', marginBottom:10}}>
         <Text style={styles.GeneralMenu}>Payments</Text>
          <Ionican name="chevron-forward-outline" size={20} color="#000000" />
         </View>
       </View>
-      <View style={{ flexDirection:'row' , borderBottomColor:'#000' , borderBottomWidth:1 , marginLeft:30 ,  marginRight:30 , marginTop:20 , marginBottom:30  , alignItems:'center'}}>
+      <View style={{ flexDirection:'row' , borderBottomColor:'#000' , borderBottomWidth:1 , marginLeft:30 ,  marginRight:30 , marginTop:20 , marginBottom:30  }}>
       <Ionican name="paper-plane-outline" size={24} color="#000000" />
       <View style={{flexDirection:'row' , justifyContent:'space-between' , alignItems:'center' , width:'90%', marginBottom:10}}>
         <Text style={styles.GeneralMenu}>Invite Friends</Text>
          <Ionican name="chevron-forward-outline" size={20} color="#000000" />
         </View>
       </View>
-      <View style={{ flexDirection:'row' , borderBottomColor:'#000' , borderBottomWidth:1 , marginLeft:30 ,  marginRight:30 , marginTop:20 , marginBottom:30,alignItems:'center' }}>
-        <Text>Icon</Text>
-        <View style={{flexDirection:'row' , justifyContent:'space-between' , alignItems:'center' , width:'90%', marginBottom:10}}>
-        <Text style={styles.GeneralMenu}>Invite Friends</Text>
+      <TouchableOpacity style={{ flexDirection:'row' , borderBottomColor:'#000' , borderBottomWidth:1 , marginLeft:30 ,  marginRight:30 , marginTop:20 , marginBottom:30,  }} onPress={handleLogout}>
+          <Ionican name="log-out-outline" size={27} color="#000000" />
+        <View style={{flexDirection:'row' , justifyContent:'space-between' , alignItems:'center' , width:'90%', marginBottom:10}} >
+        <Text style={styles.GeneralMenu}>Logout</Text>
          <Ionican name="chevron-forward-outline" size={20} color="#000000" />
         </View>
-      </View>
+      </TouchableOpacity>
      </View>
     </View>
    

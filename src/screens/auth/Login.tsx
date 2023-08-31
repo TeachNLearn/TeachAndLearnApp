@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import InputHolder from '../../components/input/inputHolder';
 // import Button from "../components/general-comp/button";
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
@@ -23,6 +23,8 @@ const Login = () => {
     password: '',
   });
 
+  const [errorText, setErrorText] = useState('');
+
   const authCtx = useContext(AuthContext);
 
   function updateFields(fields: Partial<loginDataProps>) {
@@ -31,17 +33,22 @@ const Login = () => {
     });
   }
 
-  const handleValidation = () => {
-    const {email, password} = loginData;
+
+   const handleValidation = () => {
+    const { email, password } = loginData;
     if (email === '' || password === '') {
+      setErrorText('Please fill in all fields.');
       return false;
     } else if (!isValidEmail(email)) {
+      setErrorText('Please enter a valid email.');
       return false;
     } else if (password.length < 6) {
+      setErrorText('Password must be at least 6 characters long.');
       return false;
     }
+    setErrorText('');
     return true;
-  };
+  }
 
   const loginHandler = async () => {
     console.log(loginData);
@@ -99,13 +106,17 @@ const Login = () => {
             hasDropdown={false}
             showLabel={true}
           />
+            {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
           <Button onPress={loginHandler}>Login</Button>
         </View>
         <View style={styles.signup}>
           <Text style={styles.simpleText}>Already have an account?</Text>
-          <Text onPress={loginNavigation} style={styles.link}>
-            Signup!!
-          </Text>
+          <TouchableOpacity onPress={loginNavigation} >
+            <Text style={styles.link}>
+               Signup!!
+            </Text>
+           
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -146,6 +157,11 @@ const styles = StyleSheet.create({
   },
   link: {
     color: '#094067',
+  },
+   errorText: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign:'center' ,
   },
 });
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import SvgImg from '../SVGComponents/InterestedSvg';
 import CoinSvg from '../SVGComponents/CoinsSvg';
+import {getReadableDate, getReadableTime, getReadableTime2} from '../../utils/helperFunctions';
 
 interface RecommendedCourse {
   subject: string;
@@ -13,6 +14,10 @@ interface RecommendedCourse {
     userName: string;
     photo: string;
   };
+  date:string ;
+  classStartsAt:string;
+  classEndsAt:string ;
+  tags:string[] ;
   // Add more properties as needed
 }
 
@@ -42,11 +47,18 @@ const RecommendedCards: React.FC<RecommendedCardsProps> = ({ item }) => {
           {item.length} interested
         </Text>
         <Text style={styles.coins}>
-          {item.coins}
-          <CoinSvg fill="#fff" />
-          {'     '}
-          250 coins
+         
+          {getReadableDate(item.date)}{", "}
+          {getReadableTime2(item.classStartsAt)}{"- "}
+          {getReadableTime2(item.classEndsAt)}{" "}
         </Text>
+      </View>
+       <View style={styles.tagsContainer}>
+        {item.tags.map((tag, index) => (
+          <View key={index} style={styles.tag}>
+            <Text style={styles.tagText}>{tag.length>7 ? `${tag.substring(0 , 7) }`: tag}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -54,8 +66,8 @@ const RecommendedCards: React.FC<RecommendedCardsProps> = ({ item }) => {
 
 const styles = StyleSheet.create({
   Learningcards: {
-    width: 260,
-    height: 200,
+    width: 280,
+    height: 230,
     backgroundColor: '#094067',
     borderRadius: 16,
     marginTop: 30,
@@ -68,9 +80,9 @@ const styles = StyleSheet.create({
   },
 
   cardHead: {
-    color: '#FFF',
-    fontSize: 10,
-    fontWeight: '500',
+    color: '#ef4565',
+    fontSize: 12,
+    fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.2,
     marginTop: 20,
@@ -121,6 +133,28 @@ const styles = StyleSheet.create({
   coins: {
     color: '#FFF',
     fontSize: 12,
+    fontWeight: '500',
+  },
+
+    tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 19,
+    marginLeft:18 ,
+  },
+
+  tag: {
+    backgroundColor: '#3da9fc',
+    borderRadius: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+
+  tagText: {
+    color: '#FFF',
+    fontSize: 10,
     fontWeight: '500',
   },
 });

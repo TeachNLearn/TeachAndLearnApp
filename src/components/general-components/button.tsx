@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Pressable, View} from 'react-native';
 
 interface btnProps {
@@ -9,11 +9,11 @@ interface btnProps {
 
 const Button = ({children, onPress}: btnProps) => {
   return (
-    <Pressable style={styles.pressableContainer} onPress={onPress}>
+    <TouchableOpacity style={styles.pressableContainer} onPress={onPress}>
       <View>
         <Text style={styles.text}>{children}</Text>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
