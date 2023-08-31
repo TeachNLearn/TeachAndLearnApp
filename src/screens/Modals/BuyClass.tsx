@@ -3,19 +3,11 @@ import Ionican from 'react-native-vector-icons/Ionicons';
 import React from 'react'
 import CoinsSvg from '../../components/SVGComponents/CoinsSvg';
 import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
-import CustomAlert from './CancelClass';
+
 import { useState } from 'react';
 
 const BuyClass = () => {
-    const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
-
-  const showAlert = () => {
-    setIsAlertVisible(true);
-  };
-
-  const hideAlert = () => {
-    setIsAlertVisible(false);
-  };
+    
   return (
     <View style={{justifyContent:'center' , alignItems:'center' , flex:1 , backgroundColor: 'rgba(255, 255, 255, 0.34)'}}>
       <View style={{ width:340 , height:370 , backgroundColor:'#FFF' , borderRadius:28 , elevation:8}}>
@@ -67,18 +59,6 @@ const BuyClass = () => {
         
       </View>
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <TouchableOpacity onPress={showAlert}>
-        <Text>Show Custom Alert</Text>
-      </TouchableOpacity>
-
-      <CustomAlert
-        visible={isAlertVisible}
-        title="Cancel Class"
-        message="Are you sure you want to cancel this class ? On cancelling this class the students would be refunded their coins and deductive from your side."
-        onClose={hideAlert}
-      />
-    </View>
     </View>
   )
 }

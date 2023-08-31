@@ -56,7 +56,7 @@ const RecommendedCards: React.FC<RecommendedCardsProps> = ({ item }) => {
        <View style={styles.tagsContainer}>
         {item.tags.map((tag, index) => (
           <View key={index} style={styles.tag}>
-            <Text style={styles.tagText}>{tag.length>7 ? `${tag.substring(0 , 7) }`: tag}</Text>
+            <Text style={styles.tagText}>{tag}</Text>
           </View>
         ))}
       </View>
