@@ -7,6 +7,7 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {DATA_LIMIT} from '../../utils/globalContants';
 import ForumCard from '../../components/forum-components/forumCard';
+import PostForumBtn from '../../components/forum-components/postForumBtn';
 
 const Forum = () => {
   const authCtx = useContext(AuthContext);
@@ -54,11 +55,21 @@ const Forum = () => {
   }, [userToken]);
 
   return !isLoading ? (
-    <View style={styles.container}>
-      {forums &&
-        forums.map((forum, idx) => {
-          return <ForumCard key={idx} userToken={userToken} {...forum} />;
-        })}
+    <View style={{margin: 18}}>
+      <View
+        style={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'flex-end',
+        }}>
+        <PostForumBtn />
+      </View>
+      <View style={styles.container}>
+        {forums &&
+          forums.map((forum, idx) => {
+            return <ForumCard key={idx} userToken={userToken} {...forum} />;
+          })}
+      </View>
     </View>
   ) : (
     <ActivityIndicator size={48} color="#094067" />
@@ -68,7 +79,6 @@ const Forum = () => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 40,
-    marginHorizontal: 8,
     display: 'flex',
     flexDirection: 'column',
     rowGap: 10,

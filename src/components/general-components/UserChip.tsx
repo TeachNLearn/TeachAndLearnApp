@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    columnGap: 8,
+    columnGap: 6,
   },
   image: {
     width: 32,
