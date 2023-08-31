@@ -32,14 +32,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    height: 50,
+    height: 150,
     backgroundColor: '#f5f5f5',
   },
   headTxt: {
     flex: 1,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontWeight: '600',
     fontSize: 18,
+    color:'#000' ,
+    fontFamily:'Nunito',
+    letterSpacing:0.36 ,
+    
+    
   },
 });
 

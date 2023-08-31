@@ -14,6 +14,7 @@ type forumCardProps = forumProps & {
 const ForumCard = (props: forumCardProps) => {
   type RootStackParamList = {
     ForumOverview: {id: string} | undefined;
+    
   };
 
   const navigation =
@@ -23,6 +24,7 @@ const ForumCard = (props: forumCardProps) => {
     navigation.navigate(`ForumOverview`, {
       id: props._id,
     });
+  
   };
 
   return (

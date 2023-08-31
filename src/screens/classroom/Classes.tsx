@@ -35,7 +35,8 @@ const Classes = () => {
         }}>
         <TouchableOpacity
           style={[activeLink === 'all classes' && styles.activeSegment]}
-          onPress={() => navigationHandler('all classes')}>
+          onPress={() => navigationHandler('all classes')}  
+          >
           <Text style={styles.segmentText}>All Classes</Text>
         </TouchableOpacity>
         <TouchableOpacity
