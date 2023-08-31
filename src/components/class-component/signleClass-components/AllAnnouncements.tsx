@@ -7,6 +7,7 @@ import {DATA_LIMIT} from '../../../utils/globalContants';
 import {checkMoreData, getHeaders} from '../../../utils/helperFunctions';
 import {View} from 'react-native';
 import Announcement from '../Announcement';
+import JoinClass from '../JoinClass';
 
 interface classProps {
   topic: string;
@@ -68,19 +69,26 @@ const AllAnnouncements = (props: classProps) => {
         {isLoading ? (
           <ActivityIndicator size={40} color="#094067" />
         ) : announcements.length != 0 ? (
-          <View style={{display: 'flex', flexDirection: 'column', rowGap: 28}}>
-            {announcements.map((announcement, index) => {
-              return <Announcement {...announcement} key={index} />;
-            })}
+          <View>
+            <JoinClass callLink={props.callLink} />
+            <View
+              style={{display: 'flex', flexDirection: 'column', rowGap: 28}}>
+              {announcements.map((announcement, index) => {
+                return <Announcement {...announcement} key={index} />;
+              })}
+            </View>
           </View>
         ) : (
-          <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 32,
-            }}>
-            No announcements yet!!
-          </Text>
+          <View>
+            <JoinClass callLink={props.callLink} />
+            <Text
+              style={{
+                fontWeight: '600',
+                fontSize: 32,
+              }}>
+              No announcements yet!!
+            </Text>
+          </View>
         )}
       </View>
     </ScrollView>

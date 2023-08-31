@@ -12,6 +12,7 @@ import Tagbox from '../../LearnCardsComponent/Tagbox';
 import CardTopic from '../../LearnCardsComponent/CardTopic';
 import CardID from '../../LearnCardsComponent/CardID';
 import ClassDate from '../ClassDate';
+import CancelClass from '../CancelClass';
 
 type overallOverviewProps = classroomProps & {
   userId: string;
@@ -95,6 +96,11 @@ const Overview = (props: overallOverviewProps) => {
         description={props.description}
       />
       <Tagbox tags={[props.preferredLanguage, ...props.tags]} />
+      {!props.hasCancelled && props.userId === props.createdBy._id ? (
+        !checkIsCompleted() ? (
+          <CancelClass teachCardId={props._id} userToken={props.userToken} />
+        ) : null
+      ) : null}
     </View>
   );
 };

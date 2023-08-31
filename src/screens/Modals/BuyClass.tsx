@@ -319,7 +319,7 @@ const BuyClass = (props: enrollProps) => {
                     borderRadius: 47,
                   }}>
                   {enrollLoading ? (
-                    <ActivityIndicator size={40} color="#fff" />
+                    <ActivityIndicator size={24} color="#fff" />
                   ) : (
                     <>
                       <Text
