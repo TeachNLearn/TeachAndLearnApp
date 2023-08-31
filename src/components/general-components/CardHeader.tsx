@@ -32,8 +32,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    height: 150,
+    // height: 150,
+    paddingVertical:36 ,
+    paddingTop:32 ,
     backgroundColor: '#f5f5f5',
+    elevation:8 ,
   },
   headTxt: {
     flex: 1,
