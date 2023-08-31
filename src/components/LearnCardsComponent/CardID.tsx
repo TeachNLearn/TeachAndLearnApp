@@ -1,51 +1,42 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import Ionican from 'react-native-vector-icons/Ionicons';
 import Clipboard from '@react-native-clipboard/clipboard';
-
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
+import CopySvg from '../SVGComponents/CopySvg';
 
 interface cardIdProps {
   id: string;
 }
 
 const CardID = (props: cardIdProps) => {
-   const copyToClipboard = () => {
+  const copyToClipboard = () => {
     Clipboard.setString(props.id);
-       Alert.alert('Copied', 'Card ID copied to clipboard');
+    Alert.alert('Copied', 'Card ID copied to clipboard');
   };
   return (
-    <View
+    <TouchableOpacity
       style={{
         backgroundColor: '#094067',
         padding: 16,
-        width: '80%',
+        alignSelf: 'flex-start',
+        justifyContent: 'center',
+        flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 10,
-        marginBottom:20 ,
-        
-      }}>
-         
-
+        columnGap: 6,
+        borderRadius: 30,
+      }}
+      onPress={copyToClipboard}>
+      <CopySvg />
       <Text
         style={{
           color: '#FFF',
           fontWeight: '700',
           fontSize: 14,
           letterSpacing: 1,
-        
-          
         }}>
-          <TouchableOpacity onPress={copyToClipboard}>
-             <Ionican name='copy-outline' size={24} style={{alignItems:'center' , marginTop:10 ,  color: '#FFF',
-          fontWeight: '700',
-          }} />
-          </TouchableOpacity>
-        Card ID :-{props.id}
-        
+        Card ID
       </Text>
-      
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -16,11 +16,12 @@ interface classCardBtnProps {
   enrolledArr: string[];
   classEndsAt: string;
   reviews: reviewProps[];
+  onPressFunc: () => void
 }
 
 const ClassCardBtn = (props: classCardBtnProps) => {
   return (
-    <TouchableOpacity style={styles.enrollBtn}>
+    <TouchableOpacity style={styles.enrollBtn} onPress={props.onPressFunc} >
       <View>
         <Text style={styles.enrollBtnText}>
           {props.hasCancelled

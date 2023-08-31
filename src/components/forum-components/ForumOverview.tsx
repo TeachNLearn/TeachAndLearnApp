@@ -1,14 +1,24 @@
-import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, Text, View, ActivityIndicator, ScrollView } from "react-native";
-import { AuthContext } from "../../store/auth-context";
-import { BASE_URL, apiVersion } from "../../utils/apiRoutes";
-import { getHeaders } from "../../utils/helperFunctions";
-import axios from "axios";
-import { forumProps } from "../../types/ForumTypes";
-import QuestionContainer from "./questionContainer";
-import AnswerContainer from "./answerContainer";
+import React, {useContext, useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
+import {AuthContext} from '../../store/auth-context';
+import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
+import {getHeaders} from '../../utils/helperFunctions';
+import axios from 'axios';
+import {forumProps} from '../../types/ForumTypes';
+import QuestionContainer from './questionContainer';
+import AnswerContainer from './answerContainer';
+import PostForumBtn from './ForumBtn';
+import {useNavigation} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-const ForumOverview = ({ navigation, route }: any) => {
+const ForumOverview = ({route}: any) => {
   console.log(route.params.id);
 
   const authCtx = useContext(AuthContext);
@@ -22,10 +32,9 @@ const ForumOverview = ({ navigation, route }: any) => {
       .get(`${BASE_URL}${apiVersion}/forum/${forumId}`, {
         headers: getHeaders(userToken),
       })
-      .then(({ data }: any) => {
+      .then(({data}: any) => {
         const forumData = data.data.data[0];
-        console.log("FORUM DATA");
-
+        console.log('FORUM DATA');
         console.log(data.data.data[0]);
         setForum(forumData);
         // setIsLoading(false);
@@ -36,14 +45,45 @@ const ForumOverview = ({ navigation, route }: any) => {
       });
   }
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
-    if (forumId && userToken) {
+    if (forumId) {
       fetchForum();
     }
-  }, [forumId, userToken]);
+  }, [forumId, isFocused]);
+
+  type RootStackParamList = {
+    CreateForumAnswer: {forumID: string | undefined};
+  };
+
+  const screenNavigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const createForumAnswerNavigator = () => {
+    if (forum) {
+      screenNavigation.navigate('CreateForumAnswer', {
+        forumID: forum._id,
+      });
+    } else {
+      return;
+    }
+  };
 
   return forum ? (
     <ScrollView>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}>
+        <PostForumBtn
+          text="Post answer"
+          onPressFunc={createForumAnswerNavigator}
+        />
+      </View>
       <View style={styles.container}>
         <QuestionContainer
           createdBy={forum.createdBy}
@@ -57,9 +97,16 @@ const ForumOverview = ({ navigation, route }: any) => {
         />
         <Text style={styles.replyheading}>Replies</Text>
         {forum?.answers.length != 0 && (
-          <View>
+          <View style={styles.answerGrid}>
             {forum?.answers.map((ans, idx) => {
-              return <AnswerContainer key={idx} answer={ans} />;
+              return (
+                <AnswerContainer
+                  key={idx}
+                  answer={ans}
+                  forumId={forum._id}
+                  userToken={userToken}
+                />
+              );
             })}
           </View>
         )}
@@ -74,40 +121,43 @@ const ForumOverview = ({ navigation, route }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
+    // paddingTop: 40,
     marginHorizontal: 8,
-    display: "flex",
-    flexDirection: "column",
-    rowGap: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 12,
+    // backgroundColor: "white",
+    // flex: 1,
   },
   heading: {
-    color: "#000",
-    fontFamily: "Nunito",
+    color: '#000',
+    fontFamily: 'Nunito',
     fontSize: 20,
-    fontStyle: "normal",
-    fontWeight: "700",
+    fontStyle: 'normal',
+    fontWeight: '700',
   },
   answerGrid: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     rowGap: 20,
   },
   replyheading: {
-    color: "#000",
+    color: '#000',
     fontSize: 20,
-    fontStyle: "normal",
-    fontWeight: "300",
+    fontStyle: 'normal',
+    fontWeight: '600',
     paddingHorizontal: 6,
     marginBottom: 4,
+    marginTop: 6,
   },
   loaderContainer: {
     // borderColor: "black",
     // borderWidth: 1,
     flex: 1,
     // paddingTop: 40,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
