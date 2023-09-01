@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import PlusSvg from '../SVGComponents/PlusSvg';
+import PlusSvg from '../svgComponents/PlusSvg';
 
 interface btnProps {
   onPressFunc: () => void;

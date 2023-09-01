@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import InputHolder from '../input/inputHolder';
+import InputHolder from '../inputComponents/inputHolder';
 
 interface SignUpData {
   fullName: string;

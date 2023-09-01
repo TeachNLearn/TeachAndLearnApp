@@ -50,73 +50,56 @@ export const getReadableTime = (ISODate: string) => {
   const date = new Date(ISODate);
 
   let timestampWithOffset = date.getTime();
-
-  let diff = date.getTimezoneOffset();
-  console.log('DIFF');
-  console.log(diff);
-
-  let unsignedDiff;
-
-  if (diff > 0) {
-    unsignedDiff = diff;
-  } else {
-    unsignedDiff = -diff;
-  }
-
-  const {timezoneHours, timezoneMinutes} = toHoursAndMinutes(unsignedDiff);
-
   const dateWithOffset = new Date(timestampWithOffset);
 
-  const hours = dateWithOffset.getHours();
+  let hours = dateWithOffset.getHours();
   let minutes = dateWithOffset.getMinutes();
 
-  let exactHours;
-  let exactMinutes;
-
-  if (timezoneHours > hours) {
-    if (diff < 0) {
-      exactHours = 24 + hours - timezoneHours;
-    } else {
-      exactHours = 24 + hours + timezoneHours;
-    }
-  } else {
-    if (diff < 0) {
-      exactHours = hours - timezoneHours;
-    } else {
-      exactHours = hours + timezoneHours;
-    }
-  }
-
-  if (timezoneMinutes > minutes) {
-    if (diff < 0) {
-      exactMinutes = 60 + minutes - timezoneMinutes;
-    } else {
-      exactMinutes = 60 + minutes + timezoneMinutes;
-    }
-  } else {
-    if (diff < 0) {
-      exactMinutes = minutes - timezoneMinutes;
-    } else {
-      exactMinutes = minutes + timezoneMinutes;
-    }
-  }
-
   let concatedTime;
-  if (exactMinutes < 10) {
-    concatedTime = String(exactHours + ':' + '0' + exactMinutes);
+
+  if (minutes < 10) {
+    if (hours < 10) concatedTime = String('0' + hours + ':' + '0' + minutes);
+    else concatedTime = String(hours + ':' + '0' + minutes);
   } else {
-    concatedTime = String(exactHours + ':' + exactMinutes);
+    if (hours < 10) concatedTime = String('0' + hours + ':' + minutes);
+    else concatedTime = String(hours + ':' + minutes);
   }
   return concatedTime;
 };
 
-export async function autoGenerateImage(topic: string) {
+export async function autoGenerateImage(
+  subject: string,
+  tags: string[],
+  topic?: string
+) {
   // console.log(process.env.REACT_APP_UNSPASH_ACCESS_KEY);
 
-  const res = await axios.get(
-    `https://api.unsplash.com/search/photos?page=1&query=${topic}&client_id=s26KY0b_ODGcUA1jZP4aqy-NPGIYX5qa-z8ZwJg49VU`,
+  let res = await axios.get(
+    `https://api.unsplash.com/search/photos?page=1&query=${subject}&client_id=s26KY0b_ODGcUA1jZP4aqy-NPGIYX5qa-z8ZwJg49VU`
   );
-  const randomImg = Math.floor(Math.random() * 10);
+
+  const resultLength = res.data.results.length;
+
+  if (res.data.results.length == 0) {
+    console.log("Nothing from subject");
+
+    if (tags?.length != 0) {
+      for (let i = 0; i < tags?.length; i++) {
+        console.log(`Checking tag ${i}`);
+        res = await axios.get(
+          `https://api.unsplash.com/search/photos?page=1&query=${tags[i]}&client_id=s26KY0b_ODGcUA1jZP4aqy-NPGIYX5qa-z8ZwJg49VU`
+        );
+        if (res.data.results.length != 0) break;
+      }
+    } else {
+      console.log(`Checking Topic`);
+      res = await axios.get(
+        `https://api.unsplash.com/search/photos?page=1&query=${topic}&client_id=s26KY0b_ODGcUA1jZP4aqy-NPGIYX5qa-z8ZwJg49VU`
+      );
+    }
+  }
+
+  const randomImg = Math.floor(Math.random() * resultLength);
   let img = res.data.results[randomImg].urls.full;
   if (!img) {
     for (let index = 0; index < res.data.results.length; index++) {

@@ -6,10 +6,10 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import PlusSvg from '../SVGComponents/PlusSvg';
+import PlusSvg from '../svgComponents/PlusSvg';
 import FormField from '../general-components/FormField';
 import {View} from 'react-native';
-import InputHolder from '../input/inputHolder';
+import InputHolder from '../inputComponents/inputHolder';
 import {getHeaders} from '../../utils/helperFunctions';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import axios from 'axios';

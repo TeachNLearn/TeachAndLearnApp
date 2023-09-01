@@ -3,8 +3,8 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconS from 'react-native-vector-icons/FontAwesome5';
 import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
-import InterestedSvgImg from '../SVGComponents/InterestedSvg' ;
-import CoinSvgImg from '../SVGComponents/CoinsSvg' ;
+import InterestedSvgImg from '../svgComponents/InterestedSvg' ;
+import CoinSvgImg from '../svgComponents/CoinsSvg' ;
 
 const Requests = () => {
   return (

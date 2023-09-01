@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {getReadableDate} from '../../utils/helperFunctions';
-import CopySvg from '../SVGComponents/CopySvg';
+import CopySvg from '../svgComponents/CopySvg';
 
 interface dueDateProps {
   dueDate: string;

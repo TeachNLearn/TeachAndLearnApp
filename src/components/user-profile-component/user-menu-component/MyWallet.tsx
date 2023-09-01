@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import CoinsSvg from '../../SVGComponents/CoinsSvg';
+import CoinsSvg from '../../svgComponents/CoinsSvg';
 
 interface Props {}
 

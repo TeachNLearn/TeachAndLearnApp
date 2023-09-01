@@ -7,11 +7,14 @@ import {getHeaders} from '../../../utils/helperFunctions';
 import axios from 'axios';
 import ClassBanner from '../ClassBanner';
 import UserChip from '../../general-components/UserChip';
-import CardDescription from '../../LearnCardsComponent/CardDescription';
-import Tagbox from '../../LearnCardsComponent/Tagbox';
-import CardTopic from '../../LearnCardsComponent/CardTopic';
-import CardID from '../../LearnCardsComponent/CardID';
+import CardDescription from '../../learnCardComponents/CardDescription';
+import Tagbox from '../../learnCardComponents/Tagbox';
+import CardTopic from '../../learnCardComponents/CardTopic';
+import CardID from '../../learnCardComponents/CardID';
 import ClassDate from '../ClassDate';
+import CancelClass from '../CancelClass';
+import AddLink from '../AddLink';
+import UserReview from '../UserReview';
 
 type overallOverviewProps = classroomProps & {
   userId: string;
@@ -89,12 +92,22 @@ const Overview = (props: overallOverviewProps) => {
         </View>
         <CardID id={props._id} />
       </View>
+      {/* <UserReview
+        teachCardId={props._id}
+        userToken={props.userToken}
+        teacherID={props.createdBy._id}
+      /> */}
       <CardDescription
         programme={props.programme}
         standard={props.standard}
         description={props.description}
       />
       <Tagbox tags={[props.preferredLanguage, ...props.tags]} />
+      {!props.hasCancelled && props.userId === props.createdBy._id ? (
+        !checkIsCompleted() ? (
+          <CancelClass teachCardId={props._id} userToken={props.userToken} />
+        ) : null
+      ) : null}
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import SvgImgInterested from '../SVGComponents/InterestedSvg';
+import SvgImgInterested from '../svgComponents/InterestedSvg';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {learnCardProps} from '../../types/learnCardType';
