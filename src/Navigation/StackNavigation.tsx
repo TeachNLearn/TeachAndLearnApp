@@ -5,7 +5,7 @@ import IntroOne from '../screens/intro/IntroOne';
 import IntroTwo from '../screens/intro/IntroTwo';
 import IntroThree from '../screens/intro/IntroThree';
 
-import TabNavigation from '../Navigation/TabNavigation';
+import TabNavigation from './TabNavigation';
 
 import Login from '../screens/auth/Login';
 import Signup from '../screens/auth/Signup';

@@ -12,13 +12,13 @@ import {
 import {classReview} from '../../types/classReviewProps';
 import ClassBanner from '../../components/class-component/ClassBanner';
 import UserChip from '../../components/general-components/UserChip';
-import CardDescription from '../../components/LearnCardsComponent/CardDescription';
-import Tagbox from '../../components/LearnCardsComponent/Tagbox';
-import CardTopic from '../../components/LearnCardsComponent/CardTopic';
+import CardDescription from '../../components/learnCardComponents/CardDescription';
+import Tagbox from '../../components/learnCardComponents/Tagbox';
+import CardTopic from '../../components/learnCardComponents/CardTopic';
 import ClassDate from '../../components/class-component/ClassDate';
-import CardID from '../../components/LearnCardsComponent/CardID';
+import CardID from '../../components/learnCardComponents/CardID';
 import Button from '../../components/general-components/button';
-import BuyClass from '../Modals/BuyClass';
+import BuyClass from '../modals/BuyClass';
 
 const ClassOverview = ({route}: any) => {
   const authCtx = useContext(AuthContext);

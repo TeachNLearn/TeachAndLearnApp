@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import SvgImg from '../SVGComponents/InterestedSvg';
-import CoinSvg from '../SVGComponents/CoinsSvg';
+import SvgImg from '../svgComponents/InterestedSvg';
+import CoinSvg from '../svgComponents/CoinsSvg';
 import {getReadableDate, getReadableTime, getReadableTime2} from '../../utils/helperFunctions';
 
 interface RecommendedCourse {

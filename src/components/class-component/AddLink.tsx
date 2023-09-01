@@ -13,9 +13,9 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import ArrowIcon from '../SVGComponents/ArrowIcon';
+import ArrowIcon from '../svgComponents/ArrowIcon';
 import Ionican from 'react-native-vector-icons/Ionicons';
-import InputHolder from '../input/inputHolder';
+import InputHolder from '../inputComponents/inputHolder';
 import FormField from '../general-components/FormField';
 import Button from '../general-components/button';
 

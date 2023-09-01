@@ -6,7 +6,7 @@ import {getHeaders} from '../../utils/helperFunctions';
 import RatingContainer from '../forum-components/RatingContainer';
 import Rating from './Rating';
 import FormField from '../general-components/FormField';
-import InputHolder from '../input/inputHolder';
+import InputHolder from '../inputComponents/inputHolder';
 
 interface reviewProps {
   teachCardId: string;

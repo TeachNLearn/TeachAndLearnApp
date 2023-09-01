@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {ScrollView, StyleSheet, View, ActivityIndicator} from 'react-native';
 import FormField from '../../components/general-components/FormField';
-import InputHolder from '../../components/input/inputHolder';
+import InputHolder from '../../components/inputComponents/inputHolder';
 import Button from '../../components/general-components/button';
 import {getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';

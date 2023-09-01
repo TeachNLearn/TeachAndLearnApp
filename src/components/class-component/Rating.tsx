@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import StarIcon from '../SVGComponents/StarIcon';
+import StarIcon from '../svgComponents/StarIcon';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 interface ratingProps {

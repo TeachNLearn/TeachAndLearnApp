@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Alert} from 'react-native';
-import CopySvg from '../SVGComponents/CopySvg';
+import CopySvg from '../svgComponents/CopySvg';
 
 interface cardIdProps {
   id: string;

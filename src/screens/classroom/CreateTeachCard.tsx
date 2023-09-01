@@ -11,13 +11,13 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {AuthContext} from '../../store/auth-context';
 import FormField from '../../components/general-components/FormField';
-import InputHolder from '../../components/input/inputHolder';
-import MultipleInput from '../../components/input/multipleInput';
-import ArrChip from '../../components/input/arrChip';
+import InputHolder from '../../components/inputComponents/inputHolder';
+import MultipleInput from '../../components/inputComponents/multipleInput';
+import ArrChip from '../../components/inputComponents/arrChip';
 import Button from '../../components/general-components/button';
 // import DateInput from '../../components/input/DateInput';
-import DateInput from '../../components/input/dateInput';
-import TimeInput from '../../components/input/TimeInput';
+import DateInput from '../../components/inputComponents/DateInput';
+import TimeInput from '../../components/inputComponents/TimeInput';
 
 interface teachCardDetails {
   subject: string;

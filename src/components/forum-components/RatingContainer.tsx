@@ -3,7 +3,7 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import axios from 'axios';
 import {getHeaders} from '../../utils/helperFunctions';
 import {StyleSheet, Text, View} from 'react-native';
-import UpvoteSvg from '../SVGComponents/UpvoteSvg';
+import UpvoteSvg from '../svgComponents/UpvoteSvg';
 import {TouchableOpacity} from 'react-native';
 import {AuthContext} from '../../store/auth-context';
 

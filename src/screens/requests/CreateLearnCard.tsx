@@ -7,16 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import InputHolder from '../../components/input/inputHolder';
+import InputHolder from '../../components/inputComponents/inputHolder';
 import {AuthContext} from '../../store/auth-context';
 import {getHeaders, getReadableDate} from '../../utils/helperFunctions';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import axios from 'axios';
 import FormField from '../../components/general-components/FormField';
-import MultipleInput from '../../components/input/multipleInput';
+import MultipleInput from '../../components/inputComponents/multipleInput';
 import Button from '../../components/general-components/button';
-import ArrChip from '../../components/input/arrChip';
-import DateInput from '../../components/input/dateInput';
+import ArrChip from '../../components/inputComponents/arrChip';
+import DateInput from '../../components/inputComponents/DateInput';
 
 interface learnCardDetails {
   subject: string;

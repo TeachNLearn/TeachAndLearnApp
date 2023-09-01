@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import {useMultiStepForm} from '../../utils/useMultiStepForm';
-import SignupForm from '../../components/auth-components/SignupForm';
-import DescriptionBox from '../../components/auth-components/descriptionBox';
+import SignupForm from '../../components/authComponents/SignupForm';
+import DescriptionBox from '../../components/authComponents/descriptionBox';
 import {StyleSheet} from 'react-native';
-import UserInfoForm from '../../components/auth-components/UserInfoForm';
+import UserInfoForm from '../../components/authComponents/UserInfoForm';
 import Button from '../../components/general-components/button';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';

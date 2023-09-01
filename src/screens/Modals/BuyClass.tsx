@@ -7,12 +7,12 @@ import {
 } from 'react-native';
 import Ionican from 'react-native-vector-icons/Ionicons';
 import React, {useEffect} from 'react';
-import CoinsSvg from '../../components/SVGComponents/CoinsSvg';
+import CoinsSvg from '../../components/svgComponents/CoinsSvg';
 import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomAlert from './CancelClass';
 import {useState} from 'react';
 import Button from '../../components/general-components/button';
-import ArrowIcon from '../../components/SVGComponents/ArrowIcon';
+import ArrowIcon from '../../components/svgComponents/ArrowIcon';
 import {
   getHeaders,
   getReadableDate,

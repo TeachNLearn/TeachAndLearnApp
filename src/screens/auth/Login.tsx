@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import InputHolder from '../../components/input/inputHolder';
+import InputHolder from '../../components/inputComponents/inputHolder';
 // import Button from "../components/general-comp/button";
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import Button from '../../components/general-components/button';
 import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import DescriptionBox from '../../components/auth-components/descriptionBox';
+import DescriptionBox from '../../components/authComponents/descriptionBox';
 
 interface loginDataProps {
   email: string;

@@ -1,7 +1,7 @@
 import {Link} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import ArrowIcon from '../SVGComponents/ArrowIcon';
+import ArrowIcon from '../svgComponents/ArrowIcon';
 import {Linking} from 'react-native';
 
 interface callProps {
