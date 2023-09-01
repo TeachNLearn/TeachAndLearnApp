@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
-import {useState, useContext} from 'react';
+import {useState, useContext, useEffect} from 'react';
 import {AuthContext} from '../../store/auth-context';
 
 // import Fontawesome from 'react-native-vector-icons/FontAwesome5';
@@ -27,6 +27,30 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import CustomAlert from '../modals/CancelClass';
+import axios from 'axios';
+import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
+import {getHeaders} from '../../utils/helperFunctions';
+
+interface userProps {
+  _id: string;
+  name: string;
+  userName: string;
+  photo: string;
+  tagline: string;
+  email: string;
+  enrolledProgramme: string;
+  role: string;
+  phoneNumber: string;
+  classesEnrolled: string[];
+  classesTaken: string[];
+  interestedSubject: string;
+  interestedSubjects: string[];
+  strongSubject: string;
+  strongSubjects: string[];
+  language: string;
+  preferredLanguages: string[];
+  token: string;
+}
 
 interface ImageInfo {
   uri: string;
@@ -119,6 +143,29 @@ const Userprofile: React.FC = () => {
   const switchWidth = 60; // Customize the width of the switch
   const switchHeight = 30;
   const thumbSize = 10;
+
+  const [userToken, setUserToken] = useState<string>(authCtx.token);
+  const [localUser, setLocalUser] = useState<userProps>();
+
+  async function fetchMyDetails() {
+    await axios
+      .get(`${BASE_URL}${apiVersion}/user/me`, {
+        headers: getHeaders(userToken),
+      })
+      .then(({data}) => {
+        const user = data.data.data[0];
+        user.token = userToken;
+        console.log(user);
+        setLocalUser(user);
+      });
+  }
+
+  useEffect(() => {
+    if (userToken) {
+      fetchMyDetails();
+    }
+  }, [userToken]);
+
   return (
     <ScrollView style={{}}>
       <View style={styles.userProfileParentContainer}>
