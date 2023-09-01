@@ -13,6 +13,8 @@ import CardTopic from '../../LearnCardsComponent/CardTopic';
 import CardID from '../../LearnCardsComponent/CardID';
 import ClassDate from '../ClassDate';
 import CancelClass from '../CancelClass';
+import AddLink from '../AddLink';
+import UserReview from '../UserReview';
 
 type overallOverviewProps = classroomProps & {
   userId: string;
@@ -90,6 +92,11 @@ const Overview = (props: overallOverviewProps) => {
         </View>
         <CardID id={props._id} />
       </View>
+      {/* <UserReview
+        teachCardId={props._id}
+        userToken={props.userToken}
+        teacherID={props.createdBy._id}
+      /> */}
       <CardDescription
         programme={props.programme}
         standard={props.standard}
