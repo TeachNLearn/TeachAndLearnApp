@@ -95,7 +95,7 @@ const Userprofile: React.FC = () => {
 
     // Simulate an asynchronous action (e.g., API call) with a timeout
     setTimeout(() => {
-      // authCtx.logout();
+      authCtx.logout();
       setIsLoading(false); // Stop loading
       navigation.navigate('Login');
     }, 1500); 
