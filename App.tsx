@@ -10,15 +10,18 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ForumOverview from './src/components/forum-components/ForumOverview';
 import Login from './src/screens/auth/Login';
 import LearnCardOverview from './src/screens/requests/LearnCardOverview';
-import BuyClass from './src/screens/Modals/BuyClass';
 import ClassOverview from './src/screens/classroom/ClassOverview';
 import CreateLearnCard from './src/screens/requests/CreateLearnCard';
 import CreateTeachCard from './src/screens/classroom/CreateTeachCard';
-import CreateForum from './src/screens/forum/CreateForum';
+import CreateForum from './src/screens/Forum/CreateForum';
 import PostForumAnswer from './src/components/forum-components/postForumAnswer';
 import SingleClassroom from './src/screens/classroom/SingleClassroom';
 import Forum from './src/screens/forum/Forum';
 import Classes from './src/screens/classroom/Classes';
+import MyFavourite from './src/components/user-profile-component/user-menu-component/MyFavourite';
+import MyWallet from './src/components/user-profile-component/user-menu-component/MyWallet';
+import EditAcademicInfo from './src/components/user-profile-component/user-menu-component/EditAcademicInfo';
+import EditContactInfo from './src/components/user-profile-component/user-menu-component/EditContactInfo';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -72,6 +75,18 @@ const NavigationScreens = () => {
           }}
         />
         <Stack.Screen name="Forum" component={Forum} />
+        <Stack.Screen
+          name="Mywallet"
+          component={MyWallet}
+          options={{headerShown: true, headerTitle: 'My Wallet'}}
+        />
+        <Stack.Screen
+          name="MyFav"
+          component={MyFavourite}
+          options={{headerShown: true, headerTitle: 'My Favourite'}}
+        />
+        <Stack.Screen name="EditContactInfo" component={EditContactInfo} />
+        <Stack.Screen name="EditAcademicInfo" component={EditAcademicInfo} />
         <Stack.Screen name="ForumOverview" component={ForumOverview} />
         <Stack.Screen name="CreateForum" component={CreateForum} />
         <Stack.Screen name="CreateForumAnswer" component={PostForumAnswer} />

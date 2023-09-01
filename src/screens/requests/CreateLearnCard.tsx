@@ -16,7 +16,7 @@ import FormField from '../../components/general-components/FormField';
 import MultipleInput from '../../components/input/multipleInput';
 import Button from '../../components/general-components/button';
 import ArrChip from '../../components/input/arrChip';
-import DateInput from '../../components/input/DateInput';
+import DateInput from '../../components/input/dateInput';
 
 interface learnCardDetails {
   subject: string;

@@ -51,7 +51,7 @@ const TabNavigation: React.FC = () => (
     />
     <Tab.Screen
       name="Forum"
-      component={Forum}
+      component={Login}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (
