@@ -139,15 +139,8 @@ const Userprofile: React.FC = () => {
     </View>
 
 
-    <View style={{backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>
-
-
-   
-                      
+    <View style={{backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>                 
     <View style={{backgroundColor:'#094067' , borderTopLeftRadius:50 , borderTopRightRadius:50 , borderBottomLeftRadius:30 , borderBottomRightRadius:30 , }}>
-         {/* Contact and Academic Info  */}
-        
-
       {/* Stats  */}
      <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Teacher</Text>
       <View style={{flexDirection:'row' , alignItems:'center' , justifyContent:'space-evenly', marginBottom:20  , }}>

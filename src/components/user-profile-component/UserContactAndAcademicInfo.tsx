@@ -55,9 +55,14 @@ const styles: Styles = {
     borderRadius: 10,
     padding: 5,
     margin: 5,
+    borderWidth:1 ,
+    borderColor:'gray',
+   
+
   },
   tagsContainer: {
     flexDirection: 'row',
+     flexWrap: 'wrap',
   },
   textStyle: {
     color: '#000',

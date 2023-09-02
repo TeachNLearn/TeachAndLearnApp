@@ -93,6 +93,7 @@ const LearnCards: React.FC<LearnCardsProps> = ({navigation}) => {
         title="Learn Cards"
         onBackPress={handleBackPress}
         onMenuPress={handleMenuPress}
+        ShowMenuIcon
       />
       <ScrollView>
          {showActivityIndicator ? (

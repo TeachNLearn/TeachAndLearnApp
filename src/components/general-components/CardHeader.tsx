@@ -6,23 +6,27 @@ interface LearnCardHeaderProps {
   title: string;
   onBackPress: () => void;
   onMenuPress: () => void;
+  ShowMenuIcon : boolean ;
 }
 
 const CardHeader: React.FC<LearnCardHeaderProps> = ({
   title,
   onBackPress,
   onMenuPress,
+  ShowMenuIcon = true ,
 }) => {
   return (
     <View style={styles.learncardHeadContainer}>
       <Ionicon name="arrow-back-sharp" size={20} color="#000" onPress={onBackPress} />
       <Text style={styles.headTxt}>{title}</Text>
-      <Ionicon
-        name="ellipsis-vertical-sharp"
-        size={20}
-        color="#000000"
-        onPress={onMenuPress}
-      />
+       {ShowMenuIcon && onMenuPress && ( // Render the menu icon conditionally
+        <Ionicon
+          name="ellipsis-vertical-sharp"
+          size={20}
+          color="#000000"
+          onPress={onMenuPress}
+        />
+      )}
     </View>
   );
 };
