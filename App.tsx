@@ -75,8 +75,8 @@ const NavigationScreens = () => {
           }}
         />
         <Stack.Screen name="Forum" component={Forum} />
-        <Stack.Screen name="Mywallet" component={MyWallet} options={{headerShown:true ,headerTitle: 'My Wallet'}} />
-        <Stack.Screen name="MyFav" component={MyFavourite} options={{headerShown:true ,headerTitle: 'My Favourite'}}  />
+        <Stack.Screen name="Mywallet" component={MyWallet}/>
+        <Stack.Screen name="MyFav" component={MyFavourite}/>
         <Stack.Screen name="EditContactInfo" component={EditContactInfo} options={{headerShown:true ,headerTitle: 'Contact Information'}} />
         <Stack.Screen name="EditAcademicInfo" component={EditAcademicInfo} options={{headerShown:true ,headerTitle: 'Academic Information'}}/>
         <Stack.Screen name="ForumOverview" component={ForumOverview} />

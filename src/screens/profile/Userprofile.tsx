@@ -17,6 +17,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import CustomAlert from '../Modals/CancelClass';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import UserContactAndAcademicInfo from '../../components/user-profile-component/UserContactAndAcademicInfo';
+import ImagePickerButton from '../../components/user-profile-component/UserImagePicker'
 interface ImageInfo {
   uri: string;
   base64: string | null | undefined;
@@ -45,15 +46,32 @@ const Userprofile: React.FC = () => {
     setIsLearnMode(!isLearnMode);
   };
 
-  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const [isLogoutAlertVisible, setIsLogoutAlertVisible] = useState<boolean>(false);
+  const [isDeleteAlertVisible, setIsDeleteAlertVisible] = useState<boolean>(false);
 
-  const showAlert = () => {
-    setIsAlertVisible(true);
+  const showLogoutAlert = () => {
+    setIsLogoutAlertVisible(true);
+  };
+  const showDeleteAccountAlert = () => {
+    setIsDeleteAlertVisible(true);
   };
 
-  const hideAlert = () => {
-    setIsAlertVisible(false);
+  const hideLogoutAlert = () => {
+    setIsLogoutAlertVisible(false);
   };
+  const hideDeleteAccountAlert = () => {
+    setIsDeleteAlertVisible(false);
+  };
+
+  const handleLogout = () => {
+      authCtx.logout();
+      navigation.navigate('Login');
+     hideLogoutAlert();
+ }
+  const handleDeleteAccount = () => {
+    
+      hideDeleteAccountAlert();
+ }
 
    const handleImagePicker = async (sourceType: 'gallery' | 'camera') => {
     try {
@@ -93,17 +111,7 @@ const Userprofile: React.FC = () => {
     }
   };
 
- const handleLogout = () => {
-     setIsLoading(true); // Start loading
-
-    // Simulate an asynchronous action (e.g., API call) with a timeout
-    setTimeout(() => {
-      authCtx.logout();
-      setIsLoading(false); // Stop loading
-      navigation.navigate('Login');
-    }, 1500); 
-
- }
+ 
 
  
   
@@ -115,15 +123,12 @@ const Userprofile: React.FC = () => {
     <ScrollView style={{}}>
     <View style={styles.userProfileParentContainer}>
      <UserProfileHeader title='@ethanatex' onBackPress={() => {}} onMenuPress={() =>{}} />
-    <TouchableWithoutFeedback onPress={() => handleImagePicker('gallery')}>
-       <View>
-          <Image
-              source={profileImage.uri ? { uri: profileImage.uri } : defaultImageSource}
-              style={styles.UserImg}
-              resizeMode="contain"
-            />
-       </View>
-    </TouchableWithoutFeedback>
+    <ImagePickerButton
+        handleImagePicker={handleImagePicker}
+        profileImage={profileImage}
+        defaultImageSource={defaultImageSource}
+        // Optional style prop
+      />
      <UserNameAndTagline 
      name="Ethan Alexander"
      educationInfo="B. Tech Artificial Intelligence student and part-time Web Developer"
@@ -139,8 +144,8 @@ const Userprofile: React.FC = () => {
     </View>
 
 
-    <View style={{backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>                 
-    <View style={{backgroundColor:'#094067' , borderTopLeftRadius:50 , borderTopRightRadius:50 , borderBottomLeftRadius:30 , borderBottomRightRadius:30 , }}>
+    <View style={{ backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>                 
+    <View style={{ backgroundColor:'#094067' ,borderTopLeftRadius:50 , borderTopRightRadius:50 , borderBottomLeftRadius:30 , borderBottomRightRadius:30 , }}>
       {/* Stats  */}
      <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Teacher</Text>
       <View style={{flexDirection:'row' , alignItems:'center' , justifyContent:'space-evenly', marginBottom:20  , }}>
@@ -154,15 +159,15 @@ const Userprofile: React.FC = () => {
       <View style={{ marginLeft:65, alignItems:'flex-start' ,justifyContent:'flex-start', marginBottom:20  , }}>
         <UserStats label='Attended' value={2} />
       </View>
-     <UserContactAndAcademicInfo navigation={navigation}  editIcon={editIcon}/>
+     <UserContactAndAcademicInfo navigation={navigation}  editIcon={editIcon} showAcademicInfo showContactInfo showEdit/>
      
        <GeneralMenu>
         
         <Text style={{color:"#000" , fontFamily:'Nunito' , fontWeight:'600' , letterSpacing:0.44, margin:40 ,fontSize:22 ,}}>Other Settings</Text>
         <GeneralMenuItem iconName="card-outline" text="My Wallet" onPress={() => {navigation.navigate('Mywallet')}} />
         <GeneralMenuItem iconName="heart-outline" text="My Favourites" onPress={() => {navigation.navigate('MyFav')}} />
-        <GeneralMenuItem iconName="log-out-outline" text="Logout" onPress={handleLogout} />
-         <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={showAlert} />
+        <GeneralMenuItem iconName="log-out-outline" text="Logout" onPress={showLogoutAlert} />
+         <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={showDeleteAccountAlert} />
         
       </GeneralMenu>
       
@@ -170,12 +175,21 @@ const Userprofile: React.FC = () => {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
       <CustomAlert
-        visible={isAlertVisible}
+        visible={isDeleteAlertVisible}
         title="Delete Account"
         message="Are you sure you want to delete your account."
-        onClose={hideAlert}
+        onClose={hideDeleteAccountAlert}
         btn="Delete Account"
-        
+        onProceed={handleDeleteAccount}
+      />
+
+      <CustomAlert
+        visible={isLogoutAlertVisible}
+        title="Logout"
+        message="Are you sure you want to log out ?."
+        onClose={hideLogoutAlert}
+        btn="Logout"
+        onProceed={handleLogout}
       />
     </View>
     </View>

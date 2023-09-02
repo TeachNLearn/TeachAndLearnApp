@@ -38,8 +38,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     // height: 150,
     paddingVertical:36 ,
+    
     paddingTop:32 ,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#FFF',
     elevation:8 ,
   },
   headTxt: {

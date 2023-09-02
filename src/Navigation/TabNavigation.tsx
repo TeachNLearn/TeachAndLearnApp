@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Userprofile from '../screens/profile/Userprofile';
-
+import OtherUser from '../screens/other-userprofile/OtherUser';
 import HomeSvg from '../components/SVGComponents/HomeIconSvg';
 import UserprofileSvg from '../components/SVGComponents/UserProfileIconSvg';
 import BookClasedSvg from '../components/SVGComponents/BookCloasedSvg';
@@ -53,7 +53,7 @@ const TabNavigation: React.FC = () => (
     />
     <Tab.Screen
       name="Forum"
-      component={Login}
+      component={OtherUser}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (

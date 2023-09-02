@@ -30,9 +30,9 @@ const GeneralMenu: React.FC<GeneralMenuProps> = ({ children }) => {
 
 const styles = StyleSheet.create({
   menuContainer: {
-    backgroundColor: '#D8EEFE',
-    // borderTopLeftRadius: 50,
-    // borderTopRightRadius: 50,
+    backgroundColor: '#094067',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
     marginBottom: 150,
     height: '100%',
   },

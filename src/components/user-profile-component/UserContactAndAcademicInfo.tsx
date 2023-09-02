@@ -3,8 +3,11 @@ import { View, Text, TouchableOpacity, ViewStyle, TextStyle } from 'react-native
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 interface ProfileComponentProps {
-  navigation: any;
-  editIcon : JSX.Element // You can update this to the appropriate navigation type
+  navigation?: any;
+  editIcon?: JSX.Element;
+  showAcademicInfo?: boolean;
+  showContactInfo?: boolean;
+  showEdit?:boolean
 }
 
 interface Styles {
@@ -36,7 +39,7 @@ const styles: Styles = {
   editButton: {
     paddingHorizontal: 15,
     paddingVertical: 5,
-    
+
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -55,14 +58,12 @@ const styles: Styles = {
     borderRadius: 10,
     padding: 5,
     margin: 5,
-    borderWidth:1 ,
-    borderColor:'gray',
-   
-
+    borderWidth: 1,
+    borderColor: 'gray',
   },
   tagsContainer: {
     flexDirection: 'row',
-     flexWrap: 'wrap',
+    flexWrap: 'wrap',
   },
   textStyle: {
     color: '#000',
@@ -73,103 +74,117 @@ const styles: Styles = {
   },
 };
 
-const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({ navigation,editIcon }) => {
+const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
+  navigation,
+  editIcon,
+  showAcademicInfo = true,
+  showContactInfo = true,
+  showEdit = true,
+}) => {
   return (
     <View style={styles.container}>
-      {/* Contact Information */}
-      <View>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.textStyle}>Contact Information</Text>
-          <TouchableOpacity
-            style={styles.editButton}
-            onPress={() => {
-              navigation.navigate('EditContactInfo');
-            }}
-          >
-            <Text>Edit{' '}</Text>
-            {editIcon}
-          </TouchableOpacity>
+      {showContactInfo && (
+        <View>
+          <View style={styles.sectionContainer}>
+            <Text style={styles.textStyle}>Contact Information</Text>
+              {showEdit && editIcon && navigation && (
+                      <TouchableOpacity
+                       style={styles.editButton}
+                       onPress={() => {
+                       navigation.navigate('EditContactInfo');
+                       }}
+                       >
+              
+              <Text>Edit{' '}</Text>
+              {editIcon}
+              </TouchableOpacity>
+                )}
+          
+          </View>
+          <View style={styles.infoContainer}>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Text style={{ color: 'gray' }}>UserName</Text>
+              <Text style={{ color: '#000', fontWeight: '700' }}>garv_it</Text>
+            </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Text style={{ color: 'gray' }}>Email</Text>
+              <Text style={{ color: '#000', fontWeight: '700' }}>
+                garv@123gmail.com
+              </Text>
+            </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Text style={{ color: 'gray' }}>Phone No.</Text>
+              <Text style={{ color: '#000', fontWeight: '700' }}>908978603</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.infoContainer}>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ color: 'gray' }}>UserName</Text>
-            <Text style={{ color: '#000', fontWeight: '700' }}>garv_it</Text>
-          </View>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ color: 'gray' }}>Email</Text>
-            <Text style={{ color: '#000', fontWeight: '700' }}>
-              garv@123gmail.com
-            </Text>
-          </View>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ color: 'gray' }}>Phone No.</Text>
-            <Text style={{ color: '#000', fontWeight: '700' }}>908978603</Text>
-          </View>
-        </View>
-      </View>
+      )}
 
-      {/* Academic Information */}
-      
-  <View>
-  <View style={styles.sectionContainer}>
-    <Text style={styles.textStyle}>Academic Information</Text>
-    <TouchableOpacity
-      style={styles.editButton}
-      onPress={() => {
-        navigation.navigate('EditAcademicInfo');
-      }}
-    >
-      <Text>Edit{" "}</Text>
-      {editIcon}
-    </TouchableOpacity>
-  </View>
-  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-    <View style={{ flex: 1, margin: 10 }}>
-      <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 42 }}>
-        <Text style={{ color: 'gray' }}>Course</Text>
-        <Text style={{ color: '#000', fontWeight: '700' }}>Btech ECE</Text>
-      </View>
-      <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
-        <Text style={{ color: 'gray' }}>Strong Subject</Text>
-        <View style={styles.tagsContainer}>
-          <View style={styles.tag}>
-            <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
+      {showAcademicInfo && (
+        <View>
+          <View style={styles.sectionContainer}>
+            <Text style={styles.textStyle}>Academic Information</Text>
+            {showEdit &&  editIcon && navigation &&(
+             <TouchableOpacity
+              style={styles.editButton}
+              onPress={() => {
+                navigation.navigate('EditAcademicInfo');
+              }}
+            >
+              <Text>Edit{' '}</Text>
+              {editIcon}
+            </TouchableOpacity>
+            )}
+        
           </View>
-          <View style={styles.tag}>
-            <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, margin: 10 }}>
+              <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 42 }}>
+                <Text style={{ color: 'gray' }}>Course</Text>
+                <Text style={{ color: '#000', fontWeight: '700' }}>Btech ECE</Text>
+              </View>
+              <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
+                <Text style={{ color: 'gray' }}>Strong Subject</Text>
+                <View style={styles.tagsContainer}>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
+                  </View>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
+                  </View>
+                  {/* Add more tags as needed */}
+                </View>
+              </View>
+            </View>
+            <View style={{ flex: 1, margin: 10 }}>
+              <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
+                <Text style={{ color: 'gray' }}>Interested Subject</Text>
+                <View style={styles.tagsContainer}>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
+                  </View>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
+                  </View>
+                  {/* Add more tags as needed */}
+                </View>
+              </View>
+              <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
+                <Text style={{ color: 'gray' }}>Preferred Language</Text>
+                <View style={styles.tagsContainer}>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
+                  </View>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
+                  </View>
+                  {/* Add more tags as needed */}
+                </View>
+              </View>
+            </View>
           </View>
-          {/* Add more tags as needed */}
         </View>
-      </View>
-    </View>
-    <View style={{ flex: 1, margin: 10 }}>
-      <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
-        <Text style={{ color: 'gray' }}>Interested Subject</Text>
-        <View style={styles.tagsContainer}>
-          <View style={styles.tag}>
-            <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
-          </View>
-          <View style={styles.tag}>
-            <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
-          </View>
-          {/* Add more tags as needed */}
-        </View>
-      </View>
-      <View style={{ flexDirection: 'column', alignItems: 'center' , marginBottom: 20}}>
-        <Text style={{ color: 'gray' }}>Preferred Language</Text>
-        <View style={styles.tagsContainer}>
-          <View style={styles.tag}>
-            <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
-          </View>
-          <View style={styles.tag}>
-            <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
-          </View>
-          {/* Add more tags as needed */}
-        </View>
-      </View>
-    </View>
-  </View>
-</View>
+      )}
     </View>
   );
 };
