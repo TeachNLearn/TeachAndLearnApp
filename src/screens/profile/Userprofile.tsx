@@ -15,9 +15,11 @@ import {GeneralMenu ,GeneralMenuItem } from '../../components/user-profile-compo
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import CustomAlert from '../Modals/CancelClass';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import UserContactAndAcademicInfo from '../../components/user-profile-component/UserContactAndAcademicInfo';
 interface ImageInfo {
   uri: string;
-  base64: string;
+  base64: string | null | undefined;
 }
 const Userprofile: React.FC = () => {
    type RootStackParamList = {
@@ -30,6 +32,7 @@ const Userprofile: React.FC = () => {
 
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const authCtx = useContext(AuthContext);
+   const editIcon = <FontAwesome name="pen" size={15} color="#000" />;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
  const defaultImageSource = require('../../assets/Images/userProfilePic.png');
@@ -131,10 +134,21 @@ const Userprofile: React.FC = () => {
         learnModeText="Learn Mode"
         teachModeText="Teach Mode"
       />
+ 
   
     </View>
-    <View style={{backgroundColor:'#094067' , borderTopLeftRadius:50 , borderTopRightRadius:50}}>
 
+
+    <View style={{backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>
+
+
+   
+                      
+    <View style={{backgroundColor:'#094067' , borderTopLeftRadius:50 , borderTopRightRadius:50 , borderBottomLeftRadius:30 , borderBottomRightRadius:30 , }}>
+         {/* Contact and Academic Info  */}
+        
+
+      {/* Stats  */}
      <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Teacher</Text>
       <View style={{flexDirection:'row' , alignItems:'center' , justifyContent:'space-evenly', marginBottom:20  , }}>
        <UserStats label="Tought" value={24} />
@@ -147,15 +161,13 @@ const Userprofile: React.FC = () => {
       <View style={{ marginLeft:65, alignItems:'flex-start' ,justifyContent:'flex-start', marginBottom:20  , }}>
         <UserStats label='Attended' value={2} />
       </View>
+     <UserContactAndAcademicInfo navigation={navigation}  editIcon={editIcon}/>
      
        <GeneralMenu>
-         {isLoading &&<ActivityIndicator color='#000' size={50} style={styles.loadingIndicator} />}
-        <Text style={{color:"#000" , fontFamily:'Nunito' , fontWeight:'600' , letterSpacing:0.44, margin:40 ,fontSize:22 ,}}>General</Text>
+        
+        <Text style={{color:"#000" , fontFamily:'Nunito' , fontWeight:'600' , letterSpacing:0.44, margin:40 ,fontSize:22 ,}}>Other Settings</Text>
         <GeneralMenuItem iconName="card-outline" text="My Wallet" onPress={() => {navigation.navigate('Mywallet')}} />
         <GeneralMenuItem iconName="heart-outline" text="My Favourites" onPress={() => {navigation.navigate('MyFav')}} />
-       
-        <GeneralMenuItem iconName="person-outline" text="Contact Information" onPress={() => {navigation.navigate('EditContactInfo')}} />
-        <GeneralMenuItem iconName="book-outline" text="Academic Information" onPress={() => {navigation.navigate('EditAcademicInfo')}} />
         <GeneralMenuItem iconName="log-out-outline" text="Logout" onPress={handleLogout} />
          <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={showAlert} />
         
@@ -174,7 +186,7 @@ const Userprofile: React.FC = () => {
       />
     </View>
     </View>
- 
+  </View>
      </ScrollView>
   
   )
@@ -210,6 +222,24 @@ GeneralMenu:{
     width:80 ,
     color:'#000' ,
     backgroundColor:'00FFFFFF'
+  },
+
+   tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 11,
+    marginLeft: 18,
+  },
+  tag: {
+    // backgroundColor: '#3da9fc',
+    borderRadius: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    marginRight: 8,
+   
+    borderWidth:1 ,
+    borderColor:'gray' ,
+    
   },
 })
 
