@@ -214,8 +214,8 @@ const CreateLearnCard = () => {
               {learnCard.tags.length != 0 ? (
                 <ArrChip
                   listArr={learnCard.tags}
-                  // updateFields={updateFields}
-                  // name="tags"
+                  updateFields={updateFields}
+                  name="tags"
                 />
               ) : null}
             </View>

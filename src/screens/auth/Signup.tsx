@@ -80,7 +80,11 @@ const Signup = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <DescriptionBox />
+        <DescriptionBox 
+        heading='Get'
+        subHeading='Started'
+        text='Register for an account'
+        />
         <View style={styles.formWrapper}>
           <View>{step}</View>
           <View style={styles.buttonWrapper} >

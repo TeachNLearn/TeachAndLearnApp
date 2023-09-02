@@ -33,9 +33,8 @@ const Login = () => {
     });
   }
 
-
-   const handleValidation = () => {
-    const { email, password } = loginData;
+  const handleValidation = () => {
+    const {email, password} = loginData;
     if (email === '' || password === '') {
       setErrorText('Please fill in all fields.');
       return false;
@@ -48,7 +47,7 @@ const Login = () => {
     }
     setErrorText('');
     return true;
-  }
+  };
 
   const loginHandler = async () => {
     console.log(loginData);
@@ -84,7 +83,11 @@ const Login = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <DescriptionBox />
+        <DescriptionBox
+          heading="Welcome"
+          subHeading="Back"
+          text="Log in to your account"
+        />
         <View style={styles.formContainer}>
           <InputHolder
             label="Email"
@@ -106,16 +109,13 @@ const Login = () => {
             hasDropdown={false}
             showLabel={true}
           />
-            {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
+          {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
           <Button onPress={loginHandler}>Login</Button>
         </View>
         <View style={styles.signup}>
           <Text style={styles.simpleText}>Already have an account?</Text>
-          <TouchableOpacity onPress={loginNavigation} >
-            <Text style={styles.link}>
-               Signup!!
-            </Text>
-           
+          <TouchableOpacity onPress={loginNavigation}>
+            <Text style={styles.link}>Signup!!</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -158,10 +158,10 @@ const styles = StyleSheet.create({
   link: {
     color: '#094067',
   },
-   errorText: {
+  errorText: {
     color: 'red',
     marginBottom: 10,
-    textAlign:'center' ,
+    textAlign: 'center',
   },
 });
 

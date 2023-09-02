@@ -105,8 +105,8 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         {props.interestedSubjects.length != 0 ? (
           <ArrChip
             listArr={props.interestedSubjects}
-            // updateFields={props.updateFields}
-            // name="interestedSubjects"
+            updateFields={props.updateFields}
+            name="interestedSubjects"
           />
         ) : null}
       </View>
@@ -127,8 +127,8 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         {props.strongSubjects.length != 0 ? (
           <ArrChip
             listArr={props.strongSubjects}
-            // updateFields={props.updateFields}
-            // name="strongSubjects"
+            updateFields={props.updateFields}
+            name="strongSubjects"
           />
         ) : null}
       </View>
@@ -149,8 +149,8 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         {props.preferredLanguages.length != 0 ? (
           <ArrChip
             listArr={props.preferredLanguages}
-            // updateFields={props.updateFields}
-            // name="preferredLanguages"
+            updateFields={props.updateFields}
+            name="preferredLanguages"
           />
         ) : null}
       </View>
