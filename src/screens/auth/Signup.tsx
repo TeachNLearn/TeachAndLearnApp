@@ -80,16 +80,22 @@ const Signup = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <DescriptionBox 
-        heading='Get'
-        subHeading='Started'
-        text='Register for an account'
+        <DescriptionBox
+          heading="Get"
+          subHeading="Started"
+          text="Register for an account"
         />
         <View style={styles.formWrapper}>
           <View>{step}</View>
-          <View style={styles.buttonWrapper} >
-            <Button onPress={onSubmit}>{isLastStep ? 'Signup' : 'Next'}</Button>
-            {isLastStep && <Button onPress={back}>Back</Button>}
+          <View style={styles.buttonWrapper}>
+            <Button containerStyles={styles.btn} onPress={onSubmit}>
+              {isLastStep ? 'Signup' : 'Next'}
+            </Button>
+            {isLastStep && (
+              <Button containerStyles={styles.btn} onPress={back}>
+                Back
+              </Button>
+            )}
           </View>
         </View>
         <View style={styles.login}>
@@ -122,9 +128,9 @@ const styles = StyleSheet.create({
     rowGap: 36,
   },
   buttonWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    rowGap: 12
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 12,
   },
   login: {
     display: 'flex',
@@ -140,6 +146,9 @@ const styles = StyleSheet.create({
   link: {
     color: '#094067',
     fontWeight: '600',
+  },
+  btn: {
+    backgroundColor: '#094067',
   },
 });
 

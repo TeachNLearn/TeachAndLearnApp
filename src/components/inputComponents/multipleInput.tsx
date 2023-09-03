@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 
 interface InputProps {
   value: string;
@@ -25,9 +31,17 @@ const MultipleInput = (props: InputProps) => {
 
   const keyhandler = (e: any) => {
     if (props.value == '') return;
-    props.arr?.push(props.value);
-    console.log(props.arr);
+    if (e.nativeEvent.key == 'Enter') {
+      props.arr?.push(props.value);
+      console.log(props.arr);
+      props.updateFields({[props.name]: props.arr, [props.elemName]: ''});
+    }
+  };
+
+  const dropdownMenuhandler = (data: string) => {
+    props.arr?.push(data);
     props.updateFields({[props.name]: props.arr, [props.elemName]: ''});
+    setShowDropdown(false);
   };
 
   return (
@@ -47,6 +61,36 @@ const MultipleInput = (props: InputProps) => {
           <Text>*Max {props.maxLimit}</Text>
         </View>
       )}
+      {props.hasDropdown
+        ? props.value == ''
+          ? null
+          : showDropdown &&
+            (props.dropdownData?.filter(val => {
+              if (typeof props.value == 'string') {
+                return val.toLowerCase().includes(props.value.toLowerCase());
+              }
+            }).length == 0 ? null : (
+              <View style={styles.dropdownContainer}>
+                {props.dropdownData
+                  ?.filter(val => {
+                    if (typeof props.value == 'string') {
+                      return val
+                        .toLowerCase()
+                        .includes(props.value.toLowerCase());
+                    }
+                  })
+                  .map((data, index) => {
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => dropdownMenuhandler(data)}>
+                        <Text style={styles.dropdownText}>{data}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+              </View>
+            ))
+        : null}
     </View>
   );
 };
@@ -86,6 +130,21 @@ const styles = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.7)',
     fontSize: 11,
     textTransform: 'capitalize',
+  },
+  dropdownContainer: {
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    paddingVertical: 12,
+    paddingLeft: 5,
+    borderWidth: 1,
+    borderColor: '#d5d9eb',
+    borderRadius: 8,
+    rowGap: 8,
+  },
+  dropdownText: {
+    // borderWidth: 1,
+    // borderColor: '#000',
+    color: '#000',
   },
 });
 
