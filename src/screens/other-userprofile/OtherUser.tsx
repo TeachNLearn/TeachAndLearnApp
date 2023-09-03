@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import ImagePickerButton from '../../components/user-profile-component/UserImagePicker';
 import UserProfileHeader from '../../components/user-profile-component/UserProfileHeader';
@@ -6,9 +6,24 @@ import UserNameAndTagline from '../../components/user-profile-component/UserName
 import UserStats from '../../components/user-profile-component/UserStats';
 import UserContactAndAcademicInfo from '../../components/user-profile-component/UserContactAndAcademicInfo';
 import UserImg from '../../assets/Images/userProfilePic.png';
-import Button from '../../components/general-components/button';
-
+import ReportUser from '../Modals/ReportUserModal';
+import { GeneralMenu, GeneralMenuItem } from '../../components/user-profile-component/UserMenu';
 const OtherUser: React.FC = () => {
+
+    const [isReportUserVisible, setReportUserVisible] = useState<boolean>(false);
+
+  const handleReportUserClick = () => {
+    setReportUserVisible(true);
+  };
+
+  const handleReportUserClose = () => {
+    setReportUserVisible(false);
+  };
+
+  const handleReportUserSave = (inputValue: string) => {
+    // Handle the saved value here, e.g., send it to the server
+    console.log('Reported user with input value:', inputValue);
+  };
   return (
     <ScrollView>
 
@@ -57,11 +72,35 @@ const OtherUser: React.FC = () => {
         
       
   
+       
+     
+        <View style={{borderTopRightRadius:50 , borderTopLeftRadius:50 , backgroundColor:'#D8EEFE' , }}>
+          <View style={{height:280}}>
+                   <UserContactAndAcademicInfo  showEdit={false} showAcademicInfo showContactInfo={false} />
+          </View>
+         
+            <GeneralMenu>
+               <View style={{marginTop:50 , alignItems:'center'}}>
+           <GeneralMenuItem iconName="heart-circle-outline" text="Add To Favourite" onPress={() => {}} showIcon={true}/>
+           <GeneralMenuItem iconName='warning-outline' text="Report User" onPress={handleReportUserClick}showIcon={true} />
+           </View>
+         </GeneralMenu>
+          
+         
+        </View>
 
-      <View style={{width:'100%' ,height:350}}>
-         <UserContactAndAcademicInfo  showEdit={false} showAcademicInfo showContactInfo={false} />
+       <View style={{width:350}}>
+        <ReportUser
+        isVisible={isReportUserVisible}
+        onClose={handleReportUserClose}
+        onSave={handleReportUserSave}
+        />
+       </View>
+     
+  
+         
       </View>
-      </View>
+       
      
     </View>
       </ScrollView>

@@ -144,9 +144,10 @@ const Userprofile: React.FC = () => {
     </View>
 
 
-    <View style={{ backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>                 
-    <View style={{ backgroundColor:'#094067' ,borderTopLeftRadius:50 , borderTopRightRadius:50 , borderBottomLeftRadius:30 , borderBottomRightRadius:30 , }}>
+                    
+    {/* <View style={{ backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 , borderBottomLeftRadius:30 , borderBottomRightRadius:30 , }}> */}
       {/* Stats  */}
+      <View style={{backgroundColor:'#094067' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>
      <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Teacher</Text>
       <View style={{flexDirection:'row' , alignItems:'center' , justifyContent:'space-evenly', marginBottom:20  , }}>
        <UserStats label="Tought" value={24} />
@@ -158,18 +159,26 @@ const Userprofile: React.FC = () => {
      <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Student</Text>
       <View style={{ marginLeft:65, alignItems:'flex-start' ,justifyContent:'flex-start', marginBottom:20  , }}>
         <UserStats label='Attended' value={2} />
-      </View>
-     <UserContactAndAcademicInfo navigation={navigation}  editIcon={editIcon} showAcademicInfo showContactInfo showEdit/>
+      </View> 
+
+      <View style={{backgroundColor:'#D8EEFE' , borderTopLeftRadius:50 , borderTopRightRadius:50 }}>
+          <UserContactAndAcademicInfo navigation={navigation}  editIcon={editIcon} showAcademicInfo showContactInfo showEdit/>
+
      
+       
        <GeneralMenu>
-        
-        <Text style={{color:"#000" , fontFamily:'Nunito' , fontWeight:'600' , letterSpacing:0.44, margin:40 ,fontSize:22 ,}}>Other Settings</Text>
-        <GeneralMenuItem iconName="card-outline" text="My Wallet" onPress={() => {navigation.navigate('Mywallet')}} />
-        <GeneralMenuItem iconName="heart-outline" text="My Favourites" onPress={() => {navigation.navigate('MyFav')}} />
-        <GeneralMenuItem iconName="log-out-outline" text="Logout" onPress={showLogoutAlert} />
-         <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={showDeleteAccountAlert} />
+        <View style={{borderTopRightRadius:50 , borderTopLeftRadius:50 , backgroundColor:'#094067'}}>
+        <Text style={{color:"#FFF" , fontFamily:'Nunito' , fontWeight:'600' , letterSpacing:0.44, margin:40 ,fontSize:22 ,}}>Other Settings</Text>
+        <GeneralMenuItem iconName="card-outline" text="My Wallet" onPress={() => {navigation.navigate('Mywallet')}} showIcon={true} />
+        <GeneralMenuItem iconName="heart-outline" text="My Favourites" onPress={() => {navigation.navigate('MyFav')}}showIcon={true} />
+        <GeneralMenuItem iconName="log-out-outline" text="Logout" onPress={showLogoutAlert} showIcon={true}/>
+         <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={showDeleteAccountAlert}showIcon={true} />
+        </View>
+   
         
       </GeneralMenu>
+       </View>
+      </View>
       
    
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -192,8 +201,8 @@ const Userprofile: React.FC = () => {
         onProceed={handleLogout}
       />
     </View>
-    </View>
-  </View>
+    {/* </View> */}
+  
      </ScrollView>
   
   )

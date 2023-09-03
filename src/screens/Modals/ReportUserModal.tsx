@@ -18,7 +18,7 @@ const ReportUser: React.FC<InputModalProps> = ({ isVisible, onClose, onSave }) =
   };
 
   return (
-    <Modal visible={isVisible} animationType="slide" transparent={true}>
+    <Modal visible={isVisible}  transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text>Report User:</Text>
@@ -28,8 +28,13 @@ const ReportUser: React.FC<InputModalProps> = ({ isVisible, onClose, onSave }) =
             value={inputValue}
             onChangeText={(text) => setInputValue(text)}
           />
-          <Button children="Report" onPress={handleSave} />
+          <View style={{flexDirection:'column' , justifyContent:'center' , marginTop:30 ,   }}>
+           <Button children="Report" onPress={handleSave}/>
+          
+           <Text>{" "}</Text>
           <Button children="Go back" onPress={onClose}  />
+           </View>
+      
         </View>
       </View>
     </Modal>
@@ -41,12 +46,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
   },
   modalContent: {
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
+    width:350 ,
+    height:290 ,
     elevation: 5, // Shadow for Android
   },
   input: {

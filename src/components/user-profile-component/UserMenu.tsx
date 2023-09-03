@@ -3,18 +3,25 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface GeneralMenuItemProps {
-  iconName: string;
+  iconName?: string;
   text: string;
   onPress: () => void;
+  showIcon:boolean ;
 }
 
-const GeneralMenuItem: React.FC<GeneralMenuItemProps> = ({ iconName, text, onPress }) => {
+const GeneralMenuItem: React.FC<GeneralMenuItemProps> = ({ iconName, text, onPress , showIcon }) => {
   return (
     <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-      <Ionicons name={iconName} size={29} color="#000000" />
+      {showIcon && iconName !== '' && (
+       <Ionicons name={iconName} size={29} color="#FFF" />
+      )}
+
       <View style={styles.menuItemContent}>
         <Text style={styles.menuText}>{text}</Text>
-        <Ionicons name="chevron-forward-outline" size={20} color="#000000" />
+       
+         <Ionicons name="chevron-forward-outline" size={20} color="#FFF" />         
+      
+        
       </View>
     </TouchableOpacity>
   );
@@ -30,7 +37,7 @@ const GeneralMenu: React.FC<GeneralMenuProps> = ({ children }) => {
 
 const styles = StyleSheet.create({
   menuContainer: {
-    backgroundColor: '#094067',
+    backgroundColor: '#094067',//Dark blue
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     marginBottom: 150,
@@ -38,7 +45,7 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     flexDirection: 'row',
-    borderBottomColor: '#000',
+    borderBottomColor: '#FFF',
     borderBottomWidth: 1,
     marginLeft: 30,
     marginRight: 30,
@@ -54,7 +61,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   menuText: {
-  color:'#000' ,
+  color:'#FFF' ,
   fontFamily:'Nunito' ,
   fontSize:18 ,
   fontWeight:'500' ,
