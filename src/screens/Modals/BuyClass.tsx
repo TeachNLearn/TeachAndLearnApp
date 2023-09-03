@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Modal,
   ActivityIndicator,
+  StyleSheet,
 } from 'react-native';
 import Ionican from 'react-native-vector-icons/Ionicons';
 import React, {useEffect} from 'react';
@@ -101,7 +102,11 @@ const BuyClass = (props: enrollProps) => {
 
   return (
     <>
-      <Button onPress={() => setModalVisible(true)}>Enroll</Button>
+      <Button
+        containerStyles={styles.button}
+        onPress={() => setModalVisible(true)}>
+        Enroll
+      </Button>
       <View
         style={{
           justifyContent: 'center',
@@ -316,7 +321,7 @@ const BuyClass = (props: enrollProps) => {
                     backgroundColor: '#094067',
                     width: '100%',
                     paddingVertical: 18,
-                    borderRadius: 47,
+                    borderRadius: 8,
                   }}>
                   {enrollLoading ? (
                     <ActivityIndicator size={24} color="#fff" />
@@ -345,5 +350,11 @@ const BuyClass = (props: enrollProps) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#094067',
+  },
+});
 
 export default BuyClass;

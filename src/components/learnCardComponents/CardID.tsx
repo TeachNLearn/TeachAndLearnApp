@@ -17,13 +17,14 @@ const CardID = (props: cardIdProps) => {
     <TouchableOpacity
       style={{
         backgroundColor: '#094067',
-        padding: 16,
+        paddingVertical: 16,
+        paddingHorizontal: 20,
         alignSelf: 'flex-start',
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',
         columnGap: 6,
-        borderRadius: 30,
+        borderRadius: 8,
       }}
       onPress={copyToClipboard}>
       <CopySvg />

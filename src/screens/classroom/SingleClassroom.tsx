@@ -10,6 +10,7 @@ import AllAnnouncements from '../../components/class-component/singleClassCompon
 import Participants from '../../components/class-component/singleClassComponents/Participants';
 import {ScrollView} from 'react-native';
 import {checkClassTeacher} from '../../components/class-component/classFunctions';
+import {useIsFocused} from '@react-navigation/native';
 
 const SingleClassroom = ({route}: any) => {
   const authCtx = useContext(AuthContext);
@@ -63,11 +64,13 @@ const SingleClassroom = ({route}: any) => {
       });
   }
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     if (classroomId) {
       fetchClassroom();
     }
-  }, [classroomId]);
+  }, [classroomId, isFocused]);
 
   const [element, setElement] = useState<ReactElement>();
 

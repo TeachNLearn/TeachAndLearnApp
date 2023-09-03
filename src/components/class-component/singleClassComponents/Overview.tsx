@@ -15,6 +15,7 @@ import ClassDate from '../ClassDate';
 import CancelClass from '../CancelClass';
 import AddLink from '../AddLink';
 import UserReview from '../UserReview';
+import JoinClass from '../JoinClass';
 
 type overallOverviewProps = classroomProps & {
   userId: string;
@@ -62,6 +63,23 @@ const Overview = (props: overallOverviewProps) => {
   return (
     <View style={{display: 'flex', flexDirection: 'column', rowGap: 20}}>
       <ClassBanner image={props.cardBanner} />
+      {!props.hasCancelled && !checkIsCompleted() ? (
+        props.userId == props.createdBy._id ? (
+          <AddLink
+            callLink={props.callLink}
+            teachCardId={props._id}
+            userId={props.userId}
+            userToken={props.userToken}
+          />
+        ) : (
+          <JoinClass callLink={props.callLink} />
+        )
+      ) : props.userId ==
+        props.createdBy
+          ._id ? null : !checkHasReviewed() ? //   userToken={props.userToken} //   teachCardId={props._id} // <ReviewClass
+      //   teacherID={props.createdBy._id}
+      // />
+      null : null}
       <CardTopic topic={props.topic} />
       <View
         style={{
@@ -92,11 +110,6 @@ const Overview = (props: overallOverviewProps) => {
         </View>
         <CardID id={props._id} />
       </View>
-      {/* <UserReview
-        teachCardId={props._id}
-        userToken={props.userToken}
-        teacherID={props.createdBy._id}
-      /> */}
       <CardDescription
         programme={props.programme}
         standard={props.standard}

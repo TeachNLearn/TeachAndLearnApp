@@ -33,6 +33,14 @@ const Login = () => {
     });
   }
 
+  type RootStackParamList = {
+    Signup: undefined;
+    Home: undefined;
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const handleValidation = () => {
     const {email, password} = loginData;
     if (email === '' || password === '') {
@@ -62,20 +70,13 @@ const Login = () => {
           console.log(data.token);
           user.token = data.token;
           authCtx.setLocalUser(user);
+          navigation.navigate('Home');
         })
         .catch(data => {
           console.log(data);
         });
     }
   };
-
-  type RootStackParamList = {
-    Signup: undefined;
-  };
-
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
   const loginNavigation = () => {
     navigation.navigate('Signup');
   };
@@ -110,7 +111,7 @@ const Login = () => {
             showLabel={true}
           />
           {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
-          <Button onPress={loginHandler}>Login</Button>
+          <Button containerStyles={styles.loginButton} onPress={loginHandler}>Login</Button>
         </View>
         <View style={styles.signup}>
           <Text style={styles.simpleText}>Already have an account?</Text>
@@ -163,6 +164,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center',
   },
+  loginButton: {
+    color: '#094067',
+  }
 });
 
 export default Login;

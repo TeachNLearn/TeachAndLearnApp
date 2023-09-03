@@ -5,12 +5,20 @@ import {Pressable, View} from 'react-native';
 interface btnProps {
   children: string | JSX.Element;
   onPress: any;
+  containerStyles: Object;
 }
 
-const Button = ({children, onPress}: btnProps) => {
+const Button = ({children, onPress, containerStyles}: btnProps) => {
   return (
-    <TouchableOpacity style={styles.pressableContainer} onPress={onPress}>
-      <View>
+    <TouchableOpacity
+      style={[styles.pressableContainer, containerStyles]}
+      onPress={onPress}>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          columnGap: 4,
+        }}>
         <Text style={styles.text}>{children}</Text>
       </View>
     </TouchableOpacity>
@@ -18,30 +26,19 @@ const Button = ({children, onPress}: btnProps) => {
 };
 
 const styles = StyleSheet.create({
-  outerContainer: {
-    paddingVertical: 16,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    width: '100%',
-    backgroundColor: '#094067',
-    // marginTop: 10,
-  },
   pressableContainer: {
-    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 16,
+    paddingHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: '#094067',
   },
   text: {
     color: '#FFF',
-    // font-family: Nunito;
+    fontFamily: 'Nunito',
     fontSize: 18,
-    // fontStyle: "normal",
+    fontStyle: 'normal',
     fontWeight: '400',
     // line-height: normal;
   },
