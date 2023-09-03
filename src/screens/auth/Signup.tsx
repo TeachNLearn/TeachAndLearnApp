@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, View, KeyboardAvoidingView} from 'react-native';
 import {useMultiStepForm} from '../../utils/useMultiStepForm';
 import SignupForm from '../../components/authComponents/SignupForm';
 import DescriptionBox from '../../components/authComponents/descriptionBox';
@@ -79,7 +79,7 @@ const Signup = () => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="height" style={styles.container}>
         <DescriptionBox
           heading="Get"
           subHeading="Started"
@@ -104,7 +104,7 @@ const Signup = () => {
             Login!!
           </Text>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };

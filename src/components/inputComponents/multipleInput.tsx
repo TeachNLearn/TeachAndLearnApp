@@ -4,7 +4,7 @@ import {
   Text,
   TextInput,
   View,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 
 interface InputProps {
@@ -45,7 +45,8 @@ const MultipleInput = (props: InputProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}>
       <TextInput
         style={styles.input}
         value={props.value}
@@ -142,8 +143,6 @@ const styles = StyleSheet.create({
     rowGap: 8,
   },
   dropdownText: {
-    // borderWidth: 1,
-    // borderColor: '#000',
     color: '#000',
   },
 });
