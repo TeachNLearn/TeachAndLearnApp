@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   image: {
-    borderWidth: 1,
-    borderColor: 'black',
     width: '100%',
     height: 190,
     objectFit: 'cover',

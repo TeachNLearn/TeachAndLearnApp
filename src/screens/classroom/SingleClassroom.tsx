@@ -5,9 +5,9 @@ import {AuthContext} from '../../store/auth-context';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
-import Overview from '../../components/class-component/signleClass-components/Overview';
-import AllAnnouncements from '../../components/class-component/signleClass-components/AllAnnouncements';
-import Participants from '../../components/class-component/signleClass-components/Participants';
+import Overview from '../../components/class-component/singleClassComponents/Overview';
+import AllAnnouncements from '../../components/class-component/singleClassComponents/AllAnnouncements';
+import Participants from '../../components/class-component/singleClassComponents/Participants';
 import {ScrollView} from 'react-native';
 import {checkClassTeacher} from '../../components/class-component/classFunctions';
 

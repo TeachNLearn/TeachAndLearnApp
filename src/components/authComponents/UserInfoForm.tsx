@@ -1,10 +1,10 @@
 import React , {useState} from 'react';
 import {StyleSheet, View , TouchableOpacity , Image, Text} from 'react-native';
-import InputHolder from '../input/inputHolder';
-import MultipleInput from '../input/multipleInput';
-import ArrChip from '../input/arrChip';
+import InputHolder from '../inputComponents/inputHolder';
+import MultipleInput from '../inputComponents/multipleInput';
+import ArrChip from '../inputComponents/arrChip';
 import ImagePicker from 'react-native-image-crop-picker';
-import DocUploadSvg from '../SVGComponents/DocUploadSvg' ;
+import DocUploadSvg from '../svgComponents/DocUploadSvg' ;
 
 interface UserInfo {
   photo: string;

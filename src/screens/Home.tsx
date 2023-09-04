@@ -3,12 +3,11 @@ import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../utils/apiRoutes';
 import {AuthContext} from '../store/auth-context';
-import RecommendedCards from '../components/HomeScreenComponent/RecommendedCards';
-import UpcomingCards from '../components/HomeScreenComponent/UpcomingCards';
-import PopularRequest from '../components/HomeScreenComponent/PopularRequest';
-import HomeCardsHeader from '../components/HomeScreenComponent/HomeCardsHeader';
-import SearchComponent from '../components/HomeScreenComponent/SearchComponent';
-import SvgComponent from '../components/SVGComponents/InterestedSvg';
+import RecommendedCards from '../components/homeScreenComponent/RecommendedCards';
+import UpcomingCards from '../components/homeScreenComponent/UpcomingCards';
+import PopularRequest from '../components/homeScreenComponent/PopularRequest';
+import HomeCardsHeader from '../components/homeScreenComponent/HomeCardsHeader';
+import SearchComponent from '../components/homeScreenComponent/SearchComponent';
 
 interface RecommendedCourse {
   subject: string;

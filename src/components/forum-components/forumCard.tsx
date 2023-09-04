@@ -4,8 +4,8 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
-import PlusSvg from '../SVGComponents/PlusSvg';
-import CommentSvg from '../SVGComponents/CommentSvg';
+import PlusSvg from '../svgComponents/PlusSvg';
+import CommentSvg from '../svgComponents/CommentSvg';
 
 type forumCardProps = forumProps & {
   userToken: string;

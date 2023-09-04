@@ -7,14 +7,14 @@ import {getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
 import Ionican from 'react-native-vector-icons/Ionicons';
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
-import SvgComponentInterested from '../../components/SVGComponents/InterestedSvg';
-import Tagbox from '../../components/LearnCardsComponent/Tagbox';
-import CardID from '../../components/LearnCardsComponent/CardID';
-import InterestedButton from '../../components/LearnCardsComponent/InterestedButton';
+import SvgComponentInterested from '../../components/svgComponents/InterestedSvg';
+import Tagbox from '../../components/learnCardComponents/Tagbox';
+import CardID from '../../components/learnCardComponents/CardID';
+import InterestedButton from '../../components/learnCardComponents/InterestedButton';
 import UserChip from '../../components/general-components/UserChip';
-import CardDescription from '../../components/LearnCardsComponent/CardDescription';
-import DueDate from '../../components/LearnCardsComponent/DueDate';
-import CardTopic from '../../components/LearnCardsComponent/CardTopic';
+import CardDescription from '../../components/learnCardComponents/CardDescription';
+import DueDate from '../../components/learnCardComponents/DueDate';
+import CardTopic from '../../components/learnCardComponents/CardTopic';
 
 const LearnCardOverview = ({route}: any) => {
   const authCtx = useContext(AuthContext);

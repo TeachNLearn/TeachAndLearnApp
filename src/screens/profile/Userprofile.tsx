@@ -1,42 +1,81 @@
-import { View, Text, StyleSheet, ScrollView, Image,  TouchableWithoutFeedback, TouchableOpacity , ActivityIndicator } from 'react-native'
-import React from 'react'
-import { useState  , useContext} from 'react';
-import { AuthContext } from '../../store/auth-context';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import React from 'react';
+import {useState, useContext, useEffect} from 'react';
+import {AuthContext} from '../../store/auth-context';
 
 // import Fontawesome from 'react-native-vector-icons/FontAwesome5';
 import Ionican from 'react-native-vector-icons/Ionicons';
 // import ImagePicker from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import UserProfileHeader from '../../components/user-profile-component/UserProfileHeader';
-import UserMode from '../../components/user-profile-component/UserMode'
+import UserMode from '../../components/user-profile-component/UserMode';
 import UserNameAndTagline from '../../components/user-profile-component/UserNameAndTagline';
-import UserStats from '../../components/user-profile-component/UserStats'
-import {GeneralMenu ,GeneralMenuItem } from '../../components/user-profile-component/UserMenu'
+import UserStats from '../../components/user-profile-component/UserStats';
+import {
+  GeneralMenu,
+  GeneralMenuItem,
+} from '../../components/user-profile-component/UserMenu';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import CustomAlert from '../Modals/CancelClass';
+import CustomAlert from '../modals/CancelClass';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import UserContactAndAcademicInfo from '../../components/user-profile-component/UserContactAndAcademicInfo';
 import ImagePickerButton from '../../components/user-profile-component/UserImagePicker'
+import axios from 'axios';
+import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
+import {getHeaders} from '../../utils/helperFunctions';
+
+interface userProps {
+  _id: string;
+  name: string;
+  userName: string;
+  photo: string;
+  tagline: string;
+  email: string;
+  enrolledProgramme: string;
+  role: string;
+  phoneNumber: string;
+  classesEnrolled: string[];
+  classesTaken: string[];
+  interestedSubject: string;
+  interestedSubjects: string[];
+  strongSubject: string;
+  strongSubjects: string[];
+  language: string;
+  preferredLanguages: string[];
+  token: string;
+}
+
 interface ImageInfo {
   uri: string;
   base64: string | null | undefined;
 }
+
 const Userprofile: React.FC = () => {
-   type RootStackParamList = {
-   Login:undefined;
-   Mywallet:undefined;
-   MyFav:undefined;
-   EditAcademicInfo:undefined;
-   EditContactInfo:undefined;
+  type RootStackParamList = {
+    Login: undefined;
+    Mywallet: undefined;
+    MyFav: undefined;
+    EditAcademicInfo: undefined;
+    EditContactInfo: undefined;
   };
 
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const authCtx = useContext(AuthContext);
    const editIcon = <FontAwesome name="pen" size={15} color="#000" />;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
- const defaultImageSource = require('../../assets/Images/userProfilePic.png');
+  const defaultImageSource = require('../../assets/Images/userProfilePic.png');
   const [profileImage, setProfileImage] = useState<ImageInfo>({
     uri: defaultImageSource.uri,
     base64: '',
@@ -73,7 +112,7 @@ const Userprofile: React.FC = () => {
       hideDeleteAccountAlert();
  }
 
-   const handleImagePicker = async (sourceType: 'gallery' | 'camera') => {
+  const handleImagePicker = async (sourceType: 'gallery' | 'camera') => {
     try {
       const image = await ImagePicker.openPicker({
         width: 300,
@@ -101,7 +140,7 @@ const Userprofile: React.FC = () => {
       });
 
       console.log(image);
-      
+
       setProfileImage({
         uri: image.path,
         base64: image.data,
@@ -111,13 +150,41 @@ const Userprofile: React.FC = () => {
     }
   };
 
+
  
 
  
   
+
+
+
+
   const switchWidth = 60; // Customize the width of the switch
   const switchHeight = 30;
-    const thumbSize = 10;
+  const thumbSize = 10;
+
+  const [userToken, setUserToken] = useState<string>(authCtx.token);
+  const [localUser, setLocalUser] = useState<userProps>();
+
+  async function fetchMyDetails() {
+    await axios
+      .get(`${BASE_URL}${apiVersion}/user/me`, {
+        headers: getHeaders(userToken),
+      })
+      .then(({data}) => {
+        const user = data.data.data[0];
+        user.token = userToken;
+        console.log(user);
+        setLocalUser(user);
+      });
+  }
+
+  useEffect(() => {
+    if (userToken) {
+      fetchMyDetails();
+    }
+  }, [userToken]);
+
   return (
    
     <ScrollView style={{}}>
@@ -208,37 +275,17 @@ const Userprofile: React.FC = () => {
   )
 }
 
+       
+
 const styles = StyleSheet.create({
-userProfileParentContainer:{
-flex:1,
-flexDirection:'column',
-alignItems:'center',
-justifyContent:'center',
-margin:60 ,
-},
-
-UserImg:{
-width:97 ,
-height:97 ,
-},
-
-GeneralMenu:{
-  color:'#000' ,
-  fontFamily:'Nunito' ,
-  fontSize:18 ,
-  fontWeight:'500' ,
-  marginLeft:10 ,
-
-},
-
- loadingIndicator: {
-    marginTop: 20,
-    flex:1 ,
-    height:80 ,
-    width:80 ,
-    color:'#000' ,
-    backgroundColor:'00FFFFFF'
+  userProfileParentContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 60,
   },
+
 
    tagsContainer: {
     flexDirection: 'row',
@@ -257,6 +304,28 @@ GeneralMenu:{
     borderColor:'gray' ,
     
   },
-})
 
-export default Userprofile
+  UserImg: {
+    width: 97,
+    height: 97,
+  },
+
+  GeneralMenu: {
+    color: '#000',
+    fontFamily: 'Nunito',
+    fontSize: 18,
+    fontWeight: '500',
+    marginLeft: 10,
+  },
+
+  loadingIndicator: {
+    marginTop: 20,
+    flex: 1,
+    height: 80,
+    width: 80,
+    color: '#000',
+    backgroundColor: '00FFFFFF',
+  },
+});
+
+export default Userprofile;

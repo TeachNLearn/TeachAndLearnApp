@@ -4,7 +4,7 @@ import {teachingCardProps} from '../../types/teachingCardType';
 import {AuthContext} from '../../store/auth-context';
 import {userDataType} from '../../types/userDataType';
 import UserChip from '../general-components/UserChip';
-import SvgComponent from '../SVGComponents/InterestedSvg';
+import SvgComponent from '../svgComponents/InterestedSvg';
 import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
 import ClassCardBtn from './ClassCardBtn';
 import {checkClassTeacher, checkEnrolledClass} from './classFunctions';

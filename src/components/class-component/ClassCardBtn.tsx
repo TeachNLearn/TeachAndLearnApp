@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import ArrowIcon from '../SVGComponents/ArrowIcon';
+import ArrowIcon from '../svgComponents/ArrowIcon';
 import {reviewProps} from '../../types/reviewType';
 import {
   checkClassTeacher,

@@ -6,7 +6,7 @@ import UserNameAndTagline from '../../components/user-profile-component/UserName
 import UserStats from '../../components/user-profile-component/UserStats';
 import UserContactAndAcademicInfo from '../../components/user-profile-component/UserContactAndAcademicInfo';
 import UserImg from '../../assets/Images/userProfilePic.png';
-import ReportUser from '../Modals/ReportUserModal';
+import ReportUser from '../modals/ReportUserModal';
 import { GeneralMenu, GeneralMenuItem } from '../../components/user-profile-component/UserMenu';
 const OtherUser: React.FC = () => {
 

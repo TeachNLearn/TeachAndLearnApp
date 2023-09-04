@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import Ionican from 'react-native-vector-icons/Ionicons';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import LearnCardData from '../../components/LearnCardsComponent/LearnCardData';
+import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 
 type RootStackParamList = {
   Forum: undefined;

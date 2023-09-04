@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import InputHolder from '../../input/inputHolder'; // Make sure the import path is correct
+import InputHolder from '../../inputComponents/inputHolder'; // Make sure the import path is correct
 import Button from '../../general-components/button';
-import MultipleInput from '../../input/multipleInput'; // Import the MultipleInput component
-import ArrChip from '../../input/arrChip';
+import MultipleInput from '../../inputComponents/multipleInput'; // Import the MultipleInput component
+// import ArrChip from '../../input/arrChip';
 
 
 interface FormData {

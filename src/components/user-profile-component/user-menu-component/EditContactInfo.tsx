@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View , StyleSheet , Text, TouchableOpacity} from 'react-native';
-import InputHolder from '../../input/inputHolder'; // Make sure the import path is correct
+import InputHolder from '../../inputComponents/inputHolder'; // Make sure the import path is correct
 import Button from '../../general-components/button' ;
 interface FormData {
   username: string;

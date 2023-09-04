@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import {AuthContext} from '../../store/auth-context';
 import axios from 'axios';
@@ -12,9 +12,13 @@ import {
 import {classReview} from '../../types/classReviewProps';
 import ClassBanner from '../../components/class-component/ClassBanner';
 import UserChip from '../../components/general-components/UserChip';
-import CardDescription from '../../components/LearnCardsComponent/CardDescription';
-import Tagbox from '../../components/LearnCardsComponent/Tagbox';
-import CardTopic from '../../components/LearnCardsComponent/CardTopic';
+import CardDescription from '../../components/learnCardComponents/CardDescription';
+import Tagbox from '../../components/learnCardComponents/Tagbox';
+import CardTopic from '../../components/learnCardComponents/CardTopic';
+import ClassDate from '../../components/class-component/ClassDate';
+import CardID from '../../components/learnCardComponents/CardID';
+import Button from '../../components/general-components/button';
+import BuyClass from '../modals/BuyClass';
 
 const ClassOverview = ({route}: any) => {
   const authCtx = useContext(AuthContext);
@@ -92,41 +96,64 @@ const ClassOverview = ({route}: any) => {
 
   return (
     teachCard && (
-      <View
-        style={{
-          margin: 30,
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: 20,
-        }}>
-        <ClassBanner image={teachCard.cardBanner} />
-        <CardTopic topic={teachCard.topic} />
-        <View>
-          <UserChip
-            name={teachCard.createdBy.name}
-            photo={teachCard.createdBy.photo}
-            userId={teachCard.createdBy._id}
-            imgBorder="black"
-            textColor="black"
-            hasUnderline={true}
+      <ScrollView>
+        <View
+          style={{
+            margin: 30,
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: 20,
+          }}>
+          <ClassBanner image={teachCard.cardBanner} />
+          <CardTopic topic={teachCard.topic} />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                rowGap: 6,
+              }}>
+              <UserChip
+                name={teachCard.createdBy.name}
+                photo={teachCard.createdBy.photo}
+                userId={teachCard.createdBy._id}
+                imgBorder="black"
+                textColor="black"
+                hasUnderline={true}
+              />
+              <ClassDate
+                date={teachCard.date}
+                classStartsAt={teachCard.classStartsAt}
+                classEndsAt={teachCard.classEndsAt}
+              />
+            </View>
+            <CardID id={teachCard._id} />
+          </View>
+          <CardDescription
+            description={teachCard.description}
+            standard={teachCard.standard}
+            programme={teachCard.programme}
           />
+          <Tagbox tags={teachCard.tags} />
+          {checkEnrollTimeLimit() && (
+            <BuyClass
+              classEndsAt={teachCard.classEndsAt}
+              classStartsAt={teachCard.classStartsAt}
+              date={teachCard.date}
+              price={teachCard.price}
+              teachCardId={teachCard._id}
+              title={teachCard.topic}
+              userToken={userToken}
+            />
+          )}
         </View>
-        <View>
-          <Text>
-            {getReadableDate(teachCard.date)}
-            <View></View>
-            {getReadableTime(teachCard.classStartsAt)}
-            {' - '}
-            {getReadableTime(teachCard.classEndsAt)}
-          </Text>
-        </View>
-        <CardDescription
-          description={teachCard.description}
-          standard={teachCard.standard}
-          programme={teachCard.programme}
-        />
-        <Tagbox tags={teachCard.tags} />
-      </View>
+      </ScrollView>
     )
   );
 };
