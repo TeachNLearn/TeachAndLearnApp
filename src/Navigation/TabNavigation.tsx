@@ -13,6 +13,7 @@ import Signup from '../screens/auth/Signup';
 import Forum from '../screens/forum/Forum';
 import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';
+import IntroOne from '../screens/intro/IntroOne';
 
 
 const Tab = createBottomTabNavigator();

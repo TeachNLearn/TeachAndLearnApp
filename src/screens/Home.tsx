@@ -21,6 +21,9 @@ interface RecommendedCourse {
   };
   dueDate: string;
   tags:string[] ;
+  date?: string; // Include properties expected by RecommendedCards
+  classStartsAt?: string;
+  classEndsAt?: string;
   // Add more properties as needed
 }
 
@@ -30,6 +33,7 @@ interface UpcomingClass {
   interested: number;
   coins: number;
   length: number;
+  dueDate: string;
   createdBy: {
     userName: string;
     photo: string;
@@ -80,7 +84,7 @@ const Home = () => {
       })
       .then(response => {
         setRecommendedcourseData(response.data.stats);
-         console.log(response.data.stats);
+        //  console.log(response.data.stats);
       })
       .catch(error => {
         console.log('error fetching data', error);
@@ -96,8 +100,10 @@ const Home = () => {
       })
       .then(response => {
         setupcomingClassesData(response.data);
-        // console.info("upcoming courses data")
-        //  console.log(response.data);
+        console.info("upcoming courses data")
+         console.log(response.data);
+         console.log(upcomingClassesData);
+         
       })
       .catch(error => {
         console.log('error fetching data', error);
@@ -146,15 +152,21 @@ const Home = () => {
               {/* Here you can map over your data and generate Recommended cards */}
               {RecommendedcourseData.length > 0 &&
                 RecommendedcourseData.map((item, index) => (
-                  <RecommendedCards item={item} key={index} />
+                  <RecommendedCards ReItem={item} key={index} />
                 ))}
             </ScrollView>
           </View>
+<HomeCardsHeader title="My Upcoming Classes" onViewAllPress={() => {}} />
+<ScrollView>
+  <View style={styles.UpcomingcardsParentContainer}>
+    {upcomingClassesData.length > 0 &&
+      upcomingClassesData.map((item, index) => (
+        <UpcomingCards item={item} key={index} />
+      ))}
+  </View>
+</ScrollView>
 
-          <HomeCardsHeader title="Upcoming Classes" onViewAllPress={() => {}} />
-          <View style={styles.UpcomingcardsParentContainer}>
-            <UpcomingCards />
-          </View>
+  
 
           {/* Popular Request section  */}
           <HomeCardsHeader title="Rising Requests" onViewAllPress={() => {}} />
