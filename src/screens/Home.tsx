@@ -59,15 +59,9 @@ interface PopularCourse {
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
-  const [RecommendedcourseData, setRecommendedcourseData] = useState<
-    RecommendedCourse[]
-  >([]);
-  const [upcomingClassesData, setupcomingClassesData] = useState<
-    UpcomingClass[]
-  >([]);
-  const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>(
-    [],
-  );
+  const [RecommendedcourseData, setRecommendedcourseData] = useState<RecommendedCourse[]>([]);
+  const [upcomingClassesData, setupcomingClassesData] = useState<UpcomingClass[]>([]);
+  const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>([]);
   const {token} = useContext(AuthContext);
 
   const handleSearch = () => {
@@ -92,23 +86,26 @@ const Home = () => {
   };
 
   const UpcomingClasses = () => {
-    axios
-      .get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        setupcomingClassesData(response.data);
-        console.info("upcoming courses data")
-         console.log(response.data);
-         console.log(upcomingClassesData);
-         
-      })
-      .catch(error => {
-        console.log('error fetching data', error);
-      });
-  };
+  axios
+    .get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      setupcomingClassesData(response.data);
+      console.info("upcoming courses data");
+      console.log(response.data);
+      console.log(upcomingClassesData);
+      
+    })
+    .catch((error) => {
+      console.log('error fetching data', error);
+    });
+};
+
+
+
   const PopularCourses = () => {
     axios
       .get(`${BASE_URL}${apiVersion}/learn/top-requests`, {
@@ -126,6 +123,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+  
+
     FetchRecommendedClasses();
     UpcomingClasses();
     PopularCourses();
