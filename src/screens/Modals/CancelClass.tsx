@@ -6,10 +6,11 @@ interface CustomAlertProps {
   title: string;
   message: string;
   onClose: () => void;
+  onProceed: () => void;
   btn:string ;
 }
 
-const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onClose , btn }) => {
+const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onClose , btn , onProceed }) => {
   return (
     <Modal  transparent visible={visible}>
       <View style={styles.modalContainer}>
@@ -24,7 +25,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onCl
   
           <Text style={styles.message}>{message}</Text>
           <View style={{alignItems:'flex-end'}}>
-               <TouchableOpacity onPress={onClose} style={styles.button}>
+               <TouchableOpacity onPress={onProceed} style={styles.button}>
                  <Text style={{color:'#FFF' , fontWeight:'600' , fontSize:12}}>{btn}</Text>
                </TouchableOpacity>
              
