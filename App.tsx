@@ -98,7 +98,7 @@ const NavigationScreens = () => {
         <Stack.Screen name="SingleClassroom" component={SingleClassroom} />
         <Stack.Screen name="CreateTeachCard" component={CreateTeachCard} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={Home} />
+        {/* <Stack.Screen name="Home" component={Home} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

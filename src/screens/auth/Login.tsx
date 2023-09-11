@@ -11,13 +11,14 @@ import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import DescriptionBox from '../../components/authComponents/descriptionBox';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
 interface loginDataProps {
   email: string;
   password: string;
 }
 
-const Login = () => {
+const Login = ({navigation}: any) => {
   const [loginData, setLoginData] = useState<loginDataProps>({
     email: '',
     password: '',
@@ -35,11 +36,17 @@ const Login = () => {
 
   type RootStackParamList = {
     Signup: undefined;
+  };
+
+  type BottomTabParamList = {
     Home: undefined;
   };
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  // const navigation =
+  //   useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const bottomNavigation =
+    useNavigation<BottomTabNavigationProp<BottomTabParamList>>();
 
   const handleValidation = () => {
     const {email, password} = loginData;
@@ -111,7 +118,9 @@ const Login = () => {
             showLabel={true}
           />
           {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
-          <Button containerStyles={styles.loginButton} onPress={loginHandler}>Login</Button>
+          <Button containerStyles={styles.loginButton} onPress={loginHandler}>
+            Login
+          </Button>
         </View>
         <View style={styles.signup}>
           <Text style={styles.simpleText}>Already have an account?</Text>
@@ -165,8 +174,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   loginButton: {
-    color: '#094067',
-  }
+    backgroundColor: '#094067',
+  },
 });
 
 export default Login;
