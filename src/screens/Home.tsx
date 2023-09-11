@@ -21,6 +21,9 @@ interface RecommendedCourse {
   };
   dueDate: string;
   tags:string[] ;
+  date?: string; // Include properties expected by RecommendedCards
+  classStartsAt?: string;
+  classEndsAt?: string;
   // Add more properties as needed
 }
 
@@ -30,6 +33,7 @@ interface UpcomingClass {
   interested: number;
   coins: number;
   length: number;
+  dueDate: string;
   createdBy: {
     userName: string;
     photo: string;
@@ -55,15 +59,9 @@ interface PopularCourse {
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
-  const [RecommendedcourseData, setRecommendedcourseData] = useState<
-    RecommendedCourse[]
-  >([]);
-  const [upcomingClassesData, setupcomingClassesData] = useState<
-    UpcomingClass[]
-  >([]);
-  const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>(
-    [],
-  );
+  const [RecommendedcourseData, setRecommendedcourseData] = useState<RecommendedCourse[]>([]);
+  const [upcomingClassesData, setupcomingClassesData] = useState<UpcomingClass[]>([]);
+  const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>([]);
   const {token} = useContext(AuthContext);
 
   const handleSearch = () => {
@@ -80,7 +78,7 @@ const Home = () => {
       })
       .then(response => {
         setRecommendedcourseData(response.data.stats);
-         console.log(response.data.stats);
+        //  console.log(response.data.stats);
       })
       .catch(error => {
         console.log('error fetching data', error);
@@ -88,21 +86,26 @@ const Home = () => {
   };
 
   const UpcomingClasses = () => {
-    axios
-      .get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        setupcomingClassesData(response.data);
-        // console.info("upcoming courses data")
-        //  console.log(response.data);
-      })
-      .catch(error => {
-        console.log('error fetching data', error);
-      });
-  };
+  axios
+    .get(`${BASE_URL}${apiVersion}/user/myclasses/upcoming`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      setupcomingClassesData(response.data);
+      console.info("upcoming courses data");
+      console.log(response.data);
+      console.log(upcomingClassesData);
+      
+    })
+    .catch((error) => {
+      console.log('error fetching data', error);
+    });
+};
+
+
+
   const PopularCourses = () => {
     axios
       .get(`${BASE_URL}${apiVersion}/learn/top-requests`, {
@@ -120,6 +123,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+  
+
     FetchRecommendedClasses();
     UpcomingClasses();
     PopularCourses();
@@ -146,15 +151,21 @@ const Home = () => {
               {/* Here you can map over your data and generate Recommended cards */}
               {RecommendedcourseData.length > 0 &&
                 RecommendedcourseData.map((item, index) => (
-                  <RecommendedCards item={item} key={index} />
+                  <RecommendedCards ReItem={item} key={index} />
                 ))}
             </ScrollView>
           </View>
+<HomeCardsHeader title="My Upcoming Classes" onViewAllPress={() => {}} />
+<ScrollView>
+  <View style={styles.UpcomingcardsParentContainer}>
+    {upcomingClassesData.length > 0 &&
+      upcomingClassesData.map((item, index) => (
+        <UpcomingCards item={item} key={index} />
+      ))}
+  </View>
+</ScrollView>
 
-          <HomeCardsHeader title="Upcoming Classes" onViewAllPress={() => {}} />
-          <View style={styles.UpcomingcardsParentContainer}>
-            <UpcomingCards />
-          </View>
+  
 
           {/* Popular Request section  */}
           <HomeCardsHeader title="Rising Requests" onViewAllPress={() => {}} />

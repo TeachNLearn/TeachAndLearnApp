@@ -14,47 +14,50 @@ interface RecommendedCourse {
     userName: string;
     photo: string;
   };
+ 
   date:string ;
   classStartsAt:string;
   classEndsAt:string ;
   tags:string[] ;
+
+  
   // Add more properties as needed
 }
 
 interface RecommendedCardsProps {
-  item: RecommendedCourse;
+  ReItem: RecommendedCourse;
 }
 
-const RecommendedCards: React.FC<RecommendedCardsProps> = ({ item }) => {
+const RecommendedCards: React.FC<RecommendedCardsProps> = ({ ReItem }) => {
   return (
     <View style={styles.Learningcards}>
       <View style={styles.cardTxtContainer}>
-        <Text style={styles.cardHead}>{item.subject}</Text>
+        <Text style={styles.cardHead}>{ReItem.subject}</Text>
         <Text style={styles.cardDesc}>
-          {item.topic.length > 60 ? `${item.topic.substring(0, 60)}...` : item.topic}
+          {ReItem.topic.length > 60 ? `${ReItem.topic.substring(0, 60)}...` : ReItem.topic}
         </Text>
       </View>
 
       <View style={styles.ImgAndNameContainer}>
-        <Image source={{ uri: item.createdBy.photo }} style={{ height: 18, width: 18, borderRadius: 50 }} />
-        <Text style={styles.NameInCard}>{item.createdBy.userName}</Text>
+        <Image source={{ uri: ReItem.createdBy.photo }} style={{ height: 18, width: 18, borderRadius: 50 }} />
+        <Text style={styles.NameInCard}>{ReItem.createdBy.userName}</Text>
       </View>
 
       <View style={styles.InterestedStudentConatiner}>
         <Text style={styles.Interested}>
           <SvgImg />
           {'   '}
-          {item.length} interested
+          {ReItem.length} interested
         </Text>
-        <Text style={styles.coins}>
-         
-          {getReadableDate(item.date)}{", "}
-          {getReadableTime2(item.classStartsAt)}{"- "}
-          {getReadableTime2(item.classEndsAt)}{" "}
-        </Text>
+       <Text style={styles.coins}>
+        {ReItem.date ? getReadableDate(ReItem.date) : ''}{' '}
+        {ReItem.classStartsAt && ReItem.classEndsAt
+          ? `${getReadableTime2(ReItem.classStartsAt)} - ${getReadableTime2(ReItem.classEndsAt)}`
+          : ''}
+      </Text>
       </View>
        <View style={styles.tagsContainer}>
-        {item.tags.map((tag, index) => (
+        {ReItem.tags.map((tag, index) => (
           <View key={index} style={styles.tag}>
             <Text style={styles.tagText}>{tag}</Text>
           </View>

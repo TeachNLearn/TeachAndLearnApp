@@ -32,6 +32,16 @@ const IntroOne: React.FC = () => {
             resizeMode="contain"
           />
         </View>
+        <View style={styles.textContainer}>
+        <Text style={styles.heading}>Teach , Learn and Grow</Text>
+        <Text style={styles.headingpart}>Together !</Text>
+        <View style={styles.paraContainer}>
+          <Text style={styles.para}>
+            This app aims to bring the students from all across the world
+            together and give them a platform where they can teach other
+            students as well as learn from them to aid their academics.
+          </Text>
+        </View>
         <View style={styles.sliderLogoContainer}>
           <Text style={styles.sliderLogoOne}></Text>
           <Text
@@ -54,6 +64,7 @@ const IntroOne: React.FC = () => {
             <Text style={styles.btntxtTwo}>Next</Text>
           </TouchableOpacity>
         </View>
+        </View>
       </View>
     </ScrollView>
   );
@@ -65,8 +76,9 @@ const screenHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     width: screenWidth,
-    // height: screenHeight,
+    height: screenHeight,
     backgroundColor: '#D8CEFF',
+    
   },
   introImg: {
     width: '100%',

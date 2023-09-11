@@ -1,16 +1,20 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
-import Forum from '../screens/forum/Forum';
-import LearnCards from '../screens/requests/LearnCards';
-import Classes from '../screens/classroom/Classes';
 import Userprofile from '../screens/profile/Userprofile';
-
+import OtherUser from '../screens/other-userprofile/OtherUser';
 import HomeSvg from '../components/svgComponents/HomeIconSvg';
 import UserprofileSvg from '../components/svgComponents/UserProfileIconSvg';
 import BookClasedSvg from '../components/svgComponents/BookCloasedSvg';
 import ForumSvg from '../components/svgComponents/ForumSvg';
 import ClassesSvg from '../components/svgComponents/ClassesSvg';
+import BuyClass from '../screens/modals/BuyClass';
+import Signup from '../screens/auth/Signup';
+import Forum from '../screens/forum/Forum';
+import LearnCards from '../screens/requests/LearnCards';
+import Classes from '../screens/classroom/Classes';
+import IntroOne from '../screens/intro/IntroOne';
+
 
 const Tab = createBottomTabNavigator();
 

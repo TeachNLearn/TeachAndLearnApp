@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
   infoBlock: {
     flexDirection: 'column',
     alignItems: 'center',
+    borderRadius:50 ,
+    
   },
   
 MyInfotxthead:{

@@ -1,47 +1,62 @@
-import { View, Text , StyleSheet} from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import IconS from 'react-native-vector-icons/FontAwesome5';
-
-const UpcomingCards = () => {
-  return (
-   
-              <View style={styles.Upcomingcards} >
-                <View style={styles.cardTxtContainer}>
-                <View
-                  style={{
-                    backgroundColor: '#094067',
-                    width: '100%',
-                    padding: 10,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: 20,
-                    borderRadius: 30,
-                  }}>
-                  <Text style={styles.UpcomingCardDate}>
-                    <IconS name="calendar-week" size={14} color="#FFF" />{' '}
-                    10-8-2023
-                  </Text>
-                </View>
-
-                <Text style={styles.UpComingCardDesc}>
-                  Get started in App Development and get selected in MH
-                  Fellowsip
-                </Text>
-               </View>
-
-                <View style={styles.UpcomingCardTimeAndNameContainer}>
-                <Text style={styles.UpcomingCardName}>
-                  <IconS name="user-circle" size={14} color="#094067" />{' '}
-                  Priyanshu Joshi
-                </Text>
-                <Text style={styles.UpcomingCardTime}>10 pm - 11 pm</Text>
-               </View>
-              </View>
-  )
+import {getReadableDate, getReadableTime, getReadableTime2} from '../../utils/helperFunctions';
+interface UpcomingCardsProps {
+  item: PopularCourse; // Assuming this component receives a 'PopularCourse' as a prop
 }
 
-const styles = StyleSheet.create({
+interface PopularCourse {
+  subject: string;
+  topic: string;
+  interested: number;
+  coins: number;
+  length: number;
+  date:string
+  classStartsAt:string ;
+  classEndsAt:string ;
+  dueDate: string;
+  createdBy: {
+    userName: string;
+    photo: string;
+  };
+  tags: string[];
+}
 
+const UpcomingCards: React.FC<UpcomingCardsProps> = ({ item }) => {
+  return (
+    <View style={styles.Upcomingcards}>
+      <View style={styles.cardTxtContainer}>
+        <View
+          style={{
+            backgroundColor: '#094067',
+            width: '100%',
+            padding: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 20,
+            borderRadius: 30,
+          }}>
+          <Text style={styles.UpcomingCardDate}>
+            <IconS name="calendar-week" size={14} color="#FFF" /> {getReadableTime2(item.classStartsAt)} { getReadableTime2(item.classEndsAt)}
+          </Text>
+        </View>
+
+        <Text style={styles.UpComingCardDesc}>{item.topic}</Text>
+      </View>
+
+      <View style={styles.UpcomingCardTimeAndNameContainer}>
+        <Text style={styles.UpcomingCardName}>
+          <IconS name="user-circle" size={14} color="#094067" />{' '}
+          {item.createdBy.userName}
+        </Text>
+        <Text style={styles.UpcomingCardTime}>{getReadableDate(item.date)}</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
   Upcomingcards: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -55,10 +70,10 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
 
-   cardTxtContainer: {
+  cardTxtContainer: {
     marginLeft: 10,
   },
-   UpcomingcardsParentContainer: {
+  UpcomingcardsParentContainer: {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -98,6 +113,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'Nunito',
   },
-})
+});
 
-export default UpcomingCards
+export default UpcomingCards;

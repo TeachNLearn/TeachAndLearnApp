@@ -27,6 +27,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import CustomAlert from '../modals/CancelClass';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import UserContactAndAcademicInfo from '../../components/user-profile-component/UserContactAndAcademicInfo';
+import ImagePickerButton from '../../components/user-profile-component/UserImagePicker'
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
@@ -69,6 +72,7 @@ const Userprofile: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const authCtx = useContext(AuthContext);
+   const editIcon = <FontAwesome name="pen" size={15} color="#000" />;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
   const defaultImageSource = require('../../assets/Images/userProfilePic.png');
@@ -81,15 +85,32 @@ const Userprofile: React.FC = () => {
     setIsLearnMode(!isLearnMode);
   };
 
-  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const [isLogoutAlertVisible, setIsLogoutAlertVisible] = useState<boolean>(false);
+  const [isDeleteAlertVisible, setIsDeleteAlertVisible] = useState<boolean>(false);
 
-  const showAlert = () => {
-    setIsAlertVisible(true);
+  const showLogoutAlert = () => {
+    setIsLogoutAlertVisible(true);
+  };
+  const showDeleteAccountAlert = () => {
+    setIsDeleteAlertVisible(true);
   };
 
-  const hideAlert = () => {
-    setIsAlertVisible(false);
+  const hideLogoutAlert = () => {
+    setIsLogoutAlertVisible(false);
   };
+  const hideDeleteAccountAlert = () => {
+    setIsDeleteAlertVisible(false);
+  };
+
+  const handleLogout = () => {
+      authCtx.logout();
+      navigation.navigate('Login');
+     hideLogoutAlert();
+ }
+  const handleDeleteAccount = () => {
+    
+      hideDeleteAccountAlert();
+ }
 
   const handleImagePicker = async (sourceType: 'gallery' | 'camera') => {
     try {
@@ -129,16 +150,14 @@ const Userprofile: React.FC = () => {
     }
   };
 
-  const handleLogout = () => {
-    setIsLoading(true); // Start loading
 
-    // Simulate an asynchronous action (e.g., API call) with a timeout
-    setTimeout(() => {
-      authCtx.logout();
-      setIsLoading(false); // Stop loading
-      navigation.navigate('Login');
-    }, 1500);
-  };
+ 
+
+ 
+  
+
+
+
 
   const switchWidth = 60; // Customize the width of the switch
   const switchHeight = 30;
@@ -167,158 +186,96 @@ const Userprofile: React.FC = () => {
   }, [userToken]);
 
   return (
+   
     <ScrollView style={{}}>
-      <View style={styles.userProfileParentContainer}>
-        <UserProfileHeader
-          title="@ethanatex"
-          onBackPress={() => {}}
-          onMenuPress={() => {}}
-        />
-        <TouchableWithoutFeedback onPress={() => handleImagePicker('gallery')}>
-          <View>
-            <Image
-              source={
-                profileImage.uri ? {uri: profileImage.uri} : defaultImageSource
-              }
-              style={styles.UserImg}
-              resizeMode="contain"
-            />
-          </View>
-        </TouchableWithoutFeedback>
-        <UserNameAndTagline
-          name="Ethan Alexander"
-          educationInfo="B. Tech Artificial Intelligence student and part-time Web Developer"
-        />
-        <UserMode
-          isLearnMode={isLearnMode}
-          toggleMode={toggleMode}
-          learnModeText="Learn Mode"
-          teachModeText="Teach Mode"
-        />
+    <View style={styles.userProfileParentContainer}>
+     <UserProfileHeader title='@ethanatex' onBackPress={() => {}} onMenuPress={() =>{}} />
+    <ImagePickerButton
+        handleImagePicker={handleImagePicker}
+        profileImage={profileImage}
+        defaultImageSource={defaultImageSource}
+        // Optional style prop
+      />
+     <UserNameAndTagline 
+     name="Ethan Alexander"
+     educationInfo="B. Tech Artificial Intelligence student and part-time Web Developer"
+     />
+     <UserMode
+        isLearnMode={isLearnMode}
+        toggleMode={toggleMode}
+        learnModeText="Learn Mode"
+        teachModeText="Teach Mode"
+      />
+ 
+  
+    </View>
+
+
+                    
+    {/* <View style={{ backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 , borderBottomLeftRadius:30 , borderBottomRightRadius:30 , }}> */}
+      {/* Stats  */}
+      <View style={{backgroundColor:'#094067' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>
+     <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Teacher</Text>
+      <View style={{flexDirection:'row' , alignItems:'center' , justifyContent:'space-evenly', marginBottom:20  , }}>
+       <UserStats label="Tought" value={24} />
+       <UserStats label="Attended" value={24} />
+       <UserStats label="Rating" value={24} /> 
       </View>
-      <View
-        style={{
-          backgroundColor: '#094067',
-          borderTopLeftRadius: 50,
-          borderTopRightRadius: 50,
-        }}>
-        <Text
-          style={{
-            color: '#FFF',
-            fontSize: 22,
-            fontWeight: '600',
-            letterSpacing: 0.44,
-            margin: 25,
-            fontFamily: 'Nunito',
-          }}>
-          Stats as Teacher
-        </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-evenly',
-            marginBottom: 20,
-          }}>
-          <UserStats label="Tought" value={24} />
-          <UserStats label="Attended" value={24} />
-          <UserStats label="Rating" value={24} />
+
+
+     <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Student</Text>
+      <View style={{ marginLeft:65, alignItems:'flex-start' ,justifyContent:'flex-start', marginBottom:20  , }}>
+        <UserStats label='Attended' value={2} />
+      </View> 
+
+      <View style={{backgroundColor:'#D8EEFE' , borderTopLeftRadius:50 , borderTopRightRadius:50 }}>
+          <UserContactAndAcademicInfo navigation={navigation}  editIcon={editIcon} showAcademicInfo showContactInfo showEdit/>
+
+     
+       
+       <GeneralMenu>
+        <View style={{borderTopRightRadius:50 , borderTopLeftRadius:50 , backgroundColor:'#094067'}}>
+        <Text style={{color:"#FFF" , fontFamily:'Nunito' , fontWeight:'600' , letterSpacing:0.44, margin:40 ,fontSize:22 ,}}>Other Settings</Text>
+        <GeneralMenuItem iconName="card-outline" text="My Wallet" onPress={() => {navigation.navigate('Mywallet')}} showIcon={true} />
+        <GeneralMenuItem iconName="heart-outline" text="My Favourites" onPress={() => {navigation.navigate('MyFav')}}showIcon={true} />
+        <GeneralMenuItem iconName="log-out-outline" text="Logout" onPress={showLogoutAlert} showIcon={true}/>
+         <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={showDeleteAccountAlert}showIcon={true} />
         </View>
-
-        <Text
-          style={{
-            color: '#FFF',
-            fontSize: 22,
-            fontWeight: '600',
-            letterSpacing: 0.44,
-            margin: 25,
-            fontFamily: 'Nunito',
-          }}>
-          Stats as Student
-        </Text>
-        <View
-          style={{
-            marginLeft: 65,
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start',
-            marginBottom: 20,
-          }}>
-          <UserStats label="Attended" value={2} />
-        </View>
-
-        <GeneralMenu>
-          {isLoading && (
-            <ActivityIndicator
-              color="#000"
-              size={50}
-              style={styles.loadingIndicator}
-            />
-          )}
-          <Text
-            style={{
-              color: '#000',
-              fontFamily: 'Nunito',
-              fontWeight: '600',
-              letterSpacing: 0.44,
-              margin: 40,
-              fontSize: 22,
-            }}>
-            General
-          </Text>
-          <GeneralMenuItem
-            iconName="card-outline"
-            text="My Wallet"
-            onPress={() => {
-              navigation.navigate('Mywallet');
-            }}
-          />
-          <GeneralMenuItem
-            iconName="heart-outline"
-            text="My Favourites"
-            onPress={() => {
-              navigation.navigate('MyFav');
-            }}
-          />
-
-          <GeneralMenuItem
-            iconName="person-outline"
-            text="Contact Information"
-            onPress={() => {
-              navigation.navigate('EditContactInfo');
-            }}
-          />
-          <GeneralMenuItem
-            iconName="book-outline"
-            text="Academic Information"
-            onPress={() => {
-              navigation.navigate('EditAcademicInfo');
-            }}
-          />
-          <GeneralMenuItem
-            iconName="log-out-outline"
-            text="Logout"
-            onPress={handleLogout}
-          />
-          <GeneralMenuItem
-            iconName="trash-outline"
-            text="Delete Account"
-            onPress={showAlert}
-          />
-        </GeneralMenu>
-
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <CustomAlert
-            visible={isAlertVisible}
-            title="Delete Account"
-            message="Are you sure you want to delete your account."
-            onClose={hideAlert}
-            btn="Delete Account"
-          />
-        </View>
+   
+        
+      </GeneralMenu>
+       </View>
       </View>
-    </ScrollView>
-  );
-};
+      
+   
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+
+      <CustomAlert
+        visible={isDeleteAlertVisible}
+        title="Delete Account"
+        message="Are you sure you want to delete your account."
+        onClose={hideDeleteAccountAlert}
+        btn="Delete Account"
+        onProceed={handleDeleteAccount}
+      />
+
+      <CustomAlert
+        visible={isLogoutAlertVisible}
+        title="Logout"
+        message="Are you sure you want to log out ?."
+        onClose={hideLogoutAlert}
+        btn="Logout"
+        onProceed={handleLogout}
+      />
+    </View>
+    {/* </View> */}
+  
+     </ScrollView>
+  
+  )
+}
+
+       
 
 const styles = StyleSheet.create({
   userProfileParentContainer: {
@@ -327,6 +284,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 60,
+  },
+
+
+   tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 11,
+    marginLeft: 18,
+  },
+  tag: {
+    // backgroundColor: '#3da9fc',
+    borderRadius: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    marginRight: 8,
+   
+    borderWidth:1 ,
+    borderColor:'gray' ,
+    
   },
 
   UserImg: {

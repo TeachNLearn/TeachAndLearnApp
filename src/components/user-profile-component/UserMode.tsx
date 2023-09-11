@@ -23,7 +23,7 @@ const UserMode: React.FC<ModeSwitchProps> = ({
          disabled={false}
          activeText={'On'}
          inActiveText={'Off'}
-         circleSize={13}
+         circleSize={16}
          barHeight={14}
          circleBorderWidth={1}
          backgroundActive={'#fff'}
@@ -32,8 +32,8 @@ const UserMode: React.FC<ModeSwitchProps> = ({
     // circleInActiveColor={'#094067'}
     // renderInsideCircle={() => <CustomComponent />} // custom component to render inside the Switch circle (Text, Image, etc.)
          changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete
-         innerCircleStyle={{ alignItems: "center", justifyContent: "center" ,backgroundColor:'#094067'}} // style for inner animated circle for what you (may) be rendering inside the circle
-         outerCircleStyle={{}} // style for outer animated circle
+         innerCircleStyle={{ backgroundColor:'#3da9fc' ,marginLeft:2 , marginRight:2,marginTop:2 , marginBottom:2 , borderColor:'#FFF'}} // style for inner animated circle for what you (may) be rendering inside the circle
+         outerCircleStyle={{  borderRadius:50}} // style for outer animated circle
          renderActiveText={false}
          renderInActiveText={false}
          switchLeftPx={2} // denominator for logic when sliding to TRUE position. Higher number = more space from RIGHT of the circle to END of the slider
