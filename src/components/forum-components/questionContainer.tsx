@@ -61,11 +61,13 @@ const QuestionContainer = (props: questionProps) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
-    // marginHorizontal: 8,
     paddingHorizontal: 6,
     paddingBottom: 20,
     borderBottomColor: '#D0D5DD',
     borderBottomWidth: 2,
+    backgroundColor:'#FFF' ,
+   
+    
   },
   topContainer: {
     display: 'flex',
