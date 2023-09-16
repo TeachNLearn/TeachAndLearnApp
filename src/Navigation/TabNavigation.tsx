@@ -8,12 +8,10 @@ import UserprofileSvg from '../components/svgComponents/UserProfileIconSvg';
 import BookClasedSvg from '../components/svgComponents/BookCloasedSvg';
 import ForumSvg from '../components/svgComponents/ForumSvg';
 import ClassesSvg from '../components/svgComponents/ClassesSvg';
-import BuyClass from '../screens/modals/BuyClass';
-import Signup from '../screens/auth/Signup';
 import Forum from '../screens/forum/Forum';
 import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';
-import IntroOne from '../screens/intro/IntroOne';
+
 
 
 const Tab = createBottomTabNavigator();

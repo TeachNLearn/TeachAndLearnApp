@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     borderBottomWidth: 1.5,
     borderBottomColor: '#D5D9EB',
+   
   },
   userDetails: {
     display: 'flex',

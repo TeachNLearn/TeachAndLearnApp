@@ -188,7 +188,8 @@ const styles = StyleSheet.create({
   },
 
   scrollContainer: {
-    // flexGrow: 1,
+    flexGrow: 1,
+    backgroundColor:'#FFF' ,
     // marginBottom: 30,
     // marginTop: 20,
     // height:'500%'

@@ -17,7 +17,7 @@ import PostForumBtn from './ForumBtn';
 import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
+import CardHeader from '../general-components/CardHeader';
 const ForumOverview = ({route}: any) => {
   console.log(route.params.id);
 
@@ -71,13 +71,21 @@ const ForumOverview = ({route}: any) => {
   };
 
   return forum ? (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:'#FFF'}}>
+        <CardHeader
+        title='Forum Overview'
+        ShowMenuIcon={false}
+        onBackPress={() => {}}
+        onMenuPress={() => {}}
+      />
       <View
         style={{
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-end',
+          margin:20 ,
+         
         }}>
         <PostForumBtn
           text="Post answer"
