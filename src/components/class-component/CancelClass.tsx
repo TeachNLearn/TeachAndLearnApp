@@ -63,53 +63,100 @@ const CancelClass = (props: cancelClassProps) => {
 
   return (
     <>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        onPress={() => setModalVisible(true)}
+        style={styles.container}>
         <Text style={styles.cancelText}>Cancel Class</Text>
       </TouchableOpacity>
-      <Modal
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+          backgroundColor: 'rgba(255, 255, 255, 0.34)',
         }}>
-        <View>
+        <Modal
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              flex: 1,
+              justifyContent: 'center',
               alignItems: 'center',
+              marginTop: 22,
             }}>
-            <Text
+            <View
               style={{
-                color: '#000',
-                fontFamily: 'Nunito',
-                fontSize: 18,
-                fontWeight: '600',
-                textDecorationLine: 'underline',
+                width: '90%',
+                backgroundColor: '#FFF',
+                borderRadius: 28,
+                elevation: 8,
+                paddingVertical: 32,
+                paddingHorizontal: 20,
+                display: 'flex',
+                flexDirection: 'column',
+                rowGap: 24,
               }}>
-              Buy Class
-            </Text>
-            <Ionican
-              name="close-outline"
-              size={24}
-              color="#000"
-              onPress={() => setModalVisible(false)}
-            />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#000',
+                    fontFamily: 'Nunito',
+                    fontSize: 18,
+                    fontWeight: '600',
+                    textDecorationLine: 'underline',
+                  }}>
+                  Cancel Class
+                </Text>
+                <Ionican
+                  name="close-outline"
+                  size={24}
+                  color="#000"
+                  onPress={() => setModalVisible(false)}
+                />
+              </View>
+              <Text
+                style={{
+                  fontFamily: 'Nunito',
+                  fontSize: 18,
+                  fontWeight: '500',
+                  lineHeight: 24,
+                  color: '#000',
+                }}>
+                Are you sure you want to cancel this class? On cancelling this
+                class, the students would be refunded their coins and deducted
+                from your side.
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  // borderColor: 'black',
+                  // borderWidth: 1,
+                  alignItems: 'flex-end',
+                  justifyContent: 'flex-end',
+                }}>
+                <Button
+                  containerStyles={styles.button}
+                  onPress={cancelClasshandler}>
+                  {isLoading ? (
+                    <ActivityIndicator size={24} color="#fff" />
+                  ) : (
+                    <Text>Cancel Class</Text>
+                  )}
+                </Button>
+              </View>
+            </View>
           </View>
-          <Text>
-            Are you sure you want to cancel this class? On cancelling this
-            class, the students would be refunded their coins and deducted from
-            your side.
-          </Text>
-          <Button onPress={cancelClasshandler}>
-            {isLoading ? (
-              <ActivityIndicator size={24} color="#fff" />
-            ) : (
-              <Text>Cancel Class</Text>
-            )}
-          </Button>
-        </View>
-      </Modal>
+        </Modal>
+      </View>
     </>
   );
 };
@@ -122,7 +169,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 16,
     backgroundColor: '#fecdca',
-    borderRadius: 41,
+    borderRadius: 8,
     alignSelf: 'flex-start',
   },
   cancelText: {
@@ -132,6 +179,11 @@ const styles = StyleSheet.create({
     color: '#b42318',
     fontFamily: '"Nunito"',
     fontStyle: 'normal',
+  },
+  button: {
+    backgroundColor: '#ef4565',
+    alignSelf: 'flex-end',
+    marginTop: 6,
   },
 });
 

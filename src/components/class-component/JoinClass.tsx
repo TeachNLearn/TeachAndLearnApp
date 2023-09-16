@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     columnGap: 4,
     paddingHorizontal: 24,
     paddingVertical: 16,
-    borderRadius: 30,
+    borderRadius: 8,
     alignSelf: 'flex-start',
     backgroundColor: '#094067',
   },

@@ -289,8 +289,8 @@ const CreateTeachCard = ({route}: any) => {
                 {teachCard.tags.length != 0 ? (
                   <ArrChip
                     listArr={teachCard.tags}
-                    // name="tags"
-                    // updateFields={updateFields}
+                    name="tags"
+                    updateFields={updateFields}
                   />
                 ) : null}
               </View>

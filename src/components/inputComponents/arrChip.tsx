@@ -1,20 +1,33 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
-import {FlatList, View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
+import CrossSvg from '../svgComponents/CrossSvg';
 
 interface arrChipProps {
   listArr: string[];
-  // name: string;
-  // updateFields: any;
+  name: string;
+  updateFields: any;
 }
 
 const ArrChip = (props: arrChipProps) => {
+
+  const removeElement = (subToDelete: string) => {
+    let filteredArr = props.listArr.filter((sub, index) => {
+      console.log(sub == subToDelete);
+      return sub != subToDelete;
+    });
+    props.updateFields({ [props.name]: filteredArr });
+  };
+
   return (
     <View style={styles.container}>
       {props.listArr.map((sub, idx) => {
         return (
           <View key={idx} style={styles.chip}>
             <Text style={styles.chipText}>{sub}</Text>
+            <TouchableOpacity onPress={() => removeElement(sub)} >
+              <CrossSvg />
+            </TouchableOpacity>
           </View>
         );
       })}

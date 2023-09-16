@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface UserProfileHeaderProps {
@@ -18,7 +18,7 @@ const UserProfileHeader: React.FC<UserProfileHeaderProps> = ({
       <TouchableOpacity onPress={onBackPress}>
         <Ionicons name="arrow-back-sharp" size={20} color="#000" />
       </TouchableOpacity>
-      <Text style={styles.userUniqueName}>{title}</Text>
+      <Text style={styles.userUniqueName}>@{title}</Text>
       <TouchableOpacity onPress={onMenuPress}>
         <Ionicons name="ellipsis-vertical-sharp" size={20} color="#000000" />
       </TouchableOpacity>

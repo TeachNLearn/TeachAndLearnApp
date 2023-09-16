@@ -1,12 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  InputModeOptions,
-  NativeSyntheticEvent,
   StyleSheet,
   Text,
   TextInput,
-  TextInputChangeEventData,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
 interface inputProps {
@@ -33,18 +31,15 @@ const InputHolder = (props: inputProps) => {
     props.updateFields({[inputIdentifier]: enteredValue});
   };
 
-  const dropdownMenuhandler = (data: string) => {
-    props.updateFields({[props.name]: data});
-    setShowDropdown(false);
-  };
-
-  const closeDropDown = () => {
-    setShowDropdown(false);
-  };
-
   const singleUpdate = (enteredValue: any) => {
     props.updateFields(enteredValue);
   };
+
+  const dropdownMenuhandler = (data: string) => {
+    props.updateFields({ [props.name]: data });    setShowDropdown(false);
+    setShowDropdown(false);
+  };
+
 
   return (
     <View>
@@ -68,6 +63,36 @@ const InputHolder = (props: inputProps) => {
           <Text style={styles.requiredText}>*required</Text>
         </View>
       )}
+      {props.hasDropdown
+        ? props.value == ''
+          ? null
+          : showDropdown &&
+            (props.dropdownData?.filter(val => {
+              if (typeof props.value == 'string') {
+                return val.toLowerCase().includes(props.value.toLowerCase());
+              }
+            }).length == 0 ? null : (
+              <View style={styles.dropdownContainer}>
+                {props.dropdownData
+                  ?.filter(val => {
+                    if (typeof props.value == 'string') {
+                      return val
+                        .toLowerCase()
+                        .includes(props.value.toLowerCase());
+                    }
+                  })
+                  .map((data, index) => {
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => dropdownMenuhandler(data)}>
+                        <Text style={styles.dropdownText}>{data}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+              </View>
+            ))
+        : null}
     </View>
   );
 };
@@ -114,6 +139,19 @@ const styles = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.7)',
     fontSize: 0.8,
     textTransform: 'capitalize',
+  },
+  dropdownContainer: {
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    paddingVertical: 12,
+    paddingLeft: 5,
+    borderWidth: 1,
+    borderColor: '#d5d9eb',
+    borderRadius: 8,
+    rowGap: 8,
+  },
+  dropdownText: {
+    color: '#000',
   },
 });
 

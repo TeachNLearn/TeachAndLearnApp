@@ -1,10 +1,13 @@
-import React , {useState} from 'react';
-import {StyleSheet, View , TouchableOpacity , Image, Text} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, TouchableOpacity, Image, Text} from 'react-native';
 import InputHolder from '../inputComponents/inputHolder';
 import MultipleInput from '../inputComponents/multipleInput';
 import ArrChip from '../inputComponents/arrChip';
 import ImagePicker from 'react-native-image-crop-picker';
-import DocUploadSvg from '../svgComponents/DocUploadSvg' ;
+import DocUploadSvg from '../svgComponents/DocUploadSvg';
+import {subjects} from '../../data/SUBJECT_LIST.json';
+import {languages} from '../../data/LANGUAGE_LIST.json';
+import {standard} from '../../data/STANDARD_LIST.json';
 
 interface UserInfo {
   photo: string;
@@ -24,7 +27,7 @@ type UserInfoFormProps = UserInfo & {
 };
 
 const UserInfoForm = (props: UserInfoFormProps) => {
-   const [image, setImage] = useState<string | undefined>(props.photo);
+  const [image, setImage] = useState<string | undefined>(props.photo);
 
   const handleImagePicker = async () => {
     try {
@@ -35,27 +38,32 @@ const UserInfoForm = (props: UserInfoFormProps) => {
       });
 
       setImage(result.path);
-      props.updateFields({ photo: result.path });
+      props.updateFields({photo: result.path});
     } catch (error) {
       console.log('Error selecting image:', error);
     }
   };
   return (
     <View style={styles.formContainer}>
-            <TouchableOpacity onPress={handleImagePicker} style={styles.imagePicker}>
-               <Text style={styles.profilePicLabel}>Profile pic</Text>
+      <TouchableOpacity onPress={handleImagePicker} style={styles.imagePicker}>
+        <Text style={styles.profilePicLabel}>Profile pic</Text>
         {image ? (
-          <View style={{flexDirection:'row' , alignItems:'center', justifyContent:'space-between' ,}}>
-            <Image source={{ uri: image }} style={styles.image} />
-            <Text style={{color:'#000' , marginRight:20 ,}}>Profile pic uploaded</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Image source={{uri: image}} style={styles.image} />
+            <Text style={{color: '#000', marginRight: 20}}>
+              Profile pic uploaded
+            </Text>
           </View>
-          
         ) : (
-          <View style={{flexDirection:'row' , alignItems:'center'}}>
-            <DocUploadSvg/>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <DocUploadSvg />
             <Text>Click to Upload</Text>
           </View>
-          
         )}
       </TouchableOpacity>
       <InputHolder
@@ -88,6 +96,8 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         isRequired={false}
         placeholderText="Standard/Year"
         showLabel={true}
+        hasDropdown={true}
+        dropdownData={standard}
       />
       <View style={styles.inputWrapper}>
         <MultipleInput
@@ -99,27 +109,28 @@ const UserInfoForm = (props: UserInfoFormProps) => {
           placeholder="Subjects you mostly need help in"
           showLabel={true}
           updateFields={props.updateFields}
-          hasDropdown={false}
+          hasDropdown={true}
+          dropdownData={subjects}
           maxLimit={5}
         />
         {props.interestedSubjects.length != 0 ? (
           <ArrChip
             listArr={props.interestedSubjects}
-            // updateFields={props.updateFields}
-            // name="interestedSubjects"
+            updateFields={props.updateFields}
+            name="interestedSubjects"
           />
         ) : null}
       </View>
       <View style={styles.inputWrapper}>
         <MultipleInput
-          label="Subjects you can help others in"
+          label="Strong Subjects"
           value={props.strongSubject}
           elemName="strongSubject"
           name="strongSubjects"
           updateFields={props.updateFields}
           arr={props.strongSubjects}
-          // hasDropdown={true}
-          // dropdownData={subjects}
+          hasDropdown={true}
+          dropdownData={subjects}
           maxLimit={5}
           placeholder="Subject you can help others in"
           showLabel={true}
@@ -127,8 +138,8 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         {props.strongSubjects.length != 0 ? (
           <ArrChip
             listArr={props.strongSubjects}
-            // updateFields={props.updateFields}
-            // name="strongSubjects"
+            updateFields={props.updateFields}
+            name="strongSubjects"
           />
         ) : null}
       </View>
@@ -142,15 +153,15 @@ const UserInfoForm = (props: UserInfoFormProps) => {
           arr={props.preferredLanguages}
           placeholder="Preffered languages"
           showLabel={true}
-          // hasDropdown={true}
-          // dropdownData={languages}
+          hasDropdown={true}
+          dropdownData={languages}
           maxLimit={3}
         />
         {props.preferredLanguages.length != 0 ? (
           <ArrChip
             listArr={props.preferredLanguages}
-            // updateFields={props.updateFields}
-            // name="preferredLanguages"
+            updateFields={props.updateFields}
+            name="preferredLanguages"
           />
         ) : null}
       </View>
@@ -183,7 +194,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     flexDirection: 'column',
-    
+
     position: 'relative', // Added for positioning
   },
   profilePicLabel: {
@@ -196,15 +207,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: '#b3b8db',
     paddingHorizontal: 5,
-    transform: [{ translateY: -7 }],
+    transform: [{translateY: -7}],
   },
   image: {
     width: 100,
     height: 100,
     borderRadius: 50,
   },
-   
- 
 });
 
 export default UserInfoForm;

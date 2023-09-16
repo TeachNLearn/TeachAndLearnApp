@@ -29,10 +29,11 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import CustomAlert from '../modals/CancelClass';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import UserContactAndAcademicInfo from '../../components/user-profile-component/UserContactAndAcademicInfo';
-import ImagePickerButton from '../../components/user-profile-component/UserImagePicker'
+import ImagePickerButton from '../../components/user-profile-component/UserImagePicker';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
+import StatsContainer from '../../components/profileComponents/StatsContainer';
 
 interface userProps {
   _id: string;
@@ -72,7 +73,7 @@ const Userprofile: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const authCtx = useContext(AuthContext);
-   const editIcon = <FontAwesome name="pen" size={15} color="#000" />;
+  const editIcon = <FontAwesome name="pen" size={15} color="#000" />;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
   const defaultImageSource = require('../../assets/Images/userProfilePic.png');
@@ -85,8 +86,10 @@ const Userprofile: React.FC = () => {
     setIsLearnMode(!isLearnMode);
   };
 
-  const [isLogoutAlertVisible, setIsLogoutAlertVisible] = useState<boolean>(false);
-  const [isDeleteAlertVisible, setIsDeleteAlertVisible] = useState<boolean>(false);
+  const [isLogoutAlertVisible, setIsLogoutAlertVisible] =
+    useState<boolean>(false);
+  const [isDeleteAlertVisible, setIsDeleteAlertVisible] =
+    useState<boolean>(false);
 
   const showLogoutAlert = () => {
     setIsLogoutAlertVisible(true);
@@ -103,14 +106,13 @@ const Userprofile: React.FC = () => {
   };
 
   const handleLogout = () => {
-      authCtx.logout();
-      navigation.navigate('Login');
-     hideLogoutAlert();
- }
+    authCtx.logout();
+    navigation.navigate('Login');
+    hideLogoutAlert();
+  };
   const handleDeleteAccount = () => {
-    
-      hideDeleteAccountAlert();
- }
+    hideDeleteAccountAlert();
+  };
 
   const handleImagePicker = async (sourceType: 'gallery' | 'camera') => {
     try {
@@ -150,15 +152,6 @@ const Userprofile: React.FC = () => {
     }
   };
 
-
- 
-
- 
-  
-
-
-
-
   const switchWidth = 60; // Customize the width of the switch
   const switchHeight = 30;
   const thumbSize = 10;
@@ -185,97 +178,129 @@ const Userprofile: React.FC = () => {
     }
   }, [userToken]);
 
-  return (
-   
+  return localUser ? (
     <ScrollView style={{}}>
-    <View style={styles.userProfileParentContainer}>
-     <UserProfileHeader title='@ethanatex' onBackPress={() => {}} onMenuPress={() =>{}} />
-    <ImagePickerButton
-        handleImagePicker={handleImagePicker}
-        profileImage={profileImage}
-        defaultImageSource={defaultImageSource}
-        // Optional style prop
-      />
-     <UserNameAndTagline 
-     name="Ethan Alexander"
-     educationInfo="B. Tech Artificial Intelligence student and part-time Web Developer"
-     />
-     <UserMode
-        isLearnMode={isLearnMode}
-        toggleMode={toggleMode}
-        learnModeText="Learn Mode"
-        teachModeText="Teach Mode"
-      />
- 
-  
-    </View>
-
-
-                    
-    {/* <View style={{ backgroundColor:'#D8EEFE' ,borderTopLeftRadius:50 , borderTopRightRadius:50 , borderBottomLeftRadius:30 , borderBottomRightRadius:30 , }}> */}
-      {/* Stats  */}
-      <View style={{backgroundColor:'#094067' ,borderTopLeftRadius:50 , borderTopRightRadius:50 ,}}>
-     <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Teacher</Text>
-      <View style={{flexDirection:'row' , alignItems:'center' , justifyContent:'space-evenly', marginBottom:20  , }}>
-       <UserStats label="Tought" value={24} />
-       <UserStats label="Attended" value={24} />
-       <UserStats label="Rating" value={24} /> 
+      <View style={styles.userProfileParentContainer}>
+        <UserProfileHeader
+          title={localUser?.userName}
+          onBackPress={() => {}}
+          onMenuPress={() => {}}
+        />
+        <ImagePickerButton
+          handleImagePicker={handleImagePicker}
+          profileImage={profileImage}
+          defaultImageSource={defaultImageSource}
+          // Optional style prop
+        />
+        <UserNameAndTagline
+          name={localUser.name}
+          educationInfo={localUser.tagline}
+        />
+        <UserMode
+          isLearnMode={localUser.role == 'learn'}
+          toggleMode={toggleMode}
+          learnModeText="Learn Mode"
+          teachModeText="Teach Mode"
+        />
       </View>
-
-
-     <Text style={{color:'#FFF' , fontSize:22 , fontWeight:'600' , letterSpacing:0.44  , margin:25 ,    fontFamily:'Nunito',}}>Stats as Student</Text>
-      <View style={{ marginLeft:65, alignItems:'flex-start' ,justifyContent:'flex-start', marginBottom:20  , }}>
-        <UserStats label='Attended' value={2} />
-      </View> 
-
-      <View style={{backgroundColor:'#D8EEFE' , borderTopLeftRadius:50 , borderTopRightRadius:50 }}>
-          <UserContactAndAcademicInfo navigation={navigation}  editIcon={editIcon} showAcademicInfo showContactInfo showEdit/>
-
-     
-       
-       <GeneralMenu>
-        <View style={{borderTopRightRadius:50 , borderTopLeftRadius:50 , backgroundColor:'#094067'}}>
-        <Text style={{color:"#FFF" , fontFamily:'Nunito' , fontWeight:'600' , letterSpacing:0.44, margin:40 ,fontSize:22 ,}}>Other Settings</Text>
-        <GeneralMenuItem iconName="card-outline" text="My Wallet" onPress={() => {navigation.navigate('Mywallet')}} showIcon={true} />
-        <GeneralMenuItem iconName="heart-outline" text="My Favourites" onPress={() => {navigation.navigate('MyFav')}}showIcon={true} />
-        <GeneralMenuItem iconName="log-out-outline" text="Logout" onPress={showLogoutAlert} showIcon={true}/>
-         <GeneralMenuItem iconName="trash-outline" text="Delete Account" onPress={showDeleteAccountAlert}showIcon={true} />
+      <View
+        style={{
+          backgroundColor: '#094067',
+          borderTopLeftRadius: 50,
+          borderTopRightRadius: 50,
+        }}>
+        <StatsContainer
+          taught={localUser.classesTaken.length}
+          userId={localUser._id}
+          userToken={userToken}
+          attended={localUser.classesEnrolled.length}
+        />
+        <View
+          style={{
+            backgroundColor: '#D8EEFE',
+            borderTopLeftRadius: 50,
+            borderTopRightRadius: 50,
+          }}>
+          <UserContactAndAcademicInfo
+            navigation={navigation}
+            editIcon={editIcon}
+            showAcademicInfo
+            showContactInfo
+            showEdit
+          />
+          <GeneralMenu>
+            <View
+              style={{
+                borderTopRightRadius: 50,
+                borderTopLeftRadius: 50,
+                backgroundColor: '#094067',
+              }}>
+              <Text
+                style={{
+                  color: '#FFF',
+                  fontFamily: 'Nunito',
+                  fontWeight: '600',
+                  letterSpacing: 0.44,
+                  margin: 40,
+                  fontSize: 22,
+                }}>
+                Other Settings
+              </Text>
+              <GeneralMenuItem
+                iconName="card-outline"
+                text="My Wallet"
+                onPress={() => {
+                  navigation.navigate('Mywallet');
+                }}
+                showIcon={true}
+              />
+              <GeneralMenuItem
+                iconName="heart-outline"
+                text="My Favourites"
+                onPress={() => {
+                  navigation.navigate('MyFav');
+                }}
+                showIcon={true}
+              />
+              <GeneralMenuItem
+                iconName="log-out-outline"
+                text="Logout"
+                onPress={showLogoutAlert}
+                showIcon={true}
+              />
+              <GeneralMenuItem
+                iconName="trash-outline"
+                text="Delete Account"
+                onPress={showDeleteAccountAlert}
+                showIcon={true}
+              />
+            </View>
+          </GeneralMenu>
         </View>
-   
-        
-      </GeneralMenu>
-       </View>
       </View>
-      
-   
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-
-      <CustomAlert
-        visible={isDeleteAlertVisible}
-        title="Delete Account"
-        message="Are you sure you want to delete your account."
-        onClose={hideDeleteAccountAlert}
-        btn="Delete Account"
-        onProceed={handleDeleteAccount}
-      />
-
-      <CustomAlert
-        visible={isLogoutAlertVisible}
-        title="Logout"
-        message="Are you sure you want to log out ?."
-        onClose={hideLogoutAlert}
-        btn="Logout"
-        onProceed={handleLogout}
-      />
-    </View>
-    {/* </View> */}
-  
-     </ScrollView>
-  
-  )
-}
-
-       
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <CustomAlert
+          visible={isDeleteAlertVisible}
+          title="Delete Account"
+          message="Are you sure you want to delete your account."
+          onClose={hideDeleteAccountAlert}
+          btn="Delete Account"
+          onProceed={handleDeleteAccount}
+        />
+        <CustomAlert
+          visible={isLogoutAlertVisible}
+          title="Logout"
+          message="Are you sure you want to log out ?."
+          onClose={hideLogoutAlert}
+          btn="Logout"
+          onProceed={handleLogout}
+        />
+      </View>
+    </ScrollView>
+  ) : (
+    <ActivityIndicator />
+  );
+};
 
 const styles = StyleSheet.create({
   userProfileParentContainer: {
@@ -286,8 +311,7 @@ const styles = StyleSheet.create({
     margin: 60,
   },
 
-
-   tagsContainer: {
+  tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 11,
@@ -299,10 +323,9 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
     marginRight: 8,
-   
-    borderWidth:1 ,
-    borderColor:'gray' ,
-    
+
+    borderWidth: 1,
+    borderColor: 'gray',
   },
 
   UserImg: {

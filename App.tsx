@@ -22,6 +22,7 @@ import MyFavourite from './src/components/user-profile-component/user-menu-compo
 import MyWallet from './src/components/user-profile-component/user-menu-component/MyWallet';
 import EditAcademicInfo from './src/components/user-profile-component/user-menu-component/EditAcademicInfo';
 import EditContactInfo from './src/components/user-profile-component/user-menu-component/EditContactInfo';
+import Home from './src/screens/Home';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -89,6 +90,7 @@ const NavigationScreens = () => {
         <Stack.Screen name="SingleClassroom" component={SingleClassroom} />
         <Stack.Screen name="CreateTeachCard" component={CreateTeachCard} />
         <Stack.Screen name="Login" component={Login} />
+        {/* <Stack.Screen name="Home" component={Home} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

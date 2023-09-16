@@ -11,13 +11,14 @@ import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import DescriptionBox from '../../components/authComponents/descriptionBox';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
 interface loginDataProps {
   email: string;
   password: string;
 }
 
-const Login = () => {
+const Login = ({navigation}: any) => {
   const [loginData, setLoginData] = useState<loginDataProps>({
     email: '',
     password: '',
@@ -33,9 +34,22 @@ const Login = () => {
     });
   }
 
+  type RootStackParamList = {
+    Signup: undefined;
+  };
 
-   const handleValidation = () => {
-    const { email, password } = loginData;
+  type BottomTabParamList = {
+    Home: undefined;
+  };
+
+  // const navigation =
+  //   useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const bottomNavigation =
+    useNavigation<BottomTabNavigationProp<BottomTabParamList>>();
+
+  const handleValidation = () => {
+    const {email, password} = loginData;
     if (email === '' || password === '') {
       setErrorText('Please fill in all fields.');
       return false;
@@ -48,7 +62,7 @@ const Login = () => {
     }
     setErrorText('');
     return true;
-  }
+  };
 
   const loginHandler = async () => {
     console.log(loginData);
@@ -63,20 +77,13 @@ const Login = () => {
           console.log(data.token);
           user.token = data.token;
           authCtx.setLocalUser(user);
+          navigation.navigate('Home');
         })
         .catch(data => {
           console.log(data);
         });
     }
   };
-
-  type RootStackParamList = {
-    Signup: undefined;
-  };
-
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
   const loginNavigation = () => {
     navigation.navigate('Signup');
   };
@@ -84,7 +91,11 @@ const Login = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <DescriptionBox />
+        <DescriptionBox
+          heading="Welcome"
+          subHeading="Back"
+          text="Log in to your account"
+        />
         <View style={styles.formContainer}>
           <InputHolder
             label="Email"
@@ -106,16 +117,15 @@ const Login = () => {
             hasDropdown={false}
             showLabel={true}
           />
-            {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
-          <Button onPress={loginHandler}>Login</Button>
+          {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
+          <Button containerStyles={styles.loginButton} onPress={loginHandler}>
+            Login
+          </Button>
         </View>
         <View style={styles.signup}>
           <Text style={styles.simpleText}>Already have an account?</Text>
-          <TouchableOpacity onPress={loginNavigation} >
-            <Text style={styles.link}>
-               Signup!!
-            </Text>
-           
+          <TouchableOpacity onPress={loginNavigation}>
+            <Text style={styles.link}>Signup!!</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -158,10 +168,13 @@ const styles = StyleSheet.create({
   link: {
     color: '#094067',
   },
-   errorText: {
+  errorText: {
     color: 'red',
     marginBottom: 10,
-    textAlign:'center' ,
+    textAlign: 'center',
+  },
+  loginButton: {
+    backgroundColor: '#094067',
   },
 });
 

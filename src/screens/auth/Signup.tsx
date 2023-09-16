@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {ScrollView, Text, View, KeyboardAvoidingView} from 'react-native';
 import {useMultiStepForm} from '../../utils/useMultiStepForm';
 import SignupForm from '../../components/authComponents/SignupForm';
 import DescriptionBox from '../../components/authComponents/descriptionBox';
@@ -8,6 +8,9 @@ import UserInfoForm from '../../components/authComponents/UserInfoForm';
 import Button from '../../components/general-components/button';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import axios from 'axios';
+import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
+import {AuthContext} from '../../store/auth-context';
 
 interface USERDATA {
   fullName: string;
@@ -54,24 +57,60 @@ const Signup = () => {
     });
   }
 
+  const authCtx = useContext(AuthContext);
+
   const {step, isLastStep, next, back} = useMultiStepForm([
     <SignupForm {...userData} updateFields={updateFields} />,
     <UserInfoForm {...userData} updateFields={updateFields} />,
   ]);
 
-  const onSubmit = () => {
-    console.log('CHECKING');
-
-    if (!isLastStep) return next();
-    else console.log(userData);
-  };
-
   type RootStackParamList = {
     Login: undefined;
+    Home: undefined;
   };
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = async (e: any) => {
+    console.log('CHECKING');
+    if (!isLastStep) return next();
+    else {
+      e.preventDefault();
+      setIsLoading(true);
+      await axios
+        .post(`${BASE_URL}${apiVersion}/auth/signup`, {
+          name: userData.fullName,
+          userName: userData.userName,
+          email: userData.email,
+          password: userData.password,
+          passwordConfirm: userData.confirmPassword,
+          photo: userData.photo,
+          phoneNumber: userData.number,
+          enrolledProgramme: userData.course,
+          standard: userData.standard,
+          interestedSubjects: userData.interestedSubjects,
+          strongSubjects: userData.strongSubjects,
+          preferredLanguages: userData.preferredLanguages,
+        })
+        .then(({data}) => {
+          console.log(data.token);
+          console.log(data);
+          const user = data.data.user;
+          user.token = data.token;
+          authCtx.setLocalUser(user);
+          setIsLoading(false);
+          navigation.navigate('Home');
+        })
+        .catch(data => {
+          const error = data.response.data.message;
+          console.log(error);
+          setIsLoading(false);
+        });
+    }
+  };
 
   const loginNavigation = () => {
     navigation.navigate('Login');
@@ -79,13 +118,23 @@ const Signup = () => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <DescriptionBox />
+      <KeyboardAvoidingView behavior="height" style={styles.container}>
+        <DescriptionBox
+          heading="Get"
+          subHeading="Started"
+          text="Register for an account"
+        />
         <View style={styles.formWrapper}>
           <View>{step}</View>
-          <View style={styles.buttonWrapper} >
-            <Button onPress={onSubmit}>{isLastStep ? 'Signup' : 'Next'}</Button>
-            {isLastStep && <Button onPress={back}>Back</Button>}
+          <View style={styles.buttonWrapper}>
+            <Button containerStyles={styles.btn} onPress={onSubmit}>
+              {isLastStep ? 'Signup' : 'Next'}
+            </Button>
+            {isLastStep && (
+              <Button containerStyles={styles.btn} onPress={back}>
+                Back
+              </Button>
+            )}
           </View>
         </View>
         <View style={styles.login}>
@@ -94,7 +143,7 @@ const Signup = () => {
             Login!!
           </Text>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };
@@ -118,9 +167,9 @@ const styles = StyleSheet.create({
     rowGap: 36,
   },
   buttonWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    rowGap: 12
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 12,
   },
   login: {
     display: 'flex',
@@ -136,6 +185,9 @@ const styles = StyleSheet.create({
   link: {
     color: '#094067',
     fontWeight: '600',
+  },
+  btn: {
+    backgroundColor: '#094067',
   },
 });
 
