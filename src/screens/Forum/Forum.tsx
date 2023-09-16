@@ -69,8 +69,8 @@ const Forum = () => {
 
   return !isLoading ? (
     <View>
-       <CardHeader
-        title='Forum'
+      <CardHeader
+        title="Forum"
         ShowMenuIcon={false}
         onBackPress={() => {}}
         onMenuPress={() => {}}
@@ -81,8 +81,8 @@ const Forum = () => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-end',
-          marginTop:20 ,
-          marginRight:20 ,
+          marginTop: 20,
+          marginRight: 20,
         }}>
         <PostForumBtn
           text="Post your query"
@@ -107,9 +107,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     rowGap: 10,
-    marginLeft:20 ,
-    marginRight:20 ,
-
+    marginLeft: 20,
+    marginRight: 20,
   },
 });
 
