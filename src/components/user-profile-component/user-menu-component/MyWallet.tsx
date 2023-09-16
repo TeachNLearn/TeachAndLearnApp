@@ -1,11 +1,44 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import CoinsSvg from '../../svgComponents/CoinsSvg';
+import {AuthContext} from '../../../store/auth-context';
+import axios from 'axios';
+import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
+import {getHeaders} from '../../../utils/helperFunctions';
 
 interface Props {}
 
 const MyWallet: React.FC<Props> = () => {
-  return (
+  const authCtx = useContext(AuthContext);
+
+  const [userCoins, setUserCoins] = useState<number>(0);
+  const [userForumCoins, setUserForumCoins] = useState<number>(0);
+  const [userReviewCoins, setUserReviewCoins] = useState<number>(0);
+  const [userToken, setUserToken] = useState<string>(authCtx.token);
+  const [isLoading, setisLoading] = useState(false);
+
+  const fetchUserBalance = async () => {
+    setisLoading(true);
+    await axios
+      .get(`${BASE_URL}${apiVersion}/user/mybalance`, {
+        headers: getHeaders(userToken),
+      })
+      .then(({data}) => {
+        const user = data.user;
+        setUserCoins(user.coins);
+        setUserForumCoins(user.forumCoins);
+        setUserReviewCoins(user.reviewCoins);
+        setisLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    if (userToken) {
+      fetchUserBalance();
+    }
+  }, [userToken]);
+
+  return !isLoading ? (
     <View style={styles.parentContainer}>
       <View
         style={{
@@ -18,8 +51,7 @@ const MyWallet: React.FC<Props> = () => {
           flexDirection: 'column',
           justifyContent: 'space-evenly',
           borderRadius: 25,
-        }}
-      >
+        }}>
         <Text
           style={{
             fontSize: 24,
@@ -27,11 +59,10 @@ const MyWallet: React.FC<Props> = () => {
             fontWeight: '600',
             fontFamily: 'Nunito',
             textDecorationLine: 'underline',
-          }}
-        >
+          }}>
           Total Balance
         </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <CoinsSvg height={20} width={20} />
           <Text
             style={{
@@ -39,10 +70,8 @@ const MyWallet: React.FC<Props> = () => {
               color: '#000',
               fontWeight: '700',
               fontFamily: 'Nunito',
-            }}
-          >
-            {' '}
-            1050
+            }}>
+            {userCoins}
           </Text>
         </View>
       </View>
@@ -53,8 +82,7 @@ const MyWallet: React.FC<Props> = () => {
           justifyContent: 'space-between',
           marginTop: 30,
           width: 350,
-        }}
-      >
+        }}>
         <View
           style={{
             padding: 20,
@@ -65,8 +93,7 @@ const MyWallet: React.FC<Props> = () => {
             marginTop: 50,
             flexDirection: 'column',
             borderRadius: 25,
-          }}
-        >
+          }}>
           <Text
             style={{
               fontSize: 14,
@@ -74,9 +101,8 @@ const MyWallet: React.FC<Props> = () => {
               fontWeight: '600',
               fontFamily: 'Nunito',
               textDecorationLine: 'underline',
-            }}
-          >
-            Coins from class Reviews
+            }}>
+            Coins from Class Reviews
           </Text>
           <Text
             style={{
@@ -85,9 +111,8 @@ const MyWallet: React.FC<Props> = () => {
               fontWeight: '700',
               fontFamily: 'Nunito',
               marginTop: 10,
-            }}
-          >
-            0
+            }}>
+            {userReviewCoins}
           </Text>
         </View>
         <View
@@ -100,8 +125,7 @@ const MyWallet: React.FC<Props> = () => {
             marginTop: 50,
             flexDirection: 'column',
             borderRadius: 25,
-          }}
-        >
+          }}>
           <Text
             style={{
               fontSize: 14,
@@ -109,9 +133,8 @@ const MyWallet: React.FC<Props> = () => {
               fontWeight: '600',
               fontFamily: 'Nunito',
               textDecorationLine: 'underline',
-            }}
-          >
-            Coins from class Reviews
+            }}>
+            Coins from Forum
           </Text>
           <Text
             style={{
@@ -120,13 +143,14 @@ const MyWallet: React.FC<Props> = () => {
               fontWeight: '700',
               fontFamily: 'Nunito',
               marginTop: 10,
-            }}
-          >
-            0
+            }}>
+            {userForumCoins}
           </Text>
         </View>
       </View>
     </View>
+  ) : (
+    <ActivityIndicator size={42} color={'blue'} />
   );
 };
 
