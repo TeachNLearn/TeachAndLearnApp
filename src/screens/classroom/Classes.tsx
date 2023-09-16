@@ -4,7 +4,7 @@ import AllClasses from '../../components/class-component/AllClasses';
 import UpcomingClasses from '../../components/class-component/UpcomingClasses';
 import {AuthContext} from '../../store/auth-context';
 import CompletedClasses from '../../components/class-component/CompletedClasses';
-
+import CardHeader from '../../components/general-components/CardHeader';
 const Classes = () => {
   const [activeLink, setActiveLink] = useState('all classes');
   const [element, setElement] = useState(<AllClasses />);
@@ -27,12 +27,20 @@ const Classes = () => {
 
   return (
     <View>
+       <CardHeader
+        title='Classes'
+        ShowMenuIcon={false}
+        onBackPress={() => {}}
+        onMenuPress={() => {}}
+      />
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'center',
+          marginTop:30 ,
         }}>
+       
         <TouchableOpacity
           style={[activeLink === 'all classes' && styles.activeSegment]}
           onPress={() => navigationHandler('all classes')}  

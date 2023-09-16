@@ -17,7 +17,7 @@ import {AuthContext} from '../../store/auth-context';
 import Button from '../general-components/button';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
+import CardHeader from '../general-components/CardHeader';
 const PostForumAnswer = ({route}: any) => {
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
@@ -67,7 +67,13 @@ const PostForumAnswer = ({route}: any) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrollContainer}>
+         <CardHeader
+        title='Post Answer'
+        ShowMenuIcon={false}
+        onBackPress={() => {}}
+        onMenuPress={() => {}}
+      />
       <View style={styles.container}>
         <FormField
           elem={
@@ -106,6 +112,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 90,
   },
+  scrollContainer:{
+    flexGrow:1 ,
+    backgroundColor:'#FFF' ,
+  }
 });
 
 export default PostForumAnswer;

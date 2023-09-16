@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#FAFAFC',
+    marginBottom:240 ,
   },
 
     activityIndicatorContainer: {

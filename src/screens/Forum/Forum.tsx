@@ -10,7 +10,7 @@ import ForumCard from '../../components/forum-components/forumCard';
 import PostForumBtn from '../../components/forum-components/ForumBtn';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-
+import CardHeader from '../../components/general-components/CardHeader';
 const Forum = () => {
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
@@ -68,13 +68,21 @@ const Forum = () => {
   };
 
   return !isLoading ? (
-    <View style={{margin: 18}}>
+    <View>
+       <CardHeader
+        title='Forum'
+        ShowMenuIcon={false}
+        onBackPress={() => {}}
+        onMenuPress={() => {}}
+      />
       <View
         style={{
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-end',
+          marginTop:20 ,
+          marginRight:20 ,
         }}>
         <PostForumBtn
           text="Post your query"
@@ -95,10 +103,13 @@ const Forum = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
+    paddingTop: 25,
     display: 'flex',
     flexDirection: 'column',
     rowGap: 10,
+    marginLeft:20 ,
+    marginRight:20 ,
+
   },
 });
 

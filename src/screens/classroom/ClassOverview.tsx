@@ -19,7 +19,7 @@ import ClassDate from '../../components/class-component/ClassDate';
 import CardID from '../../components/learnCardComponents/CardID';
 import Button from '../../components/general-components/button';
 import BuyClass from '../modals/BuyClass';
-
+import CardHeader from '../../components/general-components/CardHeader';
 const ClassOverview = ({route}: any) => {
   const authCtx = useContext(AuthContext);
 
@@ -97,6 +97,7 @@ const ClassOverview = ({route}: any) => {
   return (
     teachCard && (
       <ScrollView>
+      
         <View
           style={{
             margin: 30,
@@ -104,6 +105,7 @@ const ClassOverview = ({route}: any) => {
             flexDirection: 'column',
             rowGap: 20,
           }}>
+            
           <ClassBanner image={teachCard.cardBanner} />
           <CardTopic topic={teachCard.topic} />
           <View
@@ -111,6 +113,8 @@ const ClassOverview = ({route}: any) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
+              
+
             }}>
             <View
               style={{

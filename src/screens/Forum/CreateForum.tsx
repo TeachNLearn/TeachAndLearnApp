@@ -7,7 +7,7 @@ import {getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
-
+import CardHeader from '../../components/general-components/CardHeader';
 interface createForumProps {
   tagline: string;
   question: string;
@@ -62,7 +62,13 @@ const CreateForum = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.Scrollcontainer}>
+         <CardHeader
+        title='Create Forum'
+        ShowMenuIcon={false}
+        onBackPress={() => {}}
+        onMenuPress={() => {}}
+      />
       <View style={styles.container}>
         <FormField
           elem={
@@ -125,10 +131,18 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     display: 'flex',
     flexDirection: 'column',
+    justifyContent:'center' ,
     rowGap: 24,
     paddingHorizontal: 10,
     paddingBottom: 90,
   },
+  Scrollcontainer:{
+    flexGrow:1 ,
+    backgroundColor: 'white',
+   padding:6.5 ,
+   
+
+  }
 });
 
 export default CreateForum;
