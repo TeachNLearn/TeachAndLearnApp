@@ -117,7 +117,7 @@ const Signup = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{display: 'flex', flex: 1, backgroundColor: 'white'}}>
       <KeyboardAvoidingView behavior="height" style={styles.container}>
         <DescriptionBox
           heading="Get"
@@ -184,7 +184,9 @@ const styles = StyleSheet.create({
   },
   link: {
     color: '#094067',
-    fontWeight: '600',
+    fontWeight: '700',
+    fontFamily: 'Nunito',
+    textDecorationLine: 'underline',
   },
   btn: {
     backgroundColor: '#094067',
