@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, ScrollView , Button , TouchableOpacity} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../utils/apiRoutes';
@@ -8,6 +8,11 @@ import UpcomingCards from '../components/homeScreenComponent/UpcomingCards';
 import PopularRequest from '../components/homeScreenComponent/PopularRequest';
 import HomeCardsHeader from '../components/homeScreenComponent/HomeCardsHeader';
 import SearchComponent from '../components/homeScreenComponent/SearchComponent';
+// import YouTube from 'react-native-youtube';
+// import YouTube from 'react-native-youtube';
+import VideoPlayer from '../components/homeScreenComponent/YoutubeCarousel'
+
+
 
 interface RecommendedCourse {
   subject: string;
@@ -63,6 +68,15 @@ const Home = () => {
   const [upcomingClassesData, setupcomingClassesData] = useState<UpcomingClass[]>([]);
   const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>([]);
   const {token} = useContext(AuthContext);
+  const [selectedVideoId, setSelectedVideoId] = useState<string | null>(null);
+  const [playing, setPlaying] = useState(false);
+
+
+  const togglePlaying = () => {
+  setPlaying((prev) => !prev);
+
+  }
+
 
   const handleSearch = () => {
     // Perform search action with searchText
@@ -179,6 +193,17 @@ const Home = () => {
                 ))}
             </ScrollView>
           </View>
+
+           {/* YOUTUBE VIDEO PLAYER  */}
+      <View style={{justifyContent:'center' , alignItems:'center' , flex:1 ,marginTop:40 , marginBottom:15 }}>
+       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <VideoPlayer videoId={'LyAAkyHXgDU'}  height={180} width={280}/>
+        {/* <VideoPlayer videoId={'QK4rMgtSaqk'} height={200} width={260} />
+        <VideoPlayer videoId={'Dj49m3dC1yk'} height={200} width={260} /> */}
+      </ScrollView>
+       </View>
+
+    
         </ScrollView>
       </View>
     </View>
@@ -231,6 +256,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  YoutubeContainer : {
+    justifyContent:'center' ,
+    alignItems:'center' ,
+    flexDirection:'row' ,
+
+  }
+   
 });
 
 export default Home;
