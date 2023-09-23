@@ -43,14 +43,14 @@ const MyWallet: React.FC<Props> = () => {
       <View
         style={{
           padding: 20,
-          backgroundColor: '#FFF',
-          elevation: 4,
-          width: 350,
-          height: 150,
-          marginTop: 50,
-          flexDirection: 'column',
-          justifyContent: 'space-evenly',
-          borderRadius: 25,
+          // backgroundColor: '#FFF',
+          // elevation: 4,
+          // width: 350,
+          // height: 150,
+          // marginTop: 50,
+          // flexDirection: 'column',
+          // justifyContent: 'space-evenly',
+          // borderRadius: 25,
         }}>
         <Text
           style={{
@@ -80,8 +80,7 @@ const MyWallet: React.FC<Props> = () => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginTop: 30,
-          width: 350,
+          padding:10
         }}>
         <View
           style={{
@@ -90,7 +89,6 @@ const MyWallet: React.FC<Props> = () => {
             elevation: 4,
             width: 160,
             height: 100,
-            marginTop: 50,
             flexDirection: 'column',
             borderRadius: 25,
           }}>
@@ -110,11 +108,12 @@ const MyWallet: React.FC<Props> = () => {
               color: '#000',
               fontWeight: '700',
               fontFamily: 'Nunito',
-              marginTop: 10,
             }}>
             {userReviewCoins}
           </Text>
         </View>
+
+
         <View
           style={{
             padding: 20,
@@ -122,7 +121,6 @@ const MyWallet: React.FC<Props> = () => {
             elevation: 4,
             width: 160,
             height: 100,
-            marginTop: 50,
             flexDirection: 'column',
             borderRadius: 25,
           }}>
@@ -157,9 +155,10 @@ const MyWallet: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   parentContainer: {
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: '#FFF',
     flex: 1,
+
   },
 });
 

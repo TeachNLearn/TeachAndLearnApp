@@ -13,13 +13,11 @@ import {useState, useContext, useEffect} from 'react';
 import {AuthContext} from '../../store/auth-context';
 
 // import Fontawesome from 'react-native-vector-icons/FontAwesome5';
-import Ionican from 'react-native-vector-icons/Ionicons';
 // import ImagePicker from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import UserProfileHeader from '../../components/user-profile-component/UserProfileHeader';
 import UserMode from '../../components/user-profile-component/UserMode';
 import UserNameAndTagline from '../../components/user-profile-component/UserNameAndTagline';
-import UserStats from '../../components/user-profile-component/UserStats';
 import {
   GeneralMenu,
   GeneralMenuItem,
@@ -110,6 +108,12 @@ const Userprofile: React.FC = () => {
     navigation.navigate('Login');
     hideLogoutAlert();
   };
+
+  const goBack = () => {
+    hideLogoutAlert();
+    hideDeleteAccountAlert();
+  };
+
   const handleDeleteAccount = () => {
     hideDeleteAccountAlert();
   };
@@ -281,18 +285,22 @@ const Userprofile: React.FC = () => {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <CustomAlert
           visible={isDeleteAlertVisible}
-          title="Delete Account"
-          message="Are you sure you want to delete your account."
+          title="DeActivate Account"
+          message="Are you sure you want to delete your account ?"
           onClose={hideDeleteAccountAlert}
           btn="Delete Account"
+          btn2='Go back'
+          goBack={goBack}
           onProceed={handleDeleteAccount}
         />
         <CustomAlert
           visible={isLogoutAlertVisible}
           title="Logout"
-          message="Are you sure you want to log out ?."
+          message="Are you sure you want to log out ?"
           onClose={hideLogoutAlert}
           btn="Logout"
+          btn2='Go back'
+          goBack={goBack}
           onProceed={handleLogout}
         />
       </View>
@@ -308,7 +316,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 60,
+    margin: 40,
   },
 
   tagsContainer: {

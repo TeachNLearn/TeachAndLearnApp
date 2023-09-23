@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View, Text, ActivityIndicator} from 'react-native';
@@ -76,8 +77,8 @@ const NavigationScreens = () => {
           }}
         />
         <Stack.Screen name="Forum" component={Forum} />
-        <Stack.Screen name="Mywallet" component={MyWallet}/>
-        <Stack.Screen name="MyFav" component={MyFavourite}/>
+        <Stack.Screen name="Mywallet" component={MyWallet} />
+        <Stack.Screen name="MyFav" component={MyFavourite} />
         <Stack.Screen name="EditContactInfo" component={EditContactInfo} />
         <Stack.Screen name="EditAcademicInfo" component={EditAcademicInfo} />
         <Stack.Screen name="ForumOverview" component={ForumOverview} />

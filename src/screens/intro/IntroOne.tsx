@@ -11,6 +11,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import hjb from '../../assets/Images/IntroImg3.png';
+import Carausal from '../../helpers/Carausal';
 
 const IntroOne: React.FC = () => {
   type RootStackParamList = {
@@ -20,6 +21,17 @@ const IntroOne: React.FC = () => {
     Hometab: undefined;
   };
 
+  const images = [
+    {
+      image:require('../../assets/Images/IntroImg.png')
+    },
+    {
+      image:require('../../assets/Images/IntroImg2.png')
+    },
+    {
+      image:require('../../assets/Images/IntroImg3.png')
+    }
+  ]
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
@@ -67,6 +79,11 @@ const IntroOne: React.FC = () => {
         </View>
       </View>
     </ScrollView>
+    // <>
+    //   <Carausal
+    //   data={images}
+    //   />
+    // </>
   );
 };
 
