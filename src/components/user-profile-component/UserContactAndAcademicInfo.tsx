@@ -36,7 +36,7 @@ const styles: Styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: 20,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   editButton: {
     paddingHorizontal: 15,

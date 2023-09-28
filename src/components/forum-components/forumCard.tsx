@@ -1,6 +1,6 @@
 import React from 'react';
 import {forumProps} from '../../types/ForumTypes';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, Pressable, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
@@ -28,7 +28,7 @@ const ForumCard = (props: forumCardProps) => {
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={forumNavigator}>
+    <Pressable style={styles.container} onPress={forumNavigator}>
       <View>
         <Text style={styles.topic}>{props.topic}</Text>
       </View>
@@ -48,6 +48,7 @@ const ForumCard = (props: forumCardProps) => {
         <View style={styles.dot}></View>
         <Text style={styles.userText}>{moment(props.createdAt).fromNow()}</Text>
       </View>
+      
       <View style={styles.stats}>
         <View style={styles.stat}>
           <PlusSvg color="#fff" />
@@ -58,7 +59,7 @@ const ForumCard = (props: forumCardProps) => {
           <Text style={styles.userText}>{props.answers.length}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -3,10 +3,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import React from 'react';
 import {useState, useContext, useEffect} from 'react';
@@ -32,6 +29,8 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
 import StatsContainer from '../../components/profileComponents/StatsContainer';
+import { COLORS_ELEMENTS, COLORS_ILLUSTRATION } from '../../utils/globalContants';
+import Loader from '../../components/general-components/Loader';
 
 interface userProps {
   _id: string;
@@ -162,6 +161,8 @@ const Userprofile: React.FC = () => {
 
   const [userToken, setUserToken] = useState<string>(authCtx.token);
   const [localUser, setLocalUser] = useState<userProps>();
+  const [refreshing, setRefreshing] = React.useState<boolean>(false);
+
 
   async function fetchMyDetails() {
     await axios
@@ -182,12 +183,23 @@ const Userprofile: React.FC = () => {
     }
   }, [userToken]);
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchMyDetails();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return localUser ? (
-    <ScrollView style={{}}>
+    <ScrollView 
+    refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    }>
       <View style={styles.userProfileParentContainer}>
         <UserProfileHeader
           title={localUser?.userName}
-          onBackPress={() => {}}
+          onBackPress={() => {navigation.goBack()}}
           onMenuPress={() => {}}
         />
         <ImagePickerButton
@@ -306,7 +318,7 @@ const Userprofile: React.FC = () => {
       </View>
     </ScrollView>
   ) : (
-    <ActivityIndicator />
+   <Loader/>
   );
 };
 

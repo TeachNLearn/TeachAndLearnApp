@@ -13,6 +13,7 @@ export const COLORS_ELEMENTS = {
   headline: '#094067',
   paragraph: '#5f6c7b',
   buttonTxt : '#fffffe' ,
+  grey:'#cdcdcd'
 };
 export const COLORS_ILLUSTRATION = {
   stroke: '#094067',

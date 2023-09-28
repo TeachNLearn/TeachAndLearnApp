@@ -5,6 +5,7 @@ import {AuthContext} from '../../../store/auth-context';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
 import {getHeaders} from '../../../utils/helperFunctions';
+import Loader from '../../general-components/Loader';
 
 interface Props {}
 
@@ -148,7 +149,7 @@ const MyWallet: React.FC<Props> = () => {
       </View>
     </View>
   ) : (
-    <ActivityIndicator size={42} color={'blue'} />
+   <Loader/>
   );
 };
 

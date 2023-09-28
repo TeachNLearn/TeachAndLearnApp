@@ -6,15 +6,22 @@ import IconS from 'react-native-vector-icons/FontAwesome5';
 interface SectionHeaderProps {
     title : string ;
     onViewAllPress : () => void ;
+    icon : boolean
 }
 
-const HomeCardsHeader : React.FC<SectionHeaderProps> = ({title , onViewAllPress}) => {
+const HomeCardsHeader : React.FC<SectionHeaderProps> = ({title , onViewAllPress,icon=true}) => {
   return (
            <View style={styles.txtOneParentContainer}>
             <Text style={styles.txtOneSecondContainer}>{title}</Text>
-            <Text style={styles.txtTwoSecondContainer} onPress={onViewAllPress}>
-              See all <IconS name="arrow-right" size={14} color="#000" />{' '}
-            </Text>
+            {
+              icon ? (
+                <>
+                   <Text style={styles.txtTwoSecondContainer} onPress={onViewAllPress}>
+                    See all <IconS name="arrow-right" size={14} color="#000" />{' '}
+                   </Text>
+                </>
+              ):null
+            }
           </View>
   )
 }

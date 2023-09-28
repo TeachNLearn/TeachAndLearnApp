@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Pressable, View} from 'react-native';
+import { COLORS_ELEMENTS } from '../../utils/globalContants';
 
 interface btnProps {
   children: string | JSX.Element;
@@ -30,12 +31,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 16,
+    paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
   },
   text: {
-    color: '#FFF',
+    color: COLORS_ELEMENTS.buttonTxt,
     fontFamily: 'Nunito',
     fontSize: 18,
     fontStyle: 'normal',

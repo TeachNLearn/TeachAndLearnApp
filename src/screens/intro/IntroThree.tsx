@@ -23,17 +23,43 @@ const IntroThree: React.FC = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
-    <ScrollView>
+    
     <View style={styles.container}>
       <StatusBar backgroundColor="#000" barStyle="light-content" />
-      <View style={styles.imgContainer}>
+      <View style={{flex:.4}}>
         <Image
           source={require('../../assets/Images/IntroImg3.png')}
           style={styles.introImg}
           resizeMode="contain"
         />
       </View>
-      <View style={styles.textContainer}>
+
+        {/* text container */}
+
+        <View style={[styles.textContainer,{flex:.4}]}>
+            <Text style={styles.heading}>Byte size and topic</Text>
+            <Text style={styles.headingpart}>focused classes</Text>
+            <View style={styles.paraContainer}>
+             <Text style={styles.para}>
+             You don’t have to enroll into full length courses which last for
+             months and cost you a fortune. You can choose how much help you need
+             and how much time you want to dedicate to external help.
+             </Text>
+            </View>
+       </View>
+
+
+          {/* slider logo container */}
+          <View style={styles.sliderLogoContainer}>
+           <Text
+            style={styles.sliderLogoOne}
+            onPress={() => navigation.navigate('IntroOne')}></Text>
+           <Text
+            style={styles.sliderLogoTwo}
+            onPress={() => navigation.navigate('IntroTwo')}></Text>
+           <Text style={styles.sliderLogoThree}></Text>
+          </View>
+      {/* <View style={styles.textContainer}>
         <Text style={styles.heading}>Byte size and topic</Text>
         <Text style={styles.headingpart}>focused classes</Text>
         <View style={styles.paraContainer}>
@@ -60,9 +86,17 @@ const IntroThree: React.FC = () => {
             <Text style={styles.btntxtTwo}>Sign Up</Text>
           </TouchableOpacity>
         </View>
+      </View> */}
+      
+      {/* button container */}
+      <View style={styles.btnContainer}>
+          <TouchableOpacity
+            style={styles.btnTwo}
+            onPress={() => navigation.navigate('Signup')}>
+            <Text style={styles.btntxtTwo}>Sign Up</Text>
+          </TouchableOpacity>
       </View>
     </View>
-    </ScrollView>
   );
 };
 
@@ -74,12 +108,13 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight,
     backgroundColor: '#EFD9C9',
+    flex:1,
   },
   introImg: {
     width: '100%',
-    height: 350,
-    borderBottomLeftRadius: 100,
-    borderBottomRightRadius: 100,
+    height: 300,
+    borderBottomLeftRadius: 118,
+    borderBottomRightRadius: 118,
   },
   imgContainer: {
     alignItems: 'center',
@@ -121,8 +156,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
-    marginBottom: 30,
+    // marginTop: 30,
+    // marginBottom: 30,
+    flex:.05,
   },
   sliderLogoOne: {
     height: 10,
@@ -148,12 +184,17 @@ const styles = StyleSheet.create({
   btnContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    flex:0.15,
   },
   btnTwo: {
     backgroundColor: '#FFFFFF',
     padding: 10,
-    width: 350,
+    marginTop:10,
+    // width: 350,
 
+    alignSelf:'center',
+    alignItems:'center',
+    justifyContent:'center',
     borderRadius: 15,
   },
   btntxtTwo: {

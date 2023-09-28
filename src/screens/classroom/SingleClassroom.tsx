@@ -11,43 +11,58 @@ import Participants from '../../components/class-component/singleClassComponents
 import {ScrollView} from 'react-native';
 import {checkClassTeacher} from '../../components/class-component/classFunctions';
 import {useIsFocused} from '@react-navigation/native';
+import CardHeader from '../../components/general-components/CardHeader';
+import Loader from '../../components/general-components/Loader';
 
-const SingleClassroom = ({route}: any) => {
+const SingleClassroom = (props: any) => {
   const authCtx = useContext(AuthContext);
 
-  const [classroomId, setClassroomId] = useState<string>(route.params.id);
+  const [classroomId, setClassroomId] = useState<string>(props.route.params.id);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
   const [userId, setUserId] = useState<string>(authCtx.user._id);
   const [classroom, setClassroom] = useState<classroomProps>();
-  const [activeLink, setActiveLink] = useState('overview');
+  const [activeLink, setActiveLink] = useState('Overview');
   const [classElemType, setClassElemType] = useState<string>('all classes');
   const [backLink, setBackLink] = useState<string>('/classes');
   const [learnCardId, setlearnCardId] = useState<string>('');
-
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const ACTIVE_LINK_ELEMENTS = [
+    {
+       name:'Overview',
+    },
+     {
+       name:'Classroom'
+     },
+     {
+       name:'People'
+     }
+   ]
+ 
 
   useEffect(() => {
-    const link = route.params?.backPageLink;
+    const link = props.route.params?.backPageLink;
     if (link) {
       setBackLink(link);
     }
 
-    const navLink = route.params?.navLink;
+    const navLink = props.route.params?.navLink;
     if (navLink) {
       setActiveLink(navLink);
     }
-    const elemLink = route.params?.elemType;
+    const elemLink = props.route.params?.elemType;
     if (elemLink) {
       setClassElemType(elemLink);
     }
 
-    const learnCardId = route.params?.learnCardId;
+    const learnCardId = props.route.params?.learnCardId;
     if (learnCardId) {
       setlearnCardId(learnCardId);
     }
   }, []);
 
   async function fetchClassroom() {
+    setIsLoading(true)
     await axios
       .get(`${BASE_URL}${apiVersion}/teach/${classroomId}`, {
         headers: getHeaders(userToken),
@@ -84,11 +99,11 @@ const SingleClassroom = ({route}: any) => {
 
   useEffect(() => {
     if (classroom) {
-      if (activeLink == 'overview') {
+      if (activeLink == 'Overview') {
         setElement(
           <Overview {...classroom} userId={userId} userToken={userToken} />,
         );
-      } else if (activeLink == 'classroom') {
+      } else if (activeLink == 'Classroom') {
         setElement(
           <AllAnnouncements
             callLink={classroom.callLink}
@@ -99,7 +114,7 @@ const SingleClassroom = ({route}: any) => {
             classElemType={classElemType}
           />,
         );
-      } else if (activeLink == 'people') {
+      } else if (activeLink == 'People') {
         setElement(
           <Participants
             createdBy={classroom.createdBy}
@@ -114,36 +129,42 @@ const SingleClassroom = ({route}: any) => {
   }, [activeLink]);
 
   const handleSectionChange = (
-    section: 'overview' | 'classroom' | 'people',
+    section: 'Overview' | 'Classroom' | 'People',
   ): void => {
     setActiveLink(section);
   };
 
   return (
     <ScrollView>
+        <CardHeader
+        title={activeLink}
+        ShowMenuIcon={false}
+        onBackPress={() => {props.navigation.goBack()}}
+        onMenuPress={() => {}}
+      />
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'center',
+          paddingTop:20
         }}>
-        <TouchableOpacity
-          style={[activeLink === 'overview' && styles.activeSegment]}
-          onPress={() => handleSectionChange('overview')}>
-          <Text style={styles.segmentText}>Overview</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[activeLink === 'classroom' && styles.activeSegment]}
-          onPress={() => handleSectionChange('classroom')}>
-          <Text style={styles.segmentText}>Classroom</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[activeLink === 'people' && styles.activeSegment]}
-          onPress={() => handleSectionChange('people')}>
-          <Text style={styles.segmentText}>People</Text>
-        </TouchableOpacity>
+       
+        {
+          ACTIVE_LINK_ELEMENTS?.map((e)=>{
+            return (
+            <TouchableOpacity
+              style={[activeLink === e.name && styles.activeSegment]}
+              onPress={() => handleSectionChange(e.name)}>
+              <Text style={styles.segmentText}>{e.name}</Text>
+            </TouchableOpacity>
+            )
+          })
+        }
       </View>
-      <View style={styles.elementWrapper}>{element}</View>
+     {
+      isLoading?<Loader/>: <View style={styles.elementWrapper}>{element}</View>
+     }
     </ScrollView>
   );
 };
@@ -158,7 +179,7 @@ const styles = StyleSheet.create({
   segmentText: {
     color: '#000',
     fontFamily: 'Nunito',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
     marginBottom: 8,
   },

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View,ActivityIndicator} from 'react-native';
 import InputHolder from '../../components/inputComponents/inputHolder';
 // import Button from "../components/general-comp/button";
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
@@ -12,6 +12,8 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import DescriptionBox from '../../components/authComponents/descriptionBox';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import { COLORS_ELEMENTS } from '../../utils/globalContants';
+import { ToastHOC } from '../../helpers/Toast';
 
 interface loginDataProps {
   email: string;
@@ -23,7 +25,7 @@ const Login = ({navigation}: any) => {
     email: '',
     password: '',
   });
-
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [errorText, setErrorText] = useState('');
 
   const authCtx = useContext(AuthContext);
@@ -52,11 +54,14 @@ const Login = ({navigation}: any) => {
     const {email, password} = loginData;
     if (email === '' || password === '') {
       setErrorText('Please fill in all fields.');
+      setIsLoading(false)
       return false;
     } else if (!isValidEmail(email)) {
       setErrorText('Please enter a valid email.');
+      setIsLoading(false)
       return false;
     } else if (password.length < 6) {
+      setIsLoading(false)
       setErrorText('Password must be at least 6 characters long.');
       return false;
     }
@@ -65,6 +70,7 @@ const Login = ({navigation}: any) => {
   };
 
   const loginHandler = async () => {
+    setIsLoading(true)
     console.log(loginData);
     if (handleValidation()) {
       await axios
@@ -73,13 +79,17 @@ const Login = ({navigation}: any) => {
           password: loginData.password,
         })
         .then(({data}) => {
+          setIsLoading(false)
           let user = data.data.user;
           console.log(data.token);
           user.token = data.token;
           authCtx.setLocalUser(user);
+          ToastHOC.successAlert('Login Success',`Welcome ${user?.name}`)
           navigation.navigate('Home');
         })
         .catch(data => {
+          setIsLoading(false)
+          ToastHOC.errorAlert('Error Occured','Unsuccessfull')
           console.log(data);
         });
     }
@@ -119,7 +129,7 @@ const Login = ({navigation}: any) => {
           />
           {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
           <Button containerStyles={styles.loginButton} onPress={loginHandler}>
-            Login
+            {isLoading ?  <ActivityIndicator size={'small'} color={COLORS_ELEMENTS.buttonTxt} /> :'Login'}
           </Button>
         </View>
         <View style={styles.signup}>

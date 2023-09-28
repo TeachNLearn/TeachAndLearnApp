@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, Pressable} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import {AuthContext} from '../../store/auth-context';
 import {userDataType} from '../../types/userDataType';
@@ -66,7 +66,7 @@ const ClassroomCard = (props: classCardProps) => {
 
   return (
     props.teachCard && (
-      <TouchableOpacity style={styles.container}>
+      <Pressable style={styles.container}>
         <View>
           <Text style={styles.subject}>{props.teachCard.subject}</Text>
         </View>
@@ -112,7 +112,7 @@ const ClassroomCard = (props: classCardProps) => {
           reviews={props.teachCard.reviews}
           onPressFunc={classNavigator}
         />
-      </TouchableOpacity>
+      </Pressable>
     )
   );
 };
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 22,
     rowGap: 16,
+    marginTop:5
   },
   subject: {
     color: '#ef4565',

@@ -13,7 +13,7 @@ const SearchComponent : React.FC<SearchInputSectionProps> = ({searchText , onSea
   return (
    
       <View
-        style={{flexDirection: 'row', alignItems: 'center', marginBottom: 40}}>
+        style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={styles.searchContainer}>
           <TouchableOpacity style={styles.submitButton} onPress={onSearchPress}>
             <Icon name="search" size={24} color="white" />

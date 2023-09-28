@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextStyle, ViewStyle } from 'react-native';
-import Ionican from 'react-native-vector-icons/Ionicons';
 interface CustomAlertProps {
   visible: boolean;
   title: string;

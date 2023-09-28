@@ -8,6 +8,13 @@ import UpcomingCards from '../components/homeScreenComponent/UpcomingCards';
 import PopularRequest from '../components/homeScreenComponent/PopularRequest';
 import HomeCardsHeader from '../components/homeScreenComponent/HomeCardsHeader';
 import SearchComponent from '../components/homeScreenComponent/SearchComponent';
+import Carausal from '../components/carausal/Carausal';
+import { IMAGES_FOR_CARAUSAL, VIDEOS_FOR_CARAUSAL } from '../helpers/data';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils/globalContants';
+import { Button } from 'react-native';
+import Splash from '../components/splash/Splash';
+import TopBarClasses from '../components/topBarClasses/TopBarClasses';
+import Review from '../components/review/Review';
 
 interface RecommendedCourse {
   subject: string;
@@ -56,6 +63,8 @@ interface PopularCourse {
   
   // Add more properties as needed
 }
+
+
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
@@ -130,8 +139,10 @@ const Home = () => {
     PopularCourses();
   }, [token]);
 
+
   return (
-    <View style={styles.HomeParentContainer}>
+    <ScrollView style={styles.HomeParentContainer}>
+      
       <View style={styles.HomeTxtContainer}>
         <Text style={styles.txtOne}>Hello Rahul 👋</Text>
         <Text style={styles.txtTwo}>What do you want to learn today?</Text>
@@ -142,9 +153,11 @@ const Home = () => {
         onSearchTextChange={setSearchText}
       />
 
+      {/* second parent Container */}
+
       <View style={styles.SecondParentContainer}>
         <ScrollView style={{marginBottom: 80, marginTop: 40}}>
-          <HomeCardsHeader title="Recommended Classes" onViewAllPress={() => {}} />
+          <HomeCardsHeader title="Recommended Classes" onViewAllPress={() => {}} icon={true} />
           {/* Recommended Courses cards */}
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -155,7 +168,7 @@ const Home = () => {
                 ))}
             </ScrollView>
           </View>
-<HomeCardsHeader title="My Upcoming Classes" onViewAllPress={() => {}} />
+<HomeCardsHeader title="My Upcoming Classes" onViewAllPress={() => {}} icon={true}/>
 <ScrollView>
   <View style={styles.UpcomingcardsParentContainer}>
     {upcomingClassesData.length > 0 &&
@@ -168,7 +181,7 @@ const Home = () => {
   
 
           {/* Popular Request section  */}
-          <HomeCardsHeader title="Rising Requests" onViewAllPress={() => {}} />
+          <HomeCardsHeader title="Rising Requests" onViewAllPress={() => {}} icon={true}/>
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* Here you can map over Popular cards*/}
@@ -179,9 +192,28 @@ const Home = () => {
                 ))}
             </ScrollView>
           </View>
+
+          {/* carausal */}
+          <HomeCardsHeader title="Watch these videos to know how and why to use Teach and Learn" icon={false} />
+          <View style={{paddingHorizontal:10}}>
+             <Carausal 
+             data={VIDEOS_FOR_CARAUSAL}
+             style={{height:230,width:SCREEN_WIDTH/2.2,borderRadius:10,marginTop:10,backgroundColor:'#ffffff',elevation:4}}
+             imageStyle={{width:SCREEN_WIDTH-25,height:180,borderRadius:10}}
+             imageContainerWidth={SCREEN_WIDTH-25}
+             imageContainerHeight={SCREEN_HEIGHT/3}
+             movingLinesWidthForIndex={SCREEN_WIDTH}
+             dotsAlignment={SCREEN_WIDTH/2.2}
+           />
+          </View>
         </ScrollView>
       </View>
-    </View>
+    </ScrollView>
+
+/* <TopBarClasses/> */
+
+    // <Review/>
+
   );
 };
 

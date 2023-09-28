@@ -5,6 +5,7 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -20,24 +21,30 @@ const IntroTwo: React.FC = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imgContainer}>
-        <Image
-          source={require('../../assets/Images/IntroImg2.png')}
-          style={styles.introImg}
-          resizeMode="contain"
-        />
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.heading}>Teach , Learn and Grow</Text>
-        <Text style={styles.headingpart}>Together !</Text>
-        <View style={styles.paraContainer}>
-          <Text style={styles.para}>
-            This app aims to bring the students from all across the world
-            together and give them a platform where they can teach other
-            students as well as learn from them to aid their academics.
-          </Text>
-        </View>
+      <View style={styles.container}>
+       <View style={{flex:.4}}>
+         <Image
+            source={require('../../assets/Images/IntroImg2.png')}
+            style={styles.introImg}
+            resizeMode="contain"
+          />
+       </View>
+       {/* text container */}
+
+       <View style={[styles.textContainer,{flex:.4}]}>
+            <Text style={styles.heading}>Teach , Learn and Grow</Text>
+            <Text style={styles.headingpart}>Together !</Text>
+            <View style={styles.paraContainer}>
+              <Text style={styles.para}>
+               This app aims to bring the students from all across the world
+               together and give them a platform where they can teach other
+               students as well as learn from them to aid their academics.
+              </Text>
+            </View>
+       </View>
+
+
+    {/* slider logo container */}
         <View style={styles.sliderLogoContainer}>
           <Text
             style={styles.sliderLogoOne}
@@ -47,7 +54,7 @@ const IntroTwo: React.FC = () => {
             style={styles.sliderLogoThree}
             onPress={() => navigation.navigate('IntroThree')}></Text>
         </View>
-
+    {/* button container */}
         <View style={styles.btnContainer}>
           <Text style={styles.btntxt}>Skip</Text>
           <TouchableOpacity
@@ -57,7 +64,6 @@ const IntroTwo: React.FC = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
   );
 };
 
@@ -69,10 +75,11 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight,
     backgroundColor: '#C6E0F6',
+    flex:1
   },
   introImg: {
     width: '100%',
-    height: 350,
+    height: 300,
     borderBottomLeftRadius: 100,
     borderBottomRightRadius: 100,
   },
@@ -115,8 +122,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
-    marginBottom: 30,
+    // marginTop: 30,
+    // marginBottom: 30,
+    flex:.05,
   },
   sliderLogoOne: {
     height: 10,
@@ -143,7 +151,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginTop: 20,
+    // marginTop: 10,
+    flex:.15
   },
   btnTwo: {
     backgroundColor: '#FFFFFF',

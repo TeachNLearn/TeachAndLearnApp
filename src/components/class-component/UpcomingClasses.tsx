@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
@@ -16,6 +16,7 @@ const UpcomingClasses = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const {token} = useContext(AuthContext);
 
@@ -52,12 +53,25 @@ const UpcomingClasses = () => {
     }
   }, [token]);
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchAllUpcomingClasses();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
+
   return (
-    <View>
+    <ScrollView 
+    refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    }
+    style={{flex:1}}>
       {teachCards.length != 0 ? (
         <ClassGrid teachCards={teachCards} elemType="upcoming" />
-      ) : null}
-    </View>
+      ) : <Text>No upcoming classes</Text>}
+    </ScrollView>
   );
 };
 
