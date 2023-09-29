@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {ScrollView, Text, View, KeyboardAvoidingView} from 'react-native';
+import React, {useState, useEffect, useContext,useRef} from 'react';
+import {ScrollView, Text, View, KeyboardAvoidingView,ActivityIndicator} from 'react-native';
 import {useMultiStepForm} from '../../utils/useMultiStepForm';
 import SignupForm from '../../components/authComponents/SignupForm';
 import DescriptionBox from '../../components/authComponents/descriptionBox';
@@ -11,6 +11,9 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {AuthContext} from '../../store/auth-context';
+import { COLORS_ELEMENTS } from '../../utils/globalContants';
+import { ToastHOC } from '../../helpers/Toast';
+
 
 interface USERDATA {
   fullName: string;
@@ -50,6 +53,8 @@ const initialData: USERDATA = {
 
 const Signup = () => {
   const [userData, setUserData] = useState<USERDATA>(initialData);
+  
+  const scrollViewRef:any = useRef(null);
 
   function updateFields(fields: Partial<USERDATA>) {
     setUserData(prev => {
@@ -102,11 +107,13 @@ const Signup = () => {
           user.token = data.token;
           authCtx.setLocalUser(user);
           setIsLoading(false);
+          ToastHOC.successAlert('SignUp Success',`If not please sign in`)
           navigation.navigate('Home');
         })
         .catch(data => {
           const error = data.response.data.message;
           console.log(error);
+          ToastHOC.errorAlert('Error Occured',error)
           setIsLoading(false);
         });
     }
@@ -117,6 +124,7 @@ const Signup = () => {
   };
 
   return (
+    // <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false} onContentSizeChange={() => {scrollViewRef.current?.scrollToEnd()}}>
     <ScrollView>
       <KeyboardAvoidingView behavior="height" style={styles.container}>
         <DescriptionBox
@@ -128,7 +136,7 @@ const Signup = () => {
           <View>{step}</View>
           <View style={styles.buttonWrapper}>
             <Button containerStyles={styles.btn} onPress={onSubmit}>
-              {isLastStep ? 'Signup' : 'Next'}
+              {isLastStep ? (isLoading ? <ActivityIndicator size={'small'} color={COLORS_ELEMENTS.buttonTxt}/>:'Sign Up') : 'Next'}
             </Button>
             {isLastStep && (
               <Button containerStyles={styles.btn} onPress={back}>

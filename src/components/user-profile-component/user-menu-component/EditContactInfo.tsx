@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View , StyleSheet , Text, TouchableOpacity} from 'react-native';
+import { View , StyleSheet , Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import InputHolder from '../../inputComponents/inputHolder'; // Make sure the import path is correct
 import Button from '../../general-components/button' ;
 interface FormData {
@@ -16,6 +16,8 @@ const EditContactInfo: React.FC<MyFormProps> = () => {
     PhoneNumber: '',
     email: '',
   });
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleInputChange = (inputIdentifier: keyof FormData, enteredValue: string) => {
     // Update the formData state with the new value
@@ -75,7 +77,13 @@ const EditContactInfo: React.FC<MyFormProps> = () => {
       {/* Submit button */}
       <Text style={{marginTop:20 , marginBottom:20 ,}}></Text>
       
-     <Button onPress={handleSubmit}>Edit User Info</Button>
+      <Button containerStyles={{backgroundColor:'#ef4565'}} onPress={handleSubmit}>
+          {isLoading ? (
+            <ActivityIndicator size={24} color="white" />
+          ) : (
+            'Edit Contact Info'
+          )}
+        </Button>
     </View>
     </View>
     

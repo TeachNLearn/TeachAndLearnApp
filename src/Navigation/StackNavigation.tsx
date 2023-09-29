@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -10,8 +11,6 @@ import TabNavigation from './TabNavigation';
 import Login from '../screens/auth/Login';
 import Signup from '../screens/auth/Signup';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
-import Home from '../screens/Home';
-import LearnCarOverview from '../screens/requests/LearnCardOverview'
 
 
 type RootStackParamList = {

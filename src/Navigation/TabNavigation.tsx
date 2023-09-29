@@ -31,11 +31,11 @@ const TabNavigation: React.FC = () => (
         position: 'absolute',
         bottom: 10,
         left: 20,
-
         right: 20,
         elevation: 0,
         borderRadius: 40,
         height: 60,
+        borderTopColor:'#2D2B4E'
       },
       tabBarShowLabel: false,
     }}>

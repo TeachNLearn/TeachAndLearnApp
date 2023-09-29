@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import InputHolder from '../../inputComponents/inputHolder'; // Make sure the import path is correct
 import Button from '../../general-components/button';
 import MultipleInput from '../../inputComponents/multipleInput'; // Import the MultipleInput component
@@ -19,6 +19,8 @@ const EditAcademicInfo: React.FC<MyFormProps> = () => {
     tags: [], // Initialize tags as an empty array
   });
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleInputChange = (inputIdentifier: keyof FormData, enteredValue: string) => {
     // Update the formData state with the new value
     setFormData({ ...formData, [inputIdentifier]: enteredValue });
@@ -26,7 +28,12 @@ const EditAcademicInfo: React.FC<MyFormProps> = () => {
 
   const handleSubmit = () => {
     // Handle form submission with formData
-    console.log(formData);
+    try {      
+      console.log(formData);
+      setIsLoading(true)
+    } catch (error) {
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -65,7 +72,13 @@ const EditAcademicInfo: React.FC<MyFormProps> = () => {
           />
         ) : null} */}
 
-        <Button onPress={handleSubmit}>Edit Academic Info</Button>
+        <Button containerStyles={{backgroundColor:'#ef4565',marginTop:30}} onPress={handleSubmit}>
+          {isLoading ? (
+            <ActivityIndicator size={24} color="white" />
+          ) : (
+            'Edit Acadmic Info'
+          )}
+        </Button>
       </View>
     </View>
   );

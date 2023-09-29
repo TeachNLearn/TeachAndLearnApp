@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    marginTop:10,
   },
   input: {
     width: '100%',

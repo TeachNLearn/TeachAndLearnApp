@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator,
+  RefreshControl,
   ScrollView,
 } from 'react-native';
 import {AuthContext} from '../../store/auth-context';
@@ -18,14 +18,18 @@ import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import CardHeader from '../general-components/CardHeader';
-const ForumOverview = ({route}: any) => {
-  console.log(route.params.id);
+import Loader from '../general-components/Loader';
+
+const ForumOverview = (props: any) => {
+  console.log(props.route.params.id);
 
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
 
-  const [forumId, setForumId] = useState<string>(route.params.id);
+  const [forumId, setForumId] = useState<string>(props.route.params.id);
   const [forum, setForum] = useState<forumProps>();
+  const [refreshing, setRefreshing] = React.useState<boolean>(false);
+
 
   async function fetchForum() {
     await axios
@@ -70,12 +74,27 @@ const ForumOverview = ({route}: any) => {
     }
   };
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchForum();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return forum ? (
-    <ScrollView style={{backgroundColor:'#FFF'}}>
+    <ScrollView 
+    style={{backgroundColor:'#FFF'}}
+    refreshControl={
+     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+   }
+    >
         <CardHeader
         title='Forum Overview'
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {
+          props.navigation.goBack()
+        }}
         onMenuPress={() => {}}
       />
       <View
@@ -122,7 +141,7 @@ const ForumOverview = ({route}: any) => {
     </ScrollView>
   ) : (
     <View style={styles.loaderContainer}>
-      <ActivityIndicator size={48} color="#094067" />
+      <Loader/>
     </View>
   );
 };

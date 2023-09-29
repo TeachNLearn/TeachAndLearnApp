@@ -18,11 +18,11 @@ import Button from '../general-components/button';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import CardHeader from '../general-components/CardHeader';
-const PostForumAnswer = ({route}: any) => {
+const PostForumAnswer = (props: any) => {
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
 
-  const [forumId, setForumId] = useState(route.params.forumID);
+  const [forumId, setForumId] = useState(props.route.params.forumID);
 
   const [isLoading, setIsLoading] = useState(false);
   const [answer, setAnswer] = useState<string>('');
@@ -71,7 +71,7 @@ const PostForumAnswer = ({route}: any) => {
          <CardHeader
         title='Post Answer'
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />
       <View style={styles.container}>
@@ -90,7 +90,7 @@ const PostForumAnswer = ({route}: any) => {
           }
           inputDesc="Forum Answer"
         />
-        <Button onPress={answerhandler}>
+        <Button containerStyles={{backgroundColor:'#ef4565'}} onPress={answerhandler}>
           {isLoading ? (
             <ActivityIndicator size={24} color="white" />
           ) : (

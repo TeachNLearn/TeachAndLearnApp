@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View,ScrollView} from 'react-native';
 import AllClasses from '../../components/class-component/AllClasses';
 import UpcomingClasses from '../../components/class-component/UpcomingClasses';
 import {AuthContext} from '../../store/auth-context';
 import CompletedClasses from '../../components/class-component/CompletedClasses';
 import CardHeader from '../../components/general-components/CardHeader';
-const Classes = () => {
+const Classes = (props:any) => {
   const [activeLink, setActiveLink] = useState('all classes');
   const [element, setElement] = useState(<AllClasses />);
 
@@ -26,20 +26,23 @@ const Classes = () => {
   const labels = ['all classes', 'upcoming', 'completed'];
 
   return (
-    <View>
-       <CardHeader
+    <View style={{flex:1}}>
+      <View style={{flex:.2}}>
+      <CardHeader
         title='Classes'
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          marginTop:30 ,
-        }}>
+      <ScrollView
+      contentContainerStyle={{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        marginTop:30,
+        
+      }}
+        >
        
         <TouchableOpacity
           style={[activeLink === 'all classes' && styles.activeSegment]}
@@ -57,6 +60,7 @@ const Classes = () => {
           onPress={() => navigationHandler('completed')}>
           <Text style={styles.segmentText}>completed</Text>
         </TouchableOpacity>
+      </ScrollView>
       </View>
       <View style={styles.elementWrapper}>{element}</View>
     </View>
@@ -81,6 +85,7 @@ const styles = StyleSheet.create({
   elementWrapper: {
     marginVertical: 20,
     marginHorizontal: 8,
+    flex:.7
   },
 });
 

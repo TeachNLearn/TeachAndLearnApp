@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {RefreshControl, ScrollView, View} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
@@ -7,6 +7,7 @@ import {DATA_LIMIT} from '../../utils/globalContants';
 import {AuthContext} from '../../store/auth-context';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import ClassGrid from './ClassGrid';
+import Loader from '../general-components/Loader';
 
 const CompletedClasses = () => {
   const [teachCards, setTeachCards] = useState<Array<teachingCardProps>>([]);
@@ -16,11 +17,14 @@ const CompletedClasses = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
+  const [refreshing, setRefreshing] = React.useState(false);
+
 
   const {token} = useContext(AuthContext);
 
   async function fetchAllCompletedClasses() {
     setLoaderLoading(true);
+    setIsLoading(true)
     await axios
       .get(`${BASE_URL}${apiVersion}/user/myclasses/completed`, {
         params: {
@@ -52,12 +56,26 @@ const CompletedClasses = () => {
     }
   }, [token]);
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchAllCompletedClasses()
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return (
-    <View>
-      {teachCards.length != 0 ? (
+    <ScrollView 
+    refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    }
+    style={{flex:1}}>
+     {
+      isLoading?<Loader/>: teachCards.length != 0 ? (
         <ClassGrid teachCards={teachCards} elemType="completed" />
-      ) : null}
-    </View>
+      ) : null
+     }
+    </ScrollView>
   );
 };
 

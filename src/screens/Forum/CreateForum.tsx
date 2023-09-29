@@ -8,6 +8,7 @@ import {AuthContext} from '../../store/auth-context';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import CardHeader from '../../components/general-components/CardHeader';
+import { COLORS_ELEMENTS, COLORS_ILLUSTRATION } from '../../utils/globalContants';
 interface createForumProps {
   tagline: string;
   question: string;
@@ -20,7 +21,7 @@ const initialForumData: createForumProps = {
   topic: '',
 };
 
-const CreateForum = () => {
+const CreateForum = (props:any) => {
   const [forum, setForum] = useState<createForumProps>(initialForumData);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,7 +67,7 @@ const CreateForum = () => {
          <CardHeader
         title='Create Forum'
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />
       <View style={styles.container}>
@@ -113,7 +114,7 @@ const CreateForum = () => {
           }
           inputDesc="Question for the forum"
         />
-        <Button onPress={createForumHandler}>
+        <Button containerStyles={{backgroundColor:'#ef4565'}} onPress={createForumHandler}>
           {isLoading ? (
             <ActivityIndicator size={24} color="white" />
           ) : (

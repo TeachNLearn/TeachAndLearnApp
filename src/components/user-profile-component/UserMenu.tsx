@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     marginBottom: 70,
+    marginTop:10,
     height: '100%',
   },
   menuItem: {

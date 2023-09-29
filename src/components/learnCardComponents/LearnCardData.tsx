@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import SvgImgInterested from '../svgComponents/InterestedSvg';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
@@ -35,7 +35,7 @@ const LearnCardData: React.FC<learnCardProps> = props => {
   };
 
   return (
-    <TouchableOpacity onPress={learnCardOverview}>
+    <Pressable onPress={learnCardOverview}>
       <View style={styles.learnCard}>
         <Text
           style={{
@@ -85,7 +85,7 @@ const LearnCardData: React.FC<learnCardProps> = props => {
           </View>
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

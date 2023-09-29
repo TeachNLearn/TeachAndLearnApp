@@ -47,6 +47,7 @@ export const AuthContext = createContext({
   user: initialUser,
 });
 
+
 interface authProvideProps {
   children: any;
 }
@@ -54,6 +55,7 @@ interface authProvideProps {
 function AuthContextProvider({children}: authProvideProps) {
   const [authToken, setAuthToken] = useState<string>('');
   const [userData, setUserData] = useState<userProps>(initialUser);
+
 
   function localUser(user: userProps) {
     setUserData(user);
