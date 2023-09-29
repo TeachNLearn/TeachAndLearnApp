@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native';
 import UserChip from '../general-components/UserChip';
 import {Text} from 'react-native';
 import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 const Announcement = (props: announcementProps) => {
   return (
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   time: {
-    fontFamily: '"Nunito"',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: 14,
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 26,
     color: '#000000',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 });
 

@@ -18,6 +18,7 @@ import CardTopic from '../../components/learnCardComponents/CardTopic';
 import CardHeader from '../../components/general-components/CardHeader';
 import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 import TeachCardData from '../../components/teachCardComponent/TeachCard';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 const LearnCardOverview = (props: any) => {
   const authCtx = useContext(AuthContext);
@@ -111,7 +112,7 @@ const LearnCardOverview = (props: any) => {
         onMenuPress={() => {}}
       />
        <View style={{padding:20}}>
-       <Text style={{fontWeight:'600',fontSize:18,color:'black'}}>Teach cards on this learn card</Text>
+       <Text style={{fontSize:19,color:'black',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Teach cards on this learn card</Text>
         <ScrollView 
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Switch} from 'react-native-switch';
+import { FONT_FAMILY } from '../../utils/globalContants';
 interface ModeSwitchProps {
   isLearnMode: boolean;
   toggleMode: () => void;
@@ -79,22 +80,28 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: '600',
     fontSize: 16,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
   },
 
   TeachModeText: {
     color: '#FFF',
     fontWeight: '600',
     fontSize: 16,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 
   LearnModeTextActive: {
     color: '#C2B9F9',
     fontSize: 16,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 
   TeachModeTextActive: {
     color: '#C2B9F9',
     fontSize: 16,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
   },
 });
 

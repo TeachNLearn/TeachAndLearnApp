@@ -13,6 +13,7 @@ import {checkClassTeacher} from '../../components/class-component/classFunctions
 import {useIsFocused} from '@react-navigation/native';
 import CardHeader from '../../components/general-components/CardHeader';
 import Loader from '../../components/general-components/Loader';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 const SingleClassroom = (props: any) => {
   const authCtx = useContext(AuthContext);
@@ -173,12 +174,12 @@ const styles = StyleSheet.create({
   activeSegment: {
     borderBottomColor: '#674FF1',
     borderBottomWidth: 2,
-    width: '20%',
+    width: '22%',
     alignItems: 'center',
   },
   segmentText: {
     color: '#000',
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
     fontSize: 15,
     fontWeight: '600',
     marginBottom: 8,

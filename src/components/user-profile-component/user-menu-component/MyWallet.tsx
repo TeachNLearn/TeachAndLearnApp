@@ -6,6 +6,7 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
 import {getHeaders} from '../../../utils/helperFunctions';
 import Loader from '../../general-components/Loader';
+import { FONT_FAMILY } from '../../../utils/globalContants';
 
 interface Props {}
 
@@ -58,7 +59,7 @@ const MyWallet: React.FC<Props> = () => {
             fontSize: 24,
             color: '#5f6c7b',
             fontWeight: '600',
-            fontFamily: 'Nunito',
+            fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
             textDecorationLine: 'underline',
           }}>
           Total Balance
@@ -70,7 +71,8 @@ const MyWallet: React.FC<Props> = () => {
               fontSize: 18,
               color: '#000',
               fontWeight: '700',
-              fontFamily: 'Nunito',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+
             }}>
             {userCoins}
           </Text>
@@ -95,10 +97,10 @@ const MyWallet: React.FC<Props> = () => {
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: 15,
               color: '#5f6c7b',
               fontWeight: '600',
-              fontFamily: 'Nunito',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
               textDecorationLine: 'underline',
             }}>
             Coins from Class Reviews
@@ -107,8 +109,8 @@ const MyWallet: React.FC<Props> = () => {
             style={{
               fontSize: 18,
               color: '#000',
-              fontWeight: '700',
-              fontFamily: 'Nunito',
+              // fontWeight: '700',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
             }}>
             {userReviewCoins}
           </Text>
@@ -130,7 +132,7 @@ const MyWallet: React.FC<Props> = () => {
               fontSize: 14,
               color: '#5f6c7b',
               fontWeight: '600',
-              fontFamily: 'Nunito',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
               textDecorationLine: 'underline',
             }}>
             Coins from Forum
@@ -139,8 +141,8 @@ const MyWallet: React.FC<Props> = () => {
             style={{
               fontSize: 18,
               color: '#000',
-              fontWeight: '700',
-              fontFamily: 'Nunito',
+              // fontWeight: '700',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
               marginTop: 10,
             }}>
             {userForumCoins}

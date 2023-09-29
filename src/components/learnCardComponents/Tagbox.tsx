@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface tagProps {
   tags: string[];
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     color: '#000',
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
     fontWeight: '500',
     fontSize: 16,
     borderRadius: 6,

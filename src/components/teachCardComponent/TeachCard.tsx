@@ -5,6 +5,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {learnCardProps} from '../../types/learnCardType';
 import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 // interface LearnCardProps {
 //   card: {
@@ -43,16 +44,18 @@ const TeachCardData: React.FC<learnCardProps> = props => {
             marginBottom: 0,
             textTransform: 'capitalize',
             fontSize: 16,
+            fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
           }}>
           {props.subject}
         </Text>
         <Text
           style={{
             color: '#d8eefe',
-            fontFamily: 'Nunito',
-            fontSize: 18,
-            fontWeight: '700',
+            fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+            fontSize: 19,
+            // fontWeight: '700',
             lineHeight: 25,
+
           }}>
           {props.topic.length > 47
             ? `${props.topic.substring(0, 47)}...`
@@ -65,7 +68,7 @@ const TeachCardData: React.FC<learnCardProps> = props => {
             height={20}
             style={{borderRadius: 20}}
           />
-          <Text style={{color: '#d8eefe'}}>
+          <Text style={{color: '#d8eefe',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
             {'  '}
             {props.createdBy.userName}
           </Text>
@@ -73,13 +76,13 @@ const TeachCardData: React.FC<learnCardProps> = props => {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <SvgImgInterested />
-            <Text style={{color: '#d8eefe'}}>
+            <Text style={{color: '#d8eefe',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
               {'  '}
               {props.studentsEnrolled.length} Interested
             </Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{color: '#d8eefe'}}>
+            <Text style={{color: '#d8eefe',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
               {getReadableDate(props.date)},{' '}
               {getReadableTime(props.classStartsAt)} -{' '}
               {getReadableTime(props.classEndsAt)}
@@ -123,8 +126,9 @@ const styles = StyleSheet.create({
 
   tagText: {
     color: '#FFF',
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '500',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,
   },
 });
 

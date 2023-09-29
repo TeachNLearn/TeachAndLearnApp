@@ -5,6 +5,7 @@ import UpcomingClasses from '../../components/class-component/UpcomingClasses';
 import {AuthContext} from '../../store/auth-context';
 import CompletedClasses from '../../components/class-component/CompletedClasses';
 import CardHeader from '../../components/general-components/CardHeader';
+import { FONT_FAMILY } from '../../utils/globalContants';
 const Classes = (props:any) => {
   const [activeLink, setActiveLink] = useState('all classes');
   const [element, setElement] = useState(<AllClasses />);
@@ -77,10 +78,11 @@ const styles = StyleSheet.create({
   segmentText: {
     color: '#000',
     // fontFamily: 'Nunito',
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
     marginBottom: 8,
     textTransform: 'capitalize',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   elementWrapper: {
     marginVertical: 20,

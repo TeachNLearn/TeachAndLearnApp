@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface inputProps {
   value: string;
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 16,
     fontWeight: '400',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   textAreaInput: {
     paddingTop: 17,
@@ -131,6 +133,7 @@ const styles = StyleSheet.create({
     color: '#b3b8db',
     paddingHorizontal: 5,
     transform: [{translateY: -7}],
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   requiredContainer: {
     marginLeft: 8,
@@ -139,6 +142,7 @@ const styles = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.7)',
     fontSize: 0.8,
     textTransform: 'capitalize',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   dropdownContainer: {
     flexDirection: 'column',

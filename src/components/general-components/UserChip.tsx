@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
 import {AuthContext} from '../../store/auth-context';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface userChipProps {
   name: string;
@@ -53,7 +54,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: '500',
-    fontSize: 18,
+    fontSize: 19,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
   },
 });
 

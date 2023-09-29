@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import CoinSvg from '../svgComponents/CoinsSvg';
 import SvgImg from '../svgComponents/InterestedSvg';
 import {getReadableDate} from '../../utils/helperFunctions';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface PopularCourse {
   subject: string;
@@ -41,11 +42,13 @@ const PopularRequest: React.FC<PopularRequestProps> = ({ item }) => {
       </View>
 
       <View style={styles.InterestedStudentConatiner}>
+         <View style={{flexDirection:'row',alignSelf:'center'}}>
+         <SvgImg />
         <Text style={styles.Interested}>
-          <SvgImg />
           {'   '}
           {item.length} interested
         </Text>
+         </View>
         <Text style={styles.coins}>
          Due By- {getReadableDate(item.dueDate)}
         </Text>
@@ -80,22 +83,22 @@ const styles = StyleSheet.create({
   cardHead: {
     color: '#ef4565',
     fontSize: 12,
-    fontWeight: '700',
+    // fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.2,
     marginTop: 20,
     marginLeft: 10,
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
 
   cardDesc: {
     color: '#FFF',
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: 19,
+    // fontWeight: '700',
     padding: 0,
     lineHeight: 28,
     margin: 10,
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
 
   ImgAndNameContainer: {
@@ -110,6 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '400',
     marginLeft: 10,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 
   InterestedStudentConatiner: {
@@ -123,15 +127,18 @@ const styles = StyleSheet.create({
 
   Interested: {
     color: '#FFF',
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '500',
     marginRight: 12,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 
   coins: {
     color: '#FFF',
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '500',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
   },
 
    tagsContainer: {
@@ -152,8 +159,10 @@ const styles = StyleSheet.create({
 
   tagText: {
     color: '#FFF',
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: '500',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
   },
 });
 
