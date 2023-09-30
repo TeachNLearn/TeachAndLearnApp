@@ -1,32 +1,39 @@
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextStyle, ViewStyle } from 'react-native';
-import Ionican from 'react-native-vector-icons/Ionicons';
+import { FONT_FAMILY } from '../../utils/globalContants';
 interface CustomAlertProps {
   visible: boolean;
   title: string;
   message: string;
   onClose: () => void;
   onProceed: () => void;
+  goBack:()=> void;
   btn:string ;
+  btn2:string
 }
 
-const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onClose , btn , onProceed }) => {
+const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onClose , btn , onProceed ,btn2,goBack}) => {
   return (
     <Modal  transparent visible={visible}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
             <View style={{flexDirection:'row' , alignItems:'center' , justifyContent:'space-between', marginBottom:10}}>
                   <Text style={styles.title}>{title}</Text>
-                  <TouchableOpacity onPress={onClose} >
+                  {/* <TouchableOpacity onPress={onClose} >
                      <Ionican name='close-circle-sharp' size={30} color="#094067"/>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 
             </View>
   
           <Text style={styles.message}>{message}</Text>
-          <View style={{alignItems:'flex-end'}}>
+          <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+
+               <TouchableOpacity onPress={goBack} style={styles.button2}>
+                 <Text style={{color:'#FFF' , fontWeight:'600' , fontSize:12,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>{btn2}</Text>
+               </TouchableOpacity>
+
                <TouchableOpacity onPress={onProceed} style={styles.button}>
-                 <Text style={{color:'#FFF' , fontWeight:'600' , fontSize:12}}>{btn}</Text>
+                 <Text style={{color:'rgb(180, 35, 24)' , fontWeight:'600' , fontSize:12,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>{btn}</Text>
                </TouchableOpacity>
              
          </View>
@@ -44,6 +51,7 @@ interface Styles {
   message: TextStyle;
   button: ViewStyle;
   buttonText: TextStyle;
+  button2: ViewStyle
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -60,13 +68,14 @@ const styles = StyleSheet.create<Styles>({
     width: 300,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    // fontWeight: 'bold',
     marginBottom: 10,
     textDecorationLine:'underline',
     // borderBottomWidth:1 ,
     // borderBottomColor:'#094067' ,
     // width:120,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,
     color:'#000'
     
   },
@@ -74,13 +83,22 @@ const styles = StyleSheet.create<Styles>({
     fontSize: 16,
     marginBottom: 20,
     lineHeight:29 ,
+    color:'black',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   button: {
     alignSelf: 'flex-end',
     padding: 10,
-    backgroundColor:'#e53170' ,
+    backgroundColor:'#fecdca' ,
     borderRadius:10,
-    marginTop:10 ,
+    marginTop:0 ,
+  },
+  button2: {
+    alignSelf: 'flex-end',
+    padding: 10,
+    backgroundColor:'rgb(51, 42, 213)' ,
+    borderRadius:10,
+    marginTop:0 ,
   },
   buttonText: {
     fontSize: 16,

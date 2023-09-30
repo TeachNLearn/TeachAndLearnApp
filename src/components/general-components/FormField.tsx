@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { FONT_FAMILY } from "../../utils/globalContants";
 
 interface fieldProps {
   inputDesc: string;
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: 14,
+    fontFamily:FONT_FAMILY.NUNITO_MEDIUM
   },
   elemWrapper: {
     display: "flex",

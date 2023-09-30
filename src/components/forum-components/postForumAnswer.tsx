@@ -17,12 +17,12 @@ import {AuthContext} from '../../store/auth-context';
 import Button from '../general-components/button';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import CardHeader from '../general-components/ScreenHeader';
-const PostForumAnswer = ({route}: any) => {
+import ScreenHeader from '../general-components/ScreenHeader';
+const PostForumAnswer = (props: any) => {
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
 
-  const [forumId, setForumId] = useState(route.params.forumID);
+  const [forumId, setForumId] = useState(props.route.params.forumID);
 
   const [isLoading, setIsLoading] = useState(false);
   const [answer, setAnswer] = useState<string>('');
@@ -68,10 +68,12 @@ const PostForumAnswer = ({route}: any) => {
 
   return (
     <ScrollView style={styles.scrollContainer}>
-         <CardHeader
-        title='Post Answer'
+      <ScreenHeader
+        title="Post Answer"
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {
+          props.navigation.goBack();
+        }}
         onMenuPress={() => {}}
       />
       <View style={styles.container}>
@@ -90,7 +92,9 @@ const PostForumAnswer = ({route}: any) => {
           }
           inputDesc="Forum Answer"
         />
-        <Button onPress={answerhandler}>
+        <Button
+          containerStyles={{backgroundColor: '#ef4565'}}
+          onPress={answerhandler}>
           {isLoading ? (
             <ActivityIndicator size={24} color="white" />
           ) : (
@@ -112,10 +116,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 90,
   },
-  scrollContainer:{
-    flexGrow:1 ,
-    backgroundColor:'#FFF' ,
-  }
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: '#FFF',
+  },
 });
 
 export default PostForumAnswer;

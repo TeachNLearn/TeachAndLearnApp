@@ -1,11 +1,12 @@
 import React from 'react';
 import {forumProps} from '../../types/ForumTypes';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, Pressable, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
 import PlusSvg from '../svgComponents/PlusSvg';
 import CommentSvg from '../svgComponents/CommentSvg';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 type forumCardProps = forumProps & {
   userToken: string;
@@ -28,7 +29,7 @@ const ForumCard = (props: forumCardProps) => {
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={forumNavigator}>
+    <Pressable style={styles.container} onPress={forumNavigator}>
       <View>
         <Text style={styles.topic}>{props.topic}</Text>
       </View>
@@ -48,6 +49,7 @@ const ForumCard = (props: forumCardProps) => {
         <View style={styles.dot}></View>
         <Text style={styles.userText}>{moment(props.createdAt).fromNow()}</Text>
       </View>
+      
       <View style={styles.stats}>
         <View style={styles.stat}>
           <PlusSvg color="#fff" />
@@ -58,7 +60,7 @@ const ForumCard = (props: forumCardProps) => {
           <Text style={styles.userText}>{props.answers.length}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -76,16 +78,18 @@ const styles = StyleSheet.create({
   },
   topic: {
     color: '#ef4565',
-    fontSize: 18,
+    fontSize: 19,
     lineHeight: 27,
     fontWeight: '600',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   question: {
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: 23,
     color: '#d8eefe',
     fontStyle: 'normal',
     lineHeight: 28,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   userDetails: {
     display: 'flex',
@@ -95,8 +99,10 @@ const styles = StyleSheet.create({
   },
   userText: {
     fontWeight: '500',
-    fontSize: 16,
+    fontSize: 17,
     color: '#ffffff',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
   },
   dot: {
     height: 5,

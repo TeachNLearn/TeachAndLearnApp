@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface InfoBlockProps {
   label: string;
@@ -26,15 +27,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     letterSpacing: 0.24,
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_MEDIUM,
   },
 
   MyInfotxtNum: {
     color: '#FFF',
     fontSize: 26,
-    fontWeight: '700',
+    // fontWeight: '700',
     letterSpacing: 0.52,
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
 });
 

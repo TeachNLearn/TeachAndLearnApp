@@ -6,7 +6,7 @@ import {teachingCardProps} from '../../types/teachingCardType';
 import {getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
 import Ionican from 'react-native-vector-icons/Ionicons';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {Text, View, StyleSheet, ScrollView, RefreshControl} from 'react-native';
 import SvgComponentInterested from '../../components/svgComponents/InterestedSvg';
 import Tagbox from '../../components/learnCardComponents/Tagbox';
 import CardID from '../../components/learnCardComponents/CardID';
@@ -15,14 +15,20 @@ import UserChip from '../../components/general-components/UserChip';
 import CardDescription from '../../components/learnCardComponents/CardDescription';
 import DueDate from '../../components/learnCardComponents/DueDate';
 import CardTopic from '../../components/learnCardComponents/CardTopic';
+import CardHeader from '../../components/general-components/CardHeader';
+import LearnCardData from '../../components/learnCardComponents/LearnCardData';
+import TeachCardData from '../../components/teachCardComponent/TeachCard';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
-const LearnCardOverview = ({route}: any) => {
+const LearnCardOverview = (props: any) => {
   const authCtx = useContext(AuthContext);
   const [userToken, setuserToken] = useState<string>(authCtx.token);
 
-  const [learnCardId, setLearnCardId] = useState<string>(route.params.id);
+  const [learnCardId, setLearnCardId] = useState<string>(props.route.params.id);
   const [learnCard, setlearnCard] = useState<learnCardProps>();
   const [teachCards, setTeachCards] = useState<Array<teachingCardProps>>();
+  const [refreshing, setRefreshing] = React.useState(false);
+
 
   const [totalInterestedStudents, setTotalInterestedStudents] =
     useState<number>();
@@ -47,7 +53,7 @@ const LearnCardOverview = ({route}: any) => {
     await axios
       .get(`${BASE_URL}${apiVersion}/learn/${learnCardId}/teach`)
       .then(({data}) => {
-        // console.log(data.data.data);
+        console.log("FF",data.data.data);
         setTeachCards(data.data.data);
         setTeachCardLoader(false);
       });
@@ -83,21 +89,36 @@ const LearnCardOverview = ({route}: any) => {
   useEffect(() => {
     if (learnCardId) {
       fetchLearnCard();
+      fetchTeachCardsOnLearnCard();
     }
   }, [learnCardId]);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchTeachCardsOnLearnCard()
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   return (
     learnCard && (
       <View style={{flex: 1}}>
         {/* Header */}
-        <View style={styles.learncardOverviewHeadConainer}>
-          <Ionican name="arrow-back-sharp" size={20} color="#000" />
-          <Text style={styles.OverviewheadTxt}>Learn Cards Overiew</Text>
-          <Ionican name="ellipsis-vertical-sharp" size={20} color="#000000" />
-        </View>
-
-        <ScrollView style={styles.scrollContainer}>
-          <View style={styles.OverviewContainer}>
+        <CardHeader
+        title="Learn Cards Overview"
+        ShowMenuIcon={false}
+        onBackPress={() => {props.navigation.goBack()}}
+        onMenuPress={() => {}}
+      />
+       <View style={{padding:20}}>
+       <Text style={{fontSize:19,color:'black',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Teach cards on this learn card</Text>
+        <ScrollView 
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        style={styles.scrollContainer}>
+          {/* <View style={styles.OverviewContainer}>
             <View
               style={{
                 margin: 30,
@@ -155,8 +176,18 @@ const LearnCardOverview = ({route}: any) => {
                 <CardID id={learnCard._id} />
               </View>
             </View>
-          </View>
+          </View> */}
+
+          {/* have made new component of teach cards */}
+          {
+            teachCards?.map((e,i)=>{
+              return (
+                <TeachCardData {...e} key={i}/>
+              )
+            })
+          }
         </ScrollView>
+       </View>
       </View>
     )
   );
@@ -169,7 +200,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFF',
     elevation: 8,
-    height: 130,
+    height: 60,
   },
 
   OverviewheadTxt: {

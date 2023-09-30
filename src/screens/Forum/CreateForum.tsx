@@ -8,7 +8,8 @@ import {AuthContext} from '../../store/auth-context';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import CardHeader from '../../components/general-components/ScreenHeader';
-import {COLORS_ILLUSTRATION} from '../../utils/globalContants';
+import { COLORS_ILLUSTRATION } from '../../utils/globalContants';
+
 interface createForumProps {
   tagline: string;
   question: string;
@@ -21,7 +22,7 @@ const initialForumData: createForumProps = {
   topic: '',
 };
 
-const CreateForum = () => {
+const CreateForum = (props:any) => {
   const [forum, setForum] = useState<createForumProps>(initialForumData);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -67,7 +68,7 @@ const CreateForum = () => {
       <CardHeader
         title="Create Forum"
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />
       <View style={styles.container}>
@@ -79,7 +80,7 @@ const CreateForum = () => {
               name="topic"
               value={forum.topic}
               updateFields={updateFields}
-              placeholderText="Topic like Physics, App Development, Trading etc"
+              placeholderText="Topic like Physics, App Development, etc"
             />
           }
           inputDesc="Pick a topic for your forum"

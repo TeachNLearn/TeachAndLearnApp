@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import InputHolder from '../../inputComponents/inputHolder'; // Make sure the import path is correct
 import Button from '../../general-components/button';
 import MultipleInput from '../../inputComponents/multipleInput'; // Import the MultipleInput component

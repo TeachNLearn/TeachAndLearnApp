@@ -1,4 +1,4 @@
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, ScrollView,RefreshControl} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../store/auth-context';
 import {forumProps} from '../../types/ForumTypes';
@@ -10,20 +10,22 @@ import ForumCard from '../../components/forum-components/forumCard';
 import PostForumBtn from '../../components/forum-components/ForumBtn';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import CardHeader from '../../components/general-components/ScreenHeader';
-const Forum = () => {
+import ScreenHeader from '../../components/general-components/ScreenHeader';
+import Loader from '../../components/general-components/Loader';
+const Forum = (props:any) => {
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
-
   const [forums, setForums] = useState<Array<forumProps>>([]);
   const [forumPageSet, setForumPageSet] = useState<number>(0);
   const [hasMoreData, setHasMoreData] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
+  const [refreshing, setRefreshing] = React.useState(false);
+
 
   async function fetchAllForums() {
     console.log('CHECKING');
-
+    // setForums([])
     setLoaderLoading(true);
     await axios
       .get(`${BASE_URL}${apiVersion}/forum`, {
@@ -67,12 +69,26 @@ const Forum = () => {
     navigation.navigate('CreateForum');
   };
 
+  const onRefresh = React.useCallback(() => {
+    setForums([])
+    setRefreshing(true);
+    fetchAllForums()
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+ 
+  
+
   return !isLoading ? (
-    <View>
-      <CardHeader
+    <ScrollView 
+    refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    }>
+      <ScreenHeader
         title="Forum"
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />
       <View
@@ -95,9 +111,9 @@ const Forum = () => {
             return <ForumCard key={idx} userToken={userToken} {...forum} />;
           })}
       </View>
-    </View>
+    </ScrollView>
   ) : (
-    <ActivityIndicator size={48} color="#094067" />
+    <Loader/>
   );
 };
 

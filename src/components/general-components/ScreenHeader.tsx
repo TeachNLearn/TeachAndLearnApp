@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY } from '../../utils/globalContants';
 
 interface LearnCardHeaderProps {
   title: string;
@@ -17,7 +18,7 @@ const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
 }) => {
   return (
     <View style={styles.learncardHeadContainer}>
-      <View style={styles.iconCont}>
+      <View style={[styles.iconCont,{borderWidth:1,width:35,height:35,borderRadius:17,alignItems:'center',justifyContent:'center',borderColor:COLORS_ELEMENTS.grey}]}>
         <Ionicon
           name="arrow-back-sharp"
           size={20}
@@ -48,17 +49,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 28,
+    paddingVertical: 18,
+    height:60,
+    justifyContent:'space-between',
     backgroundColor: '#FFF',
     elevation: 12,
   },
   headTxt: {
     flex: 1,
     textAlign: 'center',
-    fontWeight: '600',
-    fontSize: 18,
+    // fontWeight: '600',
+    fontSize: 20,
     color: '#000',
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_BOLD,
     letterSpacing: 0.36,
   },
   iconCont: {

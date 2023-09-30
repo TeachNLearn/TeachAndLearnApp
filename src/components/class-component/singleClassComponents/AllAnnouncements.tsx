@@ -3,7 +3,7 @@ import {ActivityIndicator, ScrollView, Text} from 'react-native';
 import {announcementProps} from '../../../types/announcementProps';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
-import {DATA_LIMIT} from '../../../utils/globalContants';
+import {DATA_LIMIT, FONT_FAMILY} from '../../../utils/globalContants';
 import {checkMoreData, getHeaders} from '../../../utils/helperFunctions';
 import {View} from 'react-native';
 import Announcement from '../Announcement';
@@ -85,6 +85,7 @@ const AllAnnouncements = (props: classProps) => {
               style={{
                 fontWeight: '600',
                 fontSize: 32,
+                fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
               }}>
               No announcements yet!!
             </Text>

@@ -6,6 +6,8 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
 import {getHeaders} from '../../../utils/helperFunctions';
 import ScreenHeader from '../../general-components/ScreenHeader';
+import Loader from '../../general-components/Loader';
+import { FONT_FAMILY } from '../../../utils/globalContants';
 
 interface Props {}
 
@@ -50,21 +52,21 @@ const MyWallet: React.FC<Props> = () => {
       <View
         style={{
           padding: 20,
-          backgroundColor: '#FFF',
-          elevation: 4,
-          width: 350,
-          height: 150,
-          marginTop: 50,
-          flexDirection: 'column',
-          justifyContent: 'space-evenly',
-          borderRadius: 25,
+          // backgroundColor: '#FFF',
+          // elevation: 4,
+          // width: 350,
+          // height: 150,
+          // marginTop: 50,
+          // flexDirection: 'column',
+          // justifyContent: 'space-evenly',
+          // borderRadius: 25,
         }}>
         <Text
           style={{
             fontSize: 24,
             color: '#5f6c7b',
             fontWeight: '600',
-            fontFamily: 'Nunito',
+            fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
             textDecorationLine: 'underline',
           }}>
           Total Balance
@@ -76,7 +78,8 @@ const MyWallet: React.FC<Props> = () => {
               fontSize: 18,
               color: '#000',
               fontWeight: '700',
-              fontFamily: 'Nunito',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+
             }}>
             {userCoins}
           </Text>
@@ -87,8 +90,7 @@ const MyWallet: React.FC<Props> = () => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginTop: 30,
-          width: 350,
+          padding:10
         }}>
         <View
           style={{
@@ -97,16 +99,15 @@ const MyWallet: React.FC<Props> = () => {
             elevation: 4,
             width: 160,
             height: 100,
-            marginTop: 50,
             flexDirection: 'column',
             borderRadius: 25,
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: 15,
               color: '#5f6c7b',
               fontWeight: '600',
-              fontFamily: 'Nunito',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
               textDecorationLine: 'underline',
             }}>
             Coins from Class Reviews
@@ -115,13 +116,14 @@ const MyWallet: React.FC<Props> = () => {
             style={{
               fontSize: 18,
               color: '#000',
-              fontWeight: '700',
-              fontFamily: 'Nunito',
-              marginTop: 10,
+              // fontWeight: '700',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
             }}>
             {userReviewCoins}
           </Text>
         </View>
+
+
         <View
           style={{
             padding: 20,
@@ -129,7 +131,6 @@ const MyWallet: React.FC<Props> = () => {
             elevation: 4,
             width: 160,
             height: 100,
-            marginTop: 50,
             flexDirection: 'column',
             borderRadius: 25,
           }}>
@@ -138,7 +139,7 @@ const MyWallet: React.FC<Props> = () => {
               fontSize: 14,
               color: '#5f6c7b',
               fontWeight: '600',
-              fontFamily: 'Nunito',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
               textDecorationLine: 'underline',
             }}>
             Coins from Forum
@@ -147,8 +148,8 @@ const MyWallet: React.FC<Props> = () => {
             style={{
               fontSize: 18,
               color: '#000',
-              fontWeight: '700',
-              fontFamily: 'Nunito',
+              // fontWeight: '700',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
               marginTop: 10,
             }}>
             {userForumCoins}
@@ -157,16 +158,17 @@ const MyWallet: React.FC<Props> = () => {
       </View>
     </View>
   ) : (
-    <ActivityIndicator size={42} color={'blue'} />
+   <Loader/>
   );
 };
 
 const styles = StyleSheet.create({
   parentContainer: {
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: '#FFF',
     flex: 1,
+
   },
 });
 

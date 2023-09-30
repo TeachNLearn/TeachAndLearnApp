@@ -23,6 +23,8 @@ type overallOverviewProps = classroomProps & {
 };
 
 const Overview = (props: overallOverviewProps) => {
+
+  const [isLoading, setIsLoading] = useState(false)
   const checkIsCompleted = () => {
     const date = new Date();
     const classEndingDate = props.classEndsAt;

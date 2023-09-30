@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View, Text, ActivityIndicator} from 'react-native';
@@ -22,7 +23,8 @@ import MyFavourite from './src/components/user-profile-component/user-menu-compo
 import MyWallet from './src/components/user-profile-component/user-menu-component/MyWallet';
 import EditAcademicInfo from './src/components/user-profile-component/user-menu-component/EditAcademicInfo';
 import EditContactInfo from './src/components/user-profile-component/user-menu-component/EditContactInfo';
-import Home from './src/screens/Home';
+import Toast from 'react-native-toast-message';
+import Splash from './src/components/splash/Splash';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -45,14 +47,18 @@ function Root() {
         authCtx.setLocalUser(parsedData);
       }
 
-      setIsTryingLogin(false);
+      setTimeout(() => {
+        setIsTryingLogin(false);
+      }, 2500);
     }
 
     fetchToken();
   }, []);
 
   if (isTryingLogin) {
-    return <ActivityIndicator />;
+    return (
+      isTryingLogin ?<Splash/>:null
+    );
   }
 
   return <Navigation />;
@@ -67,6 +73,7 @@ const NavigationScreens = () => {
         screenOptions={{
           headerShown: false,
         }}>
+         
         <Stack.Screen
           name="BottomTabs"
           component={Root}
@@ -76,8 +83,8 @@ const NavigationScreens = () => {
           }}
         />
         <Stack.Screen name="Forum" component={Forum} />
-        <Stack.Screen name="Mywallet" component={MyWallet}/>
-        <Stack.Screen name="MyFav" component={MyFavourite}/>
+        <Stack.Screen name="Mywallet" component={MyWallet} />
+        <Stack.Screen name="MyFav" component={MyFavourite} />
         <Stack.Screen name="EditContactInfo" component={EditContactInfo} />
         <Stack.Screen name="EditAcademicInfo" component={EditAcademicInfo} />
         <Stack.Screen name="ForumOverview" component={ForumOverview} />
@@ -100,7 +107,9 @@ const App: React.FC = () => {
   return (
     <AuthContextProvider>
       <NavigationScreens />
+      <Toast/>
     </AuthContextProvider>
+    
   );
 };
 

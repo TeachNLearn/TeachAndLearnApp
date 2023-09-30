@@ -10,6 +10,7 @@ export const COLORS_ELEMENTS = {
   headline: '#094067',
   paragraph: '#5f6c7b',
   buttonTxt : '#fffffe' ,
+  grey:'#cdcdcd'
 };
 export const COLORS_ILLUSTRATION = {
   stroke: '#094067',
@@ -18,6 +19,16 @@ export const COLORS_ILLUSTRATION = {
   secondary: '#90b4ce', 
   tertiary : '#ef4565' ,
 };
+
+export const FONT_FAMILY = {
+  NUNITO_REGULAR:'Nunito-Regular',
+  NUNITO_ITALIC:'Nunito-Italic',
+  NUNITO_BOLD:'Nunito-Bold',
+  NUNITO_SEMIBOLD:'Nunito-SemiBold',
+  NUNITO_SEMIBOLD_ITALIC:'Nunito-SemiBoldItalic',
+  NUNITO_MEDIUM:'Nunito-Medium',
+  NUNITO_MEDIUM_ITALIC:'Nunito-MediumItalic'
+}
 
 export { SCREEN_WIDTH, SCREEN_HEIGHT };
 

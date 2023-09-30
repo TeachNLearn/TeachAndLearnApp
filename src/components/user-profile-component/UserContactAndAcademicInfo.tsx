@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ViewStyle, TextStyle } from 'react-native';
+import { View, Text, TouchableOpacity, ViewStyle, TextStyle, ScrollView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface ProfileComponentProps {
   navigation?: any;
@@ -28,30 +29,35 @@ const styles: Styles = {
     height: 450,
     flex: 1,
     flexDirection: 'column',
+    padding:15,
+    
   },
   sectionContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 40,
-    marginBottom: 20,
+    margin: 20,
+    marginBottom: 10,
   },
   editButton: {
     paddingHorizontal: 15,
     paddingVertical: 5,
-
+    borderWidth:1,
+    borderRadius:20,
+    borderColor:'grey',
     flexDirection: 'row',
     alignItems: 'center',
   },
   infoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     paddingHorizontal: 10,
-    paddingVertical: 20,
+    // paddingVertical: 20,
     marginLeft: 20,
     marginRight: 20,
     borderRadius: 10,
+    flexWrap:'wrap'
   },
   tag: {
     backgroundColor: '#D8EEFE',
@@ -67,12 +73,21 @@ const styles: Styles = {
   },
   textStyle: {
     color: '#000',
-    fontSize: 14,
-    fontFamily: 'Nunito',
-    fontWeight: '700',
+    fontSize: 15,
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+    // fontWeight: '700',
     textDecorationLine: 'underline',
   },
 };
+
+const ContactComponent = (props:any)=>{
+  return (
+  <View style={{ flexDirection: 'column',marginTop:5 }}>
+    <Text style={{ color: 'gray',fontFamily:FONT_FAMILY.NUNITO_MEDIUM ,fontSize:15}}>{props.heading}</Text>
+    <Text style={{ color: '#000', fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD ,fontSize:15}}>{props.name}</Text>
+  </View>
+  )
+}
 
 const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
   navigation,
@@ -83,8 +98,9 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      {showContactInfo && (
-        <View>
+     <ScrollView showsVerticalScrollIndicator={false}>
+     {showContactInfo && (
+        <View style={{borderWidth:1,borderRadius:20,borderColor:'grey'}}>
           <View style={styles.sectionContainer}>
             <Text style={styles.textStyle}>Contact Information</Text>
               {showEdit && editIcon && navigation && (
@@ -95,35 +111,26 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
                        }}
                        >
               
-              <Text>Edit{' '}</Text>
+              <Text style={{color:'rgb(180, 35, 24)',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Edit{' '}</Text>
               {editIcon}
               </TouchableOpacity>
                 )}
           
           </View>
+
+          {/* info container */}
           <View style={styles.infoContainer}>
-            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-              <Text style={{ color: 'gray' }}>UserName</Text>
-              <Text style={{ color: '#000', fontWeight: '700' }}>garv_it</Text>
-            </View>
-            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-              <Text style={{ color: 'gray' }}>Email</Text>
-              <Text style={{ color: '#000', fontWeight: '700' }}>
-                garv@123gmail.com
-              </Text>
-            </View>
-            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-              <Text style={{ color: 'gray' }}>Phone No.</Text>
-              <Text style={{ color: '#000', fontWeight: '700' }}>908978603</Text>
-            </View>
+            <ContactComponent heading='Username' name='garvit'/>
+            <ContactComponent heading='Email' name='garv@gamil.com'/>
+            <ContactComponent heading='Phone No.' name='9345662456'/>
           </View>
         </View>
       )}
 
-      {showAcademicInfo && (
-        <View>
+{showAcademicInfo && (
+        <View style={{borderWidth:1,borderRadius:20,borderColor:'grey',marginTop:5}}>
           <View style={styles.sectionContainer}>
-            <Text style={styles.textStyle}>Academic Information</Text>
+            <Text style={styles.textStyle}>Acadmic Information</Text>
             {showEdit &&  editIcon && navigation &&(
              <TouchableOpacity
               style={styles.editButton}
@@ -131,60 +138,72 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
                 navigation.navigate('EditAcademicInfo');
               }}
             >
-              <Text>Edit{' '}</Text>
+              <Text style={{color:'rgb(180, 35, 24)',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Edit{' '}</Text>
               {editIcon}
             </TouchableOpacity>
             )}
-        
+          
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <View style={{ flex: 1, margin: 10 }}>
-              <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 42 }}>
-                <Text style={{ color: 'gray' }}>Course</Text>
-                <Text style={{ color: '#000', fontWeight: '700' }}>Btech ECE</Text>
-              </View>
-              <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
-                <Text style={{ color: 'gray' }}>Strong Subject</Text>
+
+          {/* info container */}
+          <View style={styles.infoContainer}>
+
+          <ContactComponent heading='Course' name='Btech ECE'/>
+
+
+
+            <View style={{ flexDirection: 'column' }}>
+              <Text style={{ color: 'gray',fontFamily:FONT_FAMILY.NUNITO_MEDIUM }}>Preffered language</Text>
                 <View style={styles.tagsContainer}>
                   <View style={styles.tag}>
-                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
+                    <Text style={{ color: '#000', fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD }}>Tag1</Text>
                   </View>
                   <View style={styles.tag}>
-                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
+                    <Text style={{ color: '#000', fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD }}>Tag2</Text>
+                  </View>
+                  {/* Add more tags as needed */}
+                </View>   
+            </View>    
+
+
+        <View style={{flexDirection:'row',justifyContent:'space-between',width:'100%',flexWrap:'wrap'}}>
+                <View style= {{ flexDirection: 'column'}}>
+                    <Text style={{ color: 'gray',fontFamily:FONT_FAMILY.NUNITO_MEDIUM }}>Interested Subject</Text>
+                <View style={styles.tagsContainer}>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000', fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD  }}>Tag1</Text>
+                  </View>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000', fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD  }}>Tag2</Text>
+                  </View>
+                  <View style={styles.tag}>
+                    <Text style={{ color: '#000',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD  }}>Tag2</Text>
                   </View>
                   {/* Add more tags as needed */}
                 </View>
-              </View>
-            </View>
-            <View style={{ flex: 1, margin: 10 }}>
-              <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
-                <Text style={{ color: 'gray' }}>Interested Subject</Text>
+               </View>
+
+            <View style={{ flexDirection: 'column' ,marginRight:15}}>
+              <Text style={{ color: 'gray',fontFamily:FONT_FAMILY.NUNITO_MEDIUM }}>Strong Subject</Text>
                 <View style={styles.tagsContainer}>
                   <View style={styles.tag}>
-                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
+                    <Text style={{ color: '#000', fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD  }}>Tag1</Text>
                   </View>
                   <View style={styles.tag}>
-                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
+                    <Text style={{ color: '#000', fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD  }}>Tag2</Text>
                   </View>
                   {/* Add more tags as needed */}
-                </View>
-              </View>
-              <View style={{ flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
-                <Text style={{ color: 'gray' }}>Preferred Language</Text>
-                <View style={styles.tagsContainer}>
-                  <View style={styles.tag}>
-                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag1</Text>
-                  </View>
-                  <View style={styles.tag}>
-                    <Text style={{ color: '#000', fontWeight: '700' }}>Tag2</Text>
-                  </View>
-                  {/* Add more tags as needed */}
-                </View>
-              </View>
-            </View>
+                </View>   
+            </View>    
+        </View>
+
+          
           </View>
         </View>
       )}
+
+     </ScrollView>
+
     </View>
   );
 };

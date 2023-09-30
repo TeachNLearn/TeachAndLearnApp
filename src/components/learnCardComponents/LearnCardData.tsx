@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import SvgImgInterested from '../svgComponents/InterestedSvg';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {learnCardProps} from '../../types/learnCardType';
 import {getReadableDate} from '../../utils/helperFunctions';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 // interface LearnCardProps {
 //   card: {
@@ -35,7 +36,7 @@ const LearnCardData: React.FC<learnCardProps> = props => {
   };
 
   return (
-    <TouchableOpacity onPress={learnCardOverview}>
+    <Pressable onPress={learnCardOverview}>
       <View style={styles.learnCard}>
         <Text
           style={{
@@ -43,15 +44,16 @@ const LearnCardData: React.FC<learnCardProps> = props => {
             marginBottom: 10,
             textTransform: 'capitalize',
             fontSize: 16,
+            fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
           }}>
           {props.subject}
         </Text>
         <Text
           style={{
             color: '#d8eefe',
-            fontFamily: 'Nunito',
-            fontSize: 18,
-            fontWeight: '700',
+            fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+            fontSize: 19,
+            // fontWeight: '700',
             lineHeight: 25,
           }}>
           {props.topic.length > 47
@@ -65,7 +67,7 @@ const LearnCardData: React.FC<learnCardProps> = props => {
             height={20}
             style={{borderRadius: 20}}
           />
-          <Text style={{color: '#d8eefe'}}>
+          <Text style={{color: '#d8eefe',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
             {'  '}
             {props.createdBy.userName}
           </Text>
@@ -73,19 +75,19 @@ const LearnCardData: React.FC<learnCardProps> = props => {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <SvgImgInterested />
-            <Text style={{color: '#d8eefe'}}>
+            <Text style={{color: '#d8eefe',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
               {'  '}
               {props.interestedStudents.length} Interested
             </Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{color: '#FFF'}}>
+            <Text style={{color: '#FFF',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
               Due - {getReadableDate(props.dueDate)}
             </Text>
           </View>
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, Pressable} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import {AuthContext} from '../../store/auth-context';
 import {userDataType} from '../../types/userDataType';
@@ -10,6 +10,7 @@ import ClassCardBtn from './ClassCardBtn';
 import {checkClassTeacher, checkEnrolledClass} from './classFunctions';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface classCardProps {
   teachCard: teachingCardProps;
@@ -66,7 +67,7 @@ const ClassroomCard = (props: classCardProps) => {
 
   return (
     props.teachCard && (
-      <TouchableOpacity style={styles.container}>
+      <Pressable style={styles.container}>
         <View>
           <Text style={styles.subject}>{props.teachCard.subject}</Text>
         </View>
@@ -112,7 +113,7 @@ const ClassroomCard = (props: classCardProps) => {
           reviews={props.teachCard.reviews}
           onPressFunc={classNavigator}
         />
-      </TouchableOpacity>
+      </Pressable>
     )
   );
 };
@@ -126,20 +127,23 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 22,
     rowGap: 16,
+    marginTop:5
   },
   subject: {
     color: '#ef4565',
     textTransform: 'uppercase',
-    fontWeight: '700',
+    // fontWeight: '700',
     fontSize: 18,
     lineHeight: 22,
     letterSpacing: 0.02,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   title: {
-    fontWeight: '700',
+    // fontWeight: '700',
     color: '#d8eefe',
     fontSize: 22,
     lineHeight: 32,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   statsContainer: {
     display: 'flex',
@@ -160,6 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     textTransform: 'capitalize',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 });
 

@@ -5,8 +5,9 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {DATA_LIMIT} from '../../utils/globalContants';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
-import CardHeader from '../../components/general-components/ScreenHeader';
-import { ActivityIndicator } from 'react-native';
+import ScreenHeader from '../../components/general-components/ScreenHeader';
+('../../components/general-components/ScreenHeader');
+import {RefreshControl} from 'react-native';
 
 import {
   Text,
@@ -18,6 +19,7 @@ import {
 import Ionican from 'react-native-vector-icons/Ionicons';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import LearnCardData from '../../components/learnCardComponents/LearnCardData';
+import Loader from '../../components/general-components/Loader';
 
 type RootStackParamList = {
   Forum: undefined;
@@ -29,7 +31,7 @@ type LearnCardsProps = {
   navigation: NativeStackNavigationProp<RootStackParamList>;
 };
 
-const LearnCards: React.FC<LearnCardsProps> = ({navigation}) => {
+const LearnCards: React.FC<LearnCardsProps> = props => {
   const [learnCards, setLearnCards] = useState<Array<learnCardProps>>([]);
   const [requestPageSet, setrequestPageSet] = useState<number>(1);
   const [hasMoreData, sethasMoreData] = useState(false);
@@ -40,6 +42,8 @@ const LearnCards: React.FC<LearnCardsProps> = ({navigation}) => {
   const authCtx = useContext(AuthContext);
 
   const [userToken, setuserToken] = useState(authCtx.token);
+  const [refreshing, setRefreshing] = React.useState(false);
+
   const fetchLearnCards = async () => {
     setLoaderLoading(true);
     const curentDate = new Date();
@@ -81,46 +85,60 @@ const LearnCards: React.FC<LearnCardsProps> = ({navigation}) => {
 
   const handleBackPress = () => {
     // Handle back press logic here
+    props.navigation.goBack();
   };
 
   const handleMenuPress = () => {
     // Handle menu press logic here
   };
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchLearnCards();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
   return (
     <View style={styles.learncardParentConainer}>
-      <CardHeader
+      <ScreenHeader
         title="Learn Cards"
         onBackPress={handleBackPress}
         onMenuPress={handleMenuPress}
         ShowMenuIcon
       />
-      <ScrollView>
-         {showActivityIndicator ? (
-          <View style={styles.activityIndicatorContainer}>
-            <ActivityIndicator size="large" color="#000" />
+      <View style={{flex: 1}}>
+        {showActivityIndicator ? (
+          <View style={{flex: 1}}>
+            <Loader />
           </View>
         ) : (
-          <View style={styles.learnCardContainer}>
+          <ScrollView
+            contentContainerStyle={styles.learnCardContainer}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
             {learnCards.map((card, index) => (
               <LearnCardData {...card} key={index} />
             ))}
-          </View>
+          </ScrollView>
         )}
-      </ScrollView>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  learncardParentConainer: {},
+  learncardParentConainer: {
+    flex: 1,
+  },
 
   learncardHeadConainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    flex: 1,
     backgroundColor: '#FFF',
-
     height: 130,
     shadowColor: '#000',
     shadowOffset: {
@@ -144,10 +162,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#FAFAFC',
-    marginBottom:240 ,
+    marginBottom: 240,
   },
 
-    activityIndicatorContainer: {
+  activityIndicatorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

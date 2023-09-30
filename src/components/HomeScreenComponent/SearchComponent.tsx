@@ -2,6 +2,7 @@ import { View, Text , TouchableOpacity , StyleSheet , TextInput } from 'react-na
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface SearchInputSectionProps {
   searchText: string;
@@ -13,7 +14,7 @@ const SearchComponent : React.FC<SearchInputSectionProps> = ({searchText , onSea
   return (
    
       <View
-        style={{flexDirection: 'row', alignItems: 'center', marginBottom: 40}}>
+        style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={styles.searchContainer}>
           <TouchableOpacity style={styles.submitButton} onPress={onSearchPress}>
             <Icon name="search" size={24} color="white" />
@@ -50,6 +51,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     color: 'white',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
   },
   submitButton: {
     padding: 10,

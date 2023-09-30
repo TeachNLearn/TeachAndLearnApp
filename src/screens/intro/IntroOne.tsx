@@ -11,6 +11,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import hjb from '../../assets/Images/IntroImg3.png';
+import Carausal from '../../components/carausal/Carausal';
 
 const IntroOne: React.FC = () => {
   type RootStackParamList = {
@@ -20,39 +21,58 @@ const IntroOne: React.FC = () => {
     Hometab: undefined;
   };
 
+  const images = [
+    {
+      image:require('../../assets/Images/IntroImg.png')
+    },
+    {
+      image:require('../../assets/Images/IntroImg2.png')
+    },
+    {
+      image:require('../../assets/Images/IntroImg3.png')
+    }
+  ]
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.imgContainer}>
-          <Image
+    <View style={styles.container}>
+         <View style={{flex:.4}}>
+         <Image
             source={require('../../assets/Images/IntroImg.png')}
             style={styles.introImg}
             resizeMode="contain"
           />
-        </View>
-        <View style={styles.textContainer}>
-        <Text style={styles.heading}>Teach , Learn and Grow</Text>
-        <Text style={styles.headingpart}>Together !</Text>
-        <View style={styles.paraContainer}>
-          <Text style={styles.para}>
-            This app aims to bring the students from all across the world
-            together and give them a platform where they can teach other
-            students as well as learn from them to aid their academics.
-          </Text>
-        </View>
-        <View style={styles.sliderLogoContainer}>
-          <Text style={styles.sliderLogoOne}></Text>
-          <Text
+         </View>
+
+         {/* text container */}
+
+         <View style={[styles.textContainer,{flex:.4}]}>
+            <Text style={styles.heading}>Teach , Learn and Grow</Text>
+            <Text style={styles.headingpart}>Together !</Text>
+            <View style={styles.paraContainer}>
+              <Text style={styles.para}>
+               This app aims to bring the students from all across the world
+               together and give them a platform where they can teach other
+               students as well as learn from them to aid their academics.
+              </Text>
+            </View>
+            </View>
+
+
+           {/* sliderpoint */}
+         <View style={styles.sliderLogoContainer}>
+            <Text style={styles.sliderLogoOne}></Text>
+            <Text
             style={styles.sliderLogoTwo}
             onPress={() => navigation.navigate('IntroTwo')}></Text>
-          <Text
+            <Text
             style={styles.sliderLogoThree}
             onPress={() => navigation.navigate('IntroThree')}></Text>
-        </View>
+         </View>
 
-        <View style={styles.btnContainer}>
+
+         {/* buttoncontainer */}
+         <View style={styles.btnContainer}>
           <Text
             style={styles.btntxt}
             onPress={() => navigation.navigate('Signup')}>
@@ -64,9 +84,8 @@ const IntroOne: React.FC = () => {
             <Text style={styles.btntxtTwo}>Next</Text>
           </TouchableOpacity>
         </View>
-        </View>
-      </View>
-    </ScrollView>
+
+    </View>
   );
 };
 
@@ -78,17 +97,20 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight,
     backgroundColor: '#D8CEFF',
-    
+    flex:1,
   },
   introImg: {
     width: '100%',
-    height: 350,
-    borderBottomLeftRadius: 100,
-    borderBottomRightRadius: 100,
+    height: 300,
+    borderBottomLeftRadius: 118,
+    borderBottomRightRadius: 118,
+    borderWidth:1,
   },
   imgContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    flex:.9,
+    // borderWidth:1
   },
   textContainer: {
     alignItems: 'center',
@@ -125,8 +147,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
-    marginBottom: 30,
+    // marginTop: 30,
+    // marginBottom: 30,
+    flex:.05,
+    // borderWidth:1
   },
   sliderLogoOne: {
     height: 10,
@@ -153,7 +177,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginTop: 20,
+    // marginTop: 10,
+    flex:.15
   },
   btnTwo: {
     backgroundColor: '#FFFFFF',

@@ -1,11 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Text, View, RefreshControl, ScrollView} from 'react-native';
 import {AuthContext} from '../../store/auth-context';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
@@ -17,15 +11,18 @@ import PostForumBtn from './ForumBtn';
 import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import CardHeader from '../general-components/ScreenHeader';
-const ForumOverview = ({route}: any) => {
-  console.log(route.params.id);
+import ScreenHeader from '../general-components/ScreenHeader';
+import Loader from '../general-components/Loader';
+
+const ForumOverview = (props: any) => {
+  console.log(props.route.params.id);
 
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
 
-  const [forumId, setForumId] = useState<string>(route.params.id);
+  const [forumId, setForumId] = useState<string>(props.route.params.id);
   const [forum, setForum] = useState<forumProps>();
+  const [refreshing, setRefreshing] = React.useState<boolean>(false);
 
   async function fetchForum() {
     await axios
@@ -70,12 +67,26 @@ const ForumOverview = ({route}: any) => {
     }
   };
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchForum();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return forum ? (
-    <ScrollView style={{backgroundColor:'#FFF'}}>
-        <CardHeader
-        title='Forum Overview'
+    <ScrollView
+      style={{backgroundColor: '#FFF'}}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <ScreenHeader
+        title="Forum Overview"
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {
+          props.navigation.goBack();
+        }}
         onMenuPress={() => {}}
       />
       <View
@@ -84,8 +95,7 @@ const ForumOverview = ({route}: any) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-end',
-          margin:20 ,
-         
+          margin: 20,
         }}>
         <PostForumBtn
           text="Post answer"
@@ -122,7 +132,7 @@ const ForumOverview = ({route}: any) => {
     </ScrollView>
   ) : (
     <View style={styles.loaderContainer}>
-      <ActivityIndicator size={48} color="#094067" />
+      <Loader />
     </View>
   );
 };

@@ -3,23 +3,18 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import React from 'react';
 import {useState, useContext, useEffect} from 'react';
 import {AuthContext} from '../../store/auth-context';
 
 // import Fontawesome from 'react-native-vector-icons/FontAwesome5';
-import Ionican from 'react-native-vector-icons/Ionicons';
 // import ImagePicker from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import UserProfileHeader from '../../components/user-profile-component/UserProfileHeader';
 import UserMode from '../../components/user-profile-component/UserMode';
 import UserNameAndTagline from '../../components/user-profile-component/UserNameAndTagline';
-import UserStats from '../../components/user-profile-component/UserStats';
 import {
   GeneralMenu,
   GeneralMenuItem,
@@ -34,7 +29,9 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
 import StatsContainer from '../../components/profileComponents/StatsContainer';
-import CardHeader from '../../components/general-components/ScreenHeader';
+import ScreenHeader from '../../components/general-components/ScreenHeader';
+import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY } from '../../utils/globalContants';
+import Loader from '../../components/general-components/Loader';
 
 interface userProps {
   _id: string;
@@ -111,6 +108,12 @@ const Userprofile: React.FC = () => {
     navigation.navigate('Login');
     hideLogoutAlert();
   };
+
+  const goBack = () => {
+    hideLogoutAlert();
+    hideDeleteAccountAlert();
+  };
+
   const handleDeleteAccount = () => {
     hideDeleteAccountAlert();
   };
@@ -159,6 +162,8 @@ const Userprofile: React.FC = () => {
 
   const [userToken, setUserToken] = useState<string>(authCtx.token);
   const [localUser, setLocalUser] = useState<userProps>();
+  const [refreshing, setRefreshing] = React.useState<boolean>(false);
+
 
   async function fetchMyDetails() {
     await axios
@@ -179,21 +184,20 @@ const Userprofile: React.FC = () => {
     }
   }, [userToken]);
 
-  return localUser ? (
-    <ScrollView style={{}}>
-      <CardHeader
-        ShowMenuIcon={false}
-        onBackPress={() => {}}
-        onMenuPress={() => {}}
-        title={'@' + localUser.userName}
-      />
-      <View style={styles.userProfileParentContainer}>
-        {/* <UserProfileHeader
-          title={localUser?.userName}
-          onBackPress={() => {}}
-          onMenuPress={() => {}}
-        /> */}
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchMyDetails();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
+  return localUser ? (
+    <ScrollView 
+    refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    }>
+      <View style={styles.userProfileParentContainer}>
         <ImagePickerButton
           handleImagePicker={handleImagePicker}
           profileImage={localUser.photo}
@@ -246,8 +250,8 @@ const Userprofile: React.FC = () => {
               <Text
                 style={{
                   color: '#FFF',
-                  fontFamily: 'Nunito',
-                  fontWeight: '600',
+                  fontFamily: FONT_FAMILY.NUNITO_BOLD,
+                  // fontWeight: '600',
                   letterSpacing: 0.44,
                   margin: 40,
                   fontSize: 22,
@@ -289,24 +293,28 @@ const Userprofile: React.FC = () => {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <CustomAlert
           visible={isDeleteAlertVisible}
-          title="Delete Account"
-          message="Are you sure you want to delete your account."
+          title="DeActivate Account"
+          message="Are you sure you want to delete your account ?"
           onClose={hideDeleteAccountAlert}
           btn="Delete Account"
+          btn2='Go back'
+          goBack={goBack}
           onProceed={handleDeleteAccount}
         />
         <CustomAlert
           visible={isLogoutAlertVisible}
           title="Logout"
-          message="Are you sure you want to log out ?."
+          message="Are you sure you want to log out ?"
           onClose={hideLogoutAlert}
           btn="Logout"
+          btn2='Go back'
+          goBack={goBack}
           onProceed={handleLogout}
         />
       </View>
     </ScrollView>
   ) : (
-    <ActivityIndicator />
+   <Loader/>
   );
 };
 
@@ -316,7 +324,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 60,
+    margin: 40,
   },
 
   tagsContainer: {

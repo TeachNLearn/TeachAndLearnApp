@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import ArrowIcon from '../svgComponents/ArrowIcon';
 import {Linking} from 'react-native';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface callProps {
   callLink: string;
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     columnGap: 4,
     paddingHorizontal: 24,
-    paddingVertical: 16,
+    paddingVertical: 10,
     borderRadius: 8,
     alignSelf: 'flex-start',
     backgroundColor: '#094067',
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     letterSpacing: 1,
     color: '#ffffff',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 });
 

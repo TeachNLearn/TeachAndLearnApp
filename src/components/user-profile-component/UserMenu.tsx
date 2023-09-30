@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface GeneralMenuItemProps {
   iconName?: string;
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     marginBottom: 70,
+    marginTop:10,
     height: '100%',
   },
   menuItem: {
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
   },
   menuText: {
     color: '#FFF',
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
     fontSize: 18,
     fontWeight: '500',
     marginLeft: 10,
