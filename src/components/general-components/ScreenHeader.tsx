@@ -9,7 +9,7 @@ interface LearnCardHeaderProps {
   ShowMenuIcon: boolean;
 }
 
-const CardHeader: React.FC<LearnCardHeaderProps> = ({
+const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
   title,
   onBackPress,
   onMenuPress,
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardHeader;
+export default ScreenHeader;

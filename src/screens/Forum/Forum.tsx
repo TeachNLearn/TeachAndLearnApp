@@ -10,7 +10,7 @@ import ForumCard from '../../components/forum-components/forumCard';
 import PostForumBtn from '../../components/forum-components/ForumBtn';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import CardHeader from '../../components/general-components/CardHeader';
+import CardHeader from '../../components/general-components/ScreenHeader';
 const Forum = () => {
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);

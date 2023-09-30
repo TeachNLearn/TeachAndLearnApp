@@ -34,6 +34,7 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
 import StatsContainer from '../../components/profileComponents/StatsContainer';
+import CardHeader from '../../components/general-components/ScreenHeader';
 
 interface userProps {
   _id: string;
@@ -180,15 +181,22 @@ const Userprofile: React.FC = () => {
 
   return localUser ? (
     <ScrollView style={{}}>
+      <CardHeader
+        ShowMenuIcon={false}
+        onBackPress={() => {}}
+        onMenuPress={() => {}}
+        title={'@' + localUser.userName}
+      />
       <View style={styles.userProfileParentContainer}>
-        <UserProfileHeader
+        {/* <UserProfileHeader
           title={localUser?.userName}
           onBackPress={() => {}}
           onMenuPress={() => {}}
-        />
+        /> */}
+
         <ImagePickerButton
           handleImagePicker={handleImagePicker}
-          profileImage={profileImage}
+          profileImage={localUser.photo}
           defaultImageSource={defaultImageSource}
           // Optional style prop
         />

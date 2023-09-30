@@ -19,7 +19,7 @@ import ClassDate from '../../components/class-component/ClassDate';
 import CardID from '../../components/learnCardComponents/CardID';
 import Button from '../../components/general-components/button';
 import BuyClass from '../modals/BuyClass';
-import CardHeader from '../../components/general-components/CardHeader';
+import CardHeader from '../../components/general-components/ScreenHeader';
 const ClassOverview = ({route}: any) => {
   const authCtx = useContext(AuthContext);
 

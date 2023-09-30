@@ -7,7 +7,8 @@ import {getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
-import CardHeader from '../../components/general-components/CardHeader';
+import CardHeader from '../../components/general-components/ScreenHeader';
+import {COLORS_ILLUSTRATION} from '../../utils/globalContants';
 interface createForumProps {
   tagline: string;
   question: string;
@@ -63,8 +64,8 @@ const CreateForum = () => {
 
   return (
     <ScrollView style={styles.Scrollcontainer}>
-         <CardHeader
-        title='Create Forum'
+      <CardHeader
+        title="Create Forum"
         ShowMenuIcon={false}
         onBackPress={() => {}}
         onMenuPress={() => {}}
@@ -113,7 +114,7 @@ const CreateForum = () => {
           }
           inputDesc="Question for the forum"
         />
-        <Button onPress={createForumHandler}>
+        <Button containerStyles={styles.button} onPress={createForumHandler}>
           {isLoading ? (
             <ActivityIndicator size={24} color="white" />
           ) : (
@@ -131,18 +132,19 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent:'center' ,
+    justifyContent: 'center',
     rowGap: 24,
     paddingHorizontal: 10,
     paddingBottom: 90,
   },
-  Scrollcontainer:{
-    flexGrow:1 ,
+  Scrollcontainer: {
+    flexGrow: 1,
     backgroundColor: 'white',
-   padding:6.5 ,
-   
-
-  }
+    padding: 6.5,
+  },
+  button: {
+    backgroundColor: COLORS_ILLUSTRATION.tertiary,
+  },
 });
 
 export default CreateForum;

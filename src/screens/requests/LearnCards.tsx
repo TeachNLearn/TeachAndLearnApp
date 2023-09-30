@@ -5,7 +5,7 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {DATA_LIMIT} from '../../utils/globalContants';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
-import CardHeader from '../../components/general-components/CardHeader';
+import CardHeader from '../../components/general-components/ScreenHeader';
 import { ActivityIndicator } from 'react-native';
 
 import {

@@ -17,7 +17,7 @@ import PostForumBtn from './ForumBtn';
 import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import CardHeader from '../general-components/CardHeader';
+import CardHeader from '../general-components/ScreenHeader';
 const ForumOverview = ({route}: any) => {
   console.log(route.params.id);
 

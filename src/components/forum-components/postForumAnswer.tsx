@@ -17,7 +17,7 @@ import {AuthContext} from '../../store/auth-context';
 import Button from '../general-components/button';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import CardHeader from '../general-components/CardHeader';
+import CardHeader from '../general-components/ScreenHeader';
 const PostForumAnswer = ({route}: any) => {
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);

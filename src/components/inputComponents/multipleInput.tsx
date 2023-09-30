@@ -9,7 +9,7 @@ import {
 
 interface InputProps {
   value: string;
-  label: string;
+  label?: string;
   name: string;
   arr: string[];
   elemName: string;
