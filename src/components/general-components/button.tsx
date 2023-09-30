@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Pressable, View} from 'react-native';
-import { COLORS_ELEMENTS } from '../../utils/globalContants';
+import { COLORS_ELEMENTS, FONT_FAMILY } from '../../utils/globalContants';
 
 interface btnProps {
   children: string | JSX.Element;
@@ -37,10 +37,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS_ELEMENTS.buttonTxt,
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '400',
+
     // line-height: normal;
   },
 });

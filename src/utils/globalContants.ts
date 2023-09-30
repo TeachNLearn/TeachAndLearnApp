@@ -23,6 +23,16 @@ export const COLORS_ILLUSTRATION = {
   tertiary : '#ef4565' ,
 };
 
+export const FONT_FAMILY = {
+  NUNITO_REGULAR:'Nunito-Regular',
+  NUNITO_ITALIC:'Nunito-Italic',
+  NUNITO_BOLD:'Nunito-Bold',
+  NUNITO_SEMIBOLD:'Nunito-SemiBold',
+  NUNITO_SEMIBOLD_ITALIC:'Nunito-SemiBoldItalic',
+  NUNITO_MEDIUM:'Nunito-Medium',
+  NUNITO_MEDIUM_ITALIC:'Nunito-MediumItalic'
+}
+
 export { SCREEN_WIDTH, SCREEN_HEIGHT };
 
 

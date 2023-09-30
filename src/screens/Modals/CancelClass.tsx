@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { FONT_FAMILY } from '../../utils/globalContants';
 interface CustomAlertProps {
   visible: boolean;
   title: string;
@@ -28,11 +29,11 @@ const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onCl
           <View style={{flexDirection:'row',justifyContent:'space-around'}}>
 
                <TouchableOpacity onPress={goBack} style={styles.button2}>
-                 <Text style={{color:'#FFF' , fontWeight:'600' , fontSize:12}}>{btn2}</Text>
+                 <Text style={{color:'#FFF' , fontWeight:'600' , fontSize:12,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>{btn2}</Text>
                </TouchableOpacity>
 
                <TouchableOpacity onPress={onProceed} style={styles.button}>
-                 <Text style={{color:'rgb(180, 35, 24)' , fontWeight:'600' , fontSize:12}}>{btn}</Text>
+                 <Text style={{color:'rgb(180, 35, 24)' , fontWeight:'600' , fontSize:12,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>{btn}</Text>
                </TouchableOpacity>
              
          </View>
@@ -67,13 +68,14 @@ const styles = StyleSheet.create<Styles>({
     width: 300,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    // fontWeight: 'bold',
     marginBottom: 10,
     textDecorationLine:'underline',
     // borderBottomWidth:1 ,
     // borderBottomColor:'#094067' ,
     // width:120,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,
     color:'#000'
     
   },
@@ -81,7 +83,8 @@ const styles = StyleSheet.create<Styles>({
     fontSize: 16,
     marginBottom: 20,
     lineHeight:29 ,
-    color:'black'
+    color:'black',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   button: {
     alignSelf: 'flex-end',

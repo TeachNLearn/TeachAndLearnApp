@@ -4,6 +4,7 @@ import UserStats from '../user-profile-component/UserStats';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import axios from 'axios';
 import {getHeaders} from '../../utils/helperFunctions';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface profileStatProps {
   taught: number;
@@ -45,7 +46,7 @@ const StatsContainer = (props: profileStatProps) => {
             fontSize: 22,
             fontWeight: '600',
             letterSpacing: 0.44,
-            fontFamily: 'Nunito',
+            fontFamily: FONT_FAMILY.NUNITO_BOLD
           }}>
           Stats as Teacher
         </Text>
@@ -71,7 +72,7 @@ const StatsContainer = (props: profileStatProps) => {
             fontSize: 22,
             fontWeight: '600',
             letterSpacing: 0.44,
-            fontFamily: 'Nunito',
+            fontFamily: FONT_FAMILY.NUNITO_BOLD,
           }}>
           Stats as Student
         </Text>

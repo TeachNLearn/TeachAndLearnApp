@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PlusSvg from '../svgComponents/PlusSvg';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface btnProps {
   onPressFunc: () => void;
@@ -24,15 +25,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-start',
     paddingHorizontal: 18,
-    paddingVertical: 10,
+    paddingVertical: 8,
     columnGap: 10,
     backgroundColor: '#ef4565',
     borderRadius: 8,
   },
   text: {
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
     fontStyle: 'normal',
-    fontWeight: '700',
+    // fontWeight: '700',
     fontSize: 16,
     lineHeight: 25,
     color: '#ffffff',

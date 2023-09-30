@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface participantListProps {
   heading: string;
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     color: '#3622a5',
     borderBottomWidth: 1,
     borderBottomColor: '#3622a5',
+    fontFamily:FONT_FAMILY.NUNITO_BOLD
   },
   listContainer: {
     display: 'flex',
@@ -91,16 +93,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   name: {
-    fontWeight: '700',
+    // fontWeight: '700',
     fontSize: 20,
     textAlign: 'center',
     letterSpacing: 0.02,
     color: '#000000',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   userName: {
     fontWeight: '400',
-    fontSize: 16,
+    fontSize: 17,
     color: '#000000',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 });
 

@@ -79,7 +79,7 @@ const CreateForum = (props:any) => {
               name="topic"
               value={forum.topic}
               updateFields={updateFields}
-              placeholderText="Topic like Physics, App Development, Trading etc"
+              placeholderText="Topic like Physics, App Development, etc"
             />
           }
           inputDesc="Pick a topic for your forum"

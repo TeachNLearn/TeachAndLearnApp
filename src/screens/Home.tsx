@@ -10,7 +10,7 @@ import HomeCardsHeader from '../components/homeScreenComponent/HomeCardsHeader';
 import SearchComponent from '../components/homeScreenComponent/SearchComponent';
 import Carausal from '../components/carausal/Carausal';
 import { IMAGES_FOR_CARAUSAL, VIDEOS_FOR_CARAUSAL } from '../helpers/data';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils/globalContants';
+import { FONT_FAMILY, SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils/globalContants';
 import { Button } from 'react-native';
 import Splash from '../components/splash/Splash';
 import TopBarClasses from '../components/topBarClasses/TopBarClasses';
@@ -232,14 +232,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFF',
     marginBottom: 10,
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
     marginTop: 10,
   },
   txtTwo: {
     fontSize: 28,
     fontWeight: '600',
     color: '#FFF',
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_BOLD,
   },
   SecondParentContainer: {
     flex: 1,

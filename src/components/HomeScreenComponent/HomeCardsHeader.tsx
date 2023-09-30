@@ -1,6 +1,7 @@
 import { View, Text , StyleSheet } from 'react-native'
 import React from 'react'
 import IconS from 'react-native-vector-icons/FontAwesome5';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 
 interface SectionHeaderProps {
@@ -32,20 +33,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: 20,
+
+
+
   },
   
    txtOneSecondContainer: {
     margin: 10,
     fontSize: 22,
     color: '#000',
-    fontWeight: '700',
+    // fontWeight: '700',
+    fontFamily:FONT_FAMILY.NUNITO_BOLD
+
+
   },
 
   txtTwoSecondContainer: {
     margin: 10,
     fontSize: 16,
     color: '#000',
-    fontWeight: '600',
+    // fontWeight: '600',
+    fontFamily:FONT_FAMILY.NUNITO_BOLD,
   },
 })
 

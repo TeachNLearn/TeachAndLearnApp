@@ -10,6 +10,7 @@ import ClassCardBtn from './ClassCardBtn';
 import {checkClassTeacher, checkEnrolledClass} from './classFunctions';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface classCardProps {
   teachCard: teachingCardProps;
@@ -131,16 +132,18 @@ const styles = StyleSheet.create({
   subject: {
     color: '#ef4565',
     textTransform: 'uppercase',
-    fontWeight: '700',
+    // fontWeight: '700',
     fontSize: 18,
     lineHeight: 22,
     letterSpacing: 0.02,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   title: {
-    fontWeight: '700',
+    // fontWeight: '700',
     color: '#d8eefe',
     fontSize: 22,
     lineHeight: 32,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   statsContainer: {
     display: 'flex',
@@ -161,6 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     textTransform: 'capitalize',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import { COLORS_ELEMENTS, COLORS_ILLUSTRATION } from '../../utils/globalContants';
+import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY } from '../../utils/globalContants';
 
 interface LearnCardHeaderProps {
   title: string;
@@ -58,10 +58,10 @@ const styles = StyleSheet.create({
   headTxt: {
     flex: 1,
     textAlign: 'center',
-    fontWeight: '600',
-    fontSize: 18,
+    // fontWeight: '600',
+    fontSize: 20,
     color: '#000',
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_BOLD,
     letterSpacing: 0.36,
   },
   iconCont: {

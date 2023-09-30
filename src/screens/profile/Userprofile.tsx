@@ -29,7 +29,7 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
 import StatsContainer from '../../components/profileComponents/StatsContainer';
-import { COLORS_ELEMENTS, COLORS_ILLUSTRATION } from '../../utils/globalContants';
+import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY } from '../../utils/globalContants';
 import Loader from '../../components/general-components/Loader';
 
 interface userProps {
@@ -254,8 +254,8 @@ const Userprofile: React.FC = () => {
               <Text
                 style={{
                   color: '#FFF',
-                  fontFamily: 'Nunito',
-                  fontWeight: '600',
+                  fontFamily: FONT_FAMILY.NUNITO_BOLD,
+                  // fontWeight: '600',
                   letterSpacing: 0.44,
                   margin: 40,
                   fontSize: 22,

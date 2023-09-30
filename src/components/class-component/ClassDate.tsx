@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface dateProps {
   date: string;
@@ -23,6 +24,7 @@ const ClassDate = (props: dateProps) => {
           fontStyle: 'normal',
           fontWeight: '500',
           color: '#4A5578',
+          fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
         }}>
         {getReadableDate(props.date)}
       </Text>
@@ -39,6 +41,8 @@ const ClassDate = (props: dateProps) => {
           fontStyle: 'normal',
           fontWeight: '500',
           color: '#4A5578',
+          fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
         }}>
         {getReadableTime(props.classStartsAt)}
         {' - '}

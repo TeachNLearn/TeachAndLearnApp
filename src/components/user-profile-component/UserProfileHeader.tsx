@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface UserProfileHeaderProps {
   title: string;
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     letterSpacing: 0.36,
-    fontFamily: 'Nunito',
+    fontFamily: FONT_FAMILY.NUNITO_BOLD,
     color: '#000',
     marginBottom: 20,
   },

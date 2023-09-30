@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
 import PlusSvg from '../svgComponents/PlusSvg';
 import CommentSvg from '../svgComponents/CommentSvg';
+import { FONT_FAMILY } from '../../utils/globalContants';
 
 type forumCardProps = forumProps & {
   userToken: string;
@@ -77,16 +78,18 @@ const styles = StyleSheet.create({
   },
   topic: {
     color: '#ef4565',
-    fontSize: 18,
+    fontSize: 19,
     lineHeight: 27,
     fontWeight: '600',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   question: {
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: 23,
     color: '#d8eefe',
     fontStyle: 'normal',
     lineHeight: 28,
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   userDetails: {
     display: 'flex',
@@ -96,8 +99,10 @@ const styles = StyleSheet.create({
   },
   userText: {
     fontWeight: '500',
-    fontSize: 16,
+    fontSize: 17,
     color: '#ffffff',
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+
   },
   dot: {
     height: 5,

@@ -9,7 +9,7 @@ import {userListProps} from '../../../types/userListProps';
 import {AuthContext} from '../../../store/auth-context';
 import UserList from '../../profileComponents/UserList';
 
-const MyFavourite: React.FC = () => {
+const MyFavourite: React.FC = (props:any) => {
   const authCtx = useContext(AuthContext);
   const [localUserId, setlocalUserId] = useState<string>(authCtx.user._id);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
@@ -51,7 +51,7 @@ const MyFavourite: React.FC = () => {
       <CardHeader
         title="My Favourite"
         ShowMenuIcon={false}
-        onBackPress={() => {}}
+        onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />
       {favouriteusers && (
