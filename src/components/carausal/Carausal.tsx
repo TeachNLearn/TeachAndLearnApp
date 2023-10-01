@@ -30,14 +30,14 @@ const Carausal = (props: any) => {
          {/* <View>
             <Image resizeMode='cover' style={props.imageStyle} source={item.image}/>
          </View> */}
-          <View style={{height:props?.imageContainerHeight-70}}>
+          <View style={{height:props?.imageContainerHeight-70,borderRadius:10,overflow:'hidden'}}>
            <YoutubePlayer
            height={300}
            play={playing}
            videoId={item.videoId}
            webViewStyle={{
             borderRadius:'1rem',
-            marginTop:10,
+            // marginTop:10,
            }}
           />
           </View>

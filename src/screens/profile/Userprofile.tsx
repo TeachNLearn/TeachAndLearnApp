@@ -29,7 +29,7 @@ import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
 import StatsContainer from '../../components/profileComponents/StatsContainer';
-import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY } from '../../utils/globalContants';
+import { FONT_FAMILY } from '../../utils/globalContants';
 import Loader from '../../components/general-components/Loader';
 
 interface userProps {
@@ -74,12 +74,19 @@ const Userprofile: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
   const defaultImageSource = require('../../assets/Images/userProfilePic.png');
+  const [currentMode, setCurrentMode] = useState<string>('')
   const [profileImage, setProfileImage] = useState<ImageInfo>({
     uri: defaultImageSource.uri,
     base64: '',
   });
 
-  const toggleMode = () => {
+  const toggleMode = (mode:boolean) => {
+    console.log(mode)
+    if(mode){
+      setCurrentMode('teach')
+    }else{
+      setCurrentMode('learn')
+    }
     setIsLearnMode(!isLearnMode);
   };
 
@@ -213,7 +220,7 @@ const Userprofile: React.FC = () => {
           educationInfo={localUser.tagline}
         />
         <UserMode
-          isLearnMode={localUser.role == 'learn'}
+          isLearnMode={isLearnMode}
           toggleMode={toggleMode}
           learnModeText="Learn Mode"
           teachModeText="Teach Mode"

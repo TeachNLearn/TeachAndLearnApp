@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, TouchableOpacity, Image, Text} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Image, Text, ScrollView} from 'react-native';
 import InputHolder from '../inputComponents/inputHolder';
 import MultipleInput from '../inputComponents/multipleInput';
 import ArrChip from '../inputComponents/arrChip';
@@ -43,8 +43,14 @@ const UserInfoForm = (props: UserInfoFormProps) => {
       console.log('Error selecting image:', error);
     }
   };
+  const scrollViewRef:any = React.useRef(null);
+
   return (
-    <View style={styles.formContainer}>
+    <ScrollView 
+    ref={scrollViewRef} showsVerticalScrollIndicator={false} onContentSizeChange={() => {scrollViewRef.current?.scrollTo({
+      y:0,
+    })}}
+    style={styles.formContainer}>
       <TouchableOpacity onPress={handleImagePicker} style={styles.imagePicker}>
         <Text style={styles.profilePicLabel}>Profile pic</Text>
         {image ? (
@@ -165,7 +171,7 @@ const UserInfoForm = (props: UserInfoFormProps) => {
           />
         ) : null}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

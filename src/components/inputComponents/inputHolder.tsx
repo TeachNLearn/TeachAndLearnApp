@@ -116,11 +116,12 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 16,
     fontWeight: '400',
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,
   },
   textAreaInput: {
     paddingTop: 17,
     textAlignVertical: 'top',
+    // marginTop:20
   },
   label: {
     position: 'absolute',
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     color: '#b3b8db',
     paddingHorizontal: 5,
     transform: [{translateY: -7}],
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,
   },
   requiredContainer: {
     marginLeft: 8,

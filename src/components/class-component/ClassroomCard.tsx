@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     color: '#ef4565',
     textTransform: 'uppercase',
     // fontWeight: '700',
-    fontSize: 18,
+    fontSize: 19,
     lineHeight: 22,
     letterSpacing: 0.02,
     fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   title: {
     // fontWeight: '700',
     color: '#d8eefe',
-    fontSize: 22,
+    fontSize: 23,
     lineHeight: 32,
     fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   statText: {
     fontWeight: '500',
-    fontSize: 18,
+    fontSize: 16,
     color: 'white',
     textTransform: 'capitalize',
     fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD

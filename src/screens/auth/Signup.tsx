@@ -125,7 +125,9 @@ const Signup = () => {
 
   return (
     // <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false} onContentSizeChange={() => {scrollViewRef.current?.scrollToEnd()}}>
-    <ScrollView>
+    <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false} onContentSizeChange={() => {scrollViewRef.current?.scrollTo({
+      y:30,
+    })}}>
       <KeyboardAvoidingView behavior="height" style={styles.container}>
         <DescriptionBox
           heading="Get"
@@ -196,6 +198,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: '#094067',
+    marginTop:10
   },
 });
 

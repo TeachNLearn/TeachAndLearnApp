@@ -5,20 +5,11 @@ import {learnCardProps} from '../../types/learnCardType';
 import {teachingCardProps} from '../../types/teachingCardType';
 import {getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
-import Ionican from 'react-native-vector-icons/Ionicons';
 import {Text, View, StyleSheet, ScrollView, RefreshControl} from 'react-native';
-import SvgComponentInterested from '../../components/svgComponents/InterestedSvg';
-import Tagbox from '../../components/learnCardComponents/Tagbox';
-import CardID from '../../components/learnCardComponents/CardID';
-import InterestedButton from '../../components/learnCardComponents/InterestedButton';
-import UserChip from '../../components/general-components/UserChip';
-import CardDescription from '../../components/learnCardComponents/CardDescription';
-import DueDate from '../../components/learnCardComponents/DueDate';
-import CardTopic from '../../components/learnCardComponents/CardTopic';
 import CardHeader from '../../components/general-components/CardHeader';
-import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 import TeachCardData from '../../components/teachCardComponent/TeachCard';
 import { FONT_FAMILY } from '../../utils/globalContants';
+import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 
 const LearnCardOverview = (props: any) => {
   const authCtx = useContext(AuthContext);
@@ -182,7 +173,8 @@ const LearnCardOverview = (props: any) => {
           {
             teachCards?.map((e,i)=>{
               return (
-                <TeachCardData {...e} key={i}/>
+                // <TeachCardData {...e} key={i}/>
+                <LearnCardData {...e} key={i} isTeachCard={true}/>
               )
             })
           }
@@ -198,7 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    // backgroundColor: '#FFF',
     elevation: 8,
     height: 60,
   },
@@ -220,7 +212,7 @@ const styles = StyleSheet.create({
 
   scrollContainer: {
     flexGrow: 1,
-    backgroundColor:'#FFF' ,
+    // backgroundColor:'#FFF' ,
     // marginBottom: 30,
     // marginTop: 20,
     // height:'500%'

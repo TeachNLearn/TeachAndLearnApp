@@ -9,12 +9,9 @@ import PopularRequest from '../components/homeScreenComponent/PopularRequest';
 import HomeCardsHeader from '../components/homeScreenComponent/HomeCardsHeader';
 import SearchComponent from '../components/homeScreenComponent/SearchComponent';
 import Carausal from '../components/carausal/Carausal';
-import { IMAGES_FOR_CARAUSAL, VIDEOS_FOR_CARAUSAL } from '../helpers/data';
+import { VIDEOS_FOR_CARAUSAL } from '../helpers/data';
 import { FONT_FAMILY, SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils/globalContants';
-import { Button } from 'react-native';
-import Splash from '../components/splash/Splash';
-import TopBarClasses from '../components/topBarClasses/TopBarClasses';
-import Review from '../components/review/Review';
+
 
 interface RecommendedCourse {
   subject: string;

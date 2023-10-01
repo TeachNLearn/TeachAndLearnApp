@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-import UserImg from '../../../assets/Images/cardImg.png';
+import {View,StyleSheet} from 'react-native';
 import CardHeader from '../../general-components/CardHeader';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';

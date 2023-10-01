@@ -1,15 +1,13 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import InputHolder from '../../components/inputComponents/inputHolder';
 import {AuthContext} from '../../store/auth-context';
-import {getHeaders, getReadableDate} from '../../utils/helperFunctions';
+import {getHeaders} from '../../utils/helperFunctions';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import axios from 'axios';
 import FormField from '../../components/general-components/FormField';

@@ -92,6 +92,7 @@ const LearnCards: React.FC<LearnCardsProps> = (props) => {
   };
 
   const onRefresh = React.useCallback(() => {
+    setLearnCards([])
     setRefreshing(true);
     fetchLearnCards()
     setTimeout(() => {
@@ -118,7 +119,7 @@ const LearnCards: React.FC<LearnCardsProps> = (props) => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
             {learnCards.map((card, index) => (
-              <LearnCardData {...card} key={index} />
+              <LearnCardData {...card} key={index} isTeachCard={false} />
             ))}
           </ScrollView>
         )}

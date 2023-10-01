@@ -15,4 +15,5 @@ export interface learnCardProps {
   preferredLanguage: string;
   description: string;
   tags: string[];
+  isTeachCard:boolean
 }

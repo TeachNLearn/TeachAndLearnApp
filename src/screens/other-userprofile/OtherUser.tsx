@@ -1,6 +1,5 @@
 import React ,{useState} from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
-import ImagePickerButton from '../../components/user-profile-component/UserImagePicker';
 import UserProfileHeader from '../../components/user-profile-component/UserProfileHeader';
 import UserNameAndTagline from '../../components/user-profile-component/UserNameAndTagline';
 import UserStats from '../../components/user-profile-component/UserStats';

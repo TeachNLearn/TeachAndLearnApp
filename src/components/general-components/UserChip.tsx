@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: '500',
-    fontSize: 19,
+    fontSize: 17,
     fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
 
   },
