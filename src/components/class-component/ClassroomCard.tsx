@@ -10,7 +10,8 @@ import ClassCardBtn from './ClassCardBtn';
 import {checkClassTeacher, checkEnrolledClass} from './classFunctions';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import { FONT_FAMILY } from '../../utils/globalContants';
+import {FONT_FAMILY} from '../../utils/globalContants';
+import CardTags from '../general-components/CardTags';
 
 interface classCardProps {
   teachCard: teachingCardProps;
@@ -85,6 +86,7 @@ const ClassroomCard = (props: classCardProps) => {
             imgBorder="#ffffff"
             textColor="#ffffff"
             userId={props.teachCard.createdBy._id}
+            imgSize={30}
           />
         </View>
         <View style={styles.statsContainer}>
@@ -104,6 +106,7 @@ const ClassroomCard = (props: classCardProps) => {
             </Text>
           </View>
         </View>
+        <CardTags tags={props.teachCard.tags} />
         <ClassCardBtn
           localUserId={localUser._id}
           teacherId={props.teachCard.createdBy._id}
@@ -120,30 +123,31 @@ const ClassroomCard = (props: classCardProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 16,
     backgroundColor: '#094067',
+    borderRadius: 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    padding: 22,
-    rowGap: 16,
-    marginTop:5
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    rowGap: 14,
+    cursor: 'pointer',
   },
   subject: {
     color: '#ef4565',
-    textTransform: 'uppercase',
-    // fontWeight: '700',
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: 19,
+    lineHeight: 27,
+    fontWeight: '600',
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
     letterSpacing: 0.02,
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
   title: {
-    // fontWeight: '700',
+    fontWeight: '600',
+    fontSize: 23,
     color: '#d8eefe',
-    fontSize: 22,
-    lineHeight: 32,
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+    fontStyle: 'normal',
+    lineHeight: 28,
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
   statsContainer: {
     display: 'flex',
@@ -164,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     textTransform: 'capitalize',
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
 });
 

@@ -113,20 +113,22 @@ const ForumOverview = (props: any) => {
           noAnswers={forum.answers.length == 0}
           createdAt={forum.createdAt}
         />
-        <Text style={styles.replyheading}>Replies</Text>
         {forum?.answers.length != 0 && (
-          <View style={styles.answerGrid}>
-            {forum?.answers.map((ans, idx) => {
-              return (
-                <AnswerContainer
-                  key={idx}
-                  answer={ans}
-                  forumId={forum._id}
-                  userToken={userToken}
-                />
-              );
-            })}
-          </View>
+          <>
+            <Text style={styles.replyheading}>Replies</Text>
+            <View style={styles.answerGrid}>
+              {forum?.answers.map((ans, idx) => {
+                return (
+                  <AnswerContainer
+                    key={idx}
+                    answer={ans}
+                    forumId={forum._id}
+                    userToken={userToken}
+                  />
+                );
+              })}
+            </View>
+          </>
         )}
       </View>
     </ScrollView>

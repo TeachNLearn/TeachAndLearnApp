@@ -11,7 +11,7 @@ import UpcomingClasses from '../../components/class-component/UpcomingClasses';
 import {AuthContext} from '../../store/auth-context';
 import CompletedClasses from '../../components/class-component/CompletedClasses';
 import ScreenHeader from '../../components/general-components/ScreenHeader';
-import {FONT_FAMILY} from '../../utils/globalContants';
+import {FONT_FAMILY, SCREEN_WIDTH} from '../../utils/globalContants';
 
 const Classes = (props: any) => {
   const [activeLink, setActiveLink] = useState('all classes');
@@ -34,8 +34,8 @@ const Classes = (props: any) => {
   const labels = ['all classes', 'upcoming', 'completed'];
 
   return (
-    <View style={{flex: 1}}>
-      <View style={{flex: 0.2}}>
+    <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={{backgroundColor: '#fff', flex: 1, width: '100%'}}>
         <ScreenHeader
           title="Classes"
           ShowMenuIcon={false}
@@ -49,7 +49,10 @@ const Classes = (props: any) => {
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-            marginTop: 30,
+            marginTop: 26,
+            marginBottom: 26,
+            // borderBottomColor: '#b4b4b4',
+            // borderBottomWidth: 1,
           }}>
           <TouchableOpacity
             style={[activeLink === 'all classes' && styles.activeSegment]}
@@ -69,7 +72,7 @@ const Classes = (props: any) => {
         </ScrollView>
       </View>
       <View style={styles.elementWrapper}>{element}</View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -77,22 +80,23 @@ const styles = StyleSheet.create({
   activeSegment: {
     borderBottomColor: '#674FF1',
     borderBottomWidth: 2,
-    // width: '20%',
     alignItems: 'center',
   },
   segmentText: {
     color: '#000',
-    // fontFamily: 'Nunito',
     fontSize: 17,
     fontWeight: '600',
-    marginBottom: 8,
+    marginBottom: 0,
     textTransform: 'capitalize',
     fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
   elementWrapper: {
-    marginVertical: 20,
-    marginHorizontal: 8,
-    flex: 0.7,
+    flex: 1,
+    marginBottom: 80,
+    width: '100%',
+    backgroundColor: '#fff',
+    // borderColor: '#000',
+    // borderWidth: 1,
   },
 });
 
