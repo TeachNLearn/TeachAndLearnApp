@@ -25,6 +25,7 @@ import EditAcademicInfo from './src/components/user-profile-component/user-menu-
 import EditContactInfo from './src/components/user-profile-component/user-menu-component/EditContactInfo';
 import Toast from 'react-native-toast-message';
 import Splash from './src/components/splash/Splash';
+import EditUserProfile from './src/components/user-profile-component/user-menu-component/EditUserProfile';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -87,6 +88,7 @@ const NavigationScreens = () => {
         <Stack.Screen name="MyFav" component={MyFavourite} />
         <Stack.Screen name="EditContactInfo" component={EditContactInfo} />
         <Stack.Screen name="EditAcademicInfo" component={EditAcademicInfo} />
+        <Stack.Screen name="EditUserProfile" component={EditUserProfile} />
         <Stack.Screen name="ForumOverview" component={ForumOverview} />
         <Stack.Screen name="CreateForum" component={CreateForum} />
         <Stack.Screen name="CreateForumAnswer" component={PostForumAnswer} />

@@ -47,10 +47,7 @@ const UserInfoForm = (props: UserInfoFormProps) => {
 
   return (
     <ScrollView 
-    ref={scrollViewRef} showsVerticalScrollIndicator={false} onContentSizeChange={() => {scrollViewRef.current?.scrollTo({
-      y:0,
-    })}}
-    style={styles.formContainer}>
+    contentContainerStyle={styles.formContainer}>
       <TouchableOpacity onPress={handleImagePicker} style={styles.imagePicker}>
         <Text style={styles.profilePicLabel}>Profile pic</Text>
         {image ? (
@@ -177,13 +174,13 @@ const UserInfoForm = (props: UserInfoFormProps) => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    display: 'flex',
-    flexDirection: 'column',
+    // display: 'flex',
+    // flexDirection: 'column',
     rowGap: 28,
   },
   inputWrapper: {
     width: '100%',
-    display: 'flex',
+    // display: 'flex',
     flexDirection: 'column',
     gap: 8,
   },

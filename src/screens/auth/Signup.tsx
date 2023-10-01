@@ -128,7 +128,7 @@ const Signup = () => {
     <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false} onContentSizeChange={() => {scrollViewRef.current?.scrollTo({
       y:30,
     })}}>
-      <KeyboardAvoidingView behavior="height" style={styles.container}>
+      <View style={styles.container}>
         <DescriptionBox
           heading="Get"
           subHeading="Started"
@@ -153,17 +153,17 @@ const Signup = () => {
             Login!!
           </Text>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    // display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     rowGap: 20,
     paddingBottom: 50,
     backgroundColor: 'white',

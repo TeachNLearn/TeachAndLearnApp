@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {useState, useContext, useEffect} from 'react';
@@ -31,6 +32,7 @@ import {getHeaders} from '../../utils/helperFunctions';
 import StatsContainer from '../../components/profileComponents/StatsContainer';
 import { FONT_FAMILY } from '../../utils/globalContants';
 import Loader from '../../components/general-components/Loader';
+import { AirbnbRating } from 'react-native-ratings';
 
 interface userProps {
   _id: string;
@@ -203,18 +205,32 @@ const Userprofile: React.FC = () => {
     refreshControl={
       <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
     }>
-      <View style={styles.userProfileParentContainer}>
+      <View style={[styles.userProfileParentContainer]}>
         <UserProfileHeader
           title={localUser?.userName}
           onBackPress={() => {navigation.goBack()}}
           onMenuPress={() => {}}
         />
+        <View style={{flexDirection:'row',justifyContent:'center',alignItems:'flex-start',width:'100%'}}>
+
         <ImagePickerButton
           handleImagePicker={handleImagePicker}
           profileImage={profileImage}
           defaultImageSource={defaultImageSource}
+          style={{alignSelf:'center',justifyContent:'center',alignItems:'center'}}
           // Optional style prop
         />
+
+        <TouchableOpacity
+              style={[styles.editButton,{position:'absolute',right:0}]}
+              onPress={() => {
+                navigation.navigate('EditUserProfile');
+              }}
+            >
+              <Text style={{color:'rgb(180, 35, 24)',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Edit{' '}</Text>
+              {editIcon}
+        </TouchableOpacity>
+        </View>
         <UserNameAndTagline
           name={localUser.name}
           educationInfo={localUser.tagline}
@@ -343,6 +359,15 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: 11,
     marginLeft: 18,
+  },
+  editButton: {
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderWidth:1,
+    borderRadius:20,
+    borderColor:'grey',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   tag: {
     // backgroundColor: '#3da9fc',

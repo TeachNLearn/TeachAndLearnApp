@@ -26,14 +26,14 @@ const CustomAlert: React.FC<CustomAlertProps> = ({ visible, title, message, onCl
             </View>
   
           <Text style={styles.message}>{message}</Text>
-          <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+          <View style={{flexDirection:'row',justifyContent:'flex-end'}}>
 
                <TouchableOpacity onPress={goBack} style={styles.button2}>
                  <Text style={{color:'#FFF' , fontWeight:'600' , fontSize:12,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>{btn2}</Text>
                </TouchableOpacity>
 
                <TouchableOpacity onPress={onProceed} style={styles.button}>
-                 <Text style={{color:'rgb(180, 35, 24)' , fontWeight:'600' , fontSize:12,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>{btn}</Text>
+                 <Text style={{color:'rgb(180, 35, 24)' , fontWeight:'600' ,fontSize:12,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>{btn}</Text>
                </TouchableOpacity>
              
          </View>
@@ -92,6 +92,7 @@ const styles = StyleSheet.create<Styles>({
     backgroundColor:'#fecdca' ,
     borderRadius:10,
     marginTop:0 ,
+    marginLeft:10
   },
   button2: {
     alignSelf: 'flex-end',
