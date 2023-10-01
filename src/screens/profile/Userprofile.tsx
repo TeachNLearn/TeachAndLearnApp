@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  RefreshControl,
-} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, RefreshControl} from 'react-native';
 import React from 'react';
 import {useState, useContext, useEffect} from 'react';
 import {AuthContext} from '../../store/auth-context';
@@ -30,7 +24,11 @@ import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
 import StatsContainer from '../../components/profileComponents/StatsContainer';
 import ScreenHeader from '../../components/general-components/ScreenHeader';
-import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY } from '../../utils/globalContants';
+import {
+  COLORS_ELEMENTS,
+  COLORS_ILLUSTRATION,
+  FONT_FAMILY,
+} from '../../utils/globalContants';
 import Loader from '../../components/general-components/Loader';
 
 interface userProps {
@@ -59,7 +57,7 @@ interface ImageInfo {
   base64: string | null | undefined;
 }
 
-const Userprofile: React.FC = () => {
+const Userprofile: React.FC = (props: any) => {
   type RootStackParamList = {
     Login: undefined;
     Mywallet: undefined;
@@ -164,7 +162,6 @@ const Userprofile: React.FC = () => {
   const [localUser, setLocalUser] = useState<userProps>();
   const [refreshing, setRefreshing] = React.useState<boolean>(false);
 
-
   async function fetchMyDetails() {
     await axios
       .get(`${BASE_URL}${apiVersion}/user/me`, {
@@ -193,10 +190,17 @@ const Userprofile: React.FC = () => {
   }, []);
 
   return localUser ? (
-    <ScrollView 
-    refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-    }>
+    <ScrollView
+    style={{backgroundColor: "#fff"}}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <ScreenHeader
+        ShowMenuIcon={false}
+        onBackPress={() => props.navigation.goBack()}
+        onMenuPress={() => {}}
+        title="My Profile"
+      />
       <View style={styles.userProfileParentContainer}>
         <ImagePickerButton
           handleImagePicker={handleImagePicker}
@@ -297,7 +301,7 @@ const Userprofile: React.FC = () => {
           message="Are you sure you want to delete your account ?"
           onClose={hideDeleteAccountAlert}
           btn="Delete Account"
-          btn2='Go back'
+          btn2="Go back"
           goBack={goBack}
           onProceed={handleDeleteAccount}
         />
@@ -307,14 +311,14 @@ const Userprofile: React.FC = () => {
           message="Are you sure you want to log out ?"
           onClose={hideLogoutAlert}
           btn="Logout"
-          btn2='Go back'
+          btn2="Go back"
           goBack={goBack}
           onProceed={handleLogout}
         />
       </View>
     </ScrollView>
   ) : (
-   <Loader/>
+    <Loader />
   );
 };
 
@@ -325,6 +329,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 40,
+    rowGap: 16
   },
 
   tagsContainer: {

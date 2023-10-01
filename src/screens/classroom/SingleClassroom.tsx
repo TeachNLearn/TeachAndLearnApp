@@ -11,9 +11,9 @@ import Participants from '../../components/class-component/singleClassComponents
 import {ScrollView} from 'react-native';
 import {checkClassTeacher} from '../../components/class-component/classFunctions';
 import {useIsFocused} from '@react-navigation/native';
-import CardHeader from '../../components/general-components/CardHeader';
+import ScreenHeader from '../../components/general-components/ScreenHeader';
 import Loader from '../../components/general-components/Loader';
-import { FONT_FAMILY } from '../../utils/globalContants';
+import {FONT_FAMILY} from '../../utils/globalContants';
 
 const SingleClassroom = (props: any) => {
   const authCtx = useContext(AuthContext);
@@ -27,19 +27,18 @@ const SingleClassroom = (props: any) => {
   const [backLink, setBackLink] = useState<string>('/classes');
   const [learnCardId, setlearnCardId] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const ACTIVE_LINK_ELEMENTS = [
     {
-       name:'Overview',
+      name: 'Overview',
     },
-     {
-       name:'Classroom'
-     },
-     {
-       name:'People'
-     }
-   ]
- 
+    {
+      name: 'Classroom',
+    },
+    {
+      name: 'People',
+    },
+  ];
 
   useEffect(() => {
     const link = props.route.params?.backPageLink;
@@ -63,7 +62,7 @@ const SingleClassroom = (props: any) => {
   }, []);
 
   async function fetchClassroom() {
-    setIsLoading(true)
+    setIsLoading(true);
     await axios
       .get(`${BASE_URL}${apiVersion}/teach/${classroomId}`, {
         headers: getHeaders(userToken),
@@ -130,17 +129,19 @@ const SingleClassroom = (props: any) => {
   }, [activeLink]);
 
   const handleSectionChange = (
-    section: 'Overview' | 'Classroom' | 'People',
+    section: 'Overview' | 'Classroom' | 'People' | string,
   ): void => {
     setActiveLink(section);
   };
 
   return (
     <ScrollView>
-        <CardHeader
+      <ScreenHeader
         title={activeLink}
         ShowMenuIcon={false}
-        onBackPress={() => {props.navigation.goBack()}}
+        onBackPress={() => {
+          props.navigation.goBack();
+        }}
         onMenuPress={() => {}}
       />
       <View
@@ -148,24 +149,23 @@ const SingleClassroom = (props: any) => {
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'center',
-          paddingTop:20
+          paddingTop: 20,
         }}>
-       
-        {
-          ACTIVE_LINK_ELEMENTS?.map((e)=>{
-            return (
+        {ACTIVE_LINK_ELEMENTS?.map(e => {
+          return (
             <TouchableOpacity
               style={[activeLink === e.name && styles.activeSegment]}
               onPress={() => handleSectionChange(e.name)}>
               <Text style={styles.segmentText}>{e.name}</Text>
             </TouchableOpacity>
-            )
-          })
-        }
+          );
+        })}
       </View>
-     {
-      isLoading?<Loader/>: <View style={styles.elementWrapper}>{element}</View>
-     }
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <View style={styles.elementWrapper}>{element}</View>
+      )}
     </ScrollView>
   );
 };

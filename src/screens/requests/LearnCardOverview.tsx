@@ -15,7 +15,7 @@ import UserChip from '../../components/general-components/UserChip';
 import CardDescription from '../../components/learnCardComponents/CardDescription';
 import DueDate from '../../components/learnCardComponents/DueDate';
 import CardTopic from '../../components/learnCardComponents/CardTopic';
-import CardHeader from '../../components/general-components/CardHeader';
+import ScreenHeader from '../../components/general-components/ScreenHeader';
 import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 import TeachCardData from '../../components/teachCardComponent/TeachCard';
 import { FONT_FAMILY } from '../../utils/globalContants';
@@ -105,7 +105,7 @@ const LearnCardOverview = (props: any) => {
     learnCard && (
       <View style={{flex: 1}}>
         {/* Header */}
-        <CardHeader
+        <ScreenHeader
         title="Learn Cards Overview"
         ShowMenuIcon={false}
         onBackPress={() => {props.navigation.goBack()}}
@@ -118,7 +118,7 @@ const LearnCardOverview = (props: any) => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         style={styles.scrollContainer}>
-          {/* <View style={styles.OverviewContainer}>
+          <View style={styles.OverviewContainer}>
             <View
               style={{
                 margin: 30,
@@ -176,16 +176,16 @@ const LearnCardOverview = (props: any) => {
                 <CardID id={learnCard._id} />
               </View>
             </View>
-          </View> */}
+          </View>
 
           {/* have made new component of teach cards */}
-          {
+          {/* {
             teachCards?.map((e,i)=>{
               return (
                 <TeachCardData {...e} key={i}/>
               )
             })
-          }
+          } */}
         </ScrollView>
        </View>
       </View>
