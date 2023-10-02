@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, View} from 'react-native';
+import {RefreshControl, ScrollView, View, Text} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
-import {DATA_LIMIT} from '../../utils/globalContants';
+import {DATA_LIMIT, SCREEN_WIDTH} from '../../utils/globalContants';
 import {AuthContext} from '../../store/auth-context';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import ClassGrid from './ClassGrid';
@@ -19,12 +19,11 @@ const CompletedClasses = () => {
   const [loaderLoading, setLoaderLoading] = useState(true);
   const [refreshing, setRefreshing] = React.useState(false);
 
-
   const {token} = useContext(AuthContext);
 
   async function fetchAllCompletedClasses() {
     setLoaderLoading(true);
-    setIsLoading(true)
+    setIsLoading(true);
     await axios
       .get(`${BASE_URL}${apiVersion}/user/myclasses/completed`, {
         params: {
@@ -58,23 +57,37 @@ const CompletedClasses = () => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    fetchAllCompletedClasses()
+    fetchAllCompletedClasses();
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
   }, []);
 
   return (
-    <ScrollView 
-    refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-    }
-    style={{flex:1}}>
-     {
-      isLoading?<Loader/>: teachCards.length != 0 ? (
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={{
+        flex: 1,
+        backgroundColor: '#fff',
+        marginHorizontal: 0.04 * SCREEN_WIDTH,
+      }}>
+      {isLoading ? (
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            borderColor: '#000',
+            borderWidth: 1,
+          }}>
+          <Loader />
+        </View>
+      ) : teachCards.length != 0 ? (
         <ClassGrid teachCards={teachCards} elemType="completed" />
-      ) : null
-     }
+      ) : (
+        <Text>No Completed Classes</Text>
+      )}
     </ScrollView>
   );
 };

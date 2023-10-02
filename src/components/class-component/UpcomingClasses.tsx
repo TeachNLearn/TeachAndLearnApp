@@ -7,6 +7,7 @@ import {DATA_LIMIT} from '../../utils/globalContants';
 import {AuthContext} from '../../store/auth-context';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import ClassGrid from './ClassGrid';
+import Loader from '../general-components/Loader';
 
 const UpcomingClasses = () => {
   const [teachCards, setTeachCards] = useState<Array<teachingCardProps>>([]);
@@ -61,16 +62,27 @@ const UpcomingClasses = () => {
     }, 2000);
   }, []);
 
-
   return (
-    <ScrollView 
-    refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-    }
-    style={{flex:1}}>
-      {teachCards.length != 0 ? (
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={{flex: 1}}>
+      {isLoading ? (
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            borderColor: '#000',
+            borderWidth: 1,
+          }}>
+          <Loader />
+        </View>
+      ) : teachCards.length != 0 ? (
         <ClassGrid teachCards={teachCards} elemType="upcoming" />
-      ) : <Text>No upcoming classes</Text>}
+      ) : (
+        <Text>No Upcoming Classes</Text>
+      )}
     </ScrollView>
   );
 };
