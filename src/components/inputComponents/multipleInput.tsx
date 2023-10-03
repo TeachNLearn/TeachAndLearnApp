@@ -4,12 +4,12 @@ import {
   Text,
   TextInput,
   View,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 interface InputProps {
   value: string;
-  label: string;
+  label?: string;
   name: string;
   arr: string[];
   elemName: string;
@@ -31,11 +31,9 @@ const MultipleInput = (props: InputProps) => {
 
   const keyhandler = (e: any) => {
     if (props.value == '') return;
-    if (e.nativeEvent.key == 'Enter') {
-      props.arr?.push(props.value);
-      console.log(props.arr);
-      props.updateFields({[props.name]: props.arr, [props.elemName]: ''});
-    }
+    props.arr?.push(props.value);
+    console.log(props.arr);
+    props.updateFields({[props.name]: props.arr, [props.elemName]: ''});
   };
 
   const dropdownMenuhandler = (data: string) => {
@@ -45,8 +43,7 @@ const MultipleInput = (props: InputProps) => {
   };
 
   return (
-    <View
-      style={styles.container}>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         value={props.value}

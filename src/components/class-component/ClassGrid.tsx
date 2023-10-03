@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    rowGap: 24,
+    rowGap: 16,
   },
 });
 

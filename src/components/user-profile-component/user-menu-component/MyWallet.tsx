@@ -5,6 +5,7 @@ import {AuthContext} from '../../../store/auth-context';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
 import {getHeaders} from '../../../utils/helperFunctions';
+import ScreenHeader from '../../general-components/ScreenHeader';
 import Loader from '../../general-components/Loader';
 import { FONT_FAMILY } from '../../../utils/globalContants';
 
@@ -42,6 +43,12 @@ const MyWallet: React.FC<Props> = () => {
 
   return !isLoading ? (
     <View style={styles.parentContainer}>
+      <ScreenHeader
+        ShowMenuIcon={false}
+        title="Credits"
+        onBackPress={() => {}}
+        onMenuPress={() => {}}
+      />
       <View
         style={{
           padding: 20,

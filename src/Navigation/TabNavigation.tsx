@@ -21,7 +21,6 @@ const TabNavigation: React.FC = () => (
     screenOptions={{
       tabBarActiveTintColor: '#FFFFFF',
       tabBarInactiveTintColor: '#9695A5',
-
       tabBarLabelStyle: {
         fontSize: 9,
         fontWeight: 'bold',

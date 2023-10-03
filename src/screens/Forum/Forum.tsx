@@ -1,18 +1,18 @@
-import {View, StyleSheet, ScrollView,RefreshControl} from 'react-native';
+import {View, StyleSheet, ScrollView, RefreshControl} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../store/auth-context';
 import {forumProps} from '../../types/ForumTypes';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
-import {DATA_LIMIT} from '../../utils/globalContants';
+import {DATA_LIMIT, SCREEN_WIDTH} from '../../utils/globalContants';
 import ForumCard from '../../components/forum-components/forumCard';
 import PostForumBtn from '../../components/forum-components/ForumBtn';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import CardHeader from '../../components/general-components/CardHeader';
+import ScreenHeader from '../../components/general-components/ScreenHeader';
 import Loader from '../../components/general-components/Loader';
-const Forum = (props:any) => {
+const Forum = (props: any) => {
   const authCtx = useContext(AuthContext);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
   const [forums, setForums] = useState<Array<forumProps>>([]);
@@ -21,7 +21,6 @@ const Forum = (props:any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
   const [refreshing, setRefreshing] = React.useState(false);
-
 
   async function fetchAllForums() {
     console.log('CHECKING');
@@ -70,25 +69,25 @@ const Forum = (props:any) => {
   };
 
   const onRefresh = React.useCallback(() => {
-    setForums([])
+    setForums([]);
     setRefreshing(true);
-    fetchAllForums()
+    fetchAllForums();
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
   }, []);
- 
-  
 
   return !isLoading ? (
-    <ScrollView 
-    refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-    }>
-      <CardHeader
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <ScreenHeader
         title="Forum"
         ShowMenuIcon={false}
-        onBackPress={() => {props.navigation.goBack()}}
+        onBackPress={() => {
+          props.navigation.goBack();
+        }}
         onMenuPress={() => {}}
       />
       <View
@@ -113,7 +112,7 @@ const Forum = (props:any) => {
       </View>
     </ScrollView>
   ) : (
-    <Loader/>
+    <Loader />
   );
 };
 
@@ -122,9 +121,8 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     display: 'flex',
     flexDirection: 'column',
-    rowGap: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    rowGap: 16,
+    marginHorizontal: 0.04 * SCREEN_WIDTH,
   },
 });
 

@@ -194,7 +194,9 @@ const styles = StyleSheet.create({
   },
   link: {
     color: '#094067',
-    fontWeight: '600',
+    fontWeight: '700',
+    fontFamily: 'Nunito',
+    textDecorationLine: 'underline',
   },
   btn: {
     backgroundColor: '#094067',

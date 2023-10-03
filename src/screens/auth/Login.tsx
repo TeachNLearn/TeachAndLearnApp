@@ -99,7 +99,7 @@ const Login = ({navigation}: any) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{display: 'flex', flex: 1, backgroundColor: 'white'}}>
       <View style={styles.container}>
         <DescriptionBox
           heading="Welcome"
@@ -146,12 +146,10 @@ const Login = ({navigation}: any) => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'column',
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     rowGap: 20,
-    paddingBottom: 50,
-    backgroundColor: 'white',
   },
   formContainer: {
     width: '90%',
@@ -177,6 +175,9 @@ const styles = StyleSheet.create({
   },
   link: {
     color: '#094067',
+    fontWeight: '700',
+    fontFamily: "Nunito",
+    textDecorationLine: 'underline',
   },
   errorText: {
     color: 'red',

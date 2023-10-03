@@ -2,9 +2,6 @@ export const AppAsyncUserStorage = 'teachAndlearnUser';
 import { Dimensions } from 'react-native';
 
 export const DATA_LIMIT = 10;
-
-
-
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export const COLORS_ELEMENTS = {
