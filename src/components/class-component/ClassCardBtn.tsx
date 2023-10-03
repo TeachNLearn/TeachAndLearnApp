@@ -16,12 +16,12 @@ interface classCardBtnProps {
   enrolledArr: string[];
   classEndsAt: string;
   reviews: reviewProps[];
-  onPressFunc: () => void
+  onPressFunc: () => void;
 }
 
 const ClassCardBtn = (props: classCardBtnProps) => {
   return (
-    <TouchableOpacity style={styles.enrollBtn} onPress={props.onPressFunc} >
+    <TouchableOpacity style={styles.enrollBtn} onPress={props.onPressFunc}>
       <View>
         <Text style={styles.enrollBtnText}>
           {props.hasCancelled
@@ -45,12 +45,6 @@ const ClassCardBtn = (props: classCardBtnProps) => {
 };
 
 const styles = StyleSheet.create({
-  statText: {
-    fontWeight: '500',
-    fontSize: 18,
-    color: 'white',
-    textTransform: 'capitalize',
-  },
   enrollBtn: {
     display: 'flex',
     alignItems: 'center',
@@ -61,6 +55,7 @@ const styles = StyleSheet.create({
     columnGap: 6,
     backgroundColor: '#ef4565',
     borderRadius: 4,
+    marginTop: 6,
   },
   enrollBtnText: {
     fontWeight: '500',

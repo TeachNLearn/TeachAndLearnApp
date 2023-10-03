@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View,StyleSheet} from 'react-native';
-import CardHeader from '../../general-components/CardHeader';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
 import {getHeaders} from '../../../utils/helperFunctions';
 import {userListProps} from '../../../types/userListProps';
 import {AuthContext} from '../../../store/auth-context';
 import UserList from '../../profileComponents/UserList';
+import ScreenHeader from '../../general-components/ScreenHeader';
 
 const MyFavourite: React.FC = (props:any) => {
   const authCtx = useContext(AuthContext);
@@ -47,9 +47,9 @@ const MyFavourite: React.FC = (props:any) => {
         backgroundColor: '#FFF',
         flex: 1,
       }}>
-      <CardHeader
-        title="My Favourite"
+      <ScreenHeader
         ShowMenuIcon={false}
+        title='My favourites'
         onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />

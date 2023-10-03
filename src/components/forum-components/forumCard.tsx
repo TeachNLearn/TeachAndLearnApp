@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    paddingHorizontal: 32,
+    paddingHorizontal: 20,
     paddingVertical: 20,
     rowGap: 12,
     cursor: 'pointer',

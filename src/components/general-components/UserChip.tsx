@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
 import {AuthContext} from '../../store/auth-context';
-import { FONT_FAMILY } from '../../utils/globalContants';
+import {FONT_FAMILY} from '../../utils/globalContants';
 
 interface userChipProps {
   name: string;
@@ -11,6 +11,8 @@ interface userChipProps {
   textColor: string;
   hasUnderline?: boolean;
   shouldntNavigate?: boolean;
+  imgSize?: number;
+  textSize?: number;
 }
 
 const UserChip = (props: userChipProps) => {
@@ -22,7 +24,13 @@ const UserChip = (props: userChipProps) => {
   return (
     <View style={styles.container}>
       <Image
-        style={[styles.image, {borderColor: props.imgBorder}]}
+        style={[
+          styles.image,
+          {borderColor: props.imgBorder},
+          props.imgSize
+            ? {width: props.imgSize, height: props.imgSize}
+            : styles.imageSize,
+        ]}
         source={{uri: props.photo}}
       />
       <Text
@@ -30,6 +38,7 @@ const UserChip = (props: userChipProps) => {
           styles.text,
           {color: props.textColor},
           props.hasUnderline && {textDecorationLine: 'underline'},
+          props.textSize ? {fontSize: props.textSize} : styles.textSize,
         ]}>
         {props.name}
       </Text>
@@ -46,17 +55,20 @@ const styles = StyleSheet.create({
     columnGap: 6,
   },
   image: {
-    width: 32,
-    height: 32,
     borderWidth: 1,
     borderRadius: 28,
     objectFit: 'cover',
   },
+  imageSize: {
+    width: 32,
+    height: 32,
+  },
   text: {
     fontWeight: '500',
-    fontSize: 17,
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
-
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+  },
+  textSize: {
+    fontSize: 19,
   },
 });
 

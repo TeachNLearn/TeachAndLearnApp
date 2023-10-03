@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   container: {
     width: screenWidth,
     height: screenHeight,
-    backgroundColor: '#C6E0F6',
+    backgroundColor: '#fff',
     flex:1
   },
   introImg: {

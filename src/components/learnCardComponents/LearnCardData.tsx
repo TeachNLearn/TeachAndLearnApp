@@ -5,20 +5,10 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {learnCardProps} from '../../types/learnCardType';
 import {getReadableDate, getReadableTime} from '../../utils/helperFunctions';
-import { FONT_FAMILY } from '../../utils/globalContants';
-
-// interface LearnCardProps {
-//   card: {
-//     subject: string;
-//     topic: string;
-//     createdBy: {
-//       photo: string;
-//       userName: string;
-//     };
-//     interestedStudents: string[]; // You can replace this with the actual type
-//     dueDate: string;
-//   };
-// }
+import {FONT_FAMILY} from '../../utils/globalContants';
+import UserChip from '../general-components/UserChip';
+import Tagbox from './Tagbox';
+import CardTags from '../general-components/CardTags';
 
 const LearnCardData: React.FC<learnCardProps> = props => {
   type RootStackParamList = {
@@ -36,48 +26,61 @@ const LearnCardData: React.FC<learnCardProps> = props => {
   };
 
   return (
-    <Pressable onPress={learnCardOverview}>
+    <Pressable style={styles.container} onPress={learnCardOverview}>
       <View style={styles.learnCard}>
         <Text
           style={{
             color: '#ef4565',
-            marginBottom: 10,
-            textTransform: 'capitalize',
-            fontSize: 16,
-            fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+            fontSize: 19,
+            lineHeight: 27,
+            fontWeight: '600',
+            fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
           }}>
           {props.subject}
         </Text>
         <Text
           style={{
+            fontWeight: '600',
+            fontSize: 23,
             color: '#d8eefe',
+            fontStyle: 'normal',
+            lineHeight: 28,
             fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
-            fontSize: 19,
-            // fontWeight: '700',
-            lineHeight: 25,
           }}>
           {props.topic.length > 47
             ? `${props.topic.substring(0, 47)}...`
             : props.topic}
         </Text>
-        <View style={{flexDirection: 'row', marginTop: 17, marginBottom: 15}}>
-          <Image
-            source={{uri: props.createdBy.photo}}
-            width={20}
-            height={20}
-            style={{borderRadius: 20}}
-          />
-          <Text style={{color: '#d8eefe',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
-            {'  '}
-            {props.createdBy.userName}
-          </Text>
-        </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <UserChip
+          imgBorder="#fff"
+          name={props.createdBy.userName}
+          photo={props.createdBy.photo}
+          textColor="#fff"
+          userId={props.createdBy._id}
+          shouldntNavigate={true}
+        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              columnGap: 4,
+            }}>
             <SvgImgInterested />
-            <Text style={{color: '#d8eefe',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
-              {'  '}
-              {props?.isTeachCard ? props.studentsEnrolled.length :props.interestedStudents.length} Interested
+            <Text
+              style={{
+                fontWeight: '500',
+                fontSize: 17,
+                color: '#ffffff',
+                fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+                margin: 0,
+              }}>
+              {props.interestedStudents.length} Interested
             </Text>
           </View>
           {
@@ -94,7 +97,13 @@ const LearnCardData: React.FC<learnCardProps> = props => {
             :
             <>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{color: '#FFF',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
+            <Text
+              style={{
+                fontWeight: '500',
+                fontSize: 17,
+                color: '#ffffff',
+                fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+              }}>
               Due - {getReadableDate(props.dueDate)}
             </Text>
           </View>
@@ -102,39 +111,26 @@ const LearnCardData: React.FC<learnCardProps> = props => {
           }
         
         </View>
-
-        {
-          props?.isTeachCard ?
-          <>
-             <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:10,marginLeft:5,flexWrap:'wrap'}}>
-          {props?.tags.map((e, i) => {
-            return (
-              <>
-                <View key={i} style={styles.tag}>
-                  <Text style={styles.tagText}>{e}</Text>
-                </View>
-              </>
-            );
-          })}
-        </View>
-          </>
-          :
-          null
-        }
+        <CardTags tags={props.tags} />
       </View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  learnCard: {
-    width: 330,
-    height: 200,
+  container: {
     backgroundColor: '#094067',
-    borderRadius: 16,
-    elevation: 7,
-    marginTop: 20,
-    padding: 30,
+    borderRadius: 8,
+    cursor: 'pointer',
+    width: '100%',
+    marginTop:20
+  },
+  learnCard: {
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    padding: 20,
+    rowGap: 14,
   },
   tag: {
     backgroundColor: '#3da9fc',

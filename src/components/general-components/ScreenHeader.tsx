@@ -1,16 +1,20 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY } from '../../utils/globalContants';
+import {
+  COLORS_ELEMENTS,
+  COLORS_ILLUSTRATION,
+  FONT_FAMILY,
+} from '../../utils/globalContants';
 
 interface LearnCardHeaderProps {
   title: string;
   onBackPress: () => void;
-  onMenuPress: () => void;
+  onMenuPress?: () => void;
   ShowMenuIcon: boolean;
 }
 
-const CardHeader: React.FC<LearnCardHeaderProps> = ({
+const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
   title,
   onBackPress,
   onMenuPress,
@@ -18,7 +22,19 @@ const CardHeader: React.FC<LearnCardHeaderProps> = ({
 }) => {
   return (
     <View style={styles.learncardHeadContainer}>
-      <View style={[styles.iconCont,{borderWidth:1,width:35,height:35,borderRadius:17,alignItems:'center',justifyContent:'center',borderColor:COLORS_ELEMENTS.grey}]}>
+      <View
+        style={[
+          styles.iconCont,
+          {
+            borderWidth: 1,
+            width: 35,
+            height: 35,
+            borderRadius: 17,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderColor: COLORS_ELEMENTS.grey,
+          },
+        ]}>
         <Ionicon
           name="arrow-back-sharp"
           size={20}
@@ -50,10 +66,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 18,
-    height:60,
-    justifyContent:'space-between',
+    height: 60,
+    justifyContent: 'space-between',
     backgroundColor: '#FFF',
     elevation: 12,
+    zIndex: 999,
   },
   headTxt: {
     flex: 1,
@@ -77,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardHeader;
+export default ScreenHeader;

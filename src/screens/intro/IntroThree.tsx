@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop:10,
     // width: 350,
-
+    width:'90%',
     alignSelf:'center',
     alignItems:'center',
     justifyContent:'center',

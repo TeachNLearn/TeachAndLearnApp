@@ -6,8 +6,15 @@ import {teachingCardProps} from '../../types/teachingCardType';
 import {getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
 import {Text, View, StyleSheet, ScrollView, RefreshControl} from 'react-native';
-import CardHeader from '../../components/general-components/CardHeader';
-import TeachCardData from '../../components/teachCardComponent/TeachCard';
+import SvgComponentInterested from '../../components/svgComponents/InterestedSvg';
+import Tagbox from '../../components/learnCardComponents/Tagbox';
+import CardID from '../../components/learnCardComponents/CardID';
+import InterestedButton from '../../components/learnCardComponents/InterestedButton';
+import UserChip from '../../components/general-components/UserChip';
+import CardDescription from '../../components/learnCardComponents/CardDescription';
+import DueDate from '../../components/learnCardComponents/DueDate';
+import CardTopic from '../../components/learnCardComponents/CardTopic';
+import ScreenHeader from '../../components/general-components/ScreenHeader';
 import { FONT_FAMILY } from '../../utils/globalContants';
 import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 
@@ -96,7 +103,7 @@ const LearnCardOverview = (props: any) => {
     learnCard && (
       <View style={{flex: 1}}>
         {/* Header */}
-        <CardHeader
+        <ScreenHeader
         title="Learn Cards Overview"
         ShowMenuIcon={false}
         onBackPress={() => {props.navigation.goBack()}}
@@ -105,11 +112,12 @@ const LearnCardOverview = (props: any) => {
        <View style={{padding:20}}>
        <Text style={{fontSize:19,color:'black',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Teach cards on this learn card</Text>
         <ScrollView 
+        showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         style={styles.scrollContainer}>
-          {/* <View style={styles.OverviewContainer}>
+          <View style={styles.OverviewContainer}>
             <View
               style={{
                 margin: 30,
@@ -167,7 +175,7 @@ const LearnCardOverview = (props: any) => {
                 <CardID id={learnCard._id} />
               </View>
             </View>
-          </View> */}
+          </View>
 
           {/* have made new component of teach cards */}
           {
@@ -177,7 +185,7 @@ const LearnCardOverview = (props: any) => {
                 <LearnCardData {...e} key={i} isTeachCard={true}/>
               )
             })
-          }
+          } 
         </ScrollView>
        </View>
       </View>

@@ -1,10 +1,16 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { View, Image, TouchableWithoutFeedback, ImageSourcePropType, ViewStyle } from 'react-native';
+import {StyleSheet} from 'react-native';
+import {
+  View,
+  Image,
+  TouchableWithoutFeedback,
+  ImageSourcePropType,
+  ViewStyle,
+} from 'react-native';
 
 interface ImagePickerButtonProps {
   handleImagePicker: (source: 'gallery' | 'camera') => void;
-  profileImage: { uri?: string };
+  profileImage: string;
   defaultImageSource: ImageSourcePropType;
   style?: ViewStyle; // Optional style prop
 }
@@ -19,7 +25,7 @@ const ImagePickerButton: React.FC<ImagePickerButtonProps> = ({
     <TouchableWithoutFeedback onPress={() => handleImagePicker('gallery')}>
       <View style={style}>
         <Image
-          source={profileImage.uri ? { uri: profileImage.uri } : defaultImageSource}
+          source={{uri: profileImage}}
           style={styles.UserImg}
           resizeMode="contain"
         />
@@ -30,9 +36,10 @@ const ImagePickerButton: React.FC<ImagePickerButtonProps> = ({
 
 export default ImagePickerButton;
 
-const styles =  StyleSheet.create({
-    UserImg: {
-        borderRadius:50 ,
-    }
-})
- 
+const styles = StyleSheet.create({
+  UserImg: {
+    borderRadius: 50,
+    width: 80,
+    height: 80,
+  },
+});
