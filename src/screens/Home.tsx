@@ -11,6 +11,8 @@ import SearchComponent from '../components/homeScreenComponent/SearchComponent';
 import Carausal from '../components/carausal/Carausal';
 import { VIDEOS_FOR_CARAUSAL } from '../helpers/data';
 import { FONT_FAMILY, SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils/globalContants';
+import PreLogin from './extraScreens/PreLogin';
+import CardScreen from './extraScreens/CardScreen';
 
 
 interface RecommendedCourse {
@@ -210,6 +212,8 @@ const Home = () => {
 /* <TopBarClasses/> */
 
     // <Review/>
+    // <PreLogin/>
+    // <CardScreen/>
 
   );
 };

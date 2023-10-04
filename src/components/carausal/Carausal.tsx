@@ -26,15 +26,17 @@ const Carausal = (props: any) => {
 
   const rendeItems: any = ({item}:any) => {
     return (
-      <Animated.View style={{width:props?.imageContainerWidth , height:props?.imageContainerHeight,marginLeft:5}}>
+      <Animated.View style={{width:props?.imageContainerWidth , height:props?.imageContainerHeight-90,marginLeft:5}}>
          {/* <View>
             <Image resizeMode='cover' style={props.imageStyle} source={item.image}/>
          </View> */}
-          <View style={{height:props?.imageContainerHeight-70,borderRadius:10,overflow:'hidden'}}>
+          <View style={{height:props?.imageContainerHeight-90,borderRadius:10,overflow:'hidden'}}>
            <YoutubePlayer
            height={300}
-           play={playing}
+           play={false}
            videoId={item.videoId}
+           mediaplaybackrequiresuseraction={true}
+           forceAndroidAutoplay={false}
            webViewStyle={{
             borderRadius:'1rem',
             // marginTop:10,
@@ -60,8 +62,8 @@ const Carausal = (props: any) => {
           setCurrentIndex((x / props?.movingLinesWidthForIndex).toFixed(0));
         }}
       />
-      <Animated.View
-      style={{flexDirection:'row',width:SCREEN_WIDTH,justifyContent:'center',alignItems:'center',position:'absolute',bottom:20}}>
+      {/* <Animated.View
+      style={{flexDirection:'row',width:SCREEN_WIDTH,justifyContent:'center',alignItems:'center',position:'absolute',bottom:60}}>
         {props.data?.map((e, i) => {
           return (
             <View
@@ -76,7 +78,7 @@ const Carausal = (props: any) => {
               }}/>
           );
         })}
-      </Animated.View>
+      </Animated.View> */}
     </View>
   );
 };

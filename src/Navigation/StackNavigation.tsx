@@ -10,6 +10,11 @@ import TabNavigation from './TabNavigation';
 
 import Login from '../screens/auth/Login';
 import Signup from '../screens/auth/Signup';
+import PreLogin from '../screens/extraScreens/PreLogin';
+import CardScreen from '../screens/extraScreens/CardScreen';
+import Community from '../screens/extraScreens/Community';
+import Skeleton from '../screens/extraScreens/skeletonUi/Skeleton';
+import See from '../screens/extraScreens/skeletonUi/See';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
 
 
@@ -57,7 +62,7 @@ const StackNavigation = () => {
 
 
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="IntroOne" component={IntroOne} />
+      <Stack.Screen name="IntroOne" component={CardScreen} />
       <Stack.Screen name="Hometab" component={TabNavigation} />
       <Stack.Screen name="IntroTwo" component={IntroTwo} />
       <Stack.Screen name="IntroThree" component={IntroThree} />
