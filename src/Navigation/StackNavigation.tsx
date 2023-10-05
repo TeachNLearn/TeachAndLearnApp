@@ -62,7 +62,7 @@ const StackNavigation = () => {
 
 
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="IntroOne" component={CardScreen} />
+      <Stack.Screen name="IntroOne" component={Community} />
       <Stack.Screen name="Hometab" component={TabNavigation} />
       <Stack.Screen name="IntroTwo" component={IntroTwo} />
       <Stack.Screen name="IntroThree" component={IntroThree} />

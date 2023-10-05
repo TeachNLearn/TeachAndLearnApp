@@ -3,13 +3,14 @@ import React from 'react'
 import { FONT_FAMILY } from '../../../utils/globalContants'
 import Icon from 'react-native-vector-icons/Entypo'
 import Icon1 from 'react-native-vector-icons/AntDesign'
+import SkeletonLoaderHorizontalWithReanimatedGradient from '../skeletonUi/Skeleton'
 
 const Groups = () => {
     const user = [1,2,3,4,5,6,7,8,9,0]
     // const i =0
     return (
       <ScrollView>  
-         <TouchableOpacity style={{borderWidth:1,padding:4,borderRadius:5,flexDirection:'row',alignItems:'center',marginTop:10}}>
+         <TouchableOpacity style={{backgroundColor:'white',elevation:1.5,padding:4,borderRadius:5,flexDirection:'row',alignItems:'center',marginTop:10}}>
                 <View style={{borderWidth:1,width:40,height:40,borderRadius:20,alignItems:'center',justifyContent:'center'}}>
                     <Icon1 name='addusergroup' size={20} color={'#222222'}/>
                 </View>
@@ -22,9 +23,14 @@ const Groups = () => {
           user?.map((e,i)=>{
               return (
                   <>
-                       <TouchableOpacity style={{borderWidth:1,padding:4,borderRadius:5,flexDirection:'row',alignItems:'center',marginTop:10}}>
-                       <View style={{borderWidth:1,width:40,height:40,borderRadius:20}}/>
-                       <Text style={{textAlign:'center',color:'#222222',marginLeft:10,fontSize:15,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Group {i+1}</Text>
+                       <TouchableOpacity style={{backgroundColor:'white',elevation:1.5,padding:4,borderRadius:5,flexDirection:'row',alignItems:'center',marginTop:10}}>
+                       <View style={styles.backgroundGradient}/>
+                       {/* <View style={{borderWidth:1,width:40,height:40,borderRadius:20}}/> */}
+                       {/* <Text style={{textAlign:'center',color:'#222222',marginLeft:10,fontSize:15,fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Group {i+1}</Text> */}
+                     <View style={{flexDirection:'column',justifyContent:'center',bottom:5}}>
+                        <SkeletonLoaderHorizontalWithReanimatedGradient height={10} width={150}/>
+                        <SkeletonLoaderHorizontalWithReanimatedGradient height={10} width={100}/>
+                     </View>
                        </TouchableOpacity>
                   </>
               )
@@ -36,4 +42,11 @@ const Groups = () => {
 
 export default Groups
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    backgroundGradient: {
+        backgroundColor:'rgba(0,0,0,0.12)',
+        height:40,
+        width:40,
+        borderRadius:20
+      },
+})

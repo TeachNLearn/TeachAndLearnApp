@@ -12,6 +12,7 @@ import Animated, {
   withSpring,
   Extrapolate,
 } from 'react-native-reanimated';
+import { COLORS_ILLUSTRATION } from '../../../utils/globalContants';
 
 const SkeletonLoaderHorizontalWithReanimatedGradient = ({
   width,
@@ -39,7 +40,7 @@ const SkeletonLoaderHorizontalWithReanimatedGradient = ({
   });
 
   return (
-    <View style={{height:height,width:width,marginTop:10,paddingHorizontal:20}}>
+    <View style={{height:height,width:width,marginTop:10,paddingHorizontal:20,borderRadius:borderRadius}}>
     <View
       // colors={['#FF5733', '#FFC300', '#FF5733']}
       style={styles.backgroundGradient}
