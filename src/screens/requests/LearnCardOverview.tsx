@@ -110,7 +110,6 @@ const LearnCardOverview = (props: any) => {
         onMenuPress={() => {}}
       />
        <View style={{padding:20}}>
-       <Text style={{fontSize:19,color:'black',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Teach cards on this learn card</Text>
         <ScrollView 
         showsVerticalScrollIndicator={false}
           refreshControl={
@@ -177,6 +176,9 @@ const LearnCardOverview = (props: any) => {
             </View>
           </View>
 
+          <Text style={{fontSize:19,color:'black',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,marginTop:10}}>Teach cards on this learn card</Text>
+
+
           {/* have made new component of teach cards */}
           {
             teachCards?.map((e,i)=>{
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
 
   OverviewContainer: {
     // flex:1 ,
-    backgroundColor: '#FAFAFC',
+    // backgroundColor: '#FAFAFC',
 
     // padding:20,
     // height:"200%"

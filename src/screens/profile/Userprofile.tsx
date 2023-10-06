@@ -210,7 +210,8 @@ const Userprofile: React.FC = (props: any) => {
         title="My Profile"
       />
       <View style={styles.userProfileParentContainer}>
-        <ImagePickerButton
+          <View style={{width:'100%'}}>
+          <ImagePickerButton
           handleImagePicker={handleImagePicker}
           profileImage={localUser.photo}
           defaultImageSource={defaultImageSource}
@@ -227,6 +228,7 @@ const Userprofile: React.FC = (props: any) => {
               <Text style={{color:'rgb(180, 35, 24)',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>Edit{' '}</Text>
               {editIcon}
         </TouchableOpacity>
+          </View>
         {/* </View> */}
         <UserNameAndTagline
           name={localUser.name}

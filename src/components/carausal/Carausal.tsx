@@ -33,6 +33,7 @@ const Carausal = (props: any) => {
           <View style={{height:props?.imageContainerHeight-90,borderRadius:10,overflow:'hidden'}}>
            <YoutubePlayer
            height={300}
+           
            play={false}
            videoId={item.videoId}
            mediaplaybackrequiresuseraction={true}

@@ -79,7 +79,7 @@ const CompletedClasses = () => {
             flex: 1,
             alignItems: 'center',
             borderColor: '#000',
-            borderWidth: 1,
+            // borderWidth: 1,
           }}>
           <Loader />
         </View>

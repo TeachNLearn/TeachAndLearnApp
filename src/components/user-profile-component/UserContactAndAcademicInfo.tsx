@@ -120,7 +120,7 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {showContactInfo && (
-          <View style={{borderWidth: 1, borderRadius: 20, borderColor: 'grey'}}>
+          <View style={{ borderRadius: 20, borderColor: 'grey'}}>
             <View style={styles.sectionContainer}>
               <Text style={styles.textStyle}>Contact Information</Text>
               {showEdit && editIcon && navigation && (
@@ -153,7 +153,6 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
         {showAcademicInfo && (
           <View
             style={{
-              borderWidth: 1,
               borderRadius: 20,
               borderColor: 'grey',
               marginTop: 5,

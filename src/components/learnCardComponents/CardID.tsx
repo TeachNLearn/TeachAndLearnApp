@@ -18,8 +18,9 @@ const CardID = (props: cardIdProps) => {
     <TouchableOpacity
       style={{
         backgroundColor: '#094067',
-        paddingVertical: 8,
-        paddingHorizontal: 18,
+        // paddingVertical: 18,
+        // paddingHorizontal: 18,
+        padding:16,
         alignSelf: 'flex-start',
         justifyContent: 'center',
         flexDirection: 'row',
