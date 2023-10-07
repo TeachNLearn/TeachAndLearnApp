@@ -11,6 +11,8 @@ import ClassesSvg from '../components/svgComponents/ClassesSvg';
 import Forum from '../screens/forum/Forum';
 import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';
+import HomeScreen from '../screens/extraScreens/homeScreens/HomeScreen';
+import PreLogin from '../screens/extraScreens/PreLogin';
 
 
 
@@ -28,11 +30,11 @@ const TabNavigation: React.FC = () => (
       tabBarStyle: {
         backgroundColor: '#2D2B4E',
         position: 'absolute',
-        bottom: 10,
-        left: 20,
-        right: 20,
+        // bottom: 10,
+        // left: 20,
+        // right: 20,
         elevation: 0,
-        borderRadius: 40,
+        // borderRadius: 40,
         height: 60,
         borderTopColor:'#2D2B4E'
       },
@@ -40,7 +42,7 @@ const TabNavigation: React.FC = () => (
     }}>
     <Tab.Screen
       name="Home"
-      component={Home}
+      component={PreLogin}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (

@@ -8,15 +8,15 @@ const PreLogin = () => {
   return (
     <ScrollView style={{padding:20,flex:1}}>
       <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-      <Pressable style={styles.btn}>
+      <Pressable style={styles.btn1}>
         <Text style={styles.btnTxt}>Login</Text>
       </Pressable>
-      <Pressable style={styles.btn}>
+      <Pressable style={styles.btn2}>
         <Text style={styles.btnTxt}>Sign Up</Text>
       </Pressable>
       </View>
 
-      <View style={{borderWidth:1,height:300,padding:10,marginTop:15,borderRadius:10}}>
+      <View style={{height:300,padding:10,marginTop:15,borderRadius:5,backgroundColor:COLORS_ILLUSTRATION.secondary}}>
       <Text>
         Connect with Students from all across the globe 
       </Text>
@@ -35,7 +35,7 @@ const PreLogin = () => {
       </View>
 
       <View style={{marginTop:0,padding:20}}>
-        <Text style={{textAlign:'center'}}>Watch these videos to know why and how to learn teach and learn</Text>
+        <Text style={{textAlign:'center',fontSize:16,fontFamily:FONT_FAMILY.NUNITO_BOLD,color:COLORS_ELEMENTS.headline}}>Watch these videos to know why and how to learn teach and learn</Text>
       </View>
 
       <Pressable style={[styles.btn,{justifyContent:'center',alignItems:'center'}]}>
@@ -48,14 +48,21 @@ const PreLogin = () => {
 export default PreLogin
 
 const styles = StyleSheet.create({
-  btn:{
-    borderWidth:1,
+  btn1:{
+
     padding:15,
     paddingHorizontal:23,
-    borderRadius:10
+    borderRadius:5,
+    backgroundColor:COLORS_ILLUSTRATION.tertiary
+  },
+  btn2:{
+    padding:15,
+    paddingHorizontal:23,
+    borderRadius:5,
+    backgroundColor:COLORS_ILLUSTRATION.secondary
   },
   btnTxt:{
     fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,
-    color:'#222222'
+    color:COLORS_ELEMENTS.buttonTxt
   }
 })

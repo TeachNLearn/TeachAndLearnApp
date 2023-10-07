@@ -40,9 +40,9 @@ const styles = StyleSheet.create({
     searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: 5,
     backgroundColor: 'rgba(255, 255, 255, 0.10)',
-    margin: 20,
+    margin: 23,
 
     width: '70%',
   },
@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFF',
-    borderRadius: 8,
-    width: 50,
-    height: 50,
+    borderRadius: 5,
+    width: 47,
+    height: 47,
   },
 })
 

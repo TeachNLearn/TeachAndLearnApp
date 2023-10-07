@@ -30,8 +30,9 @@ const HomeCardsHeader : React.FC<SectionHeaderProps> = ({title , onViewAllPress,
 const styles = StyleSheet.create({
      txtOneParentContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal:5,
     marginTop: 20,
 
 
