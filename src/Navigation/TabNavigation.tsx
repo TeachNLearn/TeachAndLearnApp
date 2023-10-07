@@ -13,6 +13,8 @@ import LearnCards from '../screens/requests/LearnCards';
 import Classes from '../screens/classroom/Classes';
 import HomeScreen from '../screens/extraScreens/homeScreens/HomeScreen';
 import PreLogin from '../screens/extraScreens/PreLogin';
+import Community from '../screens/extraScreens/Community';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 
@@ -42,7 +44,7 @@ const TabNavigation: React.FC = () => (
     }}>
     <Tab.Screen
       name="Home"
-      component={PreLogin}
+      component={HomeScreen}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size}) => (
@@ -96,6 +98,17 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
+
+    {/* <Tab.Screen
+      name="Community"
+      component={Community}
+      options={{
+        headerShown: false,
+        tabBarIcon: ({color, size}) => (
+          <Icon name='account-group' size={}  />
+        ),
+      }}
+    /> */}
   </Tab.Navigator>
 );
 

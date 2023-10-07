@@ -17,6 +17,8 @@ import {
 } from '../../../utils/globalContants';
 import Icon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native';
+import UserMode from '../../../components/user-profile-component/UserMode';
+import UserModeForHome from '../../../components/user-profile-component/UserModeForHome';
 
 interface RecommendedCourse {
   subject: string;
@@ -77,6 +79,18 @@ const HomeScreen = () => {
   const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>(
     [],
   );
+
+  const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
+  const [currentMode, setCurrentMode] = useState<string>('')
+  const toggleMode = (mode:boolean) => {
+    console.log(mode)
+    if(mode){
+      setCurrentMode('teach')
+    }else{
+      setCurrentMode('learn')
+    }
+    setIsLearnMode(!isLearnMode);
+  };
   const {token} = useContext(AuthContext);
 
   const handleSearch = () => {
@@ -143,7 +157,17 @@ const HomeScreen = () => {
   return (
     <ScrollView style={styles.HomeParentContainer}>
       <View style={styles.HomeTxtContainer}>
+       
         <Text style={styles.txtOne}>Hello Rahul 👋</Text>
+        <View>
+        <Text style={styles.txtOne}>currently in {currentMode} mode switch to toggle mode</Text>
+        <UserModeForHome
+          isLearnMode={isLearnMode}
+          toggleMode={toggleMode}
+          learnModeText="Learn Mode"
+          teachModeText="Teach Mode"
+        />
+        </View>
         <Text style={styles.txtTwo}>What do you want to learn today?</Text>
       </View>
       <SearchComponent
@@ -153,7 +177,7 @@ const HomeScreen = () => {
       />
 
       <View style={{paddingHorizontal: 25, paddingBottom: 20}}>
-        <Text style={styles.txtOne}>Create a learn card</Text>
+        <Text style={styles.txtOne}>Create a teach card</Text>
         <TouchableOpacity
           style={{
             height: 50,
@@ -327,6 +351,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFF',
     fontFamily: FONT_FAMILY.NUNITO_BOLD,
+    marginTop:20
   },
   SecondParentContainer: {
     flex: 1,

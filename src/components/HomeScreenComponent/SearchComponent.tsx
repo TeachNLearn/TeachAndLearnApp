@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     backgroundColor: 'rgba(255, 255, 255, 0.10)',
-    margin: 23,
+    // margin: 23,
+    marginLeft:23,
+    marginRight:23,
 
     width: '70%',
   },
