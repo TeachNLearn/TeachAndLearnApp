@@ -15,6 +15,8 @@ import CardScreen from '../screens/extraScreens/CardScreen';
 import Community from '../screens/extraScreens/Community';
 import Skeleton from '../screens/extraScreens/skeletonUi/Skeleton';
 import See from '../screens/extraScreens/skeletonUi/See';
+import UpcomingClasses from '../components/class-component/UpcomingClasses';
+import Review from '../components/review/Review';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
 
 
@@ -27,9 +29,12 @@ type RootStackParamList = {
   Hometab: undefined;
   Login: undefined;
   Signup: undefined;
-
-  LearnCardOverview:undefined ;
   
+  LearnCardOverview:undefined ;
+
+  Upcoming:undefined;
+  Review:undefined;
+  PreLogin:undefined;
 
 
 };
@@ -63,11 +68,15 @@ const StackNavigation = () => {
 
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="IntroOne" component={IntroOne} />
+      <Stack.Screen name="PreLogin" component={PreLogin}/>
       <Stack.Screen name="Hometab" component={TabNavigation} />
       <Stack.Screen name="IntroTwo" component={IntroTwo} />
       <Stack.Screen name="IntroThree" component={IntroThree} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="Upcoming" component={UpcomingClasses}/>
+      <Stack.Screen name="Review" component={Review}/>
+
     </Stack.Navigator>
 
   );

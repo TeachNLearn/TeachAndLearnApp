@@ -40,7 +40,7 @@ const SkeletonLoaderHorizontalWithReanimatedGradient = ({
   });
 
   return (
-    <View style={{height:height,width:width,marginTop:10,paddingHorizontal:20,borderRadius:borderRadius}}>
+    <View style={{height:height,width:width,marginTop:20,paddingHorizontal:20,borderRadius:borderRadius}}>
     <View
       // colors={['#FF5733', '#FFC300', '#FF5733']}
       style={styles.backgroundGradient}

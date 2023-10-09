@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native';
 import UserMode from '../../../components/user-profile-component/UserMode';
 import UserModeForHome from '../../../components/user-profile-component/UserModeForHome';
+import { Helper_Context } from '../../../store/helper_context';
 
 interface RecommendedCourse {
   subject: string;
@@ -68,7 +69,7 @@ interface PopularCourse {
   // Add more properties as needed
 }
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
   const [searchText, setSearchText] = useState('');
   const [RecommendedcourseData, setRecommendedcourseData] = useState<
     RecommendedCourse[]
@@ -79,19 +80,23 @@ const HomeScreen = () => {
   const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>(
     [],
   );
+  const {token} = useContext(AuthContext);
+  const {setRole,role,setLearn_mode,learn_mode} = useContext(Helper_Context)
 
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
-  const [currentMode, setCurrentMode] = useState<string>('')
   const toggleMode = (mode:boolean) => {
     console.log(mode)
     if(mode){
-      setCurrentMode('teach')
+      setRole('teach')
+      // setLearn_mode(false)
     }else{
-      setCurrentMode('learn')
+      setRole('learn')
+      // setLearn_mode(true)
     }
-    setIsLearnMode(!isLearnMode);
+    setLearn_mode(!learn_mode);
+
   };
-  const {token} = useContext(AuthContext);
+
 
   const handleSearch = () => {
     // Perform search action with searchText
@@ -160,15 +165,17 @@ const HomeScreen = () => {
        
         <Text style={styles.txtOne}>Hello Rahul 👋</Text>
         <View>
-        <Text style={styles.txtOne}>currently in {currentMode} mode switch to toggle mode</Text>
+        <Text style={styles.txtOne}>currently in {role} mode switch to toggle mode</Text>
         <UserModeForHome
-          isLearnMode={isLearnMode}
+          isLearnMode={learn_mode}
           toggleMode={toggleMode}
           learnModeText="Learn Mode"
           teachModeText="Teach Mode"
         />
         </View>
-        <Text style={styles.txtTwo}>What do you want to learn today?</Text>
+        {
+          role === 'learn' ?<Text style={styles.txtTwo}>What do you want to learn today?</Text>:<Text style={styles.txtTwo}>Teach something you know</Text>
+        }
       </View>
       <SearchComponent
         searchText={searchText}
@@ -177,7 +184,42 @@ const HomeScreen = () => {
       />
 
       <View style={{paddingHorizontal: 25, paddingBottom: 20}}>
-        <Text style={styles.txtOne}>Create a teach card</Text>
+        {
+          role === 'learn' ?(
+            <>
+              <Text style={styles.txtOne}>Create a learn card</Text>
+        <TouchableOpacity
+          style={{
+            height: 50,
+            width: '100%',
+            marginTop: 10,
+            borderRadius: 5,
+            backgroundColor: 'rgba(255, 255, 255, 0.10)',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 10,
+            paddingHorizontal: 5,
+          }}>
+          <Icon
+            name="plus"
+            size={25}
+            color={'white'}
+            style={{alignSelf: 'center'}}
+          />
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 17,
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+              color: 'white',
+            }}>
+            Create Learn Card
+          </Text>
+        </TouchableOpacity>
+            </>
+          ):(
+            <>
+              <Text style={styles.txtOne}>Create a teach card</Text>
         <TouchableOpacity
           style={{
             height: 50,
@@ -206,6 +248,9 @@ const HomeScreen = () => {
             Create Teach Card
           </Text>
         </TouchableOpacity>
+            </>
+          )
+        }
       </View>
 
       {/* second parent Container */}
@@ -224,7 +269,7 @@ const HomeScreen = () => {
               {RecommendedcourseData.length > 0 ? (
                 <>
                   {RecommendedcourseData.map((item, index) => (
-                    <RecommendedCards ReItem={item} key={index} />
+                    <RecommendedCards props={props} ReItem={item} key={index} />
                   ))}
                 </>
               ) : (
@@ -247,7 +292,7 @@ const HomeScreen = () => {
                 <>
                   {upcomingClassesData.length > 0 &&
                     upcomingClassesData.map((item, index) => (
-                      <UpcomingCards item={item} key={index} />
+                      <UpcomingCards props={props} item={item} key={index} />
                     ))}
                 </>
               ) : (
@@ -261,7 +306,10 @@ const HomeScreen = () => {
           </ScrollView>
 
           {/* Popular Request section  */}
-          <HomeCardsHeader
+         {
+          role === 'learn'?(
+            <>
+               <HomeCardsHeader
             title="Rising Requests"
             onViewAllPress={() => {}}
             icon={true}
@@ -288,6 +336,11 @@ const HomeScreen = () => {
               )}
             </ScrollView>
           </View>
+            </>
+          ):(
+            null
+          )
+         }
 
           {/* carausal */}
           <HomeCardsHeader

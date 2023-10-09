@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native';
 import SvgImg from '../svgComponents/InterestedSvg';
 import CoinSvg from '../svgComponents/CoinsSvg';
 import {getReadableDate, getReadableTime, getReadableTime2} from '../../utils/helperFunctions';
@@ -29,9 +29,9 @@ interface RecommendedCardsProps {
   ReItem: RecommendedCourse;
 }
 
-const RecommendedCards: React.FC<RecommendedCardsProps> = ({ ReItem }) => {
+const RecommendedCards: React.FC<RecommendedCardsProps> = ({ ReItem,props }) => {
   return (
-    <View style={styles.Learningcards}>
+    <TouchableOpacity onPress={()=>props.navigation.navigate('LearnCards')} style={styles.Learningcards}>
       <View style={styles.cardTxtContainer}>
         <Text style={styles.cardHead}>{ReItem.subject}</Text>
         <Text style={styles.cardDesc}>
@@ -68,7 +68,7 @@ const RecommendedCards: React.FC<RecommendedCardsProps> = ({ ReItem }) => {
           </View>
         ))}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

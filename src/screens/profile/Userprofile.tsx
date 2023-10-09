@@ -31,6 +31,7 @@ import {
 } from '../../utils/globalContants';
 import Loader from '../../components/general-components/Loader';
 import { AirbnbRating } from 'react-native-ratings';
+import { Helper_Context } from '../../store/helper_context';
 
 interface userProps {
   _id: string;
@@ -70,11 +71,11 @@ const Userprofile: React.FC = (props: any) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const authCtx = useContext(AuthContext);
+  const {setRole,role,setLearn_mode,learn_mode} = useContext(Helper_Context)
   const editIcon = <FontAwesome name="pen" size={15} color="#000" />;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(true);
   const defaultImageSource = require('../../assets/Images/userProfilePic.png');
-  const [currentMode, setCurrentMode] = useState<string>('')
   const [profileImage, setProfileImage] = useState<ImageInfo>({
     uri: defaultImageSource.uri,
     base64: '',
@@ -83,11 +84,14 @@ const Userprofile: React.FC = (props: any) => {
   const toggleMode = (mode:boolean) => {
     console.log(mode)
     if(mode){
-      setCurrentMode('teach')
+
+      setRole('teach')
+      // setLearn_mode(false)
     }else{
-      setCurrentMode('learn')
+      setRole('learn')
+      // setLearn_mode(true)
     }
-    setIsLearnMode(!isLearnMode);
+    setLearn_mode(!learn_mode);
   };
 
   const [isLogoutAlertVisible, setIsLogoutAlertVisible] =
@@ -235,7 +239,7 @@ const Userprofile: React.FC = (props: any) => {
           educationInfo={localUser.tagline}
         />
         <UserMode
-          isLearnMode={isLearnMode}
+          isLearnMode={learn_mode}
           toggleMode={toggleMode}
           learnModeText="Learn Mode"
           teachModeText="Teach Mode"

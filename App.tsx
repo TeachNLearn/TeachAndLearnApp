@@ -26,6 +26,7 @@ import EditContactInfo from './src/components/user-profile-component/user-menu-c
 import Toast from 'react-native-toast-message';
 import Splash from './src/components/splash/Splash';
 import EditUserProfile from './src/components/user-profile-component/user-menu-component/EditUserProfile';
+import { Helper_Context_Provider } from './src/store/helper_context';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -108,7 +109,9 @@ const NavigationScreens = () => {
 const App: React.FC = () => {
   return (
     <AuthContextProvider>
-      <NavigationScreens />
+      <Helper_Context_Provider>
+        <NavigationScreens />
+      </Helper_Context_Provider>
       <Toast/>
     </AuthContextProvider>
     

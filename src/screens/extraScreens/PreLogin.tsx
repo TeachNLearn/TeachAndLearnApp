@@ -9,17 +9,18 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import Animated from 'react-native-reanimated'
 
 
-const PreLogin = () => {
+const PreLogin = (props:any) => {
 
   const [youtubeStep, setYoutubeStep] = React.useState<number>(0)
 
   return (
-    <ScrollView contentContainerStyle={{padding:20}}>
+    <>
+      <ScrollView contentContainerStyle={{padding:20}}>
       <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-      <Pressable style={styles.btn1}>
+      <Pressable onPress ={()=>props.navigation.navigate('Login')} style={styles.btn1}>
         <Text style={styles.btnTxt}>Login</Text>
       </Pressable>
-      <Pressable style={styles.btn2}>
+      <Pressable onPress ={()=>props.navigation.navigate('Signup')} style={styles.btn2}>
         <Text style={styles.btnTxt}>Sign Up</Text>
       </Pressable>
       </View>
@@ -39,7 +40,12 @@ const PreLogin = () => {
       </Text>
       </View>
 
+      <View style={{marginTop:30,padding:20}}>
+        <Text style={{textAlign:'center',fontSize:16,fontFamily:FONT_FAMILY.NUNITO_BOLD,color:COLORS_ELEMENTS.headline}}>Watch these videos to know why and how to learn teach and learn</Text>
+      </View>
+
       <View style={{marginTop:15,flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+        
         {
           youtubeStep === 0 ?<Text>     </Text>:(
             <>
@@ -96,17 +102,15 @@ const PreLogin = () => {
       </Animated.View>
       
 
-      <View style={{marginTop:0,padding:20}}>
-        <Text style={{textAlign:'center',fontSize:16,fontFamily:FONT_FAMILY.NUNITO_BOLD,color:COLORS_ELEMENTS.headline}}>Watch these videos to know why and how to learn teach and learn</Text>
-      </View>
-
       
+      </ScrollView>
 
-      <Pressable style={[{justifyContent:'center',alignItems:'center',backgroundColor:COLORS_ILLUSTRATION.stroke,height:50,borderRadius:5,flexDirection:'row',gap:5}]}>
+    <Pressable style={[{justifyContent:'center',alignItems:'center',backgroundColor:COLORS_ILLUSTRATION.stroke,height:50,flexDirection:'row',gap:5,position:'absolute',width:'100%',bottom:0}]}>
         <Text style={[styles.btnTxt,{textAlign:'center'}]}>Check out our blog</Text>
         <Icon name='arrow-up-right' size={18}  color={'#fff'}/>
       </Pressable>
-    </ScrollView>
+    </>
+    
   )
 }
 

@@ -92,13 +92,15 @@ const styles = StyleSheet.create({
   },
 
   LearnModeTextActive: {
-    color: '#C2B9F9',
+    // color: '#C2B9F9',
+    color:'grey',
     fontSize: 16,
     fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
   },
 
   TeachModeTextActive: {
-    color: '#C2B9F9',
+    // color: '#C2B9F9',
+    color:'grey',
     fontSize: 16,
     fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
 

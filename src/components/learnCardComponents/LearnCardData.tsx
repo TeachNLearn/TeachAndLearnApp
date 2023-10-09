@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     cursor: 'pointer',
     width: '100%',
-    marginTop:20
+    marginTop:20,
+    paddingVertical:20,
   },
   learnCard: {
     width: '100%',

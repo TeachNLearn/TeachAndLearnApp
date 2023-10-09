@@ -56,7 +56,9 @@ const IntroTwo: React.FC = () => {
         </View>
     {/* button container */}
         <View style={styles.btnContainer}>
-          <Text style={styles.btntxt}>Skip</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('PreLogin')}>
+            <Text style={styles.btntxt}>Skip</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.btnTwo}
             onPress={() => navigation.navigate('IntroThree')}>

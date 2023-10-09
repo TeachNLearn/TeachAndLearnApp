@@ -20,6 +20,7 @@ import Ionican from 'react-native-vector-icons/Ionicons';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 import Loader from '../../components/general-components/Loader';
+import CardScreen from '../extraScreens/CardScreen';
 
 type RootStackParamList = {
   Forum: undefined;
@@ -60,7 +61,7 @@ const LearnCards: React.FC<LearnCardsProps> = props => {
       })
       .then(({data}) => {
         const learnCardData = data.data.data;
-        console.log(learnCardData);
+        console.log("learn_cards_are_empty",learnCardData);
         checkMoreData(learnCardData, sethasMoreData);
         setLearnCards(prev => [...prev, ...learnCardData]);
         setIsLoading(false);
@@ -103,7 +104,8 @@ const LearnCards: React.FC<LearnCardsProps> = props => {
   return (
     <View style={styles.learncardParentConainer}>
       <ScreenHeader
-        title="Learn Cards"
+        // title="Learn Cards"
+        title="Cards"
         onBackPress={handleBackPress}
         ShowMenuIcon={false}
       />
@@ -121,21 +123,16 @@ const LearnCards: React.FC<LearnCardsProps> = props => {
           </View>
         ) : (
           <ScrollView
-            style={{
-              backgroundColor: '#fff',
-              marginHorizontal: 0.04 * SCREEN_WIDTH,
-              marginTop: 40
-              // borderWidth: 1,
-              // borderColor: 'green',
-              // width: '100%',
-            }}
             contentContainerStyle={styles.learnCardContainer}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }>
-            {learnCards.map((card, index) => (
+            showsVerticalScrollIndicator={false}
+            // refreshControl={
+            //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            // }
+            >
+            {/* {learnCards.map((card, index) => (
               <LearnCardData {...card} key={index} isTeachCard={false} />
-            ))}
+              ))} */}
+              <CardScreen learnCards={learnCards}/>
           </ScrollView>
         )}
       </View>
@@ -156,11 +153,15 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   learnCardContainer: {
-    justifyContent: 'center',
+    // justifyContent: 'center',
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'center',
+    paddingHorizontal:10,
     backgroundColor: '#FAFAFC',
-    marginBottom: 240,
+    // marginBottom: 240,
+    marginTop:20,
+    flex:.9,
+    
   },
   activityIndicatorContainer: {
     flex: 1,

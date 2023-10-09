@@ -72,6 +72,7 @@ const AllClasses = () => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
+
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.container}>
         {isLoading ? (
@@ -94,7 +95,8 @@ const AllClasses = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // paddingBottom: 120,   
+    // paddingBottom: 120,  
+    paddingHorizontal:20 
   },
 });
 

@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
 import IconS from 'react-native-vector-icons/FontAwesome5';
 import {getReadableDate, getReadableTime, getReadableTime2} from '../../utils/helperFunctions';
 interface UpcomingCardsProps {
-  item: PopularCourse; // Assuming this component receives a 'PopularCourse' as a prop
+  item: PopularCourse; // Assuming this component receives a 'PopularCourse' as a prop,
+  props:any
 }
 
 interface PopularCourse {
@@ -23,9 +24,9 @@ interface PopularCourse {
   tags: string[];
 }
 
-const UpcomingCards: React.FC<UpcomingCardsProps> = ({ item }) => {
+const UpcomingCards: React.FC<UpcomingCardsProps> = ({ item,props }) => {
   return (
-    <View style={styles.Upcomingcards}>
+    <TouchableOpacity onPress={()=>props.navigation.navigate('Upcoming')} style={styles.Upcomingcards}>
       <View style={styles.cardTxtContainer}>
         <View
           style={{
@@ -52,7 +53,7 @@ const UpcomingCards: React.FC<UpcomingCardsProps> = ({ item }) => {
         </Text>
         <Text style={styles.UpcomingCardTime}>{getReadableDate(item.date)}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

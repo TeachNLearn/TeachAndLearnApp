@@ -92,7 +92,7 @@ const IntroThree: React.FC = () => {
       <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.btnTwo}
-            onPress={() => navigation.navigate('Signup')}>
+            onPress={() => navigation.navigate('PreLogin')}>
             <Text style={styles.btntxtTwo}>Sign Up</Text>
           </TouchableOpacity>
       </View>

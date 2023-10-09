@@ -75,7 +75,7 @@ const IntroOne: React.FC = () => {
          <View style={styles.btnContainer}>
           <Text
             style={styles.btntxt}
-            onPress={() => navigation.navigate('Signup')}>
+            onPress={() => navigation.navigate('PreLogin')}>
             Skip
           </Text>
           <TouchableOpacity
