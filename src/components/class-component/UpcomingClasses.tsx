@@ -3,11 +3,12 @@ import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import {teachingCardProps} from '../../types/teachingCardType';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
-import {DATA_LIMIT} from '../../utils/globalContants';
+import {DATA_LIMIT, FONT_FAMILY} from '../../utils/globalContants';
 import {AuthContext} from '../../store/auth-context';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import ClassGrid from './ClassGrid';
 import Loader from '../general-components/Loader';
+import SkeletonLoder from '../general-components/SkeletonLoder';
 
 const UpcomingClasses = () => {
   const [teachCards, setTeachCards] = useState<Array<teachingCardProps>>([]);
@@ -37,13 +38,17 @@ const UpcomingClasses = () => {
         console.log(classes);
         checkMoreData(classes, sethasMoreData);
         setTeachCards(prev => [...prev, ...classes]);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
         setLoaderLoading(false);
         setUpcomingClassSet(prev => prev + 1);
       })
       .catch(data => {
         console.log(data);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
         setLoaderLoading(false);
       });
   }
@@ -67,21 +72,23 @@ const UpcomingClasses = () => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-      style={{flex: 1}}>
+      style={{flex: 1,padding:20}}>
       {isLoading ? (
         <View
           style={{
             flex: 1,
-            alignItems: 'center',
+            // alignItems: 'center',
             borderColor: '#000',
+            // padding:20
             // borderWidth: 1,
           }}>
-          <Loader />
+          {/* <Loader /> */}
+          <SkeletonLoder/>
         </View>
       ) : teachCards.length != 0 ? (
         <ClassGrid teachCards={teachCards} elemType="upcoming" />
       ) : (
-        <Text>No Upcoming Classes</Text>
+        <Text style={{textAlign:'center',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,fontSize:18,color:'#222'}}>No Upcoming Classes</Text>
       )}
     </ScrollView>
   );

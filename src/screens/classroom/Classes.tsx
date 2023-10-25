@@ -18,6 +18,8 @@ const Classes = (props: any) => {
   const [element, setElement] = useState(<AllClasses />);
 
   useEffect(() => {
+    // setActiveLink('all classes')
+    // if(props?.route?.params?.barTo === 2?setActiveLink('upcoming'):null)
     if (activeLink == 'all classes') {
       setElement(<AllClasses />);
     } else if (activeLink == 'upcoming') {
@@ -30,8 +32,6 @@ const Classes = (props: any) => {
   const navigationHandler = (navigateTo: string) => {
     setActiveLink(navigateTo);
   };
-
-  const labels = ['all classes', 'upcoming', 'completed'];
 
   return (
     <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>

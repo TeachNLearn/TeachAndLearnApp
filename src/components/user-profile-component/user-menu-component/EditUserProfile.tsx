@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View , StyleSheet , Text,  ActivityIndicator} from 'react-native';
 import InputHolder from '../../inputComponents/inputHolder'; // Make sure the import path is correct
 import Button from '../../general-components/button' ;
+import ScreenHeader from '../../general-components/ScreenHeader';
 interface FormData {
   image: string;
   tagline:String;
@@ -10,7 +11,7 @@ interface FormData {
 
 interface MyFormProps {}
 
-const EditUserProfile: React.FC<MyFormProps> = () => {
+const EditUserProfile: React.FC<MyFormProps> = (props) => {
   const [formData, setFormData] = useState<FormData>({
     image: '',
     tagline: '',
@@ -32,9 +33,13 @@ const EditUserProfile: React.FC<MyFormProps> = () => {
   return (
     <View style={{width:"100%" , height:'100%', backgroundColor:'#FFF'}}>
 
-    
+    <ScreenHeader
+    title='Edit Profile'
+    onBackPress={()=>{props.navigation.goBack()}}
+    />
     <View style={styles.container}>
       {/* Use InputHolder component for username input */}
+
       <Text style={{marginTop:20 , marginBottom:20 ,}}>Change Image</Text>
       <InputHolder
         value={formData.image}

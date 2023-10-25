@@ -124,9 +124,9 @@ const ClassOverview = ({route}: any) => {
                 rowGap: 6,
               }}>
               <UserChip
-                name={teachCard.createdBy.name}
-                photo={teachCard.createdBy.photo}
-                userId={teachCard.createdBy._id}
+                name={teachCard.createdBy === null ?'':teachCard.createdBy.name}
+                photo={teachCard.createdBy  === null ?'':teachCard.createdBy.photo}
+                userId={teachCard.createdBy === null ?'':teachCard.createdBy._id}
                 imgBorder="black"
                 textColor="black"
                 hasUnderline={true}

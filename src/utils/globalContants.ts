@@ -47,3 +47,15 @@ export const months = [
     "Nov",
     "Dec",
   ];
+
+export const CARD_TYPE = {
+  recommended:'recommended',
+  createdByMe:'createdByMe',
+  myLearnCards:'myLearnCards',
+  unReviewedClasses:'unReviewedClasses',
+  upcomingClasses:'upcomingClasses',
+  risingRequest:'risingRequest'
+}
+
+export const emailValidation =
+  /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;

@@ -1,5 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, ActivityIndicator, ScrollView, StyleSheet, RefreshControl} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  RefreshControl,
+} from 'react-native';
 import {AuthContext} from '../../store/auth-context';
 import {teachingCardProps} from '../../types/teachingCardType';
 import axios from 'axios';
@@ -8,6 +14,7 @@ import {DATA_LIMIT} from '../../utils/globalContants';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import ClassGrid from './ClassGrid';
 import Loader from '../general-components/Loader';
+import SkeletonLoder from '../general-components/SkeletonLoder';
 
 const AllClasses = () => {
   const authCtx = useContext(AuthContext);
@@ -21,7 +28,6 @@ const AllClasses = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
   const [refreshing, setRefreshing] = React.useState(false);
-
 
   async function fetchAllTeachCards() {
     console.log('CHECKING');
@@ -58,6 +64,7 @@ const AllClasses = () => {
   }, [userToken]);
 
   const onRefresh = React.useCallback(() => {
+    setTeachCards([])
     setRefreshing(true);
     fetchAllTeachCards();
     setTimeout(() => {
@@ -65,27 +72,32 @@ const AllClasses = () => {
     }, 2000);
   }, []);
 
-
   return (
     <>
-      <ScrollView 
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.container}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.container}>
         {isLoading ? (
-          // <ActivityIndicator />
           <>
-            <Loader/>
+            {/* <Loader/> */}
+            <View
+              style={{
+                flex: 1,
+
+                borderColor: '#000',
+              }}>
+              {/* <Loader /> */}
+              <SkeletonLoder height={250} />
+            </View>
           </>
         ) : (
           teachCards.length != 0 && (
-        <>
-          <ClassGrid teachCards={teachCards} elemType="all classes" />
-        </>
-            
+            <>
+              <ClassGrid teachCards={teachCards} elemType="all classes" />
+            </>
           )
         )}
       </ScrollView>
@@ -95,8 +107,7 @@ const AllClasses = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // paddingBottom: 120,  
-    paddingHorizontal:20 
+    paddingHorizontal: 20,
   },
 });
 

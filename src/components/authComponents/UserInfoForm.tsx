@@ -20,6 +20,8 @@ interface UserInfo {
   strongSubjects: string[];
   language: string;
   preferredLanguages: string[];
+  errorText:any;
+  updateError:any
 }
 
 type UserInfoFormProps = UserInfo & {
@@ -77,6 +79,10 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         updateFields={props.updateFields}
         placeholderText="Phone Number"
         showLabel={true}
+        errorText={props.errorText.number}
+        onFocus={() => {
+          props.updateError(null, 'number');
+      }}
       />
       <InputHolder
         type="text"
@@ -89,6 +95,10 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         isRequired={true}
         placeholderText="Currently preparing for"
         showLabel={true}
+        errorText={props.errorText.course}
+        onFocus={() => {
+          props.updateError(null, 'course');
+      }}
       />
       <InputHolder
         type="text"
@@ -101,6 +111,10 @@ const UserInfoForm = (props: UserInfoFormProps) => {
         showLabel={true}
         hasDropdown={true}
         dropdownData={standard}
+        errorText={props.errorText.standard}
+        onFocus={() => {
+          props.updateError(null, 'standard');
+      }}
       />
       <View style={styles.inputWrapper}>
         <MultipleInput
@@ -115,6 +129,10 @@ const UserInfoForm = (props: UserInfoFormProps) => {
           hasDropdown={true}
           dropdownData={subjects}
           maxLimit={5}
+          errorText={props.errorText.interestedSubjects}
+          onFocus={() => {
+            props.updateError(null, 'interestedSubjects');
+        }}
         />
         {props.interestedSubjects.length != 0 ? (
           <ArrChip
@@ -137,6 +155,10 @@ const UserInfoForm = (props: UserInfoFormProps) => {
           maxLimit={5}
           placeholder="Subject you can help others in"
           showLabel={true}
+          errorText={props.errorText.strongSubjects}
+          onFocus={() => {
+            props.updateError(null, 'strongSubjects');
+        }}
         />
         {props.strongSubjects.length != 0 ? (
           <ArrChip
@@ -159,6 +181,10 @@ const UserInfoForm = (props: UserInfoFormProps) => {
           hasDropdown={true}
           dropdownData={languages}
           maxLimit={3}
+          errorText={props.errorText.preferredLanguages}
+          onFocus={() => {
+            props.updateError(null, 'preferredLanguages');
+        }}
         />
         {props.preferredLanguages.length != 0 ? (
           <ArrChip

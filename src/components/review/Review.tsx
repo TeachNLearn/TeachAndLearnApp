@@ -4,6 +4,7 @@ import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, SCREEN_HEIGHT } from '../../utils
 import FormField from '../general-components/FormField'
 import InputHolder from '../inputComponents/inputHolder'
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import ScreenHeader from '../general-components/ScreenHeader'
 
 interface createReviewProps {
   review:string
@@ -11,7 +12,7 @@ interface createReviewProps {
 
 
 
-const Review = () => {
+const Review = (props:{navigation:any}) => {
   const initialReviewData: createReviewProps = {
     review:''
   };
@@ -39,13 +40,11 @@ const Review = () => {
 
   return (
     <View style={{height:SCREEN_HEIGHT/2}}>
-       {/* <CardHeader
-        title={'Class Feedback'}
-        ShowMenuIcon={false}
-        // onBackPress={() => {props.navigation.goBack()}}
-        onMenuPress={() => {}}
-      /> */}
-      <View style={{padding:10}}>
+       <ScreenHeader
+       title='Review'
+       onBackPress={()=>{props.navigation.goBack()}}
+       />
+      <View style={{paddingHorizontal:20,marginTop:20}}>
      
       <View>
         <Text style={styles.heading}>Rate your experience</Text>

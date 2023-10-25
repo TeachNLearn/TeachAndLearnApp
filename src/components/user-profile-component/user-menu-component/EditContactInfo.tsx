@@ -87,7 +87,7 @@ const EditContactInfo = (props: modalProps) => {
       <ScreenHeader
         ShowMenuIcon={false}
         title="Contact Info"
-        onBackPress={() => {}}
+        onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />
       <View style={styles.container}>

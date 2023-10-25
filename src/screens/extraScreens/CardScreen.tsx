@@ -4,9 +4,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  RefreshControl
 } from 'react-native';
 import React, {ReactElement,useContext} from 'react';
-import {COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY} from '../../utils/globalContants';
+import {COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY, SCREEN_WIDTH} from '../../utils/globalContants';
 import ScreenHeader from '../../components/general-components/ScreenHeader';
 import LearnCard from './cardsScreen/LearnCard';
 import CreateTeachCard from '../classroom/CreateTeachCard';
@@ -16,8 +17,11 @@ import Search from './searchComponent/Search';
 import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 import CompletedClasses from '../../components/class-component/CompletedClasses';
 import { Helper_Context } from '../../store/helper_context';
+import SkeletonLoaderHorizontalWithReanimatedGradient from './skeletonUi/Skeleton';
+import SkeletonLoder from '../../components/general-components/SkeletonLoder';
 
 const CardScreen = (props: any) => {
+
   const ACTIVE_LINK_ELEMENTS = [
     {
       name: 'Learn Cards',
@@ -29,7 +33,6 @@ const CardScreen = (props: any) => {
 
   const [element, setElement] = React.useState<string>('learn_cards');
   const [activeLink, setActiveLink] = React.useState('Learn Cards');
-  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSectionChange = (
     section: 'Learn Cards' | 'Teach Cards' | string,
@@ -52,6 +55,7 @@ const CardScreen = (props: any) => {
   }, [activeLink]);
 
   const {role} = useContext(Helper_Context)
+  console.log(props)
 
   return (
     <>
@@ -77,13 +81,18 @@ const CardScreen = (props: any) => {
         })}
       </View>
       {element === 'learn_cards' ? (
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={props.refreshing} onRefresh={props.onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}>
            <View style={{paddingHorizontal:20}}>
                    {
                     role === 'learn'?(
                       <>
-                        <TouchableOpacity
-                    style={{
+                    <TouchableOpacity
+                      onPress={()=>props.props.navigation.navigate('CreateLearnCard')}
+                      style={{
                       height: 50,
                       width: '100%',
                       marginTop: 10,
@@ -114,57 +123,29 @@ const CardScreen = (props: any) => {
                     ):null
                    }
          </View>
-          {props?.learnCards.map((card, index) => (
-            <>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <View style={{paddingHorizontal:10}}>
-                  <LearnCardData {...card} key={index} isTeachCard={false} />
-                </View>
-              )}
-            </>
-          ))}
+         {
+          props?.isLoading  === true ?(
+               <View style={{paddingHorizontal:20}}>
+                  <SkeletonLoder height={250}/>
+               </View>
+          ):(
+            props?.learnCards.map((card, index) => (
+              <>
+                {props.isLoading ? (
+               <Loader/>
+                ) : (
+                  <View style={{paddingHorizontal:20,marginTop:10}}>
+                    <LearnCardData {...card} key={index} isTeachCard={false} />
+                  </View>
+                )}
+              </>
+            ))
+          )
+         }
         </ScrollView>
       ) : (
         <>
-         <View style={{paddingHorizontal:20}}>
-         {
-          role === 'teach'?(
-            <>
-              <TouchableOpacity
-                    style={{
-                      height: 50,
-                      width: '100%',
-                      marginTop: 10,
-                      borderRadius: 5,
-                      backgroundColor: COLORS_ILLUSTRATION.tertiary,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 10,
-                      paddingHorizontal: 5,
-                    }}>
-                    <Icon
-                      name="plus"
-                      size={25}
-                      color={'white'}
-                      style={{alignSelf: 'center'}}
-                    />
-                    <Text
-                      style={{
-                        textAlign: 'center',
-                        fontSize: 17,
-                        fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
-                        color: 'white',
-                      }}>
-                      Create Teach Card
-                    </Text>
-                  </TouchableOpacity>
-            </>
-          ):null
-         }
-         </View>
-          <CompletedClasses />
+          <CompletedClasses role={role} props={props}/>
         </>
       )}
     </>
@@ -191,4 +172,19 @@ const styles = StyleSheet.create({
     // marginHorizontal: 8,
     margin: 20,
   },
+  loader:{
+    backgroundColor: '#094067',
+    borderRadius: 8,
+    display: 'flex',
+    flexDirection: 'row',
+    // alignItems: 'flex-start',
+    // alignSelf:'center',
+    // paddingHorizontal: 20,
+    // paddingVertical: 10,
+    height:250,
+    rowGap: 14,
+    marginTop:20
+    // cursor: 'pointer',
+    // justifyContent:'center'
+  }
 });

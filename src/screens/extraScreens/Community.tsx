@@ -42,8 +42,8 @@ const Community = () => {
       }
   }, [activeLink]);
   return (
-    <View style={{flex:1}}>
-    <ScrollView>
+    <View style={{flex:.9}}>
+    <>
          <ScreenHeader
         title={activeLink}
         ShowMenuIcon={false}
@@ -76,9 +76,11 @@ const Community = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <View style={styles.elementWrapper}>{element}</View>
+        <ScrollView>
+          <View style={styles.elementWrapper}>{element}</View>
+        </ScrollView>
       )}
-    </ScrollView>
+    </>
     </View>
   )
 }

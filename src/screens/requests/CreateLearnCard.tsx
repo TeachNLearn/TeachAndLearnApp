@@ -15,6 +15,7 @@ import MultipleInput from '../../components/inputComponents/multipleInput';
 import Button from '../../components/general-components/button';
 import ArrChip from '../../components/inputComponents/arrChip';
 import DateInput from '../../components/inputComponents/DateInput';
+import ScreenHeader from '../../components/general-components/ScreenHeader';
 
 interface learnCardDetails {
   subject: string;
@@ -40,7 +41,7 @@ const initialData: learnCardDetails = {
   dueDate: '',
 };
 
-const CreateLearnCard = () => {
+const CreateLearnCard = (props) => {
   const [learnCard, setLearnCard] = useState<learnCardDetails>(initialData);
 
   const authCtx = useContext(AuthContext);
@@ -53,48 +54,108 @@ const CreateLearnCard = () => {
     });
   }
 
+
+
   const learnCardHandler = async (e: any) => {
     e.preventDefault();
     console.log(learnCard);
-    // if (handleValidation()) {
-    setIsLoading(true);
-    await axios
-      .post(
-        `${BASE_URL}${apiVersion}/learn`,
-        {
-          subject: learnCard.subject,
-          topic: learnCard.topic,
-          programme: learnCard.programme,
-          standard: learnCard.standard,
-          preferredLanguage: learnCard.preferredLanguage,
-          description: learnCard.description,
-          tags: learnCard.tags,
-          dueDate: learnCard.dueDate,
-        },
-        {
-          headers: getHeaders(userToken),
-        },
-      )
-      .then(({data}) => {
-        console.log(data);
-        setLearnCard(initialData);
-        setIsLoading(false);
-        //   navigate("/requests");
-      })
-      .catch(data => {
-        setIsLoading(false);
-        console.log(data);
-
-        //   const errors = data.response.data.error.errors;
-        //   Object.keys(errors).forEach(function (err, index) {
-        //     toast.error(errors[err].message, toastOptions);
-        //   });
-      });
-    // }
+      setIsLoading(true);
+      await axios
+        .post(
+          `${BASE_URL}${apiVersion}/learn`,
+          {
+            subject: learnCard.subject,
+            topic: learnCard.topic,
+            programme: learnCard.programme,
+            standard: learnCard.standard,
+            preferredLanguage: learnCard.preferredLanguage,
+            description: learnCard.description,
+            tags: learnCard.tags,
+            dueDate: learnCard.dueDate,
+          },
+          {
+            headers: getHeaders(userToken),
+          }
+        )
+        .then(({ data }) => {
+          console.log(data);
+          setLearnCard(initialData);
+          setIsLoading(false);
+          console.log('card created successfully')
+          // toast.success("Learn Card Successfully created!!", toastOptions);
+          // navigate("/requests");
+        })
+        .catch((data) => {
+          setIsLoading(false);
+          console.log("data ==> ",data,Object.values(data))
+          // if (data.response.data.error.errors) {
+          //   const errors = data.response.data.error.errors;
+          //   Object.keys(errors).forEach(function (err, index) {
+          //     // toast.error(errors[err].message, toastOptions);
+          //     console.log("error 1",errors[err].message)
+          //   });
+          // } else if (data.response.data.message) {
+          //   setIsLoading(false)
+          //   const msg = data.response.data.message;
+          //   // toast.error(msg, toastOptions);
+          //   console.log("error 2",msg)
+          // } else {
+          //   // toast.error("Something went wrong", toastOptions);
+          //   setIsLoading(false)
+          //   console.log("Error3")
+          // }
+        });
+    
   };
+
+  // const learnCardHandler = async (e: any) => {
+  //   e.preventDefault();
+  //   console.log(learnCard);
+  //   // if (handleValidation()) {
+  //   setIsLoading(true);
+  //   await axios
+  //     .post(
+  //       `${BASE_URL}${apiVersion}/learn`,
+  //       {
+  //         subject: learnCard.subject,
+  //         topic: learnCard.topic,
+  //         programme: learnCard.programme,
+  //         standard: learnCard.standard,
+  //         preferredLanguage: learnCard.preferredLanguage,
+  //         description: learnCard.description,
+  //         tags: learnCard.tags,
+  //         dueDate: learnCard.dueDate,
+  //       },
+  //       {
+  //         headers: getHeaders(userToken),
+  //       },
+  //     )
+  //     .then(({data}) => {
+  //       console.log(data);
+  //       setLearnCard(initialData);
+  //       setIsLoading(false);
+  //       //   navigate("/requests");
+  //     })
+  //     .catch(data => {
+  //       setIsLoading(false);
+  //       console.log(data);
+
+  //       //   const errors = data.response.data.error.errors;
+  //       //   Object.keys(errors).forEach(function (err, index) {
+  //       //     toast.error(errors[err].message, toastOptions);
+  //       //   });
+  //     });
+  //   // }
+  // };
 
   return (
     <ScrollView>
+       <ScreenHeader
+        // title="Learn Cards"
+        title="Learn Card"
+        onBackPress={()=>props.navigation.navigate('LearnCards')}
+        ShowMenuIcon={false}
+      />
       <View style={styles.container}>
         <FormField
           elem={
@@ -220,11 +281,13 @@ const CreateLearnCard = () => {
           }
           inputDesc="Tags to add"
         />
-        <Button onPress={learnCardHandler}>
+        <Button
+          containerStyles={{backgroundColor: '#ef4565'}}
+          onPress={learnCardHandler}>
           {isLoading ? (
             <ActivityIndicator size={24} color="white" />
           ) : (
-            'Create Learn Card'
+            'Createy Learn Card'
           )}
         </Button>
       </View>
@@ -239,7 +302,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     rowGap: 24,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingBottom: 90,
   },
 });

@@ -18,6 +18,7 @@ import Button from '../../components/general-components/button';
 // import DateInput from '../../components/input/DateInput';
 import DateInput from '../../components/inputComponents/DateInput';
 import TimeInput from '../../components/inputComponents/TimeInput';
+import ScreenHeader from '../../components/general-components/ScreenHeader';
 
 interface teachCardDetails {
   subject: string;
@@ -49,7 +50,7 @@ const initialData: teachCardDetails = {
   endingTime: '',
 };
 
-const CreateTeachCard = ({route}: any) => {
+const CreateTeachCard = (props) => {
   const [teachCard, setTeachCard] = useState<teachCardDetails>(initialData);
   //   const [learnCardId, setLearnCardId] = useState<string>(route.params.id);
   const [isLearnCardReferred, setIsLearnCardReferred] =
@@ -153,7 +154,13 @@ const CreateTeachCard = ({route}: any) => {
 
   return (
     <ScrollView>
-      <KeyboardAvoidingView enabled={true} behavior="height">
+      {/* <KeyboardAvoidingView enabled={true} behavior="height"> */}
+      <ScreenHeader
+        // title="Learn Cards"
+        title="Teach Card"
+        onBackPress={()=>props.navigation.navigate('LearnCards')}
+        ShowMenuIcon={false}
+      />
         <View style={styles.container}>
           <FormField
             elem={
@@ -297,15 +304,17 @@ const CreateTeachCard = ({route}: any) => {
             }
             inputDesc="Tags"
           />
-          <Button onPress={teachCardHandler}>
-            {isLoading ? (
-              <ActivityIndicator size={24} color="white" />
-            ) : (
-              'Create Teach Card'
-            )}
-          </Button>
+          <Button
+          containerStyles={{backgroundColor: '#ef4565'}}
+          onPress={teachCardHandler}>
+          {isLoading ? (
+            <ActivityIndicator size={24} color="white" />
+          ) : (
+            'Create Tech Card'
+          )}
+        </Button>
         </View>
-      </KeyboardAvoidingView>
+      {/* </KeyboardAvoidingView> */}
     </ScrollView>
   );
 };
@@ -317,7 +326,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     rowGap: 24,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingBottom: 90,
   },
 });

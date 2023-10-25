@@ -27,6 +27,7 @@ import Toast from 'react-native-toast-message';
 import Splash from './src/components/splash/Splash';
 import EditUserProfile from './src/components/user-profile-component/user-menu-component/EditUserProfile';
 import { Helper_Context_Provider } from './src/store/helper_context';
+import Review from './src/components/review/Review';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -99,6 +100,7 @@ const NavigationScreens = () => {
         <Stack.Screen name="ClassOverview" component={ClassOverview} />
         <Stack.Screen name="SingleClassroom" component={SingleClassroom} />
         <Stack.Screen name="CreateTeachCard" component={CreateTeachCard} />
+        <Stack.Screen name="Review" component={Review} />
         <Stack.Screen name="Login" component={Login} />
         {/* <Stack.Screen name="Home" component={Home} /> */}
       </Stack.Navigator>

@@ -1,9 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import SvgImg from '../svgComponents/InterestedSvg';
 import CoinSvg from '../svgComponents/CoinsSvg';
-import {getReadableDate, getReadableTime, getReadableTime2} from '../../utils/helperFunctions';
-import { FONT_FAMILY } from '../../utils/globalContants';
+import {
+  getReadableDate,
+  getReadableTime,
+  getReadableTime2,
+} from '../../utils/helperFunctions';
+import {FONT_FAMILY, SCREEN_WIDTH} from '../../utils/globalContants';
+import SkeletonLoder from '../general-components/SkeletonLoder';
+import SkeletonLoaderHorizontalWithReanimatedGradient from '../../screens/extraScreens/skeletonUi/Skeleton';
 
 interface RecommendedCourse {
   subject: string;
@@ -15,60 +21,102 @@ interface RecommendedCourse {
     userName: string;
     photo: string;
   };
- 
-  date:string ;
-  classStartsAt:string;
-  classEndsAt:string ;
-  tags:string[] ;
 
-  
+  date: string;
+  classStartsAt: string;
+  classEndsAt: string;
+  tags: string[];
+
   // Add more properties as needed
 }
 
 interface RecommendedCardsProps {
   ReItem: RecommendedCourse;
+  props: any;
+  isLoading: boolean;
 }
 
-const RecommendedCards: React.FC<RecommendedCardsProps> = ({ ReItem,props }) => {
+const RecommendedCards: React.FC<RecommendedCardsProps> = ({
+  ReItem,
+  props,
+  isLoading,
+}) => {
   return (
-    <TouchableOpacity onPress={()=>props.navigation.navigate('LearnCards')} style={styles.Learningcards}>
-      <View style={styles.cardTxtContainer}>
-        <Text style={styles.cardHead}>{ReItem.subject}</Text>
-        <Text style={styles.cardDesc}>
-          {ReItem.topic.length > 60 ? `${ReItem.topic.substring(0, 60)}...` : ReItem.topic}
-        </Text>
-      </View>
-
-      <View style={styles.ImgAndNameContainer}>
-        <Image source={{ uri: ReItem.createdBy.photo }} style={{ height: 18, width: 18, borderRadius: 50 }} />
-        <Text style={styles.NameInCard}>{ReItem.createdBy.userName}</Text>
-      </View>
-
-      <View style={styles.InterestedStudentConatiner}>
-       <View style={{flexDirection:'row',alignItems:'center'}}>
-       <SvgImg />
-        <Text style={styles.Interested}>
-          {'   '}
-          {ReItem.length} interested
-        </Text>
-       </View>
-       <Text style={styles.coins}>
-        {ReItem.date ? getReadableDate(ReItem.date) : ''}{' '}
-        {ReItem.classStartsAt && ReItem.classEndsAt
-          ? `${getReadableTime2(ReItem.classStartsAt)} - ${getReadableTime2(ReItem.classEndsAt)}`
-          : ''}
-      </Text>
-      </View>
-
-
-       <View style={styles.tagsContainer}>
-        {ReItem.tags.map((tag, index) => (
-          <View key={index} style={styles.tag}>
-            <Text style={styles.tagText}>{tag}</Text>
+    <>
+      {isLoading ? (
+          <View style={[styles.loader]}>
+            <View style={{alignSelf: 'center'}}>
+              <SkeletonLoaderHorizontalWithReanimatedGradient
+                width={SCREEN_WIDTH / 1.3}
+                height={15}
+              />
+              <SkeletonLoaderHorizontalWithReanimatedGradient
+                width={SCREEN_WIDTH / 1.5}
+                height={15}
+              />
+              <SkeletonLoaderHorizontalWithReanimatedGradient
+                width={SCREEN_WIDTH / 1.7}
+                height={15}
+              />
+              <SkeletonLoaderHorizontalWithReanimatedGradient
+                width={SCREEN_WIDTH / 1.4}
+                height={15}
+              />
+              <SkeletonLoaderHorizontalWithReanimatedGradient
+                width={SCREEN_WIDTH / 1.4}
+                height={15}
+              />
+            </View>
+        </View>
+      ) : (
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('LearnCards')}
+          style={styles.Learningcards}>
+          <View style={styles.cardTxtContainer}>
+            <Text style={styles.cardHead}>{ReItem.subject}</Text>
+            <Text style={styles.cardDesc}>
+              {ReItem.topic.length > 60
+                ? `${ReItem.topic.substring(0, 60)}...`
+                : ReItem.topic}
+            </Text>
           </View>
-        ))}
-      </View>
-    </TouchableOpacity>
+
+          <View style={styles.ImgAndNameContainer}>
+            <Image
+              source={{uri: ReItem.createdBy.photo}}
+              style={{height: 18, width: 18, borderRadius: 50}}
+            />
+            <Text style={styles.NameInCard}>{ReItem.createdBy.userName}</Text>
+          </View>
+
+          <View style={styles.InterestedStudentConatiner}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <SvgImg />
+              <Text style={styles.Interested}>
+                {'   '}
+                {ReItem.length} interested
+              </Text>
+            </View>
+            <Text style={styles.coins}>
+              {ReItem.date ? getReadableDate(ReItem.date) : ''}{' '}
+              {ReItem.classStartsAt && ReItem.classEndsAt
+                ? `${getReadableTime2(
+                    ReItem.classStartsAt,
+                  )} - ${getReadableTime2(ReItem.classEndsAt)}`
+                : ''}
+            </Text>
+          </View>
+
+          <View style={styles.tagsContainer}>
+            {ReItem.tags.map((tag, index) => (
+              <View key={index} style={styles.tag}>
+                <Text style={styles.tagText}>{tag}</Text>
+              </View>
+            ))}
+          </View>
+        </TouchableOpacity>
+      )}
+    </>
   );
 };
 
@@ -78,7 +126,7 @@ const styles = StyleSheet.create({
     height: 230,
     backgroundColor: '#094067',
     borderRadius: 16,
-    marginTop: 30,
+    marginTop: 20,
     marginRight: 10, // Space between cards
     marginLeft: 20, // Space between cards
   },
@@ -120,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '400',
     marginLeft: 10,
-    fontFamily:FONT_FAMILY.NUNITO_BOLD
+    fontFamily: FONT_FAMILY.NUNITO_BOLD,
   },
 
   InterestedStudentConatiner: {
@@ -137,21 +185,21 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '500',
     marginRight: 12,
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
 
   coins: {
     color: '#FFF',
     fontSize: 13,
     fontWeight: '500',
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
 
-    tagsContainer: {
+  tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 19,
-    marginLeft:18 ,
+    marginLeft: 18,
   },
 
   tag: {
@@ -167,8 +215,21 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 12,
     fontWeight: '500',
-    fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD
+    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
   },
+  loader:{
+    backgroundColor: '#094067',
+    borderRadius: 16,
+    display: 'flex',
+    flexDirection: 'row',     
+    rowGap: 14,
+    marginTop:20,
+    height:230,
+    width:280,
+    marginLeft:20,
+    marginRight:10
+  }
 });
 
 export default RecommendedCards;
+

@@ -3,7 +3,7 @@ import React, {useRef} from 'react';
 // import { AI, AS, BC, BG, BW, DIMENSIONS, F, FD, H, JC, P, W } from '../styles/style'
 // import {COLOR} from '../styles/color';
 import Animated from 'react-native-reanimated';
-import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, SCREEN_WIDTH } from '../../utils/globalContants';
+import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY, SCREEN_WIDTH } from '../../utils/globalContants';
 import YoutubePlayer from "react-native-youtube-iframe";
 
 
@@ -26,23 +26,28 @@ const Carausal = (props: any) => {
 
   const rendeItems: any = ({item}:any) => {
     return (
-      <Animated.View style={{width:props?.imageContainerWidth , height:props?.imageContainerHeight-90,marginLeft:5}}>
+      <Animated.View style={{width:props?.imageContainerWidth , height:props?.imageContainerHeight-0,marginLeft:5}}>
          {/* <View>
             <Image resizeMode='cover' style={props.imageStyle} source={item.image}/>
          </View> */}
-          <View style={{height:props?.imageContainerHeight-90,borderRadius:10,overflow:'hidden'}}>
-           <YoutubePlayer
-           height={300}
-           
-           play={false}
+          <View style={{height:props?.imageContainerHeight-10,overflow:'hidden',backgroundColor:COLORS_ILLUSTRATION.stroke,borderRadius:10}}>
+          <View>
+          <YoutubePlayer
+           height={190}
+          //  onChangeState={(e)=>console.log(e)}
+          //  play={false}
            videoId={item.videoId}
            mediaplaybackrequiresuseraction={true}
            forceAndroidAutoplay={false}
            webViewStyle={{
-            borderRadius:'1rem',
+            // borderRadius:'1rem',
             // marginTop:10,
            }}
           />
+          </View>
+          <View>
+            <Text style={{flexWrap:'wrap',textAlign:'center',fontFamily:FONT_FAMILY.NUNITO_BOLD,color:COLORS_ILLUSTRATION.main,padding:10}}>{item?.text}</Text>
+          </View>
           </View>
       </Animated.View>
     );
@@ -63,8 +68,8 @@ const Carausal = (props: any) => {
           setCurrentIndex((x / props?.movingLinesWidthForIndex).toFixed(0));
         }}
       />
-      {/* <Animated.View
-      style={{flexDirection:'row',width:SCREEN_WIDTH,justifyContent:'center',alignItems:'center',position:'absolute',bottom:60}}>
+      <Animated.View
+      style={{flexDirection:'row',width:SCREEN_WIDTH-25,justifyContent:'center',alignItems:'center',position:'absolute',bottom:-10}}>
         {props.data?.map((e, i) => {
           return (
             <View
@@ -79,7 +84,7 @@ const Carausal = (props: any) => {
               }}/>
           );
         })}
-      </Animated.View> */}
+      </Animated.View>
     </View>
   );
 };

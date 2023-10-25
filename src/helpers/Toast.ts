@@ -9,7 +9,7 @@ export class ToastHOC {
             text1: text1,
             text2: text2,
             autoHide: true,
-            visibilityTime: 1000,
+            visibilityTime: 1500,
         });
     }
 

@@ -53,10 +53,10 @@ const LearnCardData: React.FC<learnCardProps> = props => {
         </Text>
         <UserChip
           imgBorder="#fff"
-          name={props.createdBy.userName}
-          photo={props.createdBy.photo}
+          name={props.createdBy === null?'':props.createdBy.userName}
+          photo={props.createdBy === null?'':props.createdBy.photo}
           textColor="#fff"
-          userId={props.createdBy._id}
+          userId={props.createdBy === null?'':props.createdBy._id}
           shouldntNavigate={true}
         />
         <View

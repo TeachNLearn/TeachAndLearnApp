@@ -7,18 +7,13 @@ import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
 import {AuthContext} from '../../store/auth-context';
 import ScreenHeader from '../../components/general-components/ScreenHeader';
 ('../../components/general-components/ScreenHeader');
-import {RefreshControl} from 'react-native';
 
 import {
-  Text,
   View,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
-import Ionican from 'react-native-vector-icons/Ionicons';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import LearnCardData from '../../components/learnCardComponents/LearnCardData';
 import Loader from '../../components/general-components/Loader';
 import CardScreen from '../extraScreens/CardScreen';
 
@@ -34,10 +29,10 @@ type LearnCardsProps = {
 
 const LearnCards: React.FC<LearnCardsProps> = props => {
   const [learnCards, setLearnCards] = useState<Array<learnCardProps>>([]);
-  const [requestPageSet, setrequestPageSet] = useState<number>(1);
+  const [requestPageSet, setrequestPageSet] = useState<number>(0);
   const [hasMoreData, sethasMoreData] = useState(false);
   const [showActivityIndicator, setShowActivityIndicator] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [loaderLoading, setLoaderLoading] = useState(true);
 
   const authCtx = useContext(AuthContext);
@@ -46,13 +41,15 @@ const LearnCards: React.FC<LearnCardsProps> = props => {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const fetchLearnCards = async () => {
+    console.log("Checking ")
     setLoaderLoading(true);
+    setIsLoading(true)
     const curentDate = new Date();
     await axios
       .get(`${BASE_URL}${apiVersion}/learn`, {
         params: {
           limit: DATA_LIMIT,
-          page: requestPageSet,
+          page: requestPageSet +1 ,
           dueDate: {
             $gte: curentDate,
           },
@@ -60,17 +57,22 @@ const LearnCards: React.FC<LearnCardsProps> = props => {
         headers: getHeaders(userToken),
       })
       .then(({data}) => {
+        console.log("data1",data)
         const learnCardData = data.data.data;
         console.log("learn_cards_are_empty",learnCardData);
         checkMoreData(learnCardData, sethasMoreData);
         setLearnCards(prev => [...prev, ...learnCardData]);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
         setLoaderLoading(false);
         setrequestPageSet(prev => prev + 1);
       })
       .catch(data => {
         console.log(data);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
         setLoaderLoading(false);
       });
   };
@@ -125,14 +127,17 @@ const LearnCards: React.FC<LearnCardsProps> = props => {
           <ScrollView
             contentContainerStyle={styles.learnCardContainer}
             showsVerticalScrollIndicator={false}
-            // refreshControl={
-            //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            // }
             >
             {/* {learnCards.map((card, index) => (
               <LearnCardData {...card} key={index} isTeachCard={false} />
               ))} */}
-              <CardScreen learnCards={learnCards}/>
+              <CardScreen 
+              isLoading={isLoading} 
+              onRefresh={onRefresh} 
+              refreshing={refreshing} 
+              learnCards={learnCards}
+              props={props}
+              />
           </ScrollView>
         )}
       </View>

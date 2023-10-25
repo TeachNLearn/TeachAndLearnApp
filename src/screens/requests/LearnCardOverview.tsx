@@ -133,9 +133,9 @@ const LearnCardOverview = (props: any) => {
                   alignItems: 'center',
                 }}>
                 <UserChip
-                  name={learnCard.createdBy.userName}
-                  photo={learnCard.createdBy.photo}
-                  userId={learnCard.createdBy._id}
+                  name={learnCard.createdBy === null?'':props.createdBy.userName}
+                  photo={learnCard.createdBy === null?'':props.createdBy.photo}
+                  userId={learnCard.createdBy === null?'':props.createdBy._id}
                   imgBorder="#000000"
                   textColor="black"
                   hasUnderline={true}

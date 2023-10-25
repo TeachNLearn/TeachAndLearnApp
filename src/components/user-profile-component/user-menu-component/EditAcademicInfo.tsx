@@ -51,16 +51,16 @@ const EditAcademicInfo = (props: modalProps) => {
       academicInfo;
     if (
       course == '' ||
-      interstedSubjects.length == 0 ||
-      strongSubjects.length == 0 ||
-      preferredLanguages.length == 0
+      interstedSubjects?.length == 0 ||
+      strongSubjects?.length == 0 ||
+      preferredLanguages?.length == 0
     ) {
       // toast.error("Fill in all the details", toastOptions);
       return false;
-    } else if (interstedSubjects.length > 5 || strongSubjects.length > 5) {
+    } else if (interstedSubjects?.length > 5 || strongSubjects?.length > 5) {
       // toast.error("Cannot select more than 5 subjects ", toastOptions);
       return false;
-    } else if (preferredLanguages.length > 3) {
+    } else if (preferredLanguages?.length > 3) {
       // toast.error("Cannot select more than 3 languages ", toastOptions);
       return false;
     }
@@ -107,7 +107,7 @@ const EditAcademicInfo = (props: modalProps) => {
       <ScreenHeader
         ShowMenuIcon={false}
         title="Academic Info"
-        onBackPress={() => {}}
+        onBackPress={() => {props.navigation.goBack()}}
         onMenuPress={() => {}}
       />
       <View style={styles.container}>

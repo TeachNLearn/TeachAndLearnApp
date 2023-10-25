@@ -12,16 +12,16 @@ interface arrChipProps {
 const ArrChip = (props: arrChipProps) => {
 
   const removeElement = (subToDelete: string) => {
-    let filteredArr = props.listArr.filter((sub, index) => {
+    let filteredArr = props?.listArr.filter((sub, index) => {
       console.log(sub == subToDelete);
       return sub != subToDelete;
     });
-    props.updateFields({ [props.name]: filteredArr });
+    props?.updateFields({ [props?.name]: filteredArr });
   };
 
   return (
     <View style={styles.container}>
-      {props.listArr.map((sub, idx) => {
+      {props?.listArr?.map((sub, idx) => {
         return (
           <View key={idx} style={styles.chip}>
             <Text style={styles.chipText}>{sub}</Text>

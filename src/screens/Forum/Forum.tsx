@@ -1,11 +1,15 @@
-import {View, StyleSheet, ScrollView, RefreshControl} from 'react-native';
+import {View, StyleSheet, ScrollView, RefreshControl, Text} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../store/auth-context';
 import {forumProps} from '../../types/ForumTypes';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {checkMoreData, getHeaders} from '../../utils/helperFunctions';
-import {DATA_LIMIT, SCREEN_WIDTH} from '../../utils/globalContants';
+import {
+  DATA_LIMIT,
+  FONT_FAMILY,
+  SCREEN_WIDTH,
+} from '../../utils/globalContants';
 import ForumCard from '../../components/forum-components/forumCard';
 import PostForumBtn from '../../components/forum-components/ForumBtn';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -21,10 +25,12 @@ const Forum = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(true);
   const [refreshing, setRefreshing] = React.useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   async function fetchAllForums() {
     console.log('CHECKING');
     // setForums([])
+    setIsLoading(true);
     setLoaderLoading(true);
     await axios
       .get(`${BASE_URL}${apiVersion}/forum`, {
@@ -39,13 +45,17 @@ const Forum = (props: any) => {
         console.log(forums);
         checkMoreData(forums, setHasMoreData);
         setForums(prev => [...prev, ...forums]);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
         setLoaderLoading(false);
         setForumPageSet(prev => prev + 1);
       })
       .catch(data => {
         console.log(Object.values(data));
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
         setLoaderLoading(false);
       });
   }
@@ -77,11 +87,8 @@ const Forum = (props: any) => {
     }, 2000);
   }, []);
 
-  return !isLoading ? (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
+  return (
+    <ScrollView contentContainerStyle={{flex: 0.9}}>
       <ScreenHeader
         title="Forum"
         ShowMenuIcon={false}
@@ -104,22 +111,43 @@ const Forum = (props: any) => {
           onPressFunc={createForumnavigator}
         />
       </View>
-      <View style={styles.container}>
-        {forums &&
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        contentContainerStyle={styles.container}>
+        {forums.length > 0 ? (
           forums.map((forum, idx) => {
-            return <ForumCard key={idx} userToken={userToken} {...forum} />;
-          })}
-      </View>
+            return (
+              <>
+                <ForumCard
+                  isLoading={isLoading}
+                  key={idx}
+                  userToken={userToken}
+                  {...forum}
+                />
+              </>
+            );
+          })
+        ) : (
+          <Text
+            style={{
+              textAlign: 'center',
+              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+              fontSize: 17,
+              color: '#222',
+            }}>
+            No Forum Posted
+          </Text>
+        )}
+      </ScrollView>
     </ScrollView>
-  ) : (
-    <Loader />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 25,
-    display: 'flex',
     flexDirection: 'column',
     rowGap: 16,
     marginHorizontal: 0.04 * SCREEN_WIDTH,

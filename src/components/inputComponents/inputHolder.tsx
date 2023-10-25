@@ -22,10 +22,17 @@ interface inputProps {
   textareaLines?: number;
   showLabel?: boolean;
   hasSignleUpdate?: boolean;
+  errorText:any,
+  onFocus:any,
+  // onBlur:any
 }
 
 const InputHolder = (props: inputProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isFocused, setIsFocused] = React.useState(false);
+
+
+  
 
   const inputhandler = (inputIdentifier: any, enteredValue: any) => {
     setShowDropdown(true);
@@ -40,6 +47,7 @@ const InputHolder = (props: inputProps) => {
     props.updateFields({ [props.name]: data });    setShowDropdown(false);
     setShowDropdown(false);
   };
+
 
 
   return (
@@ -57,6 +65,15 @@ const InputHolder = (props: inputProps) => {
         }
         multiline={props.isTextarea}
         numberOfLines={props.textareaLines ? props.textareaLines : 1}
+        onFocus={() => {
+          props.onFocus();
+          setIsFocused(true);
+        }} 
+        onBlur={() => {
+
+          setIsFocused(false);
+
+      }} 
       />
       {props.showLabel && <Text style={[styles.label]}>{props.label}</Text>}
       {props.isRequired && (
@@ -94,6 +111,7 @@ const InputHolder = (props: inputProps) => {
               </View>
             ))
         : null}
+        {props.errorText?<Text style={{color:'red'}}>{props.errorText}</Text>:null}
     </View>
   );
 };

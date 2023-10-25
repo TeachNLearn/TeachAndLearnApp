@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext,useRef} from 'react';
-import {ScrollView, Text, View, KeyboardAvoidingView,ActivityIndicator} from 'react-native';
+import {ScrollView, Text, View, KeyboardAvoidingView,ActivityIndicator, Keyboard, ToastAndroid} from 'react-native';
 import {useMultiStepForm} from '../../utils/useMultiStepForm';
 import SignupForm from '../../components/authComponents/SignupForm';
 import DescriptionBox from '../../components/authComponents/descriptionBox';
@@ -11,7 +11,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../utils/apiRoutes';
 import {AuthContext} from '../../store/auth-context';
-import { COLORS_ELEMENTS } from '../../utils/globalContants';
+import { COLORS_ELEMENTS, emailValidation } from '../../utils/globalContants';
 import { ToastHOC } from '../../helpers/Toast';
 
 
@@ -31,6 +31,7 @@ interface USERDATA {
   strongSubjects: string[];
   language: string;
   preferredLanguages: string[];
+  otp:any;
 }
 
 const initialData: USERDATA = {
@@ -39,7 +40,7 @@ const initialData: USERDATA = {
   email: '',
   password: '',
   confirmPassword: '',
-  photo: '',
+  photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQLHZh0aF5Og2DF4G19yPVx_QGjXfaBByFZA&usqp=CAU',
   number: '',
   course: '',
   standard: '',
@@ -49,10 +50,54 @@ const initialData: USERDATA = {
   strongSubjects: [],
   preferredLanguages: [],
   language: '',
+  otp:0,
 };
 
 const Signup = () => {
   const [userData, setUserData] = useState<USERDATA>(initialData);
+
+
+  const [errorText, setErrorText] = React.useState<any>({});
+
+  const updateError = (errorMessage: string | null, input: string) => {
+    setErrorText((prevState: any) => ({ ...prevState, [input]: errorMessage }));
+  };
+
+// const isValidObjectField = (obj: any) => {
+//     return Object.values(obj).every((value: any) => value.trim());
+// };
+
+const isValid1StepForm = () => {
+  Keyboard.dismiss();
+  // if (!isValidObjectField(userData)) { return updateError('Fill all the fields', 'All'); }
+
+  if (!userData.fullName.trim() || userData.fullName.length < 4) { return updateError('name should be more than 4 characters', 'fullName') }
+  if (!userData.userName.trim() || userData.userName.length < 4) { return updateError('name should be more than 3 characters', 'userName') }
+  if (!emailValidation.test(userData.email)) { return updateError('write email in correct format', 'email'); }
+  if (userData.otp.length  === 5) { return updateError('OTP should be of 6 digits', 'otp') }
+  if (!userData.password.trim() || userData.password.length < 6) { return updateError('password should be in proper manner', 'password') }
+  if (!userData.confirmPassword.trim() || userData.confirmPassword.length < 6) { return updateError('write password in proper manner', 'confirmPassword') }
+  return true;
+};
+
+
+const isValid2StepForm = () => {
+  Keyboard.dismiss();
+  // if (!isValidObjectField(userData)) { return updateError('Fill all the fields', 'All'); }
+
+  if (!userData.number.trim() || userData.number.length < 10) { return updateError('number should be upto 10 digits', 'number') }
+  if (!userData.course.trim() || userData.course.length < 4) { return updateError('course should be more 4 characters', 'course') }
+  if (!userData.standard.trim() || userData.standard.length < 4) { return updateError('standard should be more than 4 characters', 'standard') }
+  if (!userData.interestedSubjects.length > 0 ) { return updateError('please seleact atleast 1 interested subject', 'interestedSubjects') }
+  if (!userData.strongSubjects.length > 0 ) { return updateError('please seleact atleast 1 strong subject', 'strongSubjects') }
+  if (!userData.preferredLanguages.length > 0 ) { return updateError('please seleact atleast 1 preferredLanguages', 'preferredLanguages') }
+
+
+  return true;
+};
+
+
+
   
   const scrollViewRef:any = useRef(null);
 
@@ -65,8 +110,8 @@ const Signup = () => {
   const authCtx = useContext(AuthContext);
 
   const {step, isLastStep, next, back} = useMultiStepForm([
-    <SignupForm {...userData} updateFields={updateFields} />,
-    <UserInfoForm {...userData} updateFields={updateFields} />,
+    <SignupForm errorText={errorText} updateError={updateError} {...userData} updateFields={updateFields} />,
+    <UserInfoForm errorText={errorText} updateError={updateError}  {...userData} updateFields={updateFields} />,
   ]);
 
   type RootStackParamList = {
@@ -81,42 +126,46 @@ const Signup = () => {
 
   const onSubmit = async (e: any) => {
     console.log('CHECKING');
-    if (!isLastStep) return next();
-    else {
-      e.preventDefault();
-      setIsLoading(true);
-      await axios
-        .post(`${BASE_URL}${apiVersion}/auth/signup`, {
-          name: userData.fullName,
-          userName: userData.userName,
-          email: userData.email,
-          password: userData.password,
-          passwordConfirm: userData.confirmPassword,
-          photo: userData.photo,
-          phoneNumber: userData.number,
-          enrolledProgramme: userData.course,
-          standard: userData.standard,
-          interestedSubjects: userData.interestedSubjects,
-          strongSubjects: userData.strongSubjects,
-          preferredLanguages: userData.preferredLanguages,
-        })
-        .then(({data}) => {
-          console.log(data.token);
-          console.log(data);
-          const user = data.data.user;
-          user.token = data.token;
-          authCtx.setLocalUser(user);
-          setIsLoading(false);
-          ToastHOC.successAlert('SignUp Success',`If not please sign in`)
-          navigation.navigate('Home');
-        })
-        .catch(data => {
-          const error = data.response.data.message;
-          console.log(error);
-          ToastHOC.errorAlert('Error Occured',error)
-          setIsLoading(false);
-        });
+    {isLastStep ? (isLoading ? <ActivityIndicator size={'small'} color={COLORS_ELEMENTS.buttonTxt}/>:'Sign Up') : 'Next'}
+
+    if(isLastStep ? isValid2StepForm():isValid1StepForm()){
+      if (!isLastStep) return next();
+      else {
+        e.preventDefault();
+        setIsLoading(true);
+        await axios
+          .put(`${BASE_URL}${apiVersion}/auth/signup`, {
+            name: userData.fullName,
+            userName: userData.userName,
+            email: userData.email,
+            password: userData.password,
+            passwordConfirm: userData.confirmPassword,
+            photo: userData.photo,
+            phoneNumber: userData.number,
+            enrolledProgramme: userData.course,
+            standard: userData.standard,
+            interestedSubjects: userData.interestedSubjects,
+            strongSubjects: userData.strongSubjects,
+            preferredLanguages: userData.preferredLanguages,
+          })
+          .then(({data}) => {
+            const user = data.data.user;
+            user.token = data.token;
+            authCtx.setLocalUser(user);
+            setIsLoading(false);
+            ToastHOC.successAlert('SignUp Success',`success`)
+            navigation.navigate('Home');
+          })
+          .catch(data => {
+            const error = data.response.data.message;
+            ToastHOC.errorAlert('Error Occured',error)
+            setIsLoading(false);
+          });
+      }
+    }else{
+      ToastAndroid.show('fill all fields',200)
     }
+   
   };
 
   const loginNavigation = () => {
@@ -125,9 +174,7 @@ const Signup = () => {
 
   return (
     // <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false} onContentSizeChange={() => {scrollViewRef.current?.scrollToEnd()}}>
-    <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false} onContentSizeChange={() => {scrollViewRef.current?.scrollTo({
-      y:30,
-    })}}>
+    <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false} >
       <View style={styles.container}>
         <DescriptionBox
           heading="Get"

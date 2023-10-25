@@ -14,7 +14,8 @@ import Classes from '../screens/classroom/Classes';
 import HomeScreen from '../screens/extraScreens/homeScreens/HomeScreen';
 import PreLogin from '../screens/extraScreens/PreLogin';
 import Community from '../screens/extraScreens/Community';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { COLORS_ILLUSTRATION } from '../utils/globalContants';
 
 
 
@@ -23,14 +24,14 @@ const Tab = createBottomTabNavigator();
 const TabNavigation: React.FC = () => (
   <Tab.Navigator
     screenOptions={{
-      tabBarActiveTintColor: '#FFFFFF',
-      tabBarInactiveTintColor: '#9695A5',
+      tabBarActiveTintColor: COLORS_ILLUSTRATION.tertiary,
+      tabBarInactiveTintColor: COLORS_ILLUSTRATION.stroke,
       tabBarLabelStyle: {
         fontSize: 9,
         fontWeight: 'bold',
       },
       tabBarStyle: {
-        backgroundColor: '#2D2B4E',
+        backgroundColor: 'rgb(216, 238, 254)',
         position: 'absolute',
         // bottom: 10,
         // left: 20,
@@ -38,7 +39,7 @@ const TabNavigation: React.FC = () => (
         elevation: 0,
         // borderRadius: 40,
         height: 60,
-        borderTopColor:'#2D2B4E'
+        borderTopColor:'rgb(216,238,254)'
       },
       tabBarShowLabel: false,
     }}>
@@ -84,6 +85,16 @@ const TabNavigation: React.FC = () => (
       }}
     />
     <Tab.Screen
+      name="Community"
+      component={Community}
+      options={{
+        headerShown: false,
+        tabBarIcon: ({color, size, focused}) => (
+         <Icon name='group' color={focused?COLORS_ILLUSTRATION.tertiary:COLORS_ILLUSTRATION.stroke} size={32}/>
+        ),
+      }}
+    />
+    <Tab.Screen
       name="Userprofile"
       component={Userprofile}
       options={{
@@ -98,17 +109,7 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-
-    {/* <Tab.Screen
-      name="Community"
-      component={Community}
-      options={{
-        headerShown: false,
-        tabBarIcon: ({color, size}) => (
-          <Icon name='account-group' size={}  />
-        ),
-      }}
-    /> */}
+     
   </Tab.Navigator>
 );
 

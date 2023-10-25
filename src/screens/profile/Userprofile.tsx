@@ -85,10 +85,10 @@ const Userprofile: React.FC = (props: any) => {
     console.log(mode)
     if(mode){
 
-      setRole('teach')
+      setRole('learn')
       // setLearn_mode(false)
     }else{
-      setRole('learn')
+      setRole('teach')
       // setLearn_mode(true)
     }
     setLearn_mode(!learn_mode);
@@ -241,8 +241,8 @@ const Userprofile: React.FC = (props: any) => {
         <UserMode
           isLearnMode={learn_mode}
           toggleMode={toggleMode}
-          learnModeText="Learn Mode"
-          teachModeText="Teach Mode"
+          learnModeText="Learn"
+          teachModeText="Teach"
         />
       </View>
       <View

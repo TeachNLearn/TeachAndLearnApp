@@ -18,6 +18,7 @@ import {FONT_FAMILY} from '../../utils/globalContants';
 const SingleClassroom = (props: any) => {
   const authCtx = useContext(AuthContext);
 
+  console.log("PPOP",props.route.params)
   const [classroomId, setClassroomId] = useState<string>(props.route.params.id);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
   const [userId, setUserId] = useState<string>(authCtx.user._id);

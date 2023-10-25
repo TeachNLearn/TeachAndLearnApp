@@ -11,47 +11,59 @@ import Animated, {
   interpolate,
   withSpring,
   Extrapolate,
+  BounceInRight,
 } from 'react-native-reanimated';
 import { COLORS_ILLUSTRATION } from '../../../utils/globalContants';
 
-const SkeletonLoaderHorizontalWithReanimatedGradient = ({
+interface ISkeletonLoader{
+  width:number,
+  height:number,
+}
+
+const SkeletonLoaderHorizontalWithReanimatedGradient:React.FC<ISkeletonLoader>= ({
   width,
   height,
-  borderRadius,
-  duration,
 }) => {
+  
   const translateX = useSharedValue(0);
-
   React.useEffect(() => {
-    translateX.value = withRepeat(
-      withSequence(
-        withTiming(0, { duration: 0 }),
-        withTiming(1, { duration: 900, easing: Easing.linear })
-      ),
-      -1,
-      false
-    );
-  }, []);
+    translateX.value = 0
+    const interval = setInterval(() => { 
+      translateX.value = 1    
+      setTimeout(() => {
+        translateX.value = 0
+      }, 300);
+    }, 1100); 
 
-  const movingGradientStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: interpolate(translateX.value, [0, 1], [-0, 60], Extrapolate.CLAMP) }],
-    };
-  });
+  return () => clearInterval(interval);
+  },[]);
+
+  const skeletonStyle = useAnimatedStyle(()=>{
+    const opacity = withTiming(interpolate(
+      translateX.value,[0,1],
+      [0.3,.55],
+      Extrapolate.CLAMP,
+    ),{
+      duration:350
+    })
+
+    
+        return {
+          opacity:opacity
+    }
+  })
+
+  
 
   return (
-    <View style={{height:height,width:width,marginTop:20,paddingHorizontal:20,borderRadius:borderRadius}}>
-    <View
-      // colors={['#FF5733', '#FFC300', '#FF5733']}
-      style={styles.backgroundGradient}
+    <View style={{height:height,width:width,marginTop:20,paddingHorizontal:20}}>
+    <Animated.View
+      style={[styles.backgroundGradient,skeletonStyle]}
       >
-    {/* <Animated.View style={[styles.movingGradient, movingGradientStyle]}>
-      <LinearGradient
-      colors={['transparent', 'white', 'transparent']}
-      style={styles.innerGradient}
-      />
-    </Animated.View> */}
-    </View>
+        {/* <Animated.View style={[{height:height,backgroundColor:'white'}]}>
+
+        </Animated.View> */}
+    </Animated.View>
   </View>
   );
 };
@@ -67,7 +79,9 @@ const styles = StyleSheet.create({
   },
   backgroundGradient: {
     flex: 1,
-    backgroundColor:'rgba(0,0,0,0.12)',
+    // backgroundColor:'rgba(0,0,0,0.12)',
+    backgroundColor:'white',
+    // opacity:0.1,
     position:'relative'
   },
   movingGradient: {

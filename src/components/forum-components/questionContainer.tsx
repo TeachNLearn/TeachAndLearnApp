@@ -39,9 +39,9 @@ const QuestionContainer = (props: questionProps) => {
       <View style={styles.innerContainer}>
         <View style={styles.userDetails}>
           <UserChip
-            name={props.createdBy.userName}
-            photo={props.createdBy.photo}
-            userId={props.createdBy._id}
+            name={props.createdBy === null?'':props.createdBy.userName}
+            photo={props.createdBy === null?'':props.createdBy.photo}
+            userId={props.createdBy === null?'':props.createdBy._id}
             imgBorder="black"
             textColor="black"
           />

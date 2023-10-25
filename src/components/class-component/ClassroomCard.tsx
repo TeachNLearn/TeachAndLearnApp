@@ -43,7 +43,7 @@ const ClassroomCard = (props: classCardProps) => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const classNavigator = () => {
-    if (checkClassTeacher(props.teachCard.createdBy._id, localUser._id)) {
+    if (checkClassTeacher(props.teachCard.createdBy===null?'':props.teachCard.createdBy._id, localUser._id)) {
       navigation.navigate('SingleClassroom', {
         id: props.teachCard._id,
         elemType: props.elemType,
@@ -81,11 +81,11 @@ const ClassroomCard = (props: classCardProps) => {
         </View>
         <View>
           <UserChip
-            name={props.teachCard.createdBy.userName}
-            photo={props.teachCard.createdBy.photo}
+            name={props.teachCard.createdBy===null?'':props.teachCard.createdBy.userName}
+            photo={props.teachCard.createdBy===null?'':props.teachCard.createdBy.photo}
             imgBorder="#ffffff"
             textColor="#ffffff"
-            userId={props.teachCard.createdBy._id}
+            userId={props.teachCard.createdBy===null?'':props.teachCard.createdBy._id}
             imgSize={30}
           />
         </View>
@@ -109,7 +109,7 @@ const ClassroomCard = (props: classCardProps) => {
         <CardTags tags={props.teachCard.tags} />
         <ClassCardBtn
           localUserId={localUser._id}
-          teacherId={props.teachCard.createdBy._id}
+          teacherId={props.teachCard.createdBy===null?'':props.teachCard.createdBy._id}
           enrolledArr={props.teachCard.studentsEnrolled}
           classEndsAt={props.teachCard.classEndsAt}
           hasCancelled={props.teachCard.hasCancelled}

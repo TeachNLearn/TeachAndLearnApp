@@ -8,7 +8,7 @@ interface SvgComponentProps extends SvgProps {
 }
 
 const ClassesSvg: React.FC<SvgComponentProps> = ({
-  fill = "#000",
+  fill = "#9695A5",
   width = 20,
   height = 20,
   ...props

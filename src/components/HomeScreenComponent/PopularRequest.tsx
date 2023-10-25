@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import CoinSvg from '../svgComponents/CoinsSvg';
 import SvgImg from '../svgComponents/InterestedSvg';
 import {getReadableDate} from '../../utils/helperFunctions';
-import { FONT_FAMILY } from '../../utils/globalContants';
+import { FONT_FAMILY, SCREEN_WIDTH } from '../../utils/globalContants';
+import SkeletonLoaderHorizontalWithReanimatedGradient from '../../screens/extraScreens/skeletonUi/Skeleton';
 
 interface PopularCourse {
   subject: string;
@@ -24,11 +25,40 @@ interface PopularCourse {
 
 interface PopularRequestProps {
   item: PopularCourse;
+  isLoading:boolean
 }
 
-const PopularRequest: React.FC<PopularRequestProps> = ({ item }) => {
+const PopularRequest: React.FC<PopularRequestProps> = ({ item ,isLoading}) => {
   return (
-    <View style={styles.Learningcards}>
+   
+   <>
+    {isLoading ?(
+           <View style={[styles.loader]}>
+           <View style={{alignSelf: 'center'}}>
+             <SkeletonLoaderHorizontalWithReanimatedGradient
+               width={SCREEN_WIDTH / 1.3}
+               height={15}
+             />
+             <SkeletonLoaderHorizontalWithReanimatedGradient
+               width={SCREEN_WIDTH / 1.5}
+               height={15}
+             />
+             <SkeletonLoaderHorizontalWithReanimatedGradient
+               width={SCREEN_WIDTH / 1.7}
+               height={15}
+             />
+             <SkeletonLoaderHorizontalWithReanimatedGradient
+               width={SCREEN_WIDTH / 1.4}
+               height={15}
+             />
+             <SkeletonLoaderHorizontalWithReanimatedGradient
+               width={SCREEN_WIDTH / 1.4}
+               height={15}
+             />
+           </View>
+       </View>
+    ):(
+      <View style={styles.Learningcards}>
       <View style={styles.cardTxtContainer}>
         <Text style={styles.cardHead}>{item.subject}</Text>
         <Text style={styles.cardDesc}>
@@ -61,6 +91,8 @@ const PopularRequest: React.FC<PopularRequestProps> = ({ item }) => {
         ))}
       </View>
     </View>
+    )}
+   </>
   );
 };
 
@@ -70,10 +102,23 @@ const styles = StyleSheet.create({
     height: 230,
     backgroundColor: '#094067',
     borderRadius: 16,
-    marginTop: 30,
+    marginTop: 20,
     marginRight: 10,
     marginLeft: 20,
     
+  },
+
+  loader:{
+    backgroundColor: '#094067',
+    borderRadius: 16,
+    display: 'flex',
+    flexDirection: 'row',     
+    rowGap: 14,
+    marginTop:20,
+    height:230,
+    width:280,
+    marginLeft:20,
+    marginRight:10,
   },
 
   cardTxtContainer: {

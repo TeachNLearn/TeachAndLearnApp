@@ -19,26 +19,29 @@ interface InputProps {
   maxLimit?: number;
   placeholder: string;
   showLabel?: boolean;
+  errorText?:string;
+  onFocus?:any
 }
 
 const MultipleInput = (props: InputProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isFocused, setIsFocused] = React.useState(false);
 
   const inputhandler = (inputIdentifier: any, enteredValue: any) => {
     setShowDropdown(true);
-    props.updateFields({[inputIdentifier]: enteredValue});
+    props?.updateFields({[inputIdentifier]: enteredValue});
   };
 
   const keyhandler = (e: any) => {
-    if (props.value == '') return;
-    props.arr?.push(props.value);
-    console.log(props.arr);
-    props.updateFields({[props.name]: props.arr, [props.elemName]: ''});
+    if (props?.value == '') return;
+    props?.arr?.push(props?.value);
+    console.log(props?.arr);
+    props?.updateFields({[props?.name]: props?.arr, [props?.elemName]: ''});
   };
 
   const dropdownMenuhandler = (data: string) => {
-    props.arr?.push(data);
-    props.updateFields({[props.name]: props.arr, [props.elemName]: ''});
+    props?.arr?.push(data);
+    props?.updateFields({[props?.name]: props?.arr, [props?.elemName]: ''});
     setShowDropdown(false);
   };
 
@@ -46,35 +49,45 @@ const MultipleInput = (props: InputProps) => {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        value={props.value}
-        placeholder={props.placeholder}
-        onChangeText={inputhandler.bind(this, props.elemName)}
+        value={props?.value}
+        placeholder={props?.placeholder}
+        onChangeText={inputhandler.bind(this, props?.elemName)}
         autoCapitalize="none"
         onEndEditing={keyhandler}
-        editable={props.maxLimit ? props.arr.length < props.maxLimit : true}
+        editable={props?.maxLimit ? props?.arr?.length < props?.maxLimit : true}
+        onFocus={() => {
+          props.onFocus();
+          setIsFocused(true);
+        }} 
+        onBlur={() => {
+
+          setIsFocused(false);
+
+      }} 
       />
-      {props.showLabel && <Text style={styles.label}>{props.label}</Text>}
-      {props.showLabel && props.maxLimit && (
+      {props?.showLabel && <Text style={styles.label}>{props?.label}</Text>}
+      {props?.showLabel && props?.maxLimit && (
         <View>
-          <Text>*Max {props.maxLimit}</Text>
+          <Text>*Max {props?.maxLimit}</Text>
         </View>
       )}
-      {props.hasDropdown
-        ? props.value == ''
+
+      {props?.hasDropdown
+        ? props?.value == ''
           ? null
           : showDropdown &&
-            (props.dropdownData?.filter(val => {
-              if (typeof props.value == 'string') {
-                return val.toLowerCase().includes(props.value.toLowerCase());
+            (props?.dropdownData?.filter(val => {
+              if (typeof props?.value == 'string') {
+                return val.toLowerCase().includes(props?.value.toLowerCase());
               }
             }).length == 0 ? null : (
               <View style={styles.dropdownContainer}>
-                {props.dropdownData
+                {props?.dropdownData
                   ?.filter(val => {
-                    if (typeof props.value == 'string') {
+                    if (typeof props?.value == 'string') {
                       return val
                         .toLowerCase()
-                        .includes(props.value.toLowerCase());
+                        .includes(props?.value.toLowerCase());
                     }
                   })
                   .map((data, index) => {
@@ -89,6 +102,7 @@ const MultipleInput = (props: InputProps) => {
               </View>
             ))
         : null}
+                {props.errorText?<Text style={{color:'red'}}>{props.errorText}</Text>:null}
     </View>
   );
 };
@@ -111,6 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 16,
     fontWeight: '400',
+    // color:'red'
   },
   label: {
     position: 'absolute',

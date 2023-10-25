@@ -19,18 +19,21 @@ const UserModeForHome: React.FC<ModeSwitchProps> = ({
 
   return (
     <View style={styles.ModeOfuserConainer}>
-      <Text
-        style={isLearnMode ? styles.LearnModeTextActive : styles.LearnModeText}>
-        {learnModeText}
-      </Text>
+     
+        <Text
+          style={
+            isLearnMode ? styles.TeachModeTextActive : styles.TeachModeText
+          }>
+          {teachModeText}
+        </Text>
       <Switch
         value={isLearnMode}
         onValueChange={toggleMode}
         disabled={false}
         activeText={'On'}
         inActiveText={'Off'}
-        circleSize={16}
-        barHeight={14}
+        circleSize={25}
+        barHeight={25}
         circleBorderWidth={1}
         backgroundActive={'#fff'}
         backgroundInactive={'#fff'}
@@ -54,11 +57,10 @@ const UserModeForHome: React.FC<ModeSwitchProps> = ({
         switchWidthMultiplier={2} // multiplied by the `circleSize` prop to calculate total width of the Switch
         switchBorderRadius={30} // Sets the border Radius of the switch slider. If unset, it remains the circleSize.
       />
+
       <Text
-        style={
-          !isLearnMode ? styles.TeachModeTextActive : styles.TeachModeText
-        }>
-        {teachModeText}
+        style={!isLearnMode ? styles.LearnModeTextActive : styles.LearnModeText}>
+        {learnModeText}
       </Text>
     </View>
   );

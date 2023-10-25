@@ -1,9 +1,9 @@
 import {createContext, useState} from 'react';
 
 
-export const Helper_Context = createContext(null);
+export const Helper_Context:any = createContext(null);
 
-export const Helper_Context_Provider = ({children}) => {
+export const Helper_Context_Provider = ({children}:any) => {
 
 
   //Helper Main Application

@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     rowGap: 16,
+    // marginTop:20,
+    // padding:20
   },
 });
 
