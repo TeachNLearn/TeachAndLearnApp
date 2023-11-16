@@ -187,6 +187,9 @@ const Userprofile: React.FC = (props: any) => {
       });
   }
 
+
+  
+
   useEffect(() => {
     if (userToken) {
       fetchMyDetails();
@@ -201,18 +204,21 @@ const Userprofile: React.FC = (props: any) => {
     }, 2000);
   }, []);
 
+
   return localUser ? (
+    <>
+      <ScreenHeader
+  ShowMenuIcon={false}
+  onBackPress={() => props.navigation.goBack()}
+  onMenuPress={() => {}}
+  title="My Profile"
+/>
     <ScrollView
     style={{backgroundColor: "#fff"}}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
-      <ScreenHeader
-        ShowMenuIcon={false}
-        onBackPress={() => props.navigation.goBack()}
-        onMenuPress={() => {}}
-        title="My Profile"
-      />
+     
       <View style={styles.userProfileParentContainer}>
           <View style={{width:'100%'}}>
           <ImagePickerButton
@@ -269,6 +275,7 @@ const Userprofile: React.FC = (props: any) => {
             showAcademicInfo
             showContactInfo
             showEdit
+            localUser={localUser}
           />
           <GeneralMenu>
             <View
@@ -343,6 +350,7 @@ const Userprofile: React.FC = (props: any) => {
         />
       </View>
     </ScrollView>
+    </>
   ) : (
     <Loader />
   );

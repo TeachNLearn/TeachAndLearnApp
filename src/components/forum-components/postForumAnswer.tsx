@@ -88,6 +88,7 @@ const PostForumAnswer = (props: any) => {
               placeholderText="Answer to the query..."
               textareaLines={6}
               hasSignleUpdate={true}
+              onFocus={()=>{}}
             />
           }
           inputDesc="Forum Answer"

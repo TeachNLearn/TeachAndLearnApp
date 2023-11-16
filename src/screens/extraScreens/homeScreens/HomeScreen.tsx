@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, ScrollView, Pressable} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Pressable,Linking, Alert} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {BASE_URL, apiVersion} from '../../../utils/apiRoutes';
@@ -94,7 +94,7 @@ any[]
     [],
   );
   
-  const {token} = useContext(AuthContext);
+  const {token,user} = useContext(AuthContext);
   const {setRole,role,setLearn_mode,learn_mode}:any = useContext(Helper_Context)
   const [loading, setLoading] = useState<boolean>(false)
   const [loading1, setLoading1] = useState<boolean>(false)
@@ -103,6 +103,11 @@ any[]
   const [loading4, setLoading4] = useState<boolean>(false)
   const [loading5, setLoading5] = useState<boolean>(false)
   const [youtubeStep, setYoutubeStep] = React.useState<number>(0)
+
+
+    const handlePress =  (url:any) => {
+      return Linking.openURL(url)
+    }
 
   const toggleMode = (mode:boolean) => {
     console.log(mode)
@@ -268,11 +273,14 @@ any[]
     fetchMyUnreviewedClasses();
   }, [token]);
 
+
+  
+
   return (
     <ScrollView style={styles.HomeParentContainer}>
       <View style={styles.HomeTxtContainer}>
        
-        <Text style={styles.txtOne}>Hello Rahul 👋</Text>
+        <Text style={styles.txtOne}>Hello {user?.userName} 👋</Text>
         <View>
         <UserModeForHome
           isLearnMode={learn_mode}
@@ -634,7 +642,7 @@ any[]
 
 
         <View style={{paddingHorizontal:20,marginTop:20}}>
-        <Pressable style={[{justifyContent:'center',alignItems:'center',backgroundColor:COLORS_ILLUSTRATION.tertiary,height:50,flexDirection:'row',gap:5,marginTop:10,borderRadius:10}]}>
+        <Pressable onPress={()=>handlePress('https://teachandlearnglobal.blogspot.com')} style={[{justifyContent:'center',alignItems:'center',backgroundColor:COLORS_ILLUSTRATION.tertiary,height:50,flexDirection:'row',gap:5,marginTop:10,borderRadius:10}]}>
         <Text style={[styles.btnTxt,{textAlign:'center'}]}>Check out our blog</Text>
         <Icon name='arrow-up-right' size={18}  color={'#fff'}/>
       </Pressable>

@@ -10,4 +10,5 @@ export interface announcementProps {
       userName: string;
     };
     _id: string;
+    props:any
   }

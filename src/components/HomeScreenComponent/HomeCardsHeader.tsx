@@ -7,7 +7,7 @@ import { FONT_FAMILY } from '../../utils/globalContants';
 interface SectionHeaderProps {
     title : string ;
     onViewAllPress : () => void ;
-    icon : boolean
+    icon : boolean;
 }
 
 const HomeCardsHeader : React.FC<SectionHeaderProps> = ({title , onViewAllPress,icon=true}) => {

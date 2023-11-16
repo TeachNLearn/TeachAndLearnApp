@@ -20,11 +20,12 @@ import JoinClass from '../JoinClass';
 type overallOverviewProps = classroomProps & {
   userId: string;
   userToken: string;
+  props:any
 };
 
 const Overview = (props: overallOverviewProps) => {
-
   const [isLoading, setIsLoading] = useState(false)
+  const [otherUserDetails, setOtherUserDetails] = useState(null)
   const checkIsCompleted = () => {
     const date = new Date();
     const classEndingDate = props.classEndsAt;
@@ -55,6 +56,8 @@ const Overview = (props: overallOverviewProps) => {
         setReviews(data.reviews);
       });
   };
+
+
 
   useEffect(() => {
     if (checkIsCompleted()) {
@@ -103,6 +106,7 @@ const Overview = (props: overallOverviewProps) => {
             textColor="black"
             userId={props.createdBy._id}
             hasUnderline={true}
+            props={props.props}
           />
           <ClassDate
             date={props.date}

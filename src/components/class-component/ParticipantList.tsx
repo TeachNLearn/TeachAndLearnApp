@@ -1,11 +1,12 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface participantListProps {
   heading: string;
   listArr?: Array<listObj>;
   teacherObj?: listObj;
+  props?:any
   // localUserId: string;
 }
 
@@ -14,6 +15,7 @@ interface listObj {
   photo: string;
   _id: string;
   userName: string;
+  props?:any
 }
 
 const ParticipantList = (props: participantListProps) => {
@@ -24,13 +26,15 @@ const ParticipantList = (props: participantListProps) => {
         {Array.isArray(props.listArr) ? (
           props.listArr.map((user, index) => {
             return (
-              <View style={styles.participant}>
+              <TouchableOpacity onPress={()=>props.props.navigation.navigate('OtherUserProfile',{
+                otherUserId:user?._id
+              })} style={styles.participant}>
                 <Image style={styles.image} source={{uri: user.photo}} />
                 <View style={styles.names}>
                   <Text style={styles.name}>{user.name}</Text>
                   <Text style={styles.userName}>@ {user.userName}</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })
         ) : (
@@ -39,12 +43,14 @@ const ParticipantList = (props: participantListProps) => {
               style={styles.image}
               source={{uri: props.teacherObj?.photo}}
             />
-            <View style={styles.names}>
+            <TouchableOpacity onPress={()=>props.props.navigation.navigate('OtherUserProfile',{
+              otherUserId:props?.teacherObj?._id
+            })} style={styles.names}>
               <Text style={styles.name}>{props.teacherObj?.name}</Text>
               <Text style={styles.userName}>
                 @ {props.teacherObj?.userName}
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         )}
       </View>

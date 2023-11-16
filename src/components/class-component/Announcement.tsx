@@ -18,6 +18,7 @@ const Announcement = (props: announcementProps) => {
           textColor="black"
           userId={props.sender._id}
           imgBorder="black"
+          props={props.props}
         />
         <Text style={styles.time}>
           {getReadableDate(props.createdAt) +

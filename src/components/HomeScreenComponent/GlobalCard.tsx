@@ -72,7 +72,8 @@ const GlobalCard: React.FC<GlobalCardsProps> = ({
       ) : (
         <Pressable
           onPress={() => props.navigation.navigate('SingleClassroom',{
-            id:ReItem?._id
+            id:ReItem?._id,
+            props:props
           })}
           style={styles.Learningcards}>
           <View style={styles.cardTxtContainer}>

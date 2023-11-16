@@ -1,4 +1,4 @@
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { COLORS_ELEMENTS, COLORS_ILLUSTRATION, FONT_FAMILY, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../utils/globalContants'
 import Carausal from '../../components/carausal/Carausal'
@@ -45,7 +45,7 @@ const PreLogin = (props:any) => {
         <Text style={{textAlign:'center',fontSize:16,fontFamily:FONT_FAMILY.NUNITO_BOLD,color:COLORS_ELEMENTS.headline}}>Watch these videos to know why and how to learn teach and learn</Text>
       </View>
 
-      <View style={{bottom:20,flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingHorizontal:20}}>
+      {/* <View style={{bottom:20,flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingHorizontal:20}}>
         
         {
           youtubeStep === 0 ?<Text>     </Text>:(
@@ -98,10 +98,33 @@ const PreLogin = (props:any) => {
               }}/>
           );
         })}
-      </Animated.View>
+      </Animated.View> */}
+
+          <View style={{paddingHorizontal: 10}}>
+            <Carausal
+              data={VIDEOS_FOR_CARAUSAL}
+              style={{
+                height: 230,
+                width: SCREEN_WIDTH / 2.2,
+                borderRadius: 10,
+                marginTop: 10,
+                backgroundColor: '#ffffff',
+                elevation: 4,
+              }}
+              imageStyle={{
+                width: SCREEN_WIDTH - 25,
+                height: 180,
+                borderRadius: 10,
+              }}
+              imageContainerWidth={SCREEN_WIDTH - 25}
+              imageContainerHeight={SCREEN_HEIGHT / 3}
+              movingLinesWidthForIndex={SCREEN_WIDTH}
+              dotsAlignment={SCREEN_WIDTH / 2.2}
+            />
+          </View>
       
      <View style={{padding:20}}>
-     <Pressable style={[{justifyContent:'center',alignItems:'center',backgroundColor:COLORS_ILLUSTRATION.tertiary,height:50,flexDirection:'row',gap:5,borderRadius:10}]}>
+     <Pressable onPress={()=>Linking.openURL('https://teachandlearnglobal.blogspot.com/')} style={[{justifyContent:'center',alignItems:'center',backgroundColor:COLORS_ILLUSTRATION.tertiary,height:50,flexDirection:'row',gap:5,borderRadius:10}]}>
         <Text style={[styles.btnTxt,{textAlign:'center'}]}>Check out our blog</Text>
         <Icon name='arrow-up-right' size={18}  color={'#fff'}/>
       </Pressable>

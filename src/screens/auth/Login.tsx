@@ -116,6 +116,10 @@ const Login = ({navigation}: any) => {
             updateFields={updateFields}
             hasDropdown={false}
             showLabel={true}
+            // errorText={errorText}
+            onFocus={() => {
+              // props.updateError(null, 'userName');
+          }}
           />
           <InputHolder
             label="Password"
@@ -126,6 +130,10 @@ const Login = ({navigation}: any) => {
             placeholderText="Enter Password"
             hasDropdown={false}
             showLabel={true}
+            // errorText={errorText}
+            onFocus={() => {
+              // props.updateError(null, 'userName');
+          }}
           />
           {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
           <Button containerStyles={styles.loginButton} onPress={loginHandler}>

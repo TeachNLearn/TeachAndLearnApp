@@ -18,7 +18,7 @@ import {FONT_FAMILY} from '../../utils/globalContants';
 const SingleClassroom = (props: any) => {
   const authCtx = useContext(AuthContext);
 
-  console.log("PPOP",props.route.params)
+  console.log("PPOP",props.route.params.id)
   const [classroomId, setClassroomId] = useState<string>(props.route.params.id);
   const [userToken, setUserToken] = useState<string>(authCtx.token);
   const [userId, setUserId] = useState<string>(authCtx.user._id);
@@ -70,7 +70,7 @@ const SingleClassroom = (props: any) => {
       })
       .then(({data}) => {
         const card = data.teachCard;
-        console.log(data);
+        console.log("ALLL",card);
         setClassroom(card);
         setIsLoading(false);
       })
@@ -91,18 +91,25 @@ const SingleClassroom = (props: any) => {
   const [element, setElement] = useState<ReactElement>();
 
   useEffect(() => {
-    if (classroom) {
+    if (classroom !== null) {
       setElement(
-        <Overview {...classroom} userId={userId} userToken={userToken} />,
+        <Overview props={props.route.params.props} {...classroom} userId={userId} userToken={userToken} />,
       );
+    }
+    else{
+      setElement(
+        <>
+          <Text>Currently No overview</Text>
+        </>
+      )
     }
   }, [classroom]);
 
   useEffect(() => {
-    if (classroom) {
+    if (classroom !== null) {
       if (activeLink == 'Overview') {
         setElement(
-          <Overview {...classroom} userId={userId} userToken={userToken} />,
+          <Overview  props={props.route.params.props} {...classroom} userId={userId} userToken={userToken} />,
         );
       } else if (activeLink == 'Classroom') {
         setElement(
@@ -113,6 +120,8 @@ const SingleClassroom = (props: any) => {
             teachCardId={classroom._id}
             userToken={userToken}
             classElemType={classElemType}
+            props={props.route.params.props}
+
           />,
         );
       } else if (activeLink == 'People') {
@@ -122,10 +131,16 @@ const SingleClassroom = (props: any) => {
             studentsEnrolled={classroom.studentsEnrolled}
             topic={classroom.topic}
             localUserId={userId}
+            props={props.route.params.props}
           />,
         );
       }
     } else {
+      setElement(
+        <>
+          <Text style={{fontSize:18,fontWeight:'bold',alignSelf:'center'}}>Currently No {activeLink}</Text>
+        </>
+      )
     }
   }, [activeLink]);
 

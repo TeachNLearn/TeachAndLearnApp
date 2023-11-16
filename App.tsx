@@ -28,6 +28,7 @@ import Splash from './src/components/splash/Splash';
 import EditUserProfile from './src/components/user-profile-component/user-menu-component/EditUserProfile';
 import { Helper_Context_Provider } from './src/store/helper_context';
 import Review from './src/components/review/Review';
+import OtherUserprofile from './src/screens/profile/OtherUserProfile';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -97,6 +98,7 @@ const NavigationScreens = () => {
         <Stack.Screen name="LearnCardOverview" component={LearnCardOverview} />
         <Stack.Screen name="CreateLearnCard" component={CreateLearnCard} />
         <Stack.Screen name="Classes" component={Classes} />
+        <Stack.Screen name="OtherUserProfile" component={OtherUserprofile}/>
         <Stack.Screen name="ClassOverview" component={ClassOverview} />
         <Stack.Screen name="SingleClassroom" component={SingleClassroom} />
         <Stack.Screen name="CreateTeachCard" component={CreateTeachCard} />

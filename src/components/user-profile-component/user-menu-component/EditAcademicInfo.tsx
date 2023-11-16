@@ -119,6 +119,7 @@ const EditAcademicInfo = (props: modalProps) => {
               updateFields={updateFields}
               value={academicInfo.course}
               placeholderText="Enter your Course name"
+              onFocus={()=>{}}
             />
           }
           inputDesc="Change your course"
@@ -136,15 +137,17 @@ const EditAcademicInfo = (props: modalProps) => {
                 dropdownData={subjects}
                 maxLimit={5}
                 placeholder="Enter your strong subhjects"
+                onFocus={()=>{}}
               />
               <ArrChip
                 listArr={academicInfo.strongSubjects}
                 updateFields={updateFields}
                 name="strongSubjects"
+                
               />
             </View>
           }
-          inputDesc="Change your striong subjects"
+          inputDesc="Change your strong subjects"
         />
         <FormField
           elem={
@@ -159,6 +162,7 @@ const EditAcademicInfo = (props: modalProps) => {
                 dropdownData={subjects}
                 maxLimit={5}
                 placeholder="Enter your interested subjects"
+                onFocus={()=>{}}
               />
               <ArrChip
                 listArr={academicInfo.interstedSubjects}
@@ -182,6 +186,7 @@ const EditAcademicInfo = (props: modalProps) => {
                 dropdownData={languages}
                 maxLimit={3}
                 placeholder="Enter your languages"
+                onFocus={()=>{}}
               />
               <ArrChip
                 listArr={academicInfo.preferredLanguages}

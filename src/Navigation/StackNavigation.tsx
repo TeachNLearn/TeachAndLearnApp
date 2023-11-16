@@ -20,6 +20,7 @@ import Review from '../components/review/Review';
 import LearnCardData from '../components/learnCardComponents/LearnCardData';
 import HomeScreen from '../screens/extraScreens/homeScreens/HomeScreen';
 import CreateTeachCard from '../screens/classroom/CreateTeachCard';
+import OtherUserprofile from '../screens/profile/OtherUserProfile';
 // import LearnCardOverviewNavigator from './LearnCardOverview';
 
 
@@ -81,6 +82,7 @@ const StackNavigation = () => {
       <Stack.Screen name="Upcoming" component={UpcomingClasses}/>
       <Stack.Screen name="Review" component={Review}/>
       <Stack.Screen name="Create_Teach_Cards" component={CreateTeachCard}/>
+
 
 
     </Stack.Navigator>

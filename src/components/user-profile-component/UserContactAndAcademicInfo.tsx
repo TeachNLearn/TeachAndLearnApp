@@ -16,6 +16,7 @@ interface ProfileComponentProps {
   showAcademicInfo?: boolean;
   showContactInfo?: boolean;
   showEdit?: boolean;
+  localUser?: any;
 }
 
 interface Styles {
@@ -77,6 +78,7 @@ const styles: Styles = {
   tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    // borderWidth:1
   },
   textStyle: {
     color: '#000',
@@ -116,12 +118,13 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
   showAcademicInfo = true,
   showContactInfo = true,
   showEdit = true,
+  localUser,
 }) => {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {showContactInfo && (
-          <View style={{ borderRadius: 20, borderColor: 'grey'}}>
+          <View style={{borderRadius: 20, borderColor: 'grey'}}>
             <View style={styles.sectionContainer}>
               <Text style={styles.textStyle}>Contact Information</Text>
               {showEdit && editIcon && navigation && (
@@ -144,9 +147,12 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
 
             {/* info container */}
             <View style={styles.infoContainer}>
-              <ContactComponent heading="Username" name="garvit" />
-              <ContactComponent heading="Email" name="garv@gamil.com" />
-              <ContactComponent heading="Phone No." name="9345662456" />
+              <ContactComponent heading="Username" name={localUser?.userName} />
+              <ContactComponent heading="Email" name={localUser?.email} />
+              <ContactComponent
+                heading="Phone No."
+                name={localUser?.phoneNumber}
+              />
             </View>
           </View>
         )}
@@ -180,7 +186,10 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
 
             {/* info container */}
             <View style={styles.infoContainer}>
-              <ContactComponent heading="Course" name="Btech ECE" />
+              <ContactComponent
+                heading="Course"
+                name={localUser.enrolledProgramme}
+              />
 
               <View style={{flexDirection: 'column'}}>
                 <Text
@@ -191,24 +200,22 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
                   Preffered language
                 </Text>
                 <View style={styles.tagsContainer}>
-                  <View style={styles.tag}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
-                      }}>
-                      Tag1
-                    </Text>
-                  </View>
-                  <View style={styles.tag}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
-                      }}>
-                      Tag2
-                    </Text>
-                  </View>
+                  {localUser?.preferredLanguages.map((e, i) => {
+                    return (
+                      <>
+                        <View key={i} style={styles.tag}>
+                          <Text
+                            style={{
+                              color: '#000',
+                              fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+                            }}>
+                            {e}
+                          </Text>
+                        </View>
+                      </>
+                    );
+                  })}
+
                   {/* Add more tags as needed */}
                 </View>
               </View>
@@ -229,33 +236,25 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
                     Interested Subject
                   </Text>
                   <View style={styles.tagsContainer}>
-                    <View style={styles.tag}>
+
+                    {
+                      localUser?.interestedSubjects?.map((e,i)=>{
+                        return(
+                          <>
+                             <View style={styles.tag}>
                       <Text
                         style={{
                           color: '#000',
                           fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
                         }}>
-                        Tag1
+                        {e}
                       </Text>
                     </View>
-                    <View style={styles.tag}>
-                      <Text
-                        style={{
-                          color: '#000',
-                          fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
-                        }}>
-                        Tag2
-                      </Text>
-                    </View>
-                    <View style={styles.tag}>
-                      <Text
-                        style={{
-                          color: '#000',
-                          fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
-                        }}>
-                        Tag2
-                      </Text>
-                    </View>
+                          </>
+                        )
+                      })
+                    }
+                    
                     {/* Add more tags as needed */}
                   </View>
                 </View>
@@ -269,24 +268,26 @@ const UserContactAndAcademicInfo: React.FC<ProfileComponentProps> = ({
                     Strong Subject
                   </Text>
                   <View style={styles.tagsContainer}>
-                    <View style={styles.tag}>
+
+                    {
+                      localUser?.strongSubjects?.map((e,i)=>{
+                        return (
+                          <>
+                               <View style={styles.tag}>
                       <Text
                         style={{
                           color: '#000',
                           fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
                         }}>
-                        Tag1
+                        {e}
                       </Text>
                     </View>
-                    <View style={styles.tag}>
-                      <Text
-                        style={{
-                          color: '#000',
-                          fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
-                        }}>
-                        Tag2
-                      </Text>
-                    </View>
+                          </>
+                        )
+                      })
+                    }
+                   
+                  
                     {/* Add more tags as needed */}
                   </View>
                 </View>

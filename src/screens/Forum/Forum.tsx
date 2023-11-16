@@ -119,14 +119,14 @@ const Forum = (props: any) => {
         {forums.length > 0 ? (
           forums.map((forum, idx) => {
             return (
-              <>
+              <View key={idx}>
                 <ForumCard
                   isLoading={isLoading}
                   key={idx}
                   userToken={userToken}
                   {...forum}
                 />
-              </>
+              </View>
             );
           })
         ) : (

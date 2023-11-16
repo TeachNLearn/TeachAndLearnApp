@@ -99,6 +99,7 @@ const EditContactInfo = (props: modalProps) => {
               type="text"
               value={contactInfo.username}
               updateFields={updateFields}
+              onFocus={()=>{}}
             />
           }
           inputDesc="Change your Username :-"
@@ -111,6 +112,7 @@ const EditContactInfo = (props: modalProps) => {
               type="email"
               value={contactInfo.email}
               updateFields={updateFields}
+              onFocus={()=>{}}
             />
           }
           inputDesc="Change your Email :-"
@@ -123,6 +125,7 @@ const EditContactInfo = (props: modalProps) => {
               type="string"
               value={contactInfo.phone}
               updateFields={updateFields}
+              onFocus={()=>{}}
             />
           }
           inputDesc="Change your Phone Number :-"
@@ -150,6 +153,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: COLORS_ILLUSTRATION.tertiary,
+    marginTop:20
   },
 });
 

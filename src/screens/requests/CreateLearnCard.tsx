@@ -157,6 +157,7 @@ const CreateLearnCard = (props) => {
         ShowMenuIcon={false}
       />
       <View style={styles.container}>
+        
         <FormField
           elem={
             <InputHolder
@@ -168,6 +169,7 @@ const CreateLearnCard = (props) => {
               // hasDropdown={true}
               // dropdownData={subjects}
               placeholderText="Physics, English, Botany, Accounts. etc."
+              onFocus={()=>{}}
             />
           }
           inputDesc="Subject"
@@ -183,6 +185,7 @@ const CreateLearnCard = (props) => {
               type="text"
               isTextarea={true}
               textareaLines={4}
+              onFocus={()=>{}}
             />
           }
           inputDesc="Topic"
@@ -197,6 +200,7 @@ const CreateLearnCard = (props) => {
               updateFields={updateFields}
               hasDropdown={false}
               placeholderText="I.C.S.E, B.Tech, NEET, UPSC, etc."
+              onFocus={()=>{}}
             />
           }
           inputDesc="Course/Exam/Board/Programme"
@@ -212,6 +216,7 @@ const CreateLearnCard = (props) => {
               // hasDropdown={true}
               // dropdownData={standard}
               placeholderText="10th class/2nd year etc (optional)"
+              onFocus={()=>{}}
             />
           }
           inputDesc="Standard/Year"
@@ -227,6 +232,7 @@ const CreateLearnCard = (props) => {
               // hasDropdown={true}
               // dropdownData={languages}
               placeholderText="Hindi, English, Tamil, Marathi, French etc"
+              onFocus={()=>{}}
             />
           }
           inputDesc="Preferred Language"
@@ -253,6 +259,7 @@ const CreateLearnCard = (props) => {
               placeholderText="Can not exceed 400 characters"
               isTextarea={true}
               textareaLines={8}
+              onFocus={()=>{}}
             />
           }
           inputDesc="Description of the query"
@@ -269,6 +276,7 @@ const CreateLearnCard = (props) => {
                 updateFields={updateFields}
                 maxLimit={5}
                 placeholder="Physics, #BusinessManagement (optional)"
+                onFocus={()=>{}}
               />
               {learnCard.tags.length != 0 ? (
                 <ArrChip

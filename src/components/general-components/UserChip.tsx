@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {AuthContext} from '../../store/auth-context';
 import {FONT_FAMILY} from '../../utils/globalContants';
 
@@ -13,12 +13,13 @@ interface userChipProps {
   shouldntNavigate?: boolean;
   imgSize?: number;
   textSize?: number;
+  otherUserDetails?:any;
+  props?:any
 }
 
 const UserChip = (props: userChipProps) => {
   const authCtx = useContext(AuthContext);
   const [localuserToken, setLocaluserToken] = useState(authCtx.token);
-
   // set navigation here
 
   return (
@@ -33,6 +34,10 @@ const UserChip = (props: userChipProps) => {
         ]}
         source={{uri: props.photo}}
       />
+      <TouchableOpacity onPress={()=>{props.props.navigation.navigate('OtherUserProfile',{
+        otherUserId:props.userId,
+        isOtherUser:true
+      })}}>
       <Text
         style={[
           styles.text,
@@ -42,6 +47,7 @@ const UserChip = (props: userChipProps) => {
         ]}>
         {props.name}
       </Text>
+      </TouchableOpacity>
     </View>
   );
 };

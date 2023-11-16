@@ -79,26 +79,33 @@ const SignupForm = (props: SignupFormProps) => {
         ToastHOC.errorAlert('Error occured','error')
       }
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
+      ToastHOC.errorAlert('Email already registered','error')
+
     }
   };
 
   const verifyOtp = async () => {
     // console.log(props.otp)
     try {
+     if(props.otp.length > 5){
       const verifyOtp = await axios.put(`${BASE_URL}${apiVersion}/email/verify`,{
         email:props?.email,
         // otp:OTP
         otp:props.otp
       })
-      console.log("VOO",verifyOtp.data)
       if(verifyOtp.data.status === 1){
         // setOpenOtp(!)
         setChangeText('Verified')
         ToastHOC.successAlert(verifyOtp.data.message,'success')
       }
+     }
+     else{
+      ToastHOC.successAlert('please enter OTP','')
+
+     }
     } catch (error: any) {
-      console.log(error);
+      ToastHOC.errorAlert('OTP incorrect','')
     }
   };
 
@@ -173,16 +180,17 @@ const SignupForm = (props: SignupFormProps) => {
               width: '100%',
               alignItems: 'center',
               borderRadius: 5,
-              borderColor: openOtp === true ? '#dfe3e8' :COLORS_ILLUSTRATION.stroke,
-              borderWidth: 1,
+              // borderColor: openOtp === true ? '#dfe3e8' :COLORS_ILLUSTRATION.stroke,
+              // borderWidth: 1,
               paddingVertical:3,
+              backgroundColor:openOtp === true ? '#dfe3e8' :COLORS_ILLUSTRATION.stroke
             }}
             onPress={() => sendOtp()}
             disabled={openOtp === true ?true:false}
             >
             <Text
               style={{
-                color: openOtp === true ? '#dfe3e8' :COLORS_ILLUSTRATION.stroke,
+                color: openOtp === true ? 'grey' :COLORS_ILLUSTRATION.main,
                 fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
               }}>
               Send otp
@@ -232,37 +240,42 @@ const SignupForm = (props: SignupFormProps) => {
                   width: '20%',
                   alignItems: 'center',
                   borderRadius: 5,
-                  borderWidth: 1,
-                  borderColor: changeText === "Verified" ?'green':'#ff5630',
+                  // borderWidth: 1,
+                  // borderColor: changeText === "Verified" ?'green':'#ff5630',
+                  backgroundColor:changeText === "Verified" ?'green':'red',
                   alignSelf: 'center',
                   padding: 2,
                 }}
                 onPress={()=>verifyOtp()}
                 disabled={  changeText === "Verified" ?true:false}
                 >
-                <Text style={{color: changeText === "Verified" ?'green':'#ff5630'}}>{changeText}</Text>
+                <Text style={{color: changeText === "Verified" ?'white':'white'}}>{changeText}</Text>
               </TouchableOpacity>
 
             </View>
 
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text>
-                Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
-                {seconds < 10 ? `0${seconds}` : seconds}{' '}
-              </Text>
-              <TouchableOpacity
-                disabled={seconds > 0 || minutes > 0}
-                onPress={() => resendOtp()}>
-                <Text
-                  style={{
-                    color: seconds > 0 || minutes > 0 ? '#dfe3e8' :'#ff5630' ,
-                    fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
-                  }}>
-                  Resend OTP
-                </Text>
-              </TouchableOpacity>
-            </View>
+                {
+                  changeText === 'Verified' ?null:(
+                    <View
+                    style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text>
+                      Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
+                      {seconds < 10 ? `0${seconds}` : seconds}{' '}
+                    </Text>
+                    <TouchableOpacity
+                      disabled={seconds > 0 || minutes > 0}
+                      onPress={() => sendOtp()}>
+                      <Text
+                        style={{
+                          color: seconds > 0 || minutes > 0 ? '#dfe3e8' :'#ff5630' ,
+                          fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,
+                        }}>
+                        Resend OTP
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  )
+                }
           </View>
         </>
       ) : null}

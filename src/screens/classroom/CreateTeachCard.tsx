@@ -173,6 +173,7 @@ const CreateTeachCard = (props) => {
                 // hasDropdown={true}
                 // dropdownData={subjects}
                 placeholderText="Physics, English, Botany, Accounts. etc."
+                onFocus={()=>{}}
               />
             }
             inputDesc="Subject"
@@ -188,6 +189,7 @@ const CreateTeachCard = (props) => {
                 textareaLines={4}
                 isTextarea={true}
                 placeholderText="Pythagoras’ Theorem, World War 2, Balance Sheet, Leibniz Rule, etc."
+                onFocus={()=>{}}
               />
             }
             inputDesc="Topic"
@@ -201,6 +203,7 @@ const CreateTeachCard = (props) => {
                 name="programme"
                 updateFields={updateFields}
                 placeholderText="I.C.S.E, B.Tech, NEET, UPSC, etc."
+                onFocus={()=>{}}
               />
             }
             inputDesc="Course/Exam/Board/Programme"
@@ -216,6 +219,7 @@ const CreateTeachCard = (props) => {
                 // hasDropdown={true}
                 // dropdownData={standard}
                 placeholderText="10th class/2nd year etc (optional)"
+                onFocus={()=>{}}
               />
             }
             inputDesc="Standard/Year"
@@ -231,6 +235,7 @@ const CreateTeachCard = (props) => {
                 // hasDropdown={true}
                 // dropdownData={languages}
                 placeholderText="Hindi, English, Tamil, Marathi, French etc"
+                onFocus={()=>{}}
               />
             }
             inputDesc="Preferred Language"
@@ -277,6 +282,7 @@ const CreateTeachCard = (props) => {
                 textareaLines={6}
                 isTextarea={true}
                 placeholderText="Can not exceed 400 characters"
+                onFocus={()=>{}}
               />
             }
             inputDesc="Description of the topic covered"
@@ -292,6 +298,7 @@ const CreateTeachCard = (props) => {
                   arr={teachCard.tags}
                   updateFields={updateFields}
                   placeholder="#Physics, #BusinessManagement (optional)"
+                  onFocus={()=>{}}
                 />
                 {teachCard.tags.length != 0 ? (
                   <ArrChip
@@ -310,7 +317,7 @@ const CreateTeachCard = (props) => {
           {isLoading ? (
             <ActivityIndicator size={24} color="white" />
           ) : (
-            'Create Tech Card'
+            'Create Teach Card'
           )}
         </Button>
         </View>

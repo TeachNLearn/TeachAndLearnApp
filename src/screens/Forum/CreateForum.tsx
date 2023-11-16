@@ -81,6 +81,7 @@ const CreateForum = (props:any) => {
               value={forum.topic}
               updateFields={updateFields}
               placeholderText="Topic like Physics, App Development, etc"
+              onFocus={()=>{}}
             />
           }
           inputDesc="Pick a topic for your forum"
@@ -96,6 +97,7 @@ const CreateForum = (props:any) => {
               placeholderText="A brief tagline for your question"
               isTextarea={true}
               textareaLines={4}
+              onFocus={()=>{}}
             />
           }
           inputDesc="Pick a tagline for your forum"
@@ -111,6 +113,7 @@ const CreateForum = (props:any) => {
               placeholderText="Ask your question"
               isTextarea={true}
               textareaLines={8}
+              onFocus={()=>{}}
             />
           }
           inputDesc="Question for the forum"

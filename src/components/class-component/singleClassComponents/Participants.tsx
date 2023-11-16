@@ -13,19 +13,21 @@ interface participantProps {
   };
   studentsEnrolled: student[];
   localUserId: string;
+  props:any
 }
 
 const Participants = (props: participantProps) => {
   return (
     <View style={{display: 'flex', flexDirection: 'column', rowGap: 32}}>
       <View>
-        <ParticipantList heading="Teachers" teacherObj={props.createdBy} />
+        <ParticipantList props={props.props} heading="Teachers" teacherObj={props.createdBy} />
       </View>
       <View>
         {props.studentsEnrolled.length != 0 ? (
           <ParticipantList
             heading="Students"
             listArr={props.studentsEnrolled}
+            props={props.props}
           />
         ) : null}
       </View>

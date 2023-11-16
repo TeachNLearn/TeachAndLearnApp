@@ -50,12 +50,13 @@ const EditUserProfile: React.FC<MyFormProps> = (props) => {
         placeholderText="Upload image"
         isRequired={true}
         showLabel={true}
+        onFocus={()=>{}}
       />
 
       {/* Use InputHolder component for password input */}
        <Text  style={{marginTop:20 , marginBottom:20 ,}}>Change Tagline</Text>
       <InputHolder
-        value={formData.tagline}
+        // value={formData.tagline}
         type="password"
         updateFields={handleInputChange}
         name="tagline"
@@ -63,6 +64,7 @@ const EditUserProfile: React.FC<MyFormProps> = (props) => {
         placeholderText="Enter your "tagline
         isRequired={true}
         showLabel={true}
+        onFocus={()=>{}}
       />
 
       {/* Submit button */}

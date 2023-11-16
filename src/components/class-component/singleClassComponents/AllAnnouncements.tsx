@@ -16,6 +16,7 @@ interface classProps {
   teachCardId: string;
   userToken: string;
   classElemType: string;
+  props:any;
 }
 
 const AllAnnouncements = (props: classProps) => {
@@ -74,7 +75,7 @@ const AllAnnouncements = (props: classProps) => {
             <View
               style={{display: 'flex', flexDirection: 'column', rowGap: 28}}>
               {announcements.map((announcement, index) => {
-                return <Announcement {...announcement} key={index} />;
+                return <Announcement props={props.props} {...announcement} key={index} />;
               })}
             </View>
           </View>
