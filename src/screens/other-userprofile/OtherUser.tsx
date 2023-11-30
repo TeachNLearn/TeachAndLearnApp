@@ -75,11 +75,12 @@ const OtherUser: React.FC = () => {
      
         <View style={{borderTopRightRadius:50 , borderTopLeftRadius:50 , backgroundColor:'#D8EEFE' , }}>
           <View style={{height:280}}>
-                   <UserContactAndAcademicInfo  showEdit={false} showAcademicInfo showContactInfo={false} />
+                   {/* <UserContactAndAcademicInfo  showEdit={false} showAcademicInfo showContactInfo={false} /> */}
           </View>
          
             <GeneralMenu>
                <View style={{marginTop:50 , alignItems:'center'}}>
+           <GeneralMenuItem iconName="document-text-outline" text="Message" onPress={() => {}} showIcon={true}/>
            <GeneralMenuItem iconName="heart-circle-outline" text="Add To Favourite" onPress={() => {}} showIcon={true}/>
            <GeneralMenuItem iconName='warning-outline' text="Report User" onPress={handleReportUserClick}showIcon={true} />
            </View>
@@ -88,13 +89,13 @@ const OtherUser: React.FC = () => {
          
         </View>
 
-       <View style={{width:350}}>
+        <View style={{width:350}}>
         <ReportUser
         isVisible={isReportUserVisible}
         onClose={handleReportUserClose}
         onSave={handleReportUserSave}
         />
-       </View>
+       </View> 
      
   
          

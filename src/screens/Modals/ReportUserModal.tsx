@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, Modal, TextInput, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import Button from '../../components/general-components/button' ;
+import { COLORS_ILLUSTRATION } from '../../utils/globalContants';
+import axios from 'axios';
+import { BASE_URL, apiVersion } from '../../utils/apiRoutes';
+import { getHeaders } from '../../utils/helperFunctions';
+import { ToastHOC } from '../../helpers/Toast';
+
 interface InputModalProps {
   isVisible: boolean;
   onClose: () => void;
-  onSave: (inputValue: string) => void;
+  onSave: (inputValue: string) => void
 }
 
 const ReportUser: React.FC<InputModalProps> = ({ isVisible, onClose, onSave }) => {
@@ -15,6 +21,34 @@ const ReportUser: React.FC<InputModalProps> = ({ isVisible, onClose, onSave }) =
     onSave(inputValue);
     setInputValue('');
     onClose();
+  };
+
+  const reportUserHandler = async () => {
+    if (inputValue != "") {
+      // setIsLoading(true);
+      await axios
+        .post(
+          `${BASE_URL}${apiVersion}/user/${userId}/report`,
+          {
+            inputValue,
+          },
+          {
+            headers: getHeaders(userToken),
+          }
+        )
+        .then(({ data }) => {
+          console.log(data);
+          // setIsLoading(false);
+          setInputValue("");
+          ToastHOC.successAlert('Report','We have received your report')
+          onClose();
+        })
+        .catch((err:any) => {
+          console.log(err.message);
+          // setIsLoading(false);
+          ToastHOC.errorAlert(err.message,'Error in receiving report')
+        });
+    }
   };
 
   return (
@@ -28,11 +62,11 @@ const ReportUser: React.FC<InputModalProps> = ({ isVisible, onClose, onSave }) =
             value={inputValue}
             onChangeText={(text) => setInputValue(text)}
           />
-          <View style={{flexDirection:'column' , justifyContent:'center' , marginTop:30 ,   }}>
-           <Button children="Report" onPress={handleSave}/>
+          <View style={{flexDirection:'column' , justifyContent:'space-between' , marginTop:30 ,   }}>
           
+           <Button containerStyles={styles.button} children="Report" onPress={handleSave}/>
            <Text>{" "}</Text>
-          <Button children="Go back" onPress={onClose}  />
+          <Button containerStyles={styles.button1} children="Go back" onPress={onClose}  />
            </View>
       
         </View>
@@ -48,6 +82,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+  },
+  button: {
+    backgroundColor: COLORS_ILLUSTRATION.tertiary,
+  },
+  button1: {
+    backgroundColor: COLORS_ILLUSTRATION.stroke,
   },
   modalContent: {
     backgroundColor: 'white',

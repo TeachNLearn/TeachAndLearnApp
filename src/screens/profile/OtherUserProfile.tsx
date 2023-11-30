@@ -8,6 +8,7 @@ import {AuthContext} from '../../store/auth-context';
 import ImagePicker from 'react-native-image-crop-picker';
 import UserProfileHeader from '../../components/user-profile-component/UserProfileHeader';
 import UserMode from '../../components/user-profile-component/UserMode';
+import Button from '../../components/general-components/button';
 import UserNameAndTagline from '../../components/user-profile-component/UserNameAndTagline';
 import {
   GeneralMenu,
@@ -32,6 +33,8 @@ import {
 import Loader from '../../components/general-components/Loader';
 import { AirbnbRating } from 'react-native-ratings';
 import { Helper_Context } from '../../store/helper_context';
+import ReportUser from '../modals/ReportUserModal';
+import { ToastHOC } from '../../helpers/Toast';
 
 interface userProps {
   _id: string;
@@ -66,6 +69,46 @@ const OtherUserprofile: React.FC = (props: any) => {
     MyFav: undefined;
     EditAcademicInfo: undefined;
     EditContactInfo: undefined;
+  };
+
+
+  const [isReportUserVisible, setReportUserVisible] = useState<boolean>(false);
+
+  const handleReportUserClick = () => {
+    setReportUserVisible(true);
+  };
+
+  const handleReportUserClose = () => {
+    setReportUserVisible(false);
+  };
+
+  const handleReportUserSave = async (inputValue: string) => {
+    // Handle the saved value here, e.g., send it to the server
+    if (inputValue != "") {
+      // setIsLoading(true);
+      await axios
+        .post(
+          `${BASE_URL}${apiVersion}/user/${props?.route?.params?.otherUserId}/report`,
+          {
+            inputValue,
+          },
+          {
+            headers: getHeaders(userToken),
+          }
+        )
+        .then(({ data }) => {
+          console.log(data);
+          // setIsLoading(false);
+          // setInputValue("");
+          ToastHOC.successAlert('Report','We have received your report')
+          // onClose();
+        })
+        .catch((err:any) => {
+          console.log(err.message);
+          // setIsLoading(false);
+          ToastHOC.errorAlert(err.message,'Error in receiving report')
+        });
+    }
   };
 
   const navigation =
@@ -201,6 +244,75 @@ const OtherUserprofile: React.FC = (props: any) => {
   }, []);
 
 
+  const addToFav = async()=>{
+    try {
+
+    
+        await axios
+          .patch(
+            `${BASE_URL}${apiVersion}/user/${props?.route?.params?.otherUserId}/addfavourite`,
+            {},
+            {
+              headers: getHeaders(userToken),
+            }
+          )
+          .then(({ data }) => {
+            console.log(data.updatedUser);
+            const favouriteusers = data.updatedUser.favouriteUsers;
+            let user = data.updatedUser;
+            user.token = props.userToken;
+            if (favouriteusers.includes(props?.route?.params?.otherUserId)) {
+              ToastHOC.successAlert('Added','user added to favourite')
+            } else {
+              ToastHOC.errorAlert('Removed','user removed from favourites')
+
+            }
+          })
+          .catch((err:any) => {
+            ToastHOC.errorAlert(err.message,'could not make changes')
+          });
+      
+    } catch (error:any) {
+      console.log("error occured ==> ",error.message)
+    }
+  }
+
+
+  const createChat = async()=>{
+    try {
+   
+
+
+      await axios
+      .post(
+        `${BASE_URL}${apiVersion}/chat`,
+        {
+          userId:localUser?._id,
+        },
+        {
+          headers: getHeaders(userToken),
+        }
+      )
+      .then(({ data }) => {
+        console.log("POPO",data)
+        if(data.status === 1){
+          ToastHOC.successAlert("success","")
+          props.navigation.navigate('ChatScreen',{
+            user:localUser,
+            data:{chat:{_id:data?.chat?._id}}
+           })
+        }
+       
+      })
+      .catch((err:any) => {
+        ToastHOC.errorAlert(err.message,'could not create chat')
+      });
+    } catch (error:any) {
+      ToastHOC.errorAlert('Error',error.message)
+    }
+  }
+
+
   return localUser ? (
     <>
       <ScreenHeader
@@ -260,29 +372,22 @@ const OtherUserprofile: React.FC = (props: any) => {
           />
       
         </View>
+        <GeneralMenu >
+               <View style={{marginTop:0 , alignItems:'center',}}>
+           <GeneralMenuItem iconName="document-text-outline" text="Message" onPress={() => createChat()} showIcon={true}/>
+           <GeneralMenuItem iconName="heart-circle-outline" text="Add To Favourite" onPress={() => addToFav()} showIcon={true}/>
+           <GeneralMenuItem iconName='warning-outline' text="Report User" onPress={()=>handleReportUserClick()}showIcon={true} />
+           </View>
+         </GeneralMenu>
       </View>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <CustomAlert
-          visible={isDeleteAlertVisible}
-          title="DeActivate Account"
-          message="Are you sure you want to delete your account ?"
-          onClose={hideDeleteAccountAlert}
-          btn="Delete Account"
-          btn2="Go back"
-          goBack={goBack}
-          onProceed={handleDeleteAccount}
+      <View style={{width:350}}>
+        <ReportUser
+        isVisible={isReportUserVisible}
+        onClose={handleReportUserClose}
+        onSave={handleReportUserSave}
         />
-        <CustomAlert
-          visible={isLogoutAlertVisible}
-          title="Logout"
-          message="Are you sure you want to log out ?"
-          onClose={hideLogoutAlert}
-          btn="Logout"
-          btn2="Go back"
-          goBack={goBack}
-          onProceed={handleLogout}
-        />
-      </View>
+       </View> 
+    
     </ScrollView>
     </>
   ) : (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {
   COLORS_ELEMENTS,
@@ -12,6 +12,7 @@ interface LearnCardHeaderProps {
   onBackPress: () => void;
   onMenuPress?: () => void;
   ShowMenuIcon: boolean;
+  isCreate:boolean
 }
 
 const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
@@ -19,6 +20,7 @@ const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
   onBackPress,
   onMenuPress,
   ShowMenuIcon = true,
+  isCreate = false
 }) => {
   return (
     <View style={styles.learncardHeadContainer}>
@@ -46,15 +48,23 @@ const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
         <Text style={styles.headTxt}>{title}</Text>
       </View>
       <View style={styles.iconCont}>
-        {ShowMenuIcon &&
-          onMenuPress && ( // Render the menu icon conditionally
-            <Ionicon
-              name="ellipsis-vertical-sharp"
-              size={20}
-              color="#000000"
-              onPress={onMenuPress}
-            />
-          )}
+       {
+        isCreate && onMenuPress ?(
+          <Pressable onPress={()=>onMenuPress()} style={{marginLeft:-10}}>
+            <Text style={{fontFamily:FONT_FAMILY.NUNITO_BOLD}}>Create</Text>
+          </Pressable>
+        ):(
+          ShowMenuIcon &&
+            onMenuPress && ( // Render the menu icon conditionally
+              <Ionicon
+                name="ellipsis-vertical-sharp"
+                size={20}
+                color="#000000"
+                onPress={onMenuPress}
+              />
+            )
+        )
+       }
       </View>
     </View>
   );
@@ -82,7 +92,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0.36,
   },
   iconCont: {
-    width: '10%',
+    // width: '10%'
+    // paddingLeft:10,
     // borderColor: 'black',
     // borderWidth: 1,
   },

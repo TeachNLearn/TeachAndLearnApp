@@ -1,13 +1,16 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View,Pressable } from 'react-native'
 import React, { ReactElement } from 'react'
 import ScreenHeader from '../../components/general-components/ScreenHeader';
 import Chats from './community/Chats';
 import Groups from './community/Groups';
 import Search from './searchComponent/Search';
-import { FONT_FAMILY } from '../../utils/globalContants';
+import { COLORS_ELEMENTS, FONT_FAMILY } from '../../utils/globalContants';
 import Loader from '../../components/general-components/Loader';
+import Icon from 'react-native-vector-icons/AntDesign'
+import { AuthContext } from '../../store/auth-context';
 
-const Community = () => {
+
+const Community = (props:any) => {
 
   const ACTIVE_LINK_ELEMENTS = [
     {
@@ -17,6 +20,8 @@ const Community = () => {
       name: 'Groups',
     }
   ];
+
+  const authCtx = React.useContext(AuthContext);
 
   const [element, setElement] = React.useState<ReactElement>();
   const [activeLink, setActiveLink] = React.useState('Chats');
@@ -33,11 +38,11 @@ const Community = () => {
 
       if (activeLink == 'Chats') {
         setElement(
-            <Chats/>
+            <Chats props={props}/>
           );
       } else if (activeLink == 'Groups') {
         setElement(
-            <Groups/>
+            <Groups props={props}/>
         );
       }
   }, [activeLink]);
@@ -50,11 +55,22 @@ const Community = () => {
         onBackPress={() => {
           // props.navigation.goBack();
         }}
+        
         onMenuPress={() => {}}
       />
 
     <View style={{padding:20}}>
-      <Search/>
+    {/* onPress={()=>props.props.navigation.navigate('GroupAdd',{
+          token:authCtx.token,
+          userId:authCtx.user._id
+         })} */}
+    <Pressable onPress={()=>activeLink === 'Chats' ?props.navigation.navigate('SearchUser'):props.navigation.navigate('GroupAdd',{
+          token:authCtx.token,
+          userId:authCtx.user._id
+         })} style={{borderWidth:1,borderColor:'#094067',height:40,borderRadius:3,paddingHorizontal:5,flexDirection:'row',alignItems:'center',gap:6}}>
+                <Icon name='search1' size={20} color={'#094067'}/>
+                <Text style={{fontFamily:FONT_FAMILY.NUNITO_ITALIC,color:COLORS_ELEMENTS.grey}}>{activeLink === 'Chats'?'search user to create chat' : 'create group chat'}</Text>
+    </Pressable>
     </View>
       <View
         style={{
