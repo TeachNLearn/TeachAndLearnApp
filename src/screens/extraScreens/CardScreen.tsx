@@ -129,7 +129,7 @@ const CardScreen = (props: any) => {
                   <SkeletonLoder height={250}/>
                </View>
           ):(
-            props?.learnCards.map((card, index) => (
+            props?.learnCards.map((card:any, index:number) => (
               <>
                 {props.isLoading ? (
                <Loader/>

@@ -16,6 +16,7 @@ import PreLogin from '../screens/extraScreens/PreLogin';
 import Community from '../screens/extraScreens/Community';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { COLORS_ILLUSTRATION } from '../utils/globalContants';
+import FilterSearch from '../components/SearchComponent/FilterSearch';
 
 
 
@@ -97,6 +98,21 @@ const TabNavigation: React.FC = () => (
     <Tab.Screen
       name="Userprofile"
       component={Userprofile}
+      options={{
+        headerShown: false,
+        tabBarIcon: ({color, size, focused}) => (
+          <UserprofileSvg
+            fill={color}
+            height={size}
+            width={size}
+            active={focused}
+          />
+        ),
+      }}
+    />
+      <Tab.Screen
+      name="Filter"
+      component={FilterSearch}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size, focused}) => (
