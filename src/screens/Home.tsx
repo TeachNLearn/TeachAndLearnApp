@@ -10,6 +10,7 @@ import HomeCardsHeader from '../components/homeScreenComponent/HomeCardsHeader';
 import SearchComponent from '../components/homeScreenComponent/SearchComponent';
 import Carausal from '../components/carausal/Carausal';
 import { VIDEOS_FOR_CARAUSAL } from '../helpers/data';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import { FONT_FAMILY, SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils/globalContants';
 import PreLogin from './extraScreens/PreLogin';
 import CardScreen from './extraScreens/CardScreen';

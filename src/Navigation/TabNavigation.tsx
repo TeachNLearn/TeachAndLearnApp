@@ -110,21 +110,6 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-      <Tab.Screen
-      name="Filter"
-      component={FilterSearch}
-      options={{
-        headerShown: false,
-        tabBarIcon: ({color, size, focused}) => (
-          <UserprofileSvg
-            fill={color}
-            height={size}
-            width={size}
-            active={focused}
-          />
-        ),
-      }}
-    />
      
   </Tab.Navigator>
 );

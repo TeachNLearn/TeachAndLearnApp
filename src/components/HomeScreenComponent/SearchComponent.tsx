@@ -1,16 +1,18 @@
-import { View, Text , TouchableOpacity , StyleSheet , TextInput } from 'react-native'
+import { View, Text , TouchableOpacity , StyleSheet , TextInput, Pressable } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon1 from 'react-native-vector-icons/AntDesign'
 import { FONT_FAMILY } from '../../utils/globalContants';
 
 interface SearchInputSectionProps {
   searchText: string;
   onSearchTextChange: (text: string) => void;
   onSearchPress: () => void;
+  props:any
 }
 
-const SearchComponent : React.FC<SearchInputSectionProps> = ({searchText , onSearchPress , onSearchTextChange}) => {
+const SearchComponent : React.FC<SearchInputSectionProps> = ({searchText , onSearchPress , onSearchTextChange,props}) => {
   return (
    
       <View
@@ -26,7 +28,10 @@ const SearchComponent : React.FC<SearchInputSectionProps> = ({searchText , onSea
             value={searchText}
             onChangeText={onSearchTextChange}
           />
-          
+          <Pressable style={styles.submitButton} onPress={()=>props?.navigation?.navigate('Filter_Search')}>
+            <Icon1 name="filter" size={24} color="#fff" />
+          </Pressable>
+
         </View>
 
         <View style={styles.searchBtnContainer}>

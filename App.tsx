@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {useContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {View, Text, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import AuthContextProvider, {AuthContext} from './src/store/auth-context';
 import TabNavigation from './src/navigation/TabNavigation';
@@ -35,6 +34,7 @@ import EditGroup from './src/screens/chat/EditGroup';
 import AddMembers from './src/screens/chat/AddMembers';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SearchUser from './src/screens/chat/SearchUser';
+import FilterSearch from './src/components/SearchComponent/FilterSearch';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -121,6 +121,11 @@ const NavigationScreens = () => {
           animation:'slide_from_bottom'
         }}
         component={AddMembers} />
+          <Stack.Screen name="Filter_Search" 
+        options={{
+          animation:'slide_from_bottom'
+        }}
+        component={FilterSearch} />
 
         <Stack.Screen 
         options={{

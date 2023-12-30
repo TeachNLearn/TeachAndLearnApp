@@ -293,10 +293,12 @@ any[]
           role === 'learn' ?<Text style={styles.txtTwo}>What do you want to learn today?</Text>:<Text style={styles.txtTwo}>Teach something you know</Text>
         }
       </View>
-      <SearchComponent
+  
+    <SearchComponent
         searchText={searchText}
         onSearchPress={handleSearch}
         onSearchTextChange={setSearchText}
+        props={props}
       />
 
       <View style={{paddingHorizontal: 25, paddingBottom: 20}}>
@@ -711,7 +713,15 @@ const styles = StyleSheet.create({
   btnTxt:{
     fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,
     color:COLORS_ELEMENTS.buttonTxt
-  }
+  },
+  searchBtnContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    width: 47,
+    height: 47,
+  },
 });
 
 export default HomeScreen;
