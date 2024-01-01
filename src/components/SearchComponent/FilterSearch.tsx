@@ -3,17 +3,14 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
 import React, {useContext, useState} from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {FONT_FAMILY, SCREEN_HEIGHT} from '../../utils/globalContants';
 import DropDownComponent from './filter_search/DropDownComponent';
 import DropDownBox from './filter_search/DropDownBox';
 import {AuthContext} from '../../store/auth-context';
 import axios from 'axios';
-import {BASE_URL, BASE_URL1, apiVersion} from '../../utils/apiRoutes';
+import {BASE_URL1, apiVersion} from '../../utils/apiRoutes';
 import {getHeaders} from '../../utils/helperFunctions';
 import {ToastHOC} from '../../helpers/Toast';
 import LearnCardData from '../learnCardComponents/LearnCardData';
