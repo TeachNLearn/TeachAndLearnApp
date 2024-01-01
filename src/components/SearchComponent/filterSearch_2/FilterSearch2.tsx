@@ -73,6 +73,7 @@ const FilterSearch2 = (props: any) => {
         setIsLoading(false);
         ToastHOC.successAlert('Success in fetching cards', 'success');
         console.log("ALL_Cards ==> ",data?.payload)
+        props.navigation.navigate('')
         // setAllCards(data?.payload);
       })
       .catch(data => {
@@ -81,7 +82,7 @@ const FilterSearch2 = (props: any) => {
         // setAllCards([]);
       });
   };
-  
+
   return (
     <>
       <ScreenHeader
