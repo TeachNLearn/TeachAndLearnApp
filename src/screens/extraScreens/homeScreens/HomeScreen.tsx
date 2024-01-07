@@ -294,12 +294,14 @@ any[]
         }
       </View>
   
-    <SearchComponent
+      <SearchComponent
         searchText={searchText}
         onSearchPress={handleSearch}
         onSearchTextChange={setSearchText}
         props={props}
       />
+
+       
 
       <View style={{paddingHorizontal: 25, paddingBottom: 20}}>
         {

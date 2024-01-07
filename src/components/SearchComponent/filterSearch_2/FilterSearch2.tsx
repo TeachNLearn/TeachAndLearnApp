@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -10,6 +11,7 @@ import React from 'react';
 import ScreenHeader from '../../general-components/ScreenHeader';
 import {subjects} from '../../../data/SUBJECT_LIST.json';
 import {standard} from '../../../data/STANDARD_LIST.json';
+import {Programme} from '../../../data/PROGRAMME_LIST.json';
 import {languages} from '../../../data/LANGUAGE_LIST.json';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ComponentForList from './ComponentForList';
@@ -26,8 +28,9 @@ const FilterSearch2 = (props: any) => {
     SUBJECT: 'Subject',
     CLASS: 'Class',
     LANGUAGE: 'Language',
+    PROGRAMME:'Programme'
   };
-  const AllText = [components.SUBJECT, components.CLASS, components.LANGUAGE];
+  const AllText = [components.SUBJECT, components.CLASS, components.LANGUAGE,components.PROGRAMME];
 
   const authCtx = React.useContext(AuthContext);
 
@@ -36,9 +39,11 @@ const FilterSearch2 = (props: any) => {
   const [selectOneSubject, setSelectOneSubject] = React.useState('');
   const [selectOneClass, setSelectOneClass] = React.useState('');
   const [selectOneLanguage, setSelectOneLanguage] = React.useState('');
+  const [selectOneProgramme, setSelectOneProgramme] = React.useState('')
   const [subjectss, setSubjectss] = React.useState<any>(subjects)
   const [standardss, setStandardss] = React.useState<any>(standard)
   const [languagess, setLanguagess] = React.useState<any>(languages)
+  const [programmess, setProgrammess] = React.useState(Programme)
   const [isLoading, setIsLoading] = React.useState<Boolean>(false)
   const [userToken, setuserToken] = React.useState(authCtx.token);
 
@@ -57,13 +62,17 @@ const FilterSearch2 = (props: any) => {
     const found = languages.filter(item => item.toLowerCase().includes(k.toLowerCase()));
     setLanguagess(found)
    }
+   else if(pressed === components.PROGRAMME){
+    const found = Programme.filter(item => item.toLowerCase().includes(k.toLowerCase()));
+    setProgrammess(found)
+   }
   }
 
   const applyFilters = async () => {
     setIsLoading(true);
     await axios
       .post(
-        `${BASE_URL1}${apiVersion}/user/filter?standard=${selectOneClass}&subject=${selectOneSubject}&programme=${''}&preferredLanguage=${selectOneLanguage}`,
+        `${BASE_URL1}${apiVersion}/user/filter?standard=${selectOneClass}&subject=${selectOneSubject}&programme=${selectOneProgramme}&preferredLanguage=${selectOneLanguage}`,
         {},
         {
           headers: getHeaders(userToken),
@@ -73,12 +82,17 @@ const FilterSearch2 = (props: any) => {
         setIsLoading(false);
         ToastHOC.successAlert('Success in fetching cards', 'success');
         console.log("ALL_Cards ==> ",data?.payload)
-        props.navigation.navigate('')
+        props.navigation.navigate('Filter_Searchs',{
+          oneSubject:selectOneSubject,
+          oneClasses:selectOneClass,
+          oneProgramme:selectOneProgramme,
+          oneLanguage:selectOneLanguage
+        })
         // setAllCards(data?.payload);
       })
       .catch(data => {
         setIsLoading(false);
-        ToastHOC.errorAlert('No Cards found', 'Unsuccessfull');
+        ToastHOC.errorAlert('No Cards found', data);
         // setAllCards([]);
       });
   };
@@ -117,8 +131,16 @@ const FilterSearch2 = (props: any) => {
           })}
          </View>
           {/* apply filter */}
-          <Pressable onPress={()=>applyFilters()} style={{backgroundColor:COLORS_ILLUSTRATION.tertiary,padding:10}}>
-            <Text style={{color:'#fff',fontFamily:FONT_FAMILY.NUNITO_BOLD}}>Apply Filters</Text>
+          <Pressable disabled={isLoading ?true:false} onPress={()=>applyFilters()} style={{backgroundColor:COLORS_ILLUSTRATION.tertiary,padding:10}}>
+            {
+              isLoading ?(
+                <>
+                  <ActivityIndicator color={'#fff'}/>
+                </>
+              ):(
+                <Text style={{color:'#fff',fontFamily:FONT_FAMILY.NUNITO_BOLD}}>Apply Filters</Text>
+              )
+            }
           </Pressable>
         </View>
 
@@ -140,6 +162,7 @@ const FilterSearch2 = (props: any) => {
             <ShowSingleComponent setComponent={setSelectOneSubject} component={selectOneSubject}/>
             <ShowSingleComponent setComponent={setSelectOneClass} component={selectOneClass}/>
             <ShowSingleComponent setComponent={setSelectOneLanguage} component={selectOneLanguage}/>
+            <ShowSingleComponent setComponent={setSelectOneProgramme} component={selectOneProgramme}/>
           </View>
           <ScrollView
             contentContainerStyle={{
@@ -166,6 +189,12 @@ const FilterSearch2 = (props: any) => {
                 selectOneComponent={selectOneLanguage}
                 component={languagess}
               />
+              ) : pressed === components.PROGRAMME ? (
+                <ComponentForList
+                  setSelectOneComponent={setSelectOneProgramme}
+                  selectOneComponent={selectOneProgramme}
+                  component={programmess}
+                />
             ) : (
               <ComponentForList
                 setSelectOneComponent={setSelectOneSubject}

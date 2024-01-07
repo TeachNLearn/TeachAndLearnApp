@@ -152,7 +152,7 @@ const Home = () => {
         onSearchPress={handleSearch}
         onSearchTextChange={setSearchText}
       />
-
+       
       {/* second parent Container */}
 
       <View style={styles.SecondParentContainer}>

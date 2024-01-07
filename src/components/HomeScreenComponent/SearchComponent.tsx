@@ -1,9 +1,13 @@
 import { View, Text , TouchableOpacity , StyleSheet , TextInput, Pressable } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconSe from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon1 from 'react-native-vector-icons/AntDesign'
-import { FONT_FAMILY } from '../../utils/globalContants';
+import { FONT_FAMILY, SCREEN_HEIGHT } from '../../utils/globalContants';
+import axios from 'axios';
+import { BASE_URL, apiVersion } from '../../utils/apiRoutes';
+import { getHeaders } from '../../utils/helperFunctions';
+import { AuthContext } from '../../store/auth-context';
 
 interface SearchInputSectionProps {
   searchText: string;
@@ -13,6 +17,16 @@ interface SearchInputSectionProps {
 }
 
 const SearchComponent : React.FC<SearchInputSectionProps> = ({searchText , onSearchPress , onSearchTextChange,props}) => {
+
+
+ 
+
+  // const [query, setQuery] = React.useState('')
+
+
+
+
+
   return (
    
       <View
@@ -21,11 +35,13 @@ const SearchComponent : React.FC<SearchInputSectionProps> = ({searchText , onSea
           <TouchableOpacity style={styles.submitButton} onPress={onSearchPress}>
             <Icon name="search" size={24} color="white" />
           </TouchableOpacity>
+         
           <TextInput
             style={styles.searchInput}
             placeholder="Search"
             placeholderTextColor="rgba(255, 255, 255, 0.5)"
             value={searchText}
+            onFocus={()=>props.navigation.navigate('SearchHome')}
             onChangeText={onSearchTextChange}
           />
           <Pressable style={styles.submitButton} onPress={()=>props?.navigation?.navigate('Filter_Search')}>
@@ -37,6 +53,7 @@ const SearchComponent : React.FC<SearchInputSectionProps> = ({searchText , onSea
         <View style={styles.searchBtnContainer}>
           <IconSe name="arrow-top-right" size={24} color="#000" />
         </View>
+      
       </View>
   )
 }

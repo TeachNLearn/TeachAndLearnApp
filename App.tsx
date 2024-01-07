@@ -34,8 +34,9 @@ import EditGroup from './src/screens/chat/EditGroup';
 import AddMembers from './src/screens/chat/AddMembers';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SearchUser from './src/screens/chat/SearchUser';
-import FilterSearch from './src/components/SearchComponent/FilterSearch';
 import FilterSearch2 from './src/components/SearchComponent/filterSearch_2/FilterSearch2';
+import SearchPageForHome from './src/components/homeScreenComponent/SearchPageForHome';
+import FilterSearch from './src/components/SearchComponent/FilterSearch';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -123,6 +124,12 @@ const NavigationScreens = () => {
         }}
         component={AddMembers} />
 
+        <Stack.Screen name="SearchHome" 
+        options={{
+          animation:'slide_from_right'
+        }}
+        component={SearchPageForHome} />
+
 
           <Stack.Screen name="Filter_Search" 
         options={{
@@ -130,11 +137,11 @@ const NavigationScreens = () => {
         }}
         component={FilterSearch2} />
 
-{/* <Stack.Screen name="Filter_Searchs" 
+        <Stack.Screen name="Filter_Searchs" 
         options={{
           animation:'slide_from_bottom'
         }}
-        component={FilterSearch} /> */}
+        component={FilterSearch} />
 
 
         <Stack.Screen 

@@ -22,7 +22,10 @@ interface IFILTER_SEARCH {
 }
 
 const FilterSearch: React.FC<IFILTER_SEARCH> = props => {
-  const AllText = ['Subject', 'Class', 'Language'];
+  const AllText = ['Subject', 'Class', 'Language','Programme'];
+
+
+  const {oneClasses,oneLanguage,oneProgramme,oneSubject} = props?.route?.params
 
   const [openDropDown, setOpenDropDown] = React.useState(false);
   const [aboutt, setAboutt] = React.useState('');
@@ -44,9 +47,10 @@ const FilterSearch: React.FC<IFILTER_SEARCH> = props => {
 
   const filterSearch = async () => {
     setIsLoading(true);
+    console.log(oneClasses,oneLanguage,oneSubject)
     await axios
       .post(
-        `${BASE_URL1}${apiVersion}/user/filter?standard=${standard}&subject=${subject}&programme=${programme}&preferredLanguage=${prefferedLanguage}`,
+        `${BASE_URL1}${apiVersion}/user/filter?standard=${oneClasses}&subject=${oneSubject}&programme=${oneProgramme}&preferredLanguage=${oneLanguage}`,
         {},
         {
           headers: getHeaders(userToken),
@@ -55,11 +59,12 @@ const FilterSearch: React.FC<IFILTER_SEARCH> = props => {
       .then(({data}) => {
         setIsLoading(false);
         ToastHOC.successAlert('Success in fetching cards', 'success');
+        console.log("ALL_Cards ==> ",data?.payload)
         setAllCards(data?.payload);
       })
       .catch(data => {
         setIsLoading(false);
-        ToastHOC.errorAlert('No Cards found', 'Unsuccessfull');
+        ToastHOC.errorAlert('No Cards found', data);
         setAllCards([]);
       });
   };
@@ -79,7 +84,7 @@ const FilterSearch: React.FC<IFILTER_SEARCH> = props => {
         onMenuPress={() => {}}
       />
       <View style={{gap: -10}}>
-        <Pressable
+        {/* <Pressable
           style={{alignSelf: 'flex-end'}}
           onPress={() => {
             setStandard(''),
@@ -88,15 +93,19 @@ const FilterSearch: React.FC<IFILTER_SEARCH> = props => {
               setOpenDropDown(false);
           }}>
           <Text style={{marginRight: 20}}>clear all</Text>
-        </Pressable>
+        </Pressable> */}
         <View
           style={{
             padding: 20,
             flexDirection: 'row',
             justifyContent: 'space-between',
             width: '100%',
+            flexWrap:'wrap'
           }}>
-          {AllText.map((e: any, i: number) => {
+
+          {/* all text */}
+
+          {/* {AllText.map((e: any, i: number) => {
             return (
               <DropDownComponent
                 key={i}
@@ -113,7 +122,7 @@ const FilterSearch: React.FC<IFILTER_SEARCH> = props => {
                 }
               />
             );
-          })}
+          })} */}
         </View>
         <Text style={{marginLeft: 20}}>Search results : {allCards.length}</Text>
       </View>

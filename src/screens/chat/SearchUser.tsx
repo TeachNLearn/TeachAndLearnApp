@@ -87,10 +87,25 @@ const AddMembers = (props:any) => {
   }
 
 
-
+  function debounce(func:any, timeout:number){
+    let timer:any;
+    return (...args:any) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
+    
+  // function saveInput(){
+  //   console.log('Saving data');
+  // }
+  
+  
 
   React.useEffect(() => {
-    getAllUser()
+    // getAllUser()
+    const processChanges = debounce(getAllUser,800);
+
+    processChanges()
   }, [isFocused === true,key])
   
 
