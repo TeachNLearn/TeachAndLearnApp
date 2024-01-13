@@ -136,7 +136,7 @@ const Chats = (props: any) => {
       ) : (
         <>
           {allChats?.map((e:any, i:number) => {
-            const filter = e.users.filter(e => e._id !== authCtx.user._id);
+            const filter = e.users.filter((e:any) => e._id !== authCtx.user._id);
             return (
               <TouchableOpacity
               key={i}

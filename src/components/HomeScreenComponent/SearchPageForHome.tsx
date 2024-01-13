@@ -7,6 +7,7 @@ import { BASE_URL, apiVersion } from '../../utils/apiRoutes';
 import { getHeaders } from '../../utils/helperFunctions';
 import { AuthContext } from '../../store/auth-context';
 import LearnCardData from '../learnCardComponents/LearnCardData';
+import TeachCards from '../../screens/extraScreens/cardsScreen/TeachCards';
 
 
 const SearchPageForHome = () => {
@@ -14,8 +15,10 @@ const SearchPageForHome = () => {
   const authCtx = useContext(AuthContext);
 
   const [searchText, setSearchText] = React.useState('xyz')
-  const [showLearnCard, setShowLearnCard] = React.useState(null)
+  const [showLearnCard, setShowLearnCard] = React.useState([])
   const [showDropDown, setShowDropDown] = React.useState(false)
+  const [users, setUsers] = React.useState([])
+  const [classes, setClasses] = React.useState([])
 
   function debounce(func:any, timeout:number){
     const thi:any = this
@@ -39,14 +42,16 @@ const SearchPageForHome = () => {
         }
       )
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         const classes = data.classes;
         const learnCards = data.learnCards;
         const users = data.users;
   
 
-        console.log(classes,learnCards,users)
+        console.log(classes.length,learnCards.length,users.length)
         setShowLearnCard(learnCards)
+        setUsers(users)
+        setClasses(classes)
         // setSearchedUsers(users);
         // setSearchedLearnCards(learnCards);
         // setSearchedTeachCards(classes);
@@ -54,8 +59,8 @@ const SearchPageForHome = () => {
         //   props.updateSearchFeedProps(query, users, learnCards, classes);
         // }
       })
-      .catch((data) => {
-        console.log(data);
+      .catch((err) => {
+        console.log(err);
       });
     
     } catch (error:any) {
@@ -64,46 +69,84 @@ const SearchPageForHome = () => {
   }
   
   React.useEffect(() => {
-    const processChanges = debounce(searchQuery,3000);
+    const processChanges = debounce(searchQuery,1000);
     processChanges()
   }, [searchText])
 
 
 
   return (
-    <View style={{flex:1,borderWidth:1,borderColor:'#222',padding:20}}>
-      <View style={{borderWidth:1,borderRadius:7,flexDirection:'row',alignItems:'center',paddingHorizontal:10}}>
+    <View style={{flex:1,padding:20}}>
+      <View style={{borderRadius:7,borderWidth:1,height:40,flexDirection:'row',alignItems:'center',paddingHorizontal:10}}>
       <Icon name="search1" size={18} />
         <TextInput
         placeholder='search...'
         value={searchText}
         onChangeText={(e)=>setSearchText(e)}
+        placeholderTextColor={'#222'}
+        style={{color:'#222'}}
         />
       </View>
 
       {/* dropdown */}
      <View>
-     <ScrollView contentContainerStyle={{borderWidth:1,borderRadius:7,height:SCREEN_HEIGHT/2.5,backgroundColor:'#fff',marginTop:10,padding:20}}>
+     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{borderRadius:7,height:SCREEN_HEIGHT,marginTop:10,display:showLearnCard.length > 0?'block':'block'}}>
           <View>
-            <Text style={{fontSize:22,fontFamily:FONT_FAMILY.NUNITO_BOLD}}>Users</Text>
+            <Text style={{fontSize:22,fontFamily:FONT_FAMILY.NUNITO_BOLD}}>{users?.length > 0?'Users':showLearnCard.length > 0?'Learn Card':''}</Text>
           </View>
 
           {/* other content */}
-          <View style={{marginTop:10,flexDirection:'row',alignItems:'center',gap:10}}>
-            <Image source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVA_HrQLjkHiJ2Ag5RGuwbFeDKRLfldnDasw&usqp=CAU'}} style={{borderWidth:1,width:30,height:30,borderRadius:15}}/>
-            <Text style={{fontFamily:FONT_FAMILY.NUNITO_MEDIUM}}>Garvit Jain</Text>
-          </View>
+         {
+          users?.length > 0?(
+            users?.map((e:any,i:number)=>{
+              return (
+              <View key={i} style={{marginTop:10,flexDirection:'row',alignItems:'center',gap:10}}>
+                <Image source={{uri:e?.photo}} style={{borderWidth:1,width:30,height:30,borderRadius:15}}/>
+                <Text style={{fontFamily:FONT_FAMILY.NUNITO_MEDIUM}}>{e?.userName}</Text>
+              </View>
+              )
+            })
+          ):null
+         }
+
+{  showLearnCard?.length >0?(
+  showLearnCard?.map((e: any, i: number) => {
+    return(
+      <View key={i} style={{marginTop:10}}>
+         <LearnCardData {...e} key={i} isTeachCard={false} />
+      </View>
+    )
+  })
+):(
+  null
+)
+            }
+
+<View style={{marginTop:10}}>
+<Text style={{fontSize:22,fontFamily:FONT_FAMILY.NUNITO_BOLD}}>{classes?.length > 0?'Teach Cards':''}</Text>
+        
+
+        {  classes?.length >0?(
+          
+          classes?.map((e: any, i: number) => {
+            return(
+              <View key={i}>
+                 <LearnCardData {...e} key={i} isTeachCard={true} />
+              </View>
+            )
+          })
+        ):(
+          null
+        )
+                    }
+
+</View>
         </ScrollView>
 
         {/* down content */}
 
-     <ScrollView style={{borderWidth:1,height:SCREEN_HEIGHT,marginTop:10,backgroundColor:'red',position:'absolute',width:'100%'}}>
      
-            {  showLearnCard?.map((e: any, i: number) => {
-                return <LearnCardData {...e} key={i} isTeachCard={false} />;
-              })
-            }
-     </ScrollView>
+            
      </View>
       
     </View>
