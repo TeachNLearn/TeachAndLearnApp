@@ -37,6 +37,7 @@ import SearchUser from './src/screens/chat/SearchUser';
 import FilterSearch2 from './src/components/SearchComponent/filterSearch_2/FilterSearch2';
 import SearchPageForHome from './src/components/homeScreenComponent/SearchPageForHome';
 import FilterSearch from './src/components/SearchComponent/FilterSearch';
+import Userprofile from './src/screens/profile/Userprofile';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
@@ -149,6 +150,14 @@ const NavigationScreens = () => {
           animation:'slide_from_right'
         }} 
         name="EditGroup" component={EditGroup} />
+
+
+<Stack.Screen name="Userprofile" 
+        options={{
+          animation:'slide_from_right'
+        }}
+        component={Userprofile} />
+
 
         <Stack.Screen name="GroupAdd" 
         options={{

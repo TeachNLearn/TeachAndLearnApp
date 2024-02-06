@@ -23,6 +23,7 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import GlobalCard from '../../../components/homeScreenComponent/GlobalCard';
 import Animated from 'react-native-reanimated';
 import Carausal from '../../../components/carausal/Carausal';
+import UserprofileSvg from '../../../components/svgComponents/UserProfileIconSvg';
 
 interface RecommendedCourse {
   subject: string;
@@ -279,9 +280,21 @@ any[]
   return (
     <ScrollView style={styles.HomeParentContainer}>
       <View style={styles.HomeTxtContainer}>
-       
-        <Text style={styles.txtOne}>Hello {user?.userName} 👋</Text>
-        <View>
+      <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
+         
+      <Text style={styles.txtOne}>Hello {user?.userName} 👋</Text>
+      <Pressable onPress={()=>props.navigation.navigate('Userprofile')} style={{borderWidth:1,borderColor:'#fff',padding:5,borderRadius:20}}>
+      <UserprofileSvg
+            fill={'#fff'}
+            height={24}
+            width={24}
+            active={true}
+          />
+      </Pressable>
+      </View>
+
+      
+        <View style={{marginTop:20}}>
         <UserModeForHome
           isLearnMode={learn_mode}
           toggleMode={toggleMode}

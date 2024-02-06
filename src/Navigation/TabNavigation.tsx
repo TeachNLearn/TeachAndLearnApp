@@ -24,6 +24,7 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigation: React.FC = () => (
   <Tab.Navigator
+  initialRouteName='Home'
     screenOptions={{
       tabBarActiveTintColor: COLORS_ILLUSTRATION.tertiary,
       tabBarInactiveTintColor: COLORS_ILLUSTRATION.stroke,
@@ -44,16 +45,7 @@ const TabNavigation: React.FC = () => (
       },
       tabBarShowLabel: false,
     }}>
-    <Tab.Screen
-      name="Home"
-      component={HomeScreen}
-      options={{
-        headerShown: false,
-        tabBarIcon: ({color, size}) => (
-          <HomeSvg fill={color} height={size} width={size} />
-        ),
-      }}
-    />
+   
     <Tab.Screen
       name="Forum"
       component={Forum}
@@ -72,6 +64,16 @@ const TabNavigation: React.FC = () => (
 
         tabBarIcon: ({color, size}) => (
           <BookClasedSvg fill={color} height={size} width={size} />
+        ),
+      }}
+    />
+     <Tab.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{
+        headerShown: false,
+        tabBarIcon: ({color, size}) => (
+          <HomeSvg fill={color} height={size} width={size} />
         ),
       }}
     />
@@ -95,21 +97,7 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-    <Tab.Screen
-      name="Userprofile"
-      component={Userprofile}
-      options={{
-        headerShown: false,
-        tabBarIcon: ({color, size, focused}) => (
-          <UserprofileSvg
-            fill={color}
-            height={size}
-            width={size}
-            active={focused}
-          />
-        ),
-      }}
-    />
+  
      
   </Tab.Navigator>
 );

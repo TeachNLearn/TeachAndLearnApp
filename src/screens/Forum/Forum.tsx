@@ -89,6 +89,9 @@ const Forum = (props: any) => {
 
   return (
     <ScrollView contentContainerStyle={{flex: 0.9}}>
+     
+
+
       <ScreenHeader
         title="Forum"
         ShowMenuIcon={false}
