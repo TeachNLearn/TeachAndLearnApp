@@ -48,16 +48,7 @@ const TabNavigation: React.FC = () => (
       tabBarShowLabel: false,
     }}>
    
-    <Tab.Screen
-      name="Forum"
-      component={Forum}
-      options={{
-        headerShown: false,
-        tabBarIcon: ({color, size, focused}) => (
-          <Icon name='group' color={focused?COLORS_ILLUSTRATION.tertiary:COLORS_ILLUSTRATION.stroke} size={32}/>
-         ),
-      }}
-    />
+   
     <Tab.Screen
       name="LearnCards"
       component={LearnCards}
@@ -67,6 +58,17 @@ const TabNavigation: React.FC = () => (
         tabBarIcon: ({color, size}) => (
           <BookClasedSvg fill={color} height={size} width={size} />
         ),
+      }}
+    />
+    <Tab.Screen
+      name="Community"
+      component={Community}
+      options={{
+        headerShown: false,
+        tabBarIcon: ({color, size}) => (
+          <ForumSvg fill={color} height={size} width={size} />
+        ),
+      
       }}
     />
      <Tab.Screen
@@ -79,15 +81,15 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-      <Tab.Screen
-      name="Community"
-      component={Community}
+      
+     <Tab.Screen
+      name="Forum"
+      component={Forum}
       options={{
         headerShown: false,
-        tabBarIcon: ({color, size}) => (
-          <ForumSvg fill={color} height={size} width={size} />
-        ),
-      
+        tabBarIcon: ({color, size, focused}) => (
+          <Icon name='group' color={focused?COLORS_ILLUSTRATION.tertiary:COLORS_ILLUSTRATION.stroke} size={32}/>
+         ),
       }}
     />
     <Tab.Screen

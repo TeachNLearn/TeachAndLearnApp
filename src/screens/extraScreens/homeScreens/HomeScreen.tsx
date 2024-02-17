@@ -445,8 +445,38 @@ any[]
               )}
             </ScrollView>
           </View>
-
-          <HomeCardsHeader
+          {
+              <>
+               <HomeCardsHeader
+            title={'Check Learn Cards'}
+            onViewAllPress={() => {props.navigation.navigate('LearnCards')}}
+            icon={true}
+          />
+          <View style={styles.LearningcardContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {/* Here you can map over your data and generate Recommended cards */}
+              {myLearnCards?.length > 0 ? (
+                <>
+                  {myLearnCards?.map((item, index) => (
+                    <GlobalCard isLoading={loading2} props={props} ReItem={item} key={index} />
+                  ))}
+                </>
+              ) : (
+                <View style={{paddingHorizontal: 20}}>
+                  <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
+                    Currently no learn card is created by me
+                  </Text>
+                </View>
+              )}
+            </ScrollView>
+          </View>
+              </>
+            
+          }
+          {
+            role==='learn'?(
+              <>
+                <HomeCardsHeader
             title="Recommended Classes"
             onViewAllPress={() => {props.navigation.navigate('Classes',{
               barTo:1
@@ -472,38 +502,14 @@ any[]
               )}
             </ScrollView>
           </View>
+              </>
+            ):null
+          }
 
 
 
           {/* Classes created by me */}
-          {
-              <>
-               <HomeCardsHeader
-            title={role==='learn'?"My Learn Cards":'Check Learn Cards'}
-            onViewAllPress={() => {props.navigation.navigate('LearnCards')}}
-            icon={true}
-          />
-          <View style={styles.LearningcardContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {/* Here you can map over your data and generate Recommended cards */}
-              {myLearnCards?.length > 0 ? (
-                <>
-                  {myLearnCards?.map((item, index) => (
-                    <GlobalCard isLoading={loading2} props={props} ReItem={item} key={index} />
-                  ))}
-                </>
-              ) : (
-                <View style={{paddingHorizontal: 20}}>
-                  <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
-                    Currently no learn card is created by me
-                  </Text>
-                </View>
-              )}
-            </ScrollView>
-          </View>
-              </>
-            
-          }
+         
 
          {
           role==='learn'?(
