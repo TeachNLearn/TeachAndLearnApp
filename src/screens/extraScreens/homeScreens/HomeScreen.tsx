@@ -395,7 +395,7 @@ any[]
             <HomeCardsHeader
             title="Unreviewed Classes"
             onViewAllPress={() => {}}
-            icon={true}
+            icon={false}
           />
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -510,7 +510,7 @@ any[]
         <>
               <HomeCardsHeader
             title='Check teach cards'
-            onViewAllPress={() => {props.navigation.navigate('Classes')}}
+            onViewAllPress={() => {props.navigation.navigate('LearnCards')}}
             icon={true}
           />
           <View style={styles.LearningcardContainer}>
@@ -550,7 +550,7 @@ any[]
                <HomeCardsHeader
             title="Rising Requests"
             onViewAllPress={() => {}}
-            icon={true}
+            icon={false}
           />
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
