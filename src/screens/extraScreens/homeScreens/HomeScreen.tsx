@@ -103,7 +103,6 @@ any[]
   const [loading3, setLoading3] = useState<boolean>(false)
   const [loading4, setLoading4] = useState<boolean>(false)
   const [loading5, setLoading5] = useState<boolean>(false)
-  const [youtubeStep, setYoutubeStep] = React.useState<number>(0)
 
 
     const handlePress =  (url:any) => {
@@ -389,7 +388,64 @@ any[]
       {/* second parent Container */}
 
       <View style={styles.SecondParentContainer}>
+
+        {/* main conatiner */}
         <ScrollView style={{marginBottom: 80, marginTop: 40}}>
+            {/* Unreviewed Classes */}
+            <HomeCardsHeader
+            title="Unreviewed Classes"
+            onViewAllPress={() => {}}
+            icon={true}
+          />
+          <View style={styles.LearningcardContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {/* Here you can map over your data and generate Recommended cards */}
+              {myUnReviewedClasses?.length > 0 ? (
+                <>
+                  {myUnReviewedClasses?.map((item, index) => (
+                    <GlobalCard isLoading={loading3} props={props} ReItem={item} key={index} />
+                  ))}
+                </>
+              ) : (
+                <View style={{paddingHorizontal: 20}}>
+                  <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
+                    Currently no classes for review
+                  </Text>
+                </View>
+              )}
+            </ScrollView>
+          </View>
+
+          {/* upcoming classes */}
+                  {/* My Upcoming classes */}
+
+          <HomeCardsHeader
+            title={role === 'learn'?"Upcoming classes i have enrolled into":"Upcoming classes i have to teach"}
+            onViewAllPress={() => {props.navigation.navigate('Classes',{
+              barTo:2
+            })}}
+            icon={false}
+          />
+           <View style={styles.LearningcardContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {/* Here you can map over your data and generate Recommended cards */}
+              {upcomingClassesData?.length > 0 || (role==='learn'?myLearnCards.length > 0:classesCreatedByMe.length > 0)? (
+                <>
+                  {upcomingClassesData?.concat(role==='learn'?myLearnCards:classesCreatedByMe)?.map((item, index) => (
+                    //have to add loading TODO:
+                    <GlobalCard isLoading={loading4} props={props} ReItem={item} key={index} />
+                  ))}
+                </>
+              ) : (
+                <View style={{paddingHorizontal: 20}}>
+                  <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
+                    Currently no upcoming classes
+                  </Text>
+                </View>
+              )}
+            </ScrollView>
+          </View>
+
           <HomeCardsHeader
             title="Recommended Classes"
             onViewAllPress={() => {props.navigation.navigate('Classes',{
@@ -408,7 +464,7 @@ any[]
                   ))}
                 </>
               ) : (
-                <View style={{paddingHorizontal: 20,marginTop:20}}>
+                <View style={{paddingHorizontal: 20}}>
                   <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
                     Currently no recommendations
                   </Text>
@@ -420,36 +476,10 @@ any[]
 
 
           {/* Classes created by me */}
-          <HomeCardsHeader
-            title="Classes Created By Me"
-            onViewAllPress={() => {props.navigation.navigate('Classes')}}
-            icon={true}
-          />
-          <View style={styles.LearningcardContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {/* Here you can map over your data and generate Recommended cards */}
-              {classesCreatedByMe?.length > 0 ? (
-                <>
-                  {classesCreatedByMe?.map((item, index) => (
-                    <GlobalCard isLoading={loading1} props={props} ReItem={item} key={index} />
-                  ))}
-                </>
-              ) : (
-                <View style={{paddingHorizontal: 20,marginTop:20}}>
-                  <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
-                    Currently no classes is created by me
-                  </Text>
-                </View>
-              )}
-            </ScrollView>
-          </View>
-
-          {/* Fetch My Learn Cards */}
           {
-            role === 'learn'?(
               <>
                <HomeCardsHeader
-            title="My Learn Cards"
+            title={role==='learn'?"My Learn Cards":'Check Learn Cards'}
             onViewAllPress={() => {props.navigation.navigate('LearnCards')}}
             icon={true}
           />
@@ -463,7 +493,7 @@ any[]
                   ))}
                 </>
               ) : (
-                <View style={{paddingHorizontal: 20,marginTop:20}}>
+                <View style={{paddingHorizontal: 20}}>
                   <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
                     Currently no learn card is created by me
                   </Text>
@@ -472,61 +502,46 @@ any[]
             </ScrollView>
           </View>
               </>
-            ):null
+            
           }
 
-          {/* Unreviewed Classes */}
-          <HomeCardsHeader
-            title="Unreviewed Classes"
-            onViewAllPress={() => {}}
+         {
+          role==='learn'?(
+        <>
+              <HomeCardsHeader
+            title='Check teach cards'
+            onViewAllPress={() => {props.navigation.navigate('Classes')}}
             icon={true}
           />
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* Here you can map over your data and generate Recommended cards */}
-              {myUnReviewedClasses?.length > 0 ? (
+              {classesCreatedByMe?.length > 0 ? (
                 <>
-                  {myUnReviewedClasses?.map((item, index) => (
-                    <GlobalCard isLoading={loading3} props={props} ReItem={item} key={index} />
+                  {classesCreatedByMe?.map((item, index) => (
+                    <GlobalCard isLoading={loading1} props={props} ReItem={item} key={index} />
                   ))}
                 </>
               ) : (
-                <View style={{paddingHorizontal: 20,marginTop:20}}>
+                <View style={{paddingHorizontal: 20,}}>
                   <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
-                    Currently no classes for review
+                    Currently no classes is created by me
                   </Text>
                 </View>
               )}
             </ScrollView>
           </View>
+        </>
+          ):(
+            null
+          )
+         }
 
-          {/* My Upcoming classes */}
+          {/* Fetch My Learn Cards */}
+         
+        
 
-          <HomeCardsHeader
-            title="My Upcoming Classes"
-            onViewAllPress={() => {props.navigation.navigate('Classes',{
-              barTo:2
-            })}}
-            icon={true}
-          />
-           <View style={styles.LearningcardContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {/* Here you can map over your data and generate Recommended cards */}
-              {upcomingClassesData?.length > 0 ? (
-                <>
-                  {upcomingClassesData?.map((item, index) => (
-                    <GlobalCard isLoading={loading4} props={props} ReItem={item} key={index} />
-                  ))}
-                </>
-              ) : (
-                <View style={{paddingHorizontal: 20,marginTop:20}}>
-                  <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
-                    Currently no upcoming classes
-                  </Text>
-                </View>
-              )}
-            </ScrollView>
-          </View>
+        
 
           {/* Popular Request section  */}
          {
@@ -595,64 +610,6 @@ any[]
             />
           </View>
 
-
-
-
-          {/* <View style={{bottom:20,flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingHorizontal:20,marginTop:20}}>
-        
-        {
-          youtubeStep === 0 ?<Text>     </Text>:(
-            <>
-               <Icon1 name='arrow-back-ios' onPress={()=>setYoutubeStep(youtubeStep-1)} size={22} color={'#222'}/>
-            </>
-          )
-        }
-        <View style={{borderRadius:10,overflow:'hidden',backgroundColor:COLORS_ILLUSTRATION.stroke,justifyContent:'space-between'}}>
-        <View>
-        <YoutubePlayer
-           height={150}
-           webViewStyle={{
-            width:SCREEN_WIDTH/1.4,
-            // borderWidth:1,
-           }}
-           play={false}
-           videoId={VIDEOS_FOR_CARAUSAL[youtubeStep].videoId}
-           mediaplaybackrequiresuseraction={true}
-           forceAndroidAutoplay={false}
-          />
-        </View>
-          <View>
-            <Text style={{flexWrap:'wrap',textAlign:'center',fontFamily:FONT_FAMILY.NUNITO_BOLD,color:COLORS_ILLUSTRATION.main,padding:10}}>{VIDEOS_FOR_CARAUSAL[youtubeStep].text}</Text>
-          </View>
-        </View>
-        {
-          youtubeStep === VIDEOS_FOR_CARAUSAL?.length-1 ?<Text>     </Text>:(
-            <>
-               <Icon1 name='arrow-forward-ios' onPress={()=>setYoutubeStep(youtubeStep+1)} size={22} color={'#222'}/>
-            </>
-          )
-        }
-
-      </View>
-
-      <Animated.View
-    style={{flexDirection:'row',width:SCREEN_WIDTH,justifyContent:'center',alignItems:'center',borderRadius:10}}>
-        {VIDEOS_FOR_CARAUSAL?.map((e, i) => {
-          return (
-            <View
-              key={i}
-              style={{
-                width: youtubeStep == i ? 40 : 16,
-                height: youtubeStep == i ? 10 : 8,
-                borderRadius: youtubeStep == i ? 5 : 4,
-                backgroundColor:
-                  youtubeStep == i ? COLORS_ILLUSTRATION.stroke : COLORS_ELEMENTS.paragraph,
-                marginLeft: 5,
-              }}/>
-          );
-        })}
-      </Animated.View>
- */}
 
 
 

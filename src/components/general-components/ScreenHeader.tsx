@@ -12,7 +12,8 @@ interface LearnCardHeaderProps {
   onBackPress: () => void;
   onMenuPress?: () => void;
   ShowMenuIcon: boolean;
-  isCreate:boolean
+  isCreate:boolean,
+  showBackIcon:booleanl
 }
 
 const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
@@ -20,11 +21,14 @@ const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
   onBackPress,
   onMenuPress,
   ShowMenuIcon = true,
-  isCreate = false
+  isCreate = false,
+  showBackIcon=true
 }) => {
   return (
     <View style={styles.learncardHeadContainer}>
-      <View
+    {
+      showBackIcon?(
+        <View
         style={[
           styles.iconCont,
           {
@@ -37,13 +41,19 @@ const ScreenHeader: React.FC<LearnCardHeaderProps> = ({
             borderColor: COLORS_ELEMENTS.grey,
           },
         ]}>
-        <Ionicon
+       {
+       
+          <Ionicon
           name="arrow-back-sharp"
           size={20}
           color="#000"
           onPress={onBackPress}
         />
+      
+       }
       </View>
+      ):<View style={{width:20}}></View>
+    }
       <View style={styles.headingCont}>
         <Text style={styles.headTxt}>{title}</Text>
       </View>

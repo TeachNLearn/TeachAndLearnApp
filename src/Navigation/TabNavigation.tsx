@@ -17,6 +17,8 @@ import Community from '../screens/extraScreens/Community';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { COLORS_ILLUSTRATION } from '../utils/globalContants';
 import FilterSearch from '../components/SearchComponent/FilterSearch';
+import AIAssistatnt from '../screens/aiAssistant/AIAssistatnt';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 
@@ -51,9 +53,9 @@ const TabNavigation: React.FC = () => (
       component={Forum}
       options={{
         headerShown: false,
-        tabBarIcon: ({color, size}) => (
-          <ForumSvg fill={color} height={size} width={size} />
-        ),
+        tabBarIcon: ({color, size, focused}) => (
+          <Icon name='group' color={focused?COLORS_ILLUSTRATION.tertiary:COLORS_ILLUSTRATION.stroke} size={32}/>
+         ),
       }}
     />
     <Tab.Screen
@@ -77,26 +79,28 @@ const TabNavigation: React.FC = () => (
         ),
       }}
     />
-    <Tab.Screen
-      name="Classes"
-      component={Classes}
-      options={{
-        headerShown: false,
-        tabBarIcon: ({color, size}) => (
-          <ClassesSvg fill={color} height={size} width={size} />
-        ),
-      }}
-    />
-    <Tab.Screen
+      <Tab.Screen
       name="Community"
       component={Community}
       options={{
         headerShown: false,
-        tabBarIcon: ({color, size, focused}) => (
-         <Icon name='group' color={focused?COLORS_ILLUSTRATION.tertiary:COLORS_ILLUSTRATION.stroke} size={32}/>
+        tabBarIcon: ({color, size}) => (
+          <ForumSvg fill={color} height={size} width={size} />
+        ),
+      
+      }}
+    />
+    <Tab.Screen
+      name="AI"
+      component={AIAssistatnt}
+      options={{
+        headerShown: false,
+        tabBarIcon: ({color, size,focused}) => (
+          <Icon1 style={{bottom:2,alignItems:'center'}} name='google-assistant' color={focused?COLORS_ILLUSTRATION.tertiary:COLORS_ILLUSTRATION.stroke} size={28}/>
         ),
       }}
     />
+  
   
      
   </Tab.Navigator>
