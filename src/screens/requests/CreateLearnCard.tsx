@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
+  ToastAndroid,
   View,
 } from 'react-native';
 import InputHolder from '../../components/inputComponents/inputHolder';
@@ -16,6 +17,7 @@ import Button from '../../components/general-components/button';
 import ArrChip from '../../components/inputComponents/arrChip';
 import DateInput from '../../components/inputComponents/DateInput';
 import ScreenHeader from '../../components/general-components/ScreenHeader';
+import { ToastHOC } from '../../helpers/Toast';
 
 interface learnCardDetails {
   subject: string;
@@ -58,7 +60,7 @@ const CreateLearnCard = (props) => {
 
   const learnCardHandler = async (e: any) => {
     e.preventDefault();
-    console.log(learnCard);
+  
       setIsLoading(true);
       await axios
         .post(
@@ -78,32 +80,16 @@ const CreateLearnCard = (props) => {
           }
         )
         .then(({ data }) => {
-          console.log(data);
           setLearnCard(initialData);
           setIsLoading(false);
-          console.log('card created successfully')
+          ToastHOC.successAlert('Success','Card created successfully')
           // toast.success("Learn Card Successfully created!!", toastOptions);
           // navigate("/requests");
         })
         .catch((data) => {
           setIsLoading(false);
-          console.log("data ==> ",data,Object.values(data))
-          // if (data.response.data.error.errors) {
-          //   const errors = data.response.data.error.errors;
-          //   Object.keys(errors).forEach(function (err, index) {
-          //     // toast.error(errors[err].message, toastOptions);
-          //     console.log("error 1",errors[err].message)
-          //   });
-          // } else if (data.response.data.message) {
-          //   setIsLoading(false)
-          //   const msg = data.response.data.message;
-          //   // toast.error(msg, toastOptions);
-          //   console.log("error 2",msg)
-          // } else {
-          //   // toast.error("Something went wrong", toastOptions);
-          //   setIsLoading(false)
-          //   console.log("Error3")
-          // }
+          console.log("data ==> ",data)
+          ToastAndroid.show('Please Review all remaining classes first',200)
         });
     
   };

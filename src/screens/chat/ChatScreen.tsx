@@ -56,7 +56,7 @@ const ChatScreen = (props: any) => {
 
   const isFocused = useIsFocused();
 
-  const ENDPOINT = 'https://teachandlearn.online';
+  const ENDPOINT = 'https://www.teachandlearn.online';
   const flatListRef:any =useRef()
 
   // const ENDPOINT = 'http://192.168.29.82:8000'

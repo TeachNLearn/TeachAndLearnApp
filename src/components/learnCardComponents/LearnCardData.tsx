@@ -88,9 +88,9 @@ const LearnCardData: React.FC<learnCardProps> = props => {
             <>
                <View style={{flexDirection: 'row'}}>
                 <Text style={{color: '#d8eefe',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD}}>
-              {getReadableDate(props.date)},{' '}
-              {getReadableTime(props.classStartsAt)} -{' '}
-              {getReadableTime(props.classEndsAt)}
+              {getReadableDate(props?.date)},{' '}
+              {getReadableTime(props?.classStartsAt)} -{' '}
+              {getReadableTime(props?.classEndsAt)}
                 </Text>
               </View>
             </>

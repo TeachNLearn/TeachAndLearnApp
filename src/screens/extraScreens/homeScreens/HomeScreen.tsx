@@ -91,6 +91,9 @@ any[]
   const [upcomingClassesData, setupcomingClassesData] = useState<
     UpcomingClass[]
   >([]);
+  const [userEnrolled, setUserEnrolled] = useState<
+  any
+>([]);
   const [PopularCourseData, setPopularCourseData] = useState<PopularCourse[]>(
     [],
   );
@@ -126,6 +129,8 @@ any[]
   const handleSearch = () => {
     // Perform search action with searchText
   };
+
+
 
   const FetchRecommendedClasses = () => {
     setLoading(true)
@@ -163,6 +168,7 @@ any[]
         setTimeout(() => {
           setLoading1(false)
          }, 1500);
+         console.log('....................dcvbnmbvxbcxzdS',data)
         setClassesCreatedByMe(data?.myCards)
         // setMyTeachCardsIsLoading(false);
       }).catch((err)=>{
@@ -176,7 +182,9 @@ any[]
   const fetchMyLearnCards = async () => {
     setLoading2(true)
     await axios
-      .get(`${BASE_URL}${apiVersion}/user/my-learn-cards`, {
+      // .get(`${BASE_URL}${apiVersion}/user/my-learn-cards`, {
+        .get(`${BASE_URL}${apiVersion}/learn`, {
+      
         headers: getHeaders(token),
       })
       .then(({ data }) => {
@@ -184,7 +192,9 @@ any[]
         setTimeout(() => {
           setLoading2(false)
          }, 1500);
-        setMyLearnCards(data.myCards);
+         FIXME:
+        //  data?.myCards
+        setMyLearnCards(data?.data);
         // setmyLearnCardsIsLoading(false);
       }).catch((err)=>{
         setTimeout(() => {
@@ -193,11 +203,15 @@ any[]
         console.log('err occured')
       })
   };
+  
 
   const fetchMyUnreviewedClasses = async () => {
     setLoading3(true)
     await axios
-      .get(`${BASE_URL}${apiVersion}/user/my-unreviewd-classes`, {
+      // .get(`${BASE_URL}${apiVersion}/user/my-unreviewd-classes`
+      .get(`${BASE_URL}${apiVersion}/user/myclasses/completed`, {
+
+      
         headers: getHeaders(token),
       })
       .then(({ data }) => {
@@ -205,7 +219,7 @@ any[]
         setTimeout(() => {
           setLoading3(false)
          }, 1500);
-        setMyUnreviewedClasses(data.unreviewedClasses);
+        setMyUnreviewedClasses(data.completedClasses);
         // setUnreviewedIsLoading(false);
         
       }).catch((err)=>{
@@ -224,8 +238,32 @@ any[]
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(response => {
-        setupcomingClassesData(response?.data?.upcomingClasses);
+      .then(response => {        setupcomingClassesData(response?.data?.upcomingClasses);
+        setTimeout(() => {
+          setLoading4(false)
+         }, 1500);
+        // console.info('upcoming courses data');
+        // console.log(response.data);
+        // console.log(upcomingClassesData);
+      })
+      .catch(error => {
+        setTimeout(() => {
+          setLoading4(false)
+         }, 1500);
+        console.log('error fetching data', error);
+      });
+  };
+
+  const EnrolledClassesInto = () => {
+    setLoading4(true)
+    axios
+      .get(`${BASE_URL}${apiVersion}/user/myclasses`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {        
+        setUserEnrolled(response?.data?.enrolledClasses);
         setTimeout(() => {
           setLoading4(false)
          }, 1500);
@@ -264,10 +302,12 @@ any[]
       });
   };
 
+
   useEffect(() => {
     FetchRecommendedClasses();
     UpcomingClasses();
     PopularCourses();
+    EnrolledClassesInto()
     fetchClassesCreatedByme();
     fetchMyLearnCards();
     fetchMyUnreviewedClasses();
@@ -429,20 +469,30 @@ any[]
            <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* Here you can map over your data and generate Recommended cards */}
-              {upcomingClassesData?.length > 0 || (role==='learn'?myLearnCards.length > 0:classesCreatedByMe.length > 0)? (
+             {
+              role==='learn'?(
                 <>
-                  {upcomingClassesData?.concat(role==='learn'?myLearnCards:classesCreatedByMe)?.map((item, index) => (
-                    //have to add loading TODO:
-                    <GlobalCard isLoading={loading4} props={props} ReItem={item} key={index} />
-                  ))}
-                </>
-              ) : (
-                <View style={{paddingHorizontal: 20}}>
-                  <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
-                    Currently no upcoming classes
-                  </Text>
-                </View>
-              )}
+                {
+                userEnrolled?.length >0?
+                userEnrolled?.map((item, index) => (
+                  //have to add loading TODO:
+                  <GlobalCard isLoading={loading4} props={props} ReItem={item} key={index} />
+                )):                  <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,marginLeft:20}}>
+                Currently not enrolled into any teach card</Text>}
+              </>
+
+              ):(
+                classesCreatedByMe?.length>0?
+                classesCreatedByMe?.map((item, index) => (
+                  //have to add loading TODO:
+                  <GlobalCard isLoading={loading4} props={props} ReItem={item} key={index} />
+                )):                 
+                 <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD,marginLeft:20}}>
+                Currently not created any teach card</Text>
+              )
+             }
+             
+
             </ScrollView>
           </View>
           {
@@ -455,9 +505,9 @@ any[]
           <View style={styles.LearningcardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* Here you can map over your data and generate Recommended cards */}
-              {myLearnCards?.length > 0 ? (
+              {myLearnCards?.data?.length > 0 ? (
                 <>
-                  {myLearnCards?.map((item, index) => (
+                  {myLearnCards?.data?.map((item, index) => (
                     <GlobalCard isLoading={loading2} props={props} ReItem={item} key={index} />
                   ))}
                 </>
@@ -531,7 +581,7 @@ any[]
               ) : (
                 <View style={{paddingHorizontal: 20,}}>
                   <Text style={{fontFamily: FONT_FAMILY.NUNITO_SEMIBOLD}}>
-                    Currently no classes is created by me
+                  {role === 'learn'?'Currently there is no teach cards':'Currently no classes is created by me'}
                   </Text>
                 </View>
               )}

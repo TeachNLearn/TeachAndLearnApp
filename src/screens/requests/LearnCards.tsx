@@ -40,6 +40,9 @@ const LearnCards: React.FC<LearnCardsProps> = props => {
   const [userToken, setuserToken] = useState(authCtx.token);
   const [refreshing, setRefreshing] = React.useState(false);
 
+
+
+
   const fetchLearnCards = async () => {
     console.log("Checking ")
     setLoaderLoading(true);
@@ -47,26 +50,26 @@ const LearnCards: React.FC<LearnCardsProps> = props => {
     const curentDate = new Date();
     await axios
       .get(`${BASE_URL}${apiVersion}/learn`, {
-        params: {
-          limit: DATA_LIMIT,
-          page: requestPageSet +1 ,
-          dueDate: {
-            $gte: curentDate,
-          },
-        },
+        // params: {
+        //   limit: DATA_LIMIT,
+        //   page: requestPageSet +1 ,
+        //   dueDate: {
+        //     $gte: curentDate,
+        //   },
+        // },
         headers: getHeaders(userToken),
       })
       .then(({data}) => {
         console.log("data1",data)
         const learnCardData = data.data.data;
-        console.log("learn_cards_are_empty",learnCardData);
-        checkMoreData(learnCardData, sethasMoreData);
-        setLearnCards(prev => [...prev, ...learnCardData]);
+        // console.log("learn_cards_are_empty",learnCardData);
+        // checkMoreData(learnCardData, sethasMoreData);
+        setLearnCards(learnCardData);
         setTimeout(() => {
           setIsLoading(false);
         }, 2000);
         setLoaderLoading(false);
-        setrequestPageSet(prev => prev + 1);
+        // setrequestPageSet(prev => prev + 1);
       })
       .catch(data => {
         console.log(data);

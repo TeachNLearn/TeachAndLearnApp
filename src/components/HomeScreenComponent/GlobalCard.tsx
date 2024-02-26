@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, Pressable, ScrollView} from 'react-native';
 import SvgImg from '../svgComponents/InterestedSvg';
 import CoinSvg from '../svgComponents/CoinsSvg';
 import {
@@ -70,7 +70,8 @@ const GlobalCard: React.FC<GlobalCardsProps> = ({
             </View>
         </View>
       ) : (
-        <Pressable
+       <ScrollView>
+         <Pressable
           onPress={() => props.navigation.navigate('SingleClassroom',{
             id:ReItem?._id,
             props:props
@@ -119,6 +120,7 @@ const GlobalCard: React.FC<GlobalCardsProps> = ({
             ))}
           </View>
         </Pressable>
+       </ScrollView>
       )}
     </>
   );
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 17,
-    marginTop: 4,
+    // marginTop: 4,
   },
 
   NameInCard: {
@@ -179,7 +181,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 13,
+    marginTop: 7,
     marginLeft: 20,
     marginRight: 16,
   },
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
   tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 19,
+    marginTop: 13,
     marginLeft: 18,
   },
 

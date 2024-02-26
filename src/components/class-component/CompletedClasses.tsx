@@ -132,7 +132,10 @@ const CompletedClasses = (props:{role:string,props:any}) => {
           <SkeletonLoder height={250}/>
         </View>
       ) : teachCards.length != 0 ? (
-        <ClassGrid teachCards={teachCards} elemType="completed" />
+        <View style={{marginTop:20}}>
+                  <ClassGrid teachCards={teachCards} elemType="completed" />
+
+        </View>
       ) : (
         <Text style={{textAlign:'center',fontFamily:FONT_FAMILY.NUNITO_SEMIBOLD,fontSize:20,color:'#222'}}>No Completed Classes</Text>
       )}

@@ -5,6 +5,7 @@ import {
   View,
   ScrollView,
   KeyboardAvoidingView,
+  ToastAndroid,
 } from 'react-native';
 import {autoGenerateImage, getHeaders} from '../../utils/helperFunctions';
 import axios from 'axios';
@@ -19,6 +20,7 @@ import Button from '../../components/general-components/button';
 import DateInput from '../../components/inputComponents/DateInput';
 import TimeInput from '../../components/inputComponents/TimeInput';
 import ScreenHeader from '../../components/general-components/ScreenHeader';
+import { ToastHOC } from '../../helpers/Toast';
 
 interface teachCardDetails {
   subject: string;
@@ -71,7 +73,6 @@ const CreateTeachCard = (props) => {
 
   const teachCardHandler = async (e: any) => {
     e.preventDefault();
-    console.log(teachCard);
     const img = await autoGenerateImage(
       teachCard.subject,
       teachCard.tags,
@@ -83,36 +84,43 @@ const CreateTeachCard = (props) => {
       return;
     }
     setIsLoading(true);
+  try {
     await axios
-      .post(
-        `${BASE_URL}${apiVersion}/teach`,
-        {
-          subject: teachCard.subject,
-          topic: teachCard.topic,
-          programme: teachCard.programme,
-          standard: teachCard.standard,
-          date: teachCard.date,
-          preferredLanguage: teachCard.preferredLanguage,
-          cardBanner: img,
-          classStartsAt: teachCard.startingTime,
-          classEndsAt: teachCard.endingTime,
-          description: teachCard.description,
-          tags: teachCard.tags,
-        },
-        {
-          headers: getHeaders(userToken),
-        },
-      )
-      .then(({data}: any) => {
-        console.log(data);
-        setTeachCard(initialData);
-        setIsLoading(false);
-      })
-      .catch((data: any) => {
-        // setTeachCard(initialData);
-        setIsLoading(false);
-        console.log(data);
-      });
+    .post(
+      `${BASE_URL}${apiVersion}/teach`,
+      {
+        subject: teachCard.subject,
+        topic: teachCard.topic,
+        programme: teachCard.programme,
+        standard: teachCard.standard,
+        date: teachCard.date,
+        preferredLanguage: teachCard.preferredLanguage,
+        cardBanner: img,
+        classStartsAt: teachCard.startingTime,
+        classEndsAt: teachCard.endingTime,
+        description: teachCard.description,
+        tags: teachCard.tags,
+      },
+      {
+        headers: getHeaders(userToken),
+      },
+    )
+    .then(({data}: any) => {
+      
+      setTeachCard(initialData);
+      setIsLoading(false);
+      ToastHOC.successAlert('Success','card created successfully')
+    })
+    .catch((data: any) => {
+      // setTeachCard(initialData);
+      // ToastAndroid.show(data.message,200)
+      ToastAndroid.show('review all remaifirstning classes ',200)
+      setIsLoading(false);
+      // console.log("SDFGH",data);
+    });
+  } catch (error:any) {
+    ToastAndroid.show(error.message,200)
+  }
     // }
   };
 
